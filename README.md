@@ -1,6 +1,7 @@
 # KH9 Final Project - 05 조 
 
 ![MainImgGolf](https://images.unsplash.com/photo-1584837140804-599306fb37f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)
+* * *
 
 ### 주제 선정 이유
 - ___팬대믹의 영향에도 불구하고___ 골프 인구는 늘어가고 있는 추세이다.
