@@ -17,7 +17,7 @@
 
 - [골프 인구 500만명 시대! / mhn 스포츠](https://www.mhnse.com/news/articleView.html?idxno=83864)
 - [코로나와 함께 뜨거워진 골프 산업! / 내일 신문](http://www.naeil.com/news_view/?id_art=413424)
-- [나이스 샷! 골린이들의 골프 탐방 / ](https://www.shinhancard.com/pconts/html/benefit/trendis/MOBFM501/1214950_3818.html)
+- [나이스 샷! 골린이들의 골프 탐방 / 신한카드 트렌드 ](https://www.shinhancard.com/pconts/html/benefit/trendis/MOBFM501/1214950_3818.html)
 
 ### 조편성
 - 이기주
