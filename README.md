@@ -7,7 +7,7 @@
 - 정유진
 - 김범진
 ```java
-Sytem.out.println("hello")
+Sytem.out.println("hello final project!");
 ```
 
 ### notion 
