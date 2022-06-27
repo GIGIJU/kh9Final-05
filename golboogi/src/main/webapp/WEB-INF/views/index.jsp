@@ -3,8 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html>
-<html lang="ko">
+
 	<div class="hero-wrap js-fullheight" style="background-image: url('images/bg_5.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
@@ -672,4 +671,7 @@
 			</div>
 		</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<<<<<<< HEAD
 
+=======
+>>>>>>> refs/remotes/origin/main
