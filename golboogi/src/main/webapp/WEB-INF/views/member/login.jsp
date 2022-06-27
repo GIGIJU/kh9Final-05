@@ -11,7 +11,7 @@
 <br>
 <br>
 <div class="row center">
-	<a href="${root}/customer/find_id">아이디 찾기</a> &nbsp; <span>/</span>
-	&nbsp; <a href="${root}/customer/find_pw">비밀번호 찾기</a>
+	<a href="${root}/member/find_id">아이디 찾기</a> &nbsp; <span>/</span>
+	&nbsp; <a href="${root}/member/find_pw">비밀번호 찾기</a>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
