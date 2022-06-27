@@ -111,7 +111,7 @@ public class MemberController {
 	
 	@GetMapping("/password")
 	public String password() {
-		return "customer/password";
+		return "member/password";
 	}
 	
 	@PostMapping("/password")
@@ -258,7 +258,7 @@ public class MemberController {
 	
 	@GetMapping("/find_pw_send_mail")
 	public String findPwSendMail() {
-		return "customer/find_pw_send_mail";
+		return "member/find_pw_send_mail";
 	}
 	
 	

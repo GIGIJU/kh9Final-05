@@ -10,7 +10,7 @@ public interface MemberDao {
 
 	MemberDto info(String memberId);
 
-	boolean changeInformation(MemberDto MemberDto);
+	boolean changeInformation(MemberDto memberDto);
 
 	boolean ChangePassword(String memberId, String memberPw, String changePw);
 

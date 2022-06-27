@@ -24,21 +24,48 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="product">
+<mapper namespace="cert">
 
-	<select id="list" resultType="ProductDto">
-		select * from product order by no
+	<insert id="insert" parameterType="CertDto">
+		insert into cert(cert_target, cert_number)
+		values(#{certTarget}, #{certNumber})
+	</insert>
+	
+	<select id="one" parameterType="String" resultType="CertDto">
+		select * from cert where cert_target = #{certTarget}
 	</select>
 	
-	<select id="one" resultType="ProductDto" parameterType="int">
-		select * from product where no = #{no}
+	<update id="edit" parameterType="CertDto">
+		update cert 
+			set 
+				cert_number = #{certNumber},
+				cert_time = sysdate
+			where
+				cert_target = #{certTarget}
+	</update>
+	
+	<select id="check" parameterType="CertDto" resultType="int">
+		select count(*) from cert
+		where
+			cert_target = #{certTarget}
+			and
+			cert_number = #{certNumber}
+			and
+			<!-- 5분 시간제한 : 오라클은 시간 기본단위가 일이므로 24시간, 60분으로 나눠서 변환 -->
+			<![CDATA[
+				sysdate - cert_time <= 5 / 24 / 60
+			]]>
 	</select>
+	
+	<delete id="delete" parameterType="String">
+		delete cert where cert_target = #{certTarget}
+	</delete>
+	
+	<delete id="clear">
+		<![CDATA[
+			delete cert where sysdate - cert_time > 5 / 24 / 60
+		]]>
+	</delete>
+	
 	
 </mapper> 
-
-
-
-
-
-
-
