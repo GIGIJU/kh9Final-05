@@ -25,7 +25,8 @@
 	 	ex : <package name="com.kh.spring08.entity"/>
 	-->
 	<typeAliases>
-		<package name="com.gf.golboogi"/>
+		<package name="com.gf.golboogi.entity"/>
+		<package name="com.gf.golboogi.vo"/>
 	</typeAliases>
 	
 </configuration>

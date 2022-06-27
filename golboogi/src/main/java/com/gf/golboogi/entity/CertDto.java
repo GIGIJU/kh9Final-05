@@ -8,11 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class ProductDto {
-	private int no;
-	private String name;
-	private String type;
-	private int price;
-	private Date made;
-	private Date expire;
+public class CertDto {
+	private String certTarget;
+	private String certNumber;
+	private Date certTime;
 }
