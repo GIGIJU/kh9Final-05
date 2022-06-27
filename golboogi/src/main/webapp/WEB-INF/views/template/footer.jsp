@@ -32,7 +32,7 @@
       <div class="col-md pt-5 border-left">
        <div class="ftco-footer-widget pt-md-5 mb-4">
         <h2 class="ftco-heading-2">Experience</h2>  
-        <ul class="list-unstyled">  
+        <ul class="list-unstyled">    
           <li><a href="#" class="py-2 d-block">Adventure</a></li>
           <li><a href="#" class="py-2 d-block">Hotel and Restaurant</a></li>
           <li><a href="#" class="py-2 d-block">Beach</a></li>
