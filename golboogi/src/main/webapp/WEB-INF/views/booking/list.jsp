@@ -80,7 +80,7 @@
 <c:forEach var="golfFieldDto" items="${list}">
    <div class="col-md-4 ftco-animate">
     <div class="project-wrap hotel">
-     <a href="detail?field_no=${golfFieldDto.fieldNo}" class="img" style="background-image: url(${root}/images/golf-dummy.jpg);">
+     <a href="detail?fieldNo=${golfFieldDto.fieldNo}" class="img" style="background-image: url(${root}/images/golf-dummy.jpg);">
     </a>
     <div class="text p-2">
       <span class="days"><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원~</span>
