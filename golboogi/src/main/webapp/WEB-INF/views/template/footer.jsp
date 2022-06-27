@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
 <!DOCTYPE html>
 <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(images/bg_3.jpg);">
   <div class="container">
@@ -87,9 +86,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="${root}/js/google-map.js"></script>
 <script src="${root}/js/main.js"></script>
-=======
 
->>>>>>> refs/remotes/origin/main
 
 </body>
 </html>

@@ -1,18 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 
  
- <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');">
-
-  <div class="overlay"></div>
+ <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/bg_1.jpg');">
   <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Hotel <i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">Hotel</h1>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>Hotel <i class="fa fa-chevron-right"></i></span></p>
+       <h1 class="mb-0 bread">booking</h1>
      </div>
    </div>
  </div>
@@ -27,52 +27,34 @@
       <div class="row no-gutters">
        <div class="col-lg d-flex">
         <div class="form-group p-4 border-0">
-         <label for="#">Destination</label>
+         <label for="#"> 어디로 가세요?</label>
          <div class="form-field">
-           <div class="icon"><span class="fa fa-search"></span></div>
-           <input type="text" class="form-control" placeholder="Search place">
+           <div class="icon"><i class="fa-solid fa-location-dot"></i></div>
+           <input type="text" class="form-control" placeholder="지역 선택">
          </div>
        </div>
      </div>
      <div class="col-lg d-flex">
       <div class="form-group p-4">
-       <label for="#">Check-in date</label>
+       <label for="#">언제 가세요?</label>
        <div class="form-field">
          <div class="icon"><span class="fa fa-calendar"></span></div>
-         <input type="text" class="form-control checkin_date" placeholder="Check In Date">
+         <input type="text" class="form-control checkin_date" placeholder="날짜 선택">
        </div>
      </div>
    </div>
-   <div class="col-lg d-flex">
-    <div class="form-group p-4">
-     <label for="#">Check-out date</label>
-     <div class="form-field">
-       <div class="icon"><span class="fa fa-calendar"></span></div>
-       <input type="text" class="form-control checkout_date" placeholder="Check Out Date">
-     </div>
-   </div>
- </div>
  <div class="col-lg d-flex">
   <div class="form-group p-4">
-   <label for="#">Price Limit</label>
+   <label for="#">몇시에 치세요?</label>
    <div class="form-field">
      <div class="select-wrap">
-      <div class="icon"><span class="fa fa-chevron-down"></span></div>
+      <div class="icon"><i class="fa-solid fa-golf-ball-tee"></i></div>
       <select name="" id="" class="form-control">
-        <option value="">$5,000</option>
-        <option value="">$10,000</option>
-        <option value="">$50,000</option>
-        <option value="">$100,000</option>
-        <option value="">$200,000</option>
-        <option value="">$300,000</option>
-        <option value="">$400,000</option>
-        <option value="">$500,000</option>
-        <option value="">$600,000</option>
-        <option value="">$700,000</option>
-        <option value="">$800,000</option>
-        <option value="">$900,000</option>
-        <option value="">$1,000,000</option>
-        <option value="">$2,000,000</option>
+        <option value="">선택</option>
+        <option value="">오전</option>
+        <option value="">오후</option>
+        <option value="">저녁</option>
+        <option value="">야간</option>
       </select>
     </div>
   </div>
@@ -92,227 +74,24 @@
 </div>
 </div>
 </section>
-
 <section class="ftco-section">
  <div class="container">
   <div class="row">
+<c:forEach var="golfFieldDto" items="${list}">
    <div class="col-md-4 ftco-animate">
     <div class="project-wrap hotel">
-     <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-1.jpg);">
-      <span class="price">$200/person</span>
+     <a href="detail?field_no=${golfFieldDto.fieldNo}" class="img" style="background-image: url(${root}/images/golf-dummy.jpg);">
     </a>
-    <div class="text p-4">
-      <p class="star mb-2">
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-        <span class="fa fa-star"></span>
-      </p>
-      <span class="days">8 Days Tour</span>
-      <h3><a href="#">Manila Hotel</a></h3>
-      <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-      <ul>
-       <li><span class="flaticon-shower"></span>2</li>
-       <li><span class="flaticon-king-size"></span>3</li>
-       <li><span class="flaticon-mountains"></span>Near Mountain</li>
-     </ul>
+    <div class="text p-2">
+      <span class="days"><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원~</span>
+      <h3><a href="#">${golfFieldDto.fieldName}</a></h3>
+      <p class="location"><span class="fa fa-map-marker"></span>지역</p>
    </div>
  </div>
 </div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-2.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">10 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-3.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">7 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
 
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-4.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">8 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-5.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">10 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-6.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">7 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-7.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">7 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-8.jpg);">
-    <span class="price">$200/person</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">7 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
-<div class="col-md-4 ftco-animate">
-  <div class="project-wrap hotel">
-   <a href="#" class="img" style="background-image: url(${root}/images/hotel-resto-9.jpg);">
-    <span class="price">$200/night</span>
-  </a>
-  <div class="text p-4">
-    <p class="star mb-2">
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-      <span class="fa fa-star"></span>
-    </p>
-    <span class="days">3 Days Tour</span>
-    <h3><a href="#">Manila Hotel</a></h3>
-    <p class="location"><span class="fa fa-map-marker"></span> Manila, Philippines</p>
-    <ul>
-     <li><span class="flaticon-shower"></span>2</li>
-     <li><span class="flaticon-king-size"></span>3</li>
-     <li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
-   </ul>
- </div>
-</div>
-</div>
+</c:forEach>
+
 </div>
 <div class="row mt-5">
   <div class="col text-center">
@@ -332,13 +111,11 @@
 </div>
 </section>
 
-
-
 <section class="ftco-intro ftco-section ftco-no-pt">
  <div class="container">
   <div class="row justify-content-center">
    <div class="col-md-12 text-center">
-    <div class="img"  style="background-image: url(${root}/images/bg_2.jpg);">
+    <div class="img"  style="background-image: url(${root}/images/golf-dummy.jpg);">
      <div class="overlay"></div>
      <h2>We Are Pacific A Travel Agency</h2>
      <p>We can manage your dream building A small river named Duden flows by their place</p>
