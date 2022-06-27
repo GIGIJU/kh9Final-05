@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<<<<<<< HEAD
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
-<footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(images/bg_3.jpg);">
+<footer class="ftco-footer bg-bottom ftco-no-pt" style="background-color: black;">
   <div class="container">
     <div class="row mb-5">
       <div class="col-md pt-5">
@@ -47,9 +48,9 @@
        <h2 class="ftco-heading-2">Have a Questions?</h2>
        <div class="block-23 mb-3">
          <ul>
-           <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-           <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-           <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
+           <li><span class="icon fa fa-map-marker"></span><span class="text">서울특별시 영등포구 선유동2로 57 이레빌딩 (구관) 19F, 20F</span></li>
+           <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">1998-2022</span></a></li>
+           <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@golboogi.com</span></a></li>
          </ul>
        </div>
      </div>
@@ -59,7 +60,9 @@
   <div class="col-md-12 text-center">
 
     <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+    
+    
+      Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
       <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
     </div>
   </div>
@@ -87,9 +90,7 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
 <script src="${root}/js/google-map.js"></script>
 <script src="${root}/js/main.js"></script>
-=======
 
->>>>>>> refs/remotes/origin/main
 
 </body>
 </html>
