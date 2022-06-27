@@ -26,17 +26,17 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public MemberDto login(String memberId, String memberPw) {
-		MemberDto MemberDto = sqlSession.selectOne("member.one", memberId);
-		if(MemberDto == null) {
+		MemberDto memberDto = sqlSession.selectOne("member.one", memberId);
+		if(memberDto == null) {
 			return null;
 		}
 		
 //		boolean isPasswordMatch = MemberDto.getmemberPw().equals(memberPw);
-		boolean isPasswordMatch = passwordEncoder.matches(memberPw, MemberDto.getMemberPw());
+		boolean isPasswordMatch = passwordEncoder.matches(memberPw, memberDto.getMemberPw());
 		
 		if(isPasswordMatch) {
 			sqlSession.update("member.updateLogin", memberId);
-			return MemberDto;
+			return memberDto;
 		}
 		else {
 			return null;
@@ -46,11 +46,11 @@ public class MemberDaoImpl implements MemberDao{
 
 	@Override
 	public MemberDto info(String memberId) {
-		MemberDto MemberDto = sqlSession.selectOne("member.one",memberId);
-		if(MemberDto == null) {
+		MemberDto memberDto = sqlSession.selectOne("member.one",memberId);
+		if(memberDto == null) {
 			return null;
 		}
-		return MemberDto;
+		return memberDto;
 	}
 
 	@Override
