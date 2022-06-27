@@ -46,8 +46,9 @@
 	<update id="changeInfo" parameterType="MemberDto">
 		update member
 		set
-			member_nick = #{memberNick}, member_birth = #{memberBirth},
-			member_phone = #{memberPhone}, member_email = #{memberEmail}
+			member_name = #{memberName}, member_nick = #{memberNick}, member_phone = #{memberPhone},
+			member_email = #{memberEmail},member_birth = #{memberBirth},member_gender = #{memberGender},
+			member_local = #{memberLocal}
 		where
 			member_id = #{memberId}
 	</update>
