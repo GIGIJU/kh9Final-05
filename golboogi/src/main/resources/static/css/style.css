@@ -8572,7 +8572,7 @@ h1, h2, h3, h4, h5,
 
 .hero-wrap {
   width: 100%;
-  height: 50%;
+  height: 300px;
   position: inherit;
   background-size: cover;
   background-repeat: no-repeat;
@@ -8587,7 +8587,7 @@ h1, h2, h3, h4, h5,
     content: '';
     opacity: .3;
     background: #000000; }
-  .hero-wrap.hero-wrap-2 .overlay {
+  .hero-wrap.hero-wrap-2 .overlay { height: 300px;
     width: 100%; }
 
 .slider-text {
@@ -9189,7 +9189,7 @@ textarea.form-control {
   font-weight: 600; }
 
 .ftco-section {
-  padding: 7em 0;
+  padding: 6em 0;
   position: relative;
   width: 100%; }
   @media (max-width: 767.98px) {
@@ -9251,12 +9251,12 @@ textarea.form-control {
     letter-spacing: .1em; }
   .ftco-footer .ftco-footer-widget h2 {
     font-weight: normal;
-    color: #000000;
+    color: white;
     margin-bottom: 40px;
     font-size: 18px;
     font-weight: 600; }
   .ftco-footer .ftco-footer-widget ul li a {
-    color: rgba(0, 0, 0, 0.5); }
+    color: white; }
     .ftco-footer .ftco-footer-widget ul li a span {
       color: rgba(0, 0, 0, 0.1); }
   .ftco-footer .ftco-footer-widget .btn-primary {
@@ -9266,7 +9266,7 @@ textarea.form-control {
       background: #fff;
       border: 2px solid #fff !important; }
   .ftco-footer p {
-    color: rgba(0, 0, 0, 0.5); }
+    color: white; }
   .ftco-footer a {
     color: rgba(0, 0, 0, 0.5); }
     .ftco-footer a:hover {
@@ -9722,7 +9722,7 @@ textarea.form-control {
   .block-23 ul li .icon, .block-23 ul li .text {
     display: table-cell;
     vertical-align: top;
-    color: rgba(0, 0, 0, 0.5) !important; }
+    color: white !important; }
   .block-23 ul li .icon {
     width: 40px;
     font-size: 18px;

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gf.golboogi.entity.StayDto;
+//import com.gf.golboogi.error.CannotFindException;
 
 public class StayDaoImpl implements StayDao{
 	@Autowired
@@ -33,14 +34,15 @@ public class StayDaoImpl implements StayDao{
 	//숙소 업데이트 
 	@Override
 	public StayDto update(StayDto stayDto) {
-		// TODO Auto-generated method stub
-		return null;
+		int count = sqlSession.update("stay.update", stayDto);
+		//if(count == 0) throw new CannotFindException();
+		return sqlSession.selectOne("stay.one", stayDto.getStayNo());
 	}
 
 	//숙소 검색 
 	@Override
 	public List<StayDto> findStay(String stayName) {
-		return sqlSession.selectList("exam.findStay",stayName);
+		return sqlSession.selectList("stay.findStay",stayName);
 	}
 
 }

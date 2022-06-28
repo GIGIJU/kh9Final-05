@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
+<html>
 <head>
   <title>golboogi</title>
   <link href="${root}/images/favicon-logo.png" rel="icon">
@@ -37,10 +40,9 @@
        <ul class="navbar-nav ml-auto">
          <li class="nav-item"><a href="booking/list" class="nav-link">골프부킹</a></li>
          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-         <li class="nav-item"><a href="destination.html" class="nav-link">Destination</a></li>
-         <li class="nav-item active"><a href="hotel.html" class="nav-link">Hotel</a></li>
-         <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
-         <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+         <li class="nav-item active"><a href="hotel.html" class="nav-link">투어</a></li>
+         <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
+         <li class="nav-item"><a href="contact.html" class="nav-link">골프장</a></li>
        </ul>
      </div>
    </div>
