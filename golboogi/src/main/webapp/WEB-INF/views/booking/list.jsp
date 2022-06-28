@@ -80,7 +80,7 @@
 <c:forEach var="golfFieldDto" items="${list}">
    <div class="col-md-4 ftco-animate">
     <div class="project-wrap hotel">
-     <a href="detail?field_no=${golfFieldDto.fieldNo}" class="img" style="background-image: url(${root}/images/golf-dummy.jpg);">
+     <a href="detail?fieldNo=${golfFieldDto.fieldNo}" class="img" style="background-image: url(${root}/images/golf-dummy.jpg);">
     </a>
     <div class="text p-2">
       <span class="days"><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원~</span>
@@ -111,18 +111,4 @@
 </div>
 </section>
 
-<section class="ftco-intro ftco-section ftco-no-pt">
- <div class="container">
-  <div class="row justify-content-center">
-   <div class="col-md-12 text-center">
-    <div class="img"  style="background-image: url(${root}/images/golf-dummy.jpg);">
-     <div class="overlay"></div>
-     <h2>We Are Pacific A Travel Agency</h2>
-     <p>We can manage your dream building A small river named Duden flows by their place</p>
-     <p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
-   </div>
- </div>
-</div>
-</div>
-</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
