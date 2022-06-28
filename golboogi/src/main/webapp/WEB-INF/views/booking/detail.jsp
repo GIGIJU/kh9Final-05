@@ -20,8 +20,8 @@
  </div>
 </section>
 
-
-<div class="container-fluid">
+<%-- <div style="background-image: url('${root}/images/bg_1.jpg'),opacity:0.1;"> --%>
+<div class="container-fluid" >
 	<div class="row mt-5">
 		<div class="col-md-6 offset-md-3 text-center">
 			<h2 style="font-weight: bold;">${golfFieldDto.fieldName}</h2>
@@ -40,21 +40,18 @@
 		</div>
 	</div>
 	<div class="row mt-5 text-center col-md-6 offset-md-3"> 
-	<c:forEach var="i" begin="1" end="10" step="1">
-		<div class="col-md-4 ftco-animate mt-2">
+	<c:forEach var="teetimeVO" items="${teetimeList}">
+		<div class="col-md-6 ftco-animate mt-2">
 			<div style="border: black solid 1px">
-		      <span class="days"><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원~</span>
-		      <h5><a href="#">${golfFieldDto.fieldName}</a></h5>
+				<button class="btn">${teetimeVO.teeTimeT}</button>
+		      <h6><a href="#">${teetimeVO.courseName}</a></h6>
+		      <span class="days"><fmt:formatNumber value="${teetimeVO.fieldGreenfee}" />원~</span>
 		   </div>
 		</div>
 	</c:forEach>
 	
 	<hr>
-	<c:forEach var="i" begin="1" end="10" step="1">
-		
-	</c:forEach>
 	</div>
-	
 </div>
 
 
