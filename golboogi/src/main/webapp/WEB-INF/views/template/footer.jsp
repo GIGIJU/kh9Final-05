@@ -9,7 +9,6 @@
       <div class="col-md pt-5">
         <div class="ftco-footer-widget pt-md-5 mb-4">
           <h2 class="ftco-heading-2">About</h2>
-          <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
           <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
             <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
             <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
@@ -21,25 +20,24 @@
         <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
           <h2 class="ftco-heading-2">Infromation</h2>
           <ul class="list-unstyled">
-            <li><a href="#" class="py-2 d-block">Online Enquiry</a></li>
-            <li><a href="#" class="py-2 d-block">General Enquiries</a></li>
+            <li><a href="#" class="py-2 d-block">회사소개</a></li>
+            <li><a href="#" class="py-2 d-block">Mobile service</a></li>
             <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
-            <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
-            <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
-            <li><a href="#" class="py-2 d-block">Call Us</a></li>
+            <li><a href="#" class="py-2 d-block">Club solution</a></li>
+            <li><a href="#" class="py-2 d-block">Contact</a></li>
           </ul>
         </div>
       </div>
       <div class="col-md pt-5 border-left">
        <div class="ftco-footer-widget pt-md-5 mb-4">
-        <h2 class="ftco-heading-2">Experience</h2>
+        <h2 class="ftco-heading-2">서비스</h2>
         <ul class="list-unstyled">
-          <li><a href="#" class="py-2 d-block">Adventure</a></li>
-          <li><a href="#" class="py-2 d-block">Hotel and Restaurant</a></li>
-          <li><a href="#" class="py-2 d-block">Beach</a></li>
-          <li><a href="#" class="py-2 d-block">Nature</a></li>
-          <li><a href="#" class="py-2 d-block">Camping</a></li>
-          <li><a href="#" class="py-2 d-block">Party</a></li>
+          <li><a href="#" class="py-2 d-block">공지사항</a></li>
+          <li><a href="#" class="py-2 d-block">사용가이드</a></li>
+          <li><a href="#" class="py-2 d-block">이용약관</a></li>
+          <li><a href="#" class="py-2 d-block">위치정보 서비스 이용약관</a></li>
+          <li><a href="#" class="py-2 d-block">개인정보 처리방침</a></li>
+          <li><a href="#" class="py-2 d-block">영상정보처리기기 운영/관리방침</a></li>
         </ul>
       </div>
     </div>
