@@ -103,7 +103,7 @@
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
 							<a href="#" class="img" style="background-image: url(images/main_jeju.avif);">
-								<span class="price">325,000won/person</span>
+								<span class="price">₩ 325,000won/person</span>
 							</a>
 							<div class="text p-4">
 								<span class="days">2 Days Tour</span>
@@ -118,7 +118,7 @@
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
 							<a href="#" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
-								<span class="price">364,000/person</span>
+								<span class="price">₩ 364,000/person</span>
 							</a>
 							<div class="text p-4">
 								<span class="days">10 Days Tour</span>
@@ -133,7 +133,7 @@
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
 							<a href="#" class="img" style="background-image: url(images/main_gangwon.jpeg);">
-								<span class="price">335,000/person</span>
+								<span class="price">₩ 335,000/person</span>
 							</a>
 							<div class="text p-4">
 								<span class="days">7 Days Tour</span>
@@ -149,7 +149,7 @@
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
 							<a href="#" class="img" style="background-image: url(images/main_jeonnam.jpeg);">
-								<span class="price">325,000/person</span>
+								<span class="price">₩ 325,000/person</span>
 							</a>
 							<div class="text p-4">
 								<span class="days">8 Days Tour</span>
@@ -164,7 +164,7 @@
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
 							<a href="#" class="img" style="background-image: url(images/main_chungnam.jpeg);">
-								<span class="price">330,000/person</span>
+								<span class="price">₩ 330,000/person</span>
 							</a>
 							<div class="text p-4">
 								<span class="days">10 Days Tour</span>
@@ -179,7 +179,7 @@
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
 							<a href="#" class="img" style="background-image: url(images/main_Yongin.jpeg);">
-								<span class="price">425,000/person</span>
+								<span class="price">₩ 425,000/person</span>
 							</a>
 							<div class="text p-4">
 								<span class="days">7 Days Tour</span>
@@ -195,7 +195,7 @@
 			</div>
 		</section>
 		
-		<section class="ftco-section ftco-about img"style="background-image: url(images/jeju22.jpeg);">
+		<section class="ftco-section ftco-about img"style="background-image: url(images/main12.avif);">
 			<div class="overlay"></div>
 			<div class="container py-md-5">
 				<div class="row py-md-5">
@@ -210,16 +210,15 @@
 					<div class="col-md-12 about-intro">
 						<div class="row">
 							<div class="col-md-6 d-flex align-items-stretch">
-								<div class="img d-flex w-100 align-items-center justify-content-center" style="background-image:url(images/about-1.jpg);">
+								<div class="img d-flex w-100 align-items-center justify-content-center" style="background-image:url(images/main222.avif);">
 								</div>
 							</div>
 							<div class="col-md-6 pl-md-5 py-5">
 								<div class="row justify-content-start pb-3">
 									<div class="col-md-12 heading-section ftco-animate">
 										<span class="subheading">About Us</span>
-										<h2 class="mb-4">Make Your Tour Memorable and Safe With Us</h2>
-										<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean.</p>
-										<p><a href="#" class="btn btn-primary">Book Your Destination</a></p>
+										<h2 class="mb-4">Make Your Golf Memorable and Joy With Us</h2>
+										<p><a href="#" class="btn btn-primary">Book Your Tee-time</a></p>
 									</div>
 								</div>
 							</div>
@@ -229,13 +228,13 @@
 			</div>
 		</section>
 
-		<section class="ftco-section testimony-section bg-bottom" style="background-image: url(images/bg_1.jpg);">
+		<section class="ftco-section testimony-section bg-bottom" style="background-image: url(images/main_123.avif);">
 			<div class="overlay"></div>
 			<div class="container">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-7 text-center heading-section heading-section-white ftco-animate">
-						<span class="subheading">Testimonial</span>
-						<h2 class="mb-4">Tourist Feedback</h2>
+						<span class="subheading">Experiences</span>
+						<h2 class="mb-4">Golfer Feedback</h2>
 					</div>
 				</div>
 				<div class="row ftco-animate">
@@ -251,12 +250,12 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4">나중에 게시판 구현 뒤 한명씩 작성해주세여</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
 											<div class="pl-3">
-												<p class="name">Roger Scott</p>
-												<span class="position">Marketing Manager</span>
+												<p class="name">이기주</p>
+												<span class="position">마케팅 매니저</span>
 											</div>
 										</div>
 									</div>
@@ -272,12 +271,12 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4">알겠져?</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
 											<div class="pl-3">
-												<p class="name">Roger Scott</p>
-												<span class="position">Marketing Manager</span>
+												<p class="name">박소영</p>
+												<span class="position">프로덕트 매니저</span>
 											</div>
 										</div>
 									</div>
@@ -293,12 +292,12 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4">~.~</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(images/person_3.jpg)"></div>
 											<div class="pl-3">
-												<p class="name">Roger Scott</p>
-												<span class="position">Marketing Manager</span>
+												<p class="name">정유진</p>
+												<span class="position">소프트웨어 엔지니어</span>
 											</div>
 										</div>
 									</div>
@@ -314,12 +313,12 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4">ㅇㅇ</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(images/person_1.jpg)"></div>
 											<div class="pl-3">
-												<p class="name">Roger Scott</p>
-												<span class="position">Marketing Manager</span>
+												<p class="name">김범진</p>
+												<span class="position">회계사</span>
 											</div>
 										</div>
 									</div>
@@ -335,12 +334,12 @@
 											<span class="fa fa-star"></span>
 											<span class="fa fa-star"></span>
 										</p>
-										<p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+										<p class="mb-4">ㅇㅇ~</p>
 										<div class="d-flex align-items-center">
 											<div class="user-img" style="background-image: url(images/person_2.jpg)"></div>
 											<div class="pl-3">
-												<p class="name">Roger Scott</p>
-												<span class="position">Marketing Manager</span>
+												<p class="name">이지은</p>
+												<span class="position">서비스 기획자</span>
 											</div>
 										</div>
 									</div>
@@ -376,9 +375,9 @@
 										<span class="mos">September</span>
 									</div>
 								</div>
-								<h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
+								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
 								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="#" class="btn btn-primary">Read more</a></p>
+								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
 					</div>
@@ -396,9 +395,9 @@
 										<span class="mos">September</span>
 									</div>
 								</div>
-								<h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
+								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
 								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="#" class="btn btn-primary">Read more</a></p>
+								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
 					</div>
@@ -416,25 +415,10 @@
 										<span class="mos">September</span>
 									</div>
 								</div>
-								<h3 class="heading"><a href="#">Most Popular Place In This World</a></h3>
+								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
 								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="#" class="btn btn-primary">Read more</a></p>
+								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</section>
-
-		<section class="ftco-intro ftco-section ftco-no-pt">
-			<div class="container">
-				<div class="row justify-content-center">
-					<div class="col-md-12 text-center">
-						<div class="img"  style="background-image: url(images/bg_2.jpg);">
-							<div class="overlay"></div>
-							<h2>We Are Pacific A Travel Agency</h2>
-							<p>We can manage your dream building A small river named Duden flows by their place</p>
-							<p class="mb-0"><a href="#" class="btn btn-primary px-4 py-3">Ask For A Quote</a></p>
 						</div>
 					</div>
 				</div>
