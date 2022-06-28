@@ -47,4 +47,9 @@ public class BookingController {
 		return "booking/test";
 	}
 	
+	@GetMapping("/search_list")
+	public String searchList() {
+		return "booking/search_list";
+	}
+	
 }
