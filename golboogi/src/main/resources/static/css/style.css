@@ -8578,6 +8578,17 @@ h1, h2, h3, h4, h5,
   background-repeat: no-repeat;
   background-position: center center;
   background-attachment: fixed; }
+  
+  /* 커스텀 스타일 추가 */
+  .hero-wrap-custom {
+  width: 100%;
+  height: 100px;
+  position: inherit;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed; }
+  
   .hero-wrap .overlay {
     position: absolute;
     top: 0;
