@@ -11,7 +11,7 @@
 					<br><br><br><br><br>
 					<span class="subheading">One-Stop Golf Platform</span>
 					<br>
-					<h1 class="mb-4">골프의 모든 것<br>오직 골북이에서</h1>
+					<h1 class="mb-4">골프의 모든 것<br>오직 골북이에서</h1>  
 					<p class="caps">골프는 자연과 건강이 함께하는 스포츠입니다. 관리하며, 알고 치는 골프는 더 즐겁습니다</p>
 				</div>
 				<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
@@ -423,4 +423,3 @@
 			</div>
 		</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-
