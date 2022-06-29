@@ -31,15 +31,60 @@
 		select * from stay order by stay_no
 	</select>
 	
-	<!-- 숙소검색 -->
+	<!-- 숙소명 검색 -->
+	<select id="find" resultType="StayDto" parameterType="String">
+		select * from stay where stay_name= #{stayName}
+	</select>
+	
+	<!-- 숙소번호 검색 -->
 	<select id="one" resultType="StayDto" parameterType="int">
 		select * from stay where stay_no= #{stayNo}
 	</select>
 	
 	<!-- 숙소삭제 -->
-	<select id="delete" parameterType="int">
+	<delete id="delete" parameterType="int">
 		delete stay where stay_no= #{stayNo}
+	</delete >
+	
+		<!-- 숙소등록 -->
+	<insert id="insert" parameterType="StayDto">
+		insert into stay(
+			stay_no, stay_name, stay_type, stay_phone, stay_room, 
+			stay_price, stay_post_address, stay_basic_address, stay_detail_address, stay_status
+		)
+		values(
+			#{stayNo}, #{stayName},#{stayType}, #{stayPhone}, #{stayRoom}, #{stayPrice},
+			#{stayPostAddress}, #{stayBasicAddress}, #{stayDetailAddress}, #{stayStatus}	
+		)
+	</insert>
+	
+	<!-- 시퀀스 번호 확인 -->
+	<select id="sequence" resultType="int">
+		select stay_seq.nextval from dual
 	</select>
+	
+			<!-- 숙소 정보 수정 -->
+		<update id="infoEdit" parameterType="StayDto">
+		update stay
+			set 
+				stay_name = #{stayName},
+				stay_type = #{stayType},
+				stay_phone = #{stayPhone},
+				stay_post_address = #{stayPostAddress},
+				stay_basic_address= #{stayBasicAddress},
+				stay_detail_address = #{stayDetailAddress,
+			where
+				stay_no = #{stayNo}
+	</update>
+	
+	<!-- 숙소 가격 수정 -->
+<!-- 		<update id="priceEdit" parameterType="StayDto"> -->
+<!-- 		update stay -->
+<!-- 			set  -->
+<!-- 				stay_price = #{stayPrice}, -->
+<!-- 			where -->
+<!-- 				stay_no = #{stayNo} -->
+<!-- 	</update> -->
 	
 </mapper> 
 

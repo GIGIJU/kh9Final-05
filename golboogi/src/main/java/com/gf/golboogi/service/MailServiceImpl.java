@@ -24,7 +24,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class MailServiceImpl implements MailService {
 
-	@Autowired
+	@Autowired(required = false)
 	private JavaMailSender javaMailSender;
 
 //	@Value("${}")

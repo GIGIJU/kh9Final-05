@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.gf.golboogi.entity.StayDto;
-//import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.error.CannotFindException;
 
 public class StayDaoImpl implements StayDao{
 	@Autowired
@@ -20,32 +20,40 @@ public class StayDaoImpl implements StayDao{
 	
 	//숙소 삭제
 	@Override
-	public void delete(int stayNo) {
+	public boolean delete(int stayNo) {
 		sqlSession.delete("stay.delete", stayNo);
+		return false;
 	}
 	
-	//숙소 검색 
+	//숙소명 검색 
 	@Override
-	public StayDto find(int stayNo) {
-		return sqlSession.selectOne("stay.one",stayNo);
+	public StayDto find(String stayName) {
+		return sqlSession.selectOne("stay.find",stayName);
 	}
 	
 	//숙소 등록
 	@Override
 	public StayDto insert(StayDto stayDto) {
-		long sequence = sqlSession.selectOne("stay.sequence");
-		//stayDto.setStayNo(sequence);
+		int sequence = sqlSession.selectOne("stay.sequence");
 		sqlSession.insert("stay.insert", stayDto);
 		return stayDto;
 	}
 	
-	//숙소 수정 
+	//숙소 정보수정
 	@Override
-	public StayDto update(StayDto stayDto) {
-		int count = sqlSession.update("stay.update", stayDto);
-		//if(count == 0) throw new CannotFindException();
+	public StayDto infoEdit(StayDto stayDto) {
+		int count = sqlSession.update("stay.infoEdit", stayDto);
+		if(count == 0) throw new CannotFindException();
 		return sqlSession.selectOne("stay.one", stayDto.getStayNo());
 	}
+	
+	//숙소번호 검색
+	@Override
+	public StayDto one(int stayNo) {
+		return sqlSession.selectOne("stay.one",stayNo);
+	}
+
+
 
 
 
