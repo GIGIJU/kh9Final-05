@@ -1,6 +1,6 @@
-package com.gf.golboogi.entity;
+package com.gf.golboogi.vo;
 
-import java.util.Date;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,9 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class TeetimeDto {
-	private int teeTimeNo;
-	private int courseNo;
-	private String teeTimeT;
+public class BookingComplexSearchVO {
+	private Date teeTimeD;
 	private int partTime;
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +16,8 @@ import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.vo.BookingComplexSearchVO;
+import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
 @Controller
@@ -49,10 +52,6 @@ public class BookingController {
 		return "booking/test";
 	}
 	
-	@GetMapping("/search_list")
-	public String searchList() {
-		return "booking/search_list";
-	}
 	
 	@GetMapping("/Reservation")
 	public String reservation(
@@ -65,6 +64,19 @@ public class BookingController {
 		return "booking/reservation";
 	}
 	
+	@GetMapping("/teetime")
+	public String teetime(@RequestParam int courseNo){
+		golfFieldDao.teetimeInsert(courseNo);
+		return "/";
+	}
+	
+	@GetMapping("/search")
+	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
+		List<BookingSearchListVO> list = golfFieldDao.searchList(searchVO);
+		model.addAttribute("list",list);
+		
+		return "booking/search_list";
+	}
 	
 	
 	
