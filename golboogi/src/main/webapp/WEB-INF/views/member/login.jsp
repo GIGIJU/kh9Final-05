@@ -15,8 +15,13 @@
 	<div class="row center m30">
 		 <a href="${root}/member/find_id">아이디 찾기</a> &nbsp; <span>/</span> &nbsp; <a href="${root}/member/find_pw">비밀번호 찾기</a>
 	</div>
+	<br><br>
 	<div class="row center m30">
 		<p>아이디 : testuser1 | 비밀번호 : Testuser1!</p>
+	</div>
+	<br><br>
+	<div>
+		<h2><a href="${root}/notice/list">공지게시판</a></h2>
 	</div>
 </div>
 
