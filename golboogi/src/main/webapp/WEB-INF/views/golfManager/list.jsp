@@ -27,16 +27,16 @@
             <thead>
                 <tr>
                     <th>아이디</th>
-                    <th>골프장 번호</th>
+                    <th>골프장 이름</th>
                     <th>정보 수정</th>
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="golfManagerDto" items="${list}">
+                <c:forEach var="golfManagerVO" items="${vo}">
                     <tr>
-                        <td>${golfManagerDto.golfManagerId}</td>
-                        <td>${golfManagerDto.fieldNo}</td>
-                        <td><a href="${root}/golfManager/detail?golfManagerId=${golfManagerDto.golfManagerId}">아이콘(변경예정)</a></td>
+                        <td>${golfManagerVO.golfManagerId}</td>
+                        <td>${golfManagerVO.fieldName}</td>
+                        <td><a href="${root}/golfManager/detail?golfManagerId=${golfManagerVO.golfManagerId}">아이콘(변경예정)</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

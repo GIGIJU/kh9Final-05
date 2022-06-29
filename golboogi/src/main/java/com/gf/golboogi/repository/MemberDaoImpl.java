@@ -33,7 +33,6 @@ public class MemberDaoImpl implements MemberDao{
 		
 //		boolean isPasswordMatch = MemberDto.getmemberPw().equals(memberPw);
 		boolean isPasswordMatch = passwordEncoder.matches(memberPw, memberDto.getMemberPw());
-		
 		if(isPasswordMatch) {
 			sqlSession.update("member.updateLogin", memberId);
 			return memberDto;

@@ -19,7 +19,7 @@ public class MemberDto {
 	private String memberGender;
 	private String memberLocal;
 	private int memberScore;
-	private String memberGrade;
+	private int memberGrade;
 	private Date memberJoindate;
 	private Date memberLogindate;
 }

@@ -25,9 +25,9 @@
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="golfManager">
-
-	<select id="list" resultType="GolfManagerDto">
-		select * from golf_manager
+	
+	<select id="list" resultType="GolfManagerVO">
+		select A.golf_manager_id, B.field_name from golf_manager"A", golf_field"B" where A.field_no = B.field_no
 	</select>
 	
 	<select id="one" resultType="GolfManagerDto" parameterType="String">

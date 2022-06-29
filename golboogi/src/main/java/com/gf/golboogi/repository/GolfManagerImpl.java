@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.GolfManagerDto;
+import com.gf.golboogi.vo.GolfManagerVO;
 
 @Repository
 public class GolfManagerImpl implements GolfManagerDao{
@@ -15,7 +16,7 @@ public class GolfManagerImpl implements GolfManagerDao{
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<GolfManagerDto> list() {
+	public List<GolfManagerVO> list() {
 		return sqlSession.selectList("golfManager.list");
 	}
 
