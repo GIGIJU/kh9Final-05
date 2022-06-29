@@ -26,7 +26,7 @@ import com.gf.golboogi.service.MailService;
 @Controller
 @RequestMapping("/member")
 public class MemberController {
-
+	
 	@Autowired
 	private MemberDao memberDao;
 	
@@ -62,15 +62,27 @@ public class MemberController {
 			@RequestParam String memberId,
 			@RequestParam String memberPw,
 			HttpSession session) {
+		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
+		
+		
 		if(memberDto == null) {
 			return "redirect:login?error";
-		}else {
+		} else if(memberDto.getMemberGrade()==1) {
+			return "redirect:blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
+		} else {
 			session.setAttribute("login", memberDto.getMemberId());
 			return "redirect:/";
 		}
+		
 	}
-	
+
+	@GetMapping("blacklist")
+	public String blacklist() {
+		return "member/blacklist";
+		// 블랙리스트임을 알려주는 페이지 구현중 / 이기주
+	}
+
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("login");

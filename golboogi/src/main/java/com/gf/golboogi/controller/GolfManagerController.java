@@ -2,8 +2,6 @@ package com.gf.golboogi.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.repository.GolfManagerDao;
+import com.gf.golboogi.vo.GolfManagerVO;
 
 // 관리자 컨트롤러
 @Controller
@@ -26,8 +25,8 @@ public class GolfManagerController {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<GolfManagerDto> list = golfManagerDao.list();
-		model.addAttribute("list", list);
+		List<GolfManagerVO> vo = golfManagerDao.list();
+		model.addAttribute("vo",vo);
 		return "golfManager/list";
 	}
 	
