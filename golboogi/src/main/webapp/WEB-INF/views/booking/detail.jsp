@@ -44,7 +44,7 @@
 		<div class="col-md-6 ftco-animate mt-2">
 			<div style="border: black solid 1px">
 				<button class="btn">${teetimeVO.teeTimeT}</button>
-		      <h6><a href="Reservation/courseNo=${teetimeVO.courseNo}">${teetimeVO.courseName}</a></h6>
+		      <h6><a href="Reservation?teeTimeNo=${teetimeVO.teeTimeNo}">${teetimeVO.courseName}</a></h6>
 		      <span class="days"><fmt:formatNumber value="${teetimeVO.fieldGreenfee}" />원~</span>
 		   </div>
 		</div>

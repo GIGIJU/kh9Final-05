@@ -29,6 +29,10 @@
 	<select id="list" parameterType="int" resultType="Teetime1VO">
 		select * from tee_time_1 where field_no = #{fieldNo} order by tee_time_t
 	</select>	
+	
+	<select id="one" parameterType="int" resultType="Teetime1VO">
+		select * from tee_time_1 where tee_time_no = #{teeTimeNo}
+	</select>
 </mapper> 
 
 
