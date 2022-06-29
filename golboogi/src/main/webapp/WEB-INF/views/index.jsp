@@ -1,10 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-  pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html>
-<html lang="ko">
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 	<div class="hero-wrap js-fullheight" style="background-image: url('images/main4.jpeg');">
 		<div class="overlay"></div>
 		<div class="container">
@@ -13,7 +11,7 @@
 					<br><br><br><br><br>
 					<span class="subheading">One-Stop Golf Platform</span>
 					<br>
-					<h1 class="mb-4">골프의 모든 것<br>오직 골북이에서</h1>
+					<h1 class="mb-4">골프의 모든 것<br>오직 골북이에서</h1>  
 					<p class="caps">골프는 자연과 건강이 함께하는 스포츠입니다. 관리하며, 알고 치는 골프는 더 즐겁습니다</p>
 				</div>
 				<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
@@ -376,7 +374,7 @@
 									</div>
 								</div>
 								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
 								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
@@ -396,7 +394,7 @@
 									</div>
 								</div>
 								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
 								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
@@ -416,7 +414,7 @@
 									</div>
 								</div>
 								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
 								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
@@ -425,4 +423,3 @@
 			</div>
 		</section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
-
