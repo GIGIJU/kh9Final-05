@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chatbot">
+	
+	<!-- 최초에 사용자에게 보 여줄 질문 목록 -->
+	<select id="first" resultType="ChatbotDto">
+		select 
+			chatbot_no, chatbot_content 
+		from chatbot 
+			where super_no is null
+	</select>
+	
+	<select id="first2" resultType="ChatbotVO">
+		select 
+		    A.chatbot_no,
+		    A.chatbot_content,
+		    count(B.chatbot_no) "count"
+		from chatbot A 
+			left outer join chatbot B on A.chatbot_no = B.super_no
+		where A.super_no is null
+		group by A.chatbot_no, A.chatbot_content
+	</select>
+	
+	<select id="answer" resultType="ChatbotDto" parameterType="int">
+		select
+			chatbot_no, chatbot_content
+		from chatbot
+			where super_no = #{superNo}
+	</select>
+	
+	<select id="answer2" resultType="ChatbotVO" parameterType="int">
+		select 
+		    A.chatbot_no,
+		    A.chatbot_content,
+		    count(B.chatbot_no) "count"
+		from chatbot A 
+			left outer join chatbot B on A.chatbot_no = B.super_no
+		where A.super_no = #{superNo}
+		group by A.chatbot_no, A.chatbot_content
+	</select>
+	
+</mapper> 
