@@ -4,11 +4,16 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.error.CannotFindException;
 
+
+@Repository
 public class StayDaoImpl implements StayDao{
+	
+	
 	@Autowired
 	private SqlSession sqlSession;
 	

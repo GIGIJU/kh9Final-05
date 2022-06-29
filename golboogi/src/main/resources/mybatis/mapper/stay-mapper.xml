@@ -72,7 +72,7 @@
 				stay_phone = #{stayPhone},
 				stay_post_address = #{stayPostAddress},
 				stay_basic_address= #{stayBasicAddress},
-				stay_detail_address = #{stayDetailAddress,
+				stay_detail_address = #{stayDetailAddress}
 			where
 				stay_no = #{stayNo}
 	</update>
