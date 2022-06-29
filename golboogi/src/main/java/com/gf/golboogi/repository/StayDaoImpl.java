@@ -24,14 +24,22 @@ public class StayDaoImpl implements StayDao{
 		sqlSession.delete("stay.delete", stayNo);
 	}
 	
+	//숙소 검색 
+	@Override
+	public StayDto find(int stayNo) {
+		return sqlSession.selectOne("stay.one",stayNo);
+	}
+	
 	//숙소 등록
 	@Override
 	public StayDto insert(StayDto stayDto) {
-		// TODO Auto-generated method stub
-		return null;
+		long sequence = sqlSession.selectOne("stay.sequence");
+		//stayDto.setStayNo(sequence);
+		sqlSession.insert("stay.insert", stayDto);
+		return stayDto;
 	}
 	
-	//숙소 업데이트 
+	//숙소 수정 
 	@Override
 	public StayDto update(StayDto stayDto) {
 		int count = sqlSession.update("stay.update", stayDto);
@@ -39,10 +47,6 @@ public class StayDaoImpl implements StayDao{
 		return sqlSession.selectOne("stay.one", stayDto.getStayNo());
 	}
 
-	//숙소 검색 
-	@Override
-	public List<StayDto> findStay(String stayName) {
-		return sqlSession.selectList("stay.findStay",stayName);
-	}
+
 
 }

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+  pageEncoding="UTF-8"%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html lang="ko">
@@ -376,7 +376,7 @@
 									</div>
 								</div>
 								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
+								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
 								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
@@ -396,7 +396,7 @@
 									</div>
 								</div>
 								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
+								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
 								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
@@ -416,7 +416,7 @@
 									</div>
 								</div>
 								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
+								<p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
 								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>

@@ -9,7 +9,8 @@
 	<div>
 		숙소이름 : ${stayDto.stayName} ,
 		숙소타입 : ${stayDto.stayType} ,
-		숙소가격 : ${stayDto.stayPrice}원
+		숙소가격 : ${stayDto.stayPrice}원,
+		숙소상태 : ${stayDto.stayStatus}원
 		<a href="detail?stayNo=${stayDto.stayNo}">예약하기</a>
 	</div>
 </c:forEach>
