@@ -1,13 +1,11 @@
 package com.gf.golboogi.repository;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
@@ -87,6 +85,12 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		else {
 			return list;
 		}
+	}
+
+	//날짜별 예약가능 골프장 목록
+	@Override
+	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
+		return sqlSession.selectList("golfFeild.teeTimeDayList",teeTimeD);
 	}
 	
 	

@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
+import com.gf.golboogi.repository.BookingDao;
 import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
@@ -26,6 +28,9 @@ public class BookingController {
 	
 	@Autowired
 	private GolfFieldDao golfFieldDao;
+	@Autowired
+	private BookingDao bookingDao;
+	
 	
 	
 	@GetMapping("/list")
@@ -53,7 +58,7 @@ public class BookingController {
 	}
 	
 	
-	@GetMapping("/Reservation")
+	@GetMapping("/reservation")
 	public String reservation(
 			@RequestParam int teeTimeNo, Model model) {
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
@@ -71,9 +76,7 @@ public class BookingController {
 	}
 	
 	@GetMapping("/search")
-	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
-		List<BookingSearchListVO> list = golfFieldDao.searchList(searchVO);
-		model.addAttribute("list",list);
+	public String search() {		
 		
 		return "booking/search_list";
 	}
@@ -81,11 +84,17 @@ public class BookingController {
 	@GetMapping("/paymentInfo")
 	public String paymentInfo(@RequestParam int teeTimeNo, Model model) {
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
+		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
 		
+		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeVO",teetimeVO);
 		return "booking/paymentInfo";
 	}
 	
-	
+	@PostMapping("/reservation")
+	public String reservation(@ModelAttribute BookingDto bookingDto) {
+		bookingDao.reservation(bookingDto);
+		return "booking/reservation_success";
+	}
 	
 }

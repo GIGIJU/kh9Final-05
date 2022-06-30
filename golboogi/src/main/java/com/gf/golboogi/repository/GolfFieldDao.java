@@ -16,6 +16,5 @@ public interface GolfFieldDao {
 	List<TeetimeDto> selectTeetimeList(int fieldNo);
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
-
-
+	List<BookingSearchListVO> teeTimeDayList(String teeTimeD);
 }

@@ -36,8 +36,8 @@
 	</div>
 	<div class="row mt-5">
 		<div class="col-md-8 offset-md-2 text-center">
-			<button class="btn btn-success">타임정보</button>
-			<button class="btn btn-success">골프장정보</button>
+			<button class="btn" style="width: 100px;">타임정보</button>
+			<button class="btn" style="width: 100px;">골프장정보</button>
 		</div>
 	</div>
 	<div class="row mt-5 text-center col-md-8 offset-md-2"> 
@@ -45,7 +45,7 @@
 		<div class="col-md-3 ftco-animate mt-2">
 			<div style="border: black solid 1px">
 				<button class="btn">${teetimeVO.teeTimeT}</button>
-		      <h6><a href="Reservation?teeTimeNo=${teetimeVO.teeTimeNo}">${teetimeVO.courseName}</a></h6>
+		      <h6><a href="reservation?teeTimeNo=${teetimeVO.teeTimeNo}">${teetimeVO.courseName}</a></h6>
 		      <span class="days"><fmt:formatNumber value="${teetimeVO.fieldGreenfee}" />원~</span>
 		   </div>
 		</div>

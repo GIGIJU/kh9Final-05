@@ -18,10 +18,10 @@
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<p class="breadcrumbs">
 						<span class="mr-2"><a href="/">Home <i
-								class="fa fa-chevron-right"></i></a></span> <span>Hotel <i
+								class="fa fa-chevron-right"></i></a></span> <span>booking <i
 							class="fa fa-chevron-right"></i></span>
 					</p>
-					<h1 class="mb-0 bread">booking</h1>
+					<p class="mb-0" style="font-size: 17px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
 				</div>
 			</div>
 		</div>
@@ -163,6 +163,9 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 <script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
         const app = Vue.createApp({
@@ -174,6 +177,7 @@
                 	
                 	date:"",
                 	price:"",
+                	not: 
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
