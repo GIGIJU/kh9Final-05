@@ -23,14 +23,14 @@
 
             <div class="row mt-3">
                 <div class="col col-md-3 offset-md-3">
-                    <label class="form-label">골프장 관리자 아이디</label>
+                    <label class="form-label">아이디</label>
                     <input type="text" class="form-control rounded" name="golfManagerId" >
                 </div>
             </div>
             
             <div class="row mt-3">
                 <div class="col col-md-3 offset-md-3">
-                    <label class="form-label">골프장 관리자 비밀번호</label>
+                    <label class="form-label">비밀번호</label>
                     <input type="password" class="form-control rounded" name="golfManagerPw" >
                 </div>
             </div>
@@ -44,14 +44,17 @@
             
 			<br>
             <div class="row mt-3">
-                <div class="col col-md-3 offset-md-3">
-                    <button type="submit" class="btn btn-primary rounded">회원가입</button>
+                <div class="col col-md-2 offset-md-3">
+                    <button type="submit" class="btn btn-primary rounded">아이디 생성</button>
+                </div>
+                <div class="col col-md-2 ml-4">
+                		<a href="${root}/admin/list" class="btn btn-secondary">돌아가기</a>
                 </div>
             </div>
             <br>
 
         </form>
-
+		
     </div>    
 
 
