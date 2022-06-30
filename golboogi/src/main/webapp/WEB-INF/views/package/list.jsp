@@ -41,7 +41,7 @@
 		      </select>
          </div>
        </div>
-     </div>
+     </div>  
      <div class="col-lg d-flex">
       <div class="form-group p-4">
        <label for="#">체크인</label>
