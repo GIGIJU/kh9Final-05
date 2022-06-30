@@ -3,12 +3,13 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <style>
 p{
-	font-size: 10px;	
+	font-size: 11px;	
 }
 span{
-	font-size: 10px;
+	font-size: 11px;
 	color: black;
 }
 .btn{
@@ -35,7 +36,7 @@ span{
 			<div class="col-md-4">
 				<img src="${root}/images/bg_1.jpg" width="200" height="190" style="border-radius: 100%;">
 			</div>
-			<div class="col-md-7 mt-4 ml-5">
+			<div class="col-md-7 mt-4 ml-4">
 				<div>
 					<h4>${golfFieldDto.fieldName}</h4>
 				</div>
@@ -94,7 +95,7 @@ span{
 				<span>그린피 [1인당]</span>
 				<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원</p>
 				<span>${golfFieldDto.fieldPeople}인 필수</span> 
-				<p><fmt:formatNumber value="" />원</p>
+				<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}" />원</p>
 			</div>			
 		</div>		
 		<hr>
@@ -112,9 +113,13 @@ span{
 			</div>			
 		</div>		
 		<hr>
-	<div class="col-md-4 offset-md-4 mt-5">
-			<button class="btn">예약하기</button>
-	</div>
+		<form action="paymentInfo" method="get">
+			<div class="col-md-4 offset-md-4 mt-5">
+					<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
+					<%-- <input type="hidden" name="prepay" value="${golfFieldDto.fieldPrepay}"> --%>
+					<button class="btn">결제정보</button>
+			</div>
+		</form>
 	</div>
 </div>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

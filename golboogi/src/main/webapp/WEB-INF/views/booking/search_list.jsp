@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
 <section class="hero-wrap hero-wrap-2"
@@ -28,7 +28,8 @@
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<div class="pt-5 mt-5">
-					<h3 class="mb-5 text-center" style="font-size: 20px; font-weight: bold;">0월 0일</h3><hr>
+					<h3 class="mb-5 text-center" style="font-size: 20px; font-weight: bold;">
+					${param.teeTimeD}</h3><hr>
 					<ul class="comment-list">
 					<c:forEach var="searchList" items="${list}">
 						<li class="comment" >
@@ -39,7 +40,7 @@
 								<h3>${searchList.fieldName}</h3>
 								<div class="meta" style="font-size: 9px">지역</div>
 								<p>
-									<a href="#" class="reply">${searchList.teetimeT}</a>
+									<a href="#" class="reply">${searchList.teeTimeT}</a>
 								</p>
 							</div>
 						</li>

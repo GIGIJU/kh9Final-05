@@ -78,6 +78,14 @@ public class BookingController {
 		return "booking/search_list";
 	}
 	
+	@GetMapping("/paymentInfo")
+	public String paymentInfo(@RequestParam int teeTimeNo, Model model) {
+		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
+		
+		model.addAttribute("teetimeVO",teetimeVO);
+		return "booking/paymentInfo";
+	}
+	
 	
 	
 }

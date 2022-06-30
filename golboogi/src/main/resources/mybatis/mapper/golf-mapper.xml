@@ -39,10 +39,10 @@
 		select * from golf_course where course_no=#{courseNo}
 	</select>
 	
-	<select id="search" resultType="BookingComplexSearchVO" parameterType="BookingSearchListVO">
+	<select id="search" resultType="BookingSearchListVO" parameterType="BookingComplexSearchVO">
 <!-- 		<bind name="teeTimeDExist" value="teeTimeD != null and !teeTimeD.equals('')"/>
 		<bind name="partTimeExist" value="partTime != null and !partTime.equals('')"/>		 -->
-		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left  outer join
+		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
 		(
 		select * from golf_course C inner join 
 		(
