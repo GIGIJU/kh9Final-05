@@ -6,7 +6,7 @@
 
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
- <section class="hero-wrap hero-wrap-2" style="background-image: url('/images/bg_1.jpg');">
+ <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 250px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
@@ -95,8 +95,8 @@
 <section class="ftco-section">
  <div class="container">
  
+ <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}">
   <div class="row">
-  <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}">
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
      <a href="detail?stayNo=${stayDto.stayNo}" class="img" style="background-image: url(images/hotel-resto-1.jpg);">
@@ -113,8 +113,8 @@
    </div>
  </div>
 </div>
-</c:forEach>
 </div>
+</c:forEach>
 
 <!-- 페이지네이션 -->
 <div class="row mt-5">
