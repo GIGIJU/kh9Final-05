@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gf.golboogi.entity.GolfManagerDto;
+import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.vo.AdminVO;
 
@@ -55,6 +56,20 @@ public class AdminController {
 	public String insert(@ModelAttribute GolfManagerDto golfManagerDto) {
 		adminDao.insert(golfManagerDto);
 		return "redirect:list";
+	}
+	
+	@GetMapping("/member_list")
+	public String memberList(Model model) {
+		List<MemberDto> memberList = adminDao.memberList();
+		model.addAttribute("memberList" , memberList);
+		return "admin/member_list";
+	}
+	
+	@GetMapping("/member_detail")
+	public String memberDetail(@RequestParam String memberId, Model model) {
+		MemberDto memberDto = adminDao.memberDetail(memberId);
+		model.addAttribute("memberDto", memberDto);
+		return "admin/member_detail";
 	}
 
 }

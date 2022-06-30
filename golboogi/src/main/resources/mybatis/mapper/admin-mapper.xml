@@ -29,10 +29,6 @@
 	<select id="list" resultType="AdminVO">
 		select A.golf_manager_id, B.field_name from golf_manager"A", golf_field"B" where A.field_no = B.field_no
 	</select>
-	
-<!-- 	<select id="one" resultType="GolfManagerDto" parameterType="String"> -->
-<!-- 		select * from golf_manager where golf_manager_id = #{golfManagerId} -->
-<!-- 	</select> -->
 
 	<select id="one" parameterType="String" resultType="AdminVO">
 		select A.golf_manager_id, B.field_name, B.field_no
@@ -49,6 +45,13 @@
 		values(#{golfManagerId}, #{fieldNo}, #{golfManagerPw})
 	</insert>
 	
+	<select id="memberList" resultType="MemberDto">
+		select * from member
+	</select>
+	
+	<select id="memberOne" parameterType="String" resultType="MemberDto">
+		select * from member where member_id = #{memberId}
+	</select>
 	
 </mapper> 
 

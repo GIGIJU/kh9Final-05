@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.GolfManagerDto;
+import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.vo.AdminVO;
 
 @Repository
@@ -35,6 +36,17 @@ public class AdminDaoImpl implements AdminDao{
 	public void insert(GolfManagerDto golfManagerDto) {
 		sqlSession.insert("admin.insert", golfManagerDto);
 	}
+
+	@Override
+	public List<MemberDto> memberList() {
+		return sqlSession.selectList("admin.memberList");
+	}
+
+	@Override
+	public MemberDto memberDetail(String memberId) {
+		return sqlSession.selectOne("admin.memberOne", memberId);
+	}
+
 
 
 }
