@@ -28,7 +28,7 @@
 	
 	<!-- 숙소목록 -->
 	<select id="list" resultType="StayDto">
-		select * from stay order by stay_no
+		select * from stay 
 	</select>
 	
 	<!-- 숙소명 검색 -->

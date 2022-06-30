@@ -26,16 +26,6 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="package">
 
-	<!-- 패키지목록 -->
-	<select id="list" resultType="StayDto">
-		select * from package order by stay_no
-	</select>
-	
-	<!-- 패키지검색 -->
-	<select id="one" resultType="StayDto" parameterType="int">
-		select * from package where stay_no= #{stayNo}
-	</select>
-	
 </mapper> 
 
 

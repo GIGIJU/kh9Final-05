@@ -1,5 +1,7 @@
 package com.gf.golboogi.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +11,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.StayDao;
 
 
@@ -20,10 +24,17 @@ public class PackageController {
 	
 	@Autowired
 	private StayDao stayDao;
+	
+	@Autowired
+	private GolfFieldDao golfFieldDao;
 
-
+	//패키지 목록
 	@GetMapping("/list ")
-	public String list() {
+	public String list(Model model) {
+	    List<StayDto> list = stayDao.list();
+	    List<GolfFieldDto> list2 = golfFieldDao.selectList();
+		model.addAttribute("list",list);
+		model.addAttribute("list2",list2);
 		return "package/list";
 	}
 	
