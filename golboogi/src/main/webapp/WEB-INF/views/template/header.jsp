@@ -14,7 +14,7 @@
   
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <link rel="stylesheet" href="${root}/css/animate.css">
@@ -61,7 +61,7 @@
 
      <div class="collapse navbar-collapse" id="ftco-nav">
        <ul class="navbar-nav ml-auto">
-         <li class="nav-item"><a href="booking/list" class="nav-link">골프부킹</a></li>
+         <li class="nav-item"><a href="${root}/booking/list" class="nav-link">골프부킹</a></li>
          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
          <li class="nav-item active"><a href="hotel.html" class="nav-link">투어</a></li>
          <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>

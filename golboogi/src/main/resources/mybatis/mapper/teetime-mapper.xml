@@ -29,6 +29,18 @@
 	<select id="list" parameterType="int" resultType="Teetime1VO">
 		select * from tee_time_1 where field_no = #{fieldNo} order by tee_time_t
 	</select>	
+	
+	<select id="one" parameterType="int" resultType="Teetime1VO">
+		select * from tee_time_1 where tee_time_no = #{teeTimeNo}
+	</select>
+	
+	<select id="sequence" resultType="int">
+		select tee_time_seq.nextval from dual
+	</select>
+	
+	<insert id="insert" parameterType="TeetimeDto">
+		insert into tee_time(tee_time_no,course_no,tee_time_t,part_time) values(#{teeTimeNo},#{courseNo},#{teeTimeT},#{partTime})
+	</insert>
 </mapper> 
 
 

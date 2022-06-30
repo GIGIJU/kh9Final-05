@@ -7,12 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
-public class Teetime1VO {
-	private int teeTimeNo;
+public class BookingSearchListVO {
 	private int fieldNo;
 	private String fieldName;
-	private int courseNo;
-	private String courseName;
 	private int fieldGreenfee;
+	private String courseName;
 	private String teeTimeT;
+	private int partTime;
+	private int teeTimeNo;
 }

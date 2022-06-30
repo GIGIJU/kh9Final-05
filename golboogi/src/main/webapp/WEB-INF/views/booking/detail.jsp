@@ -3,6 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html lang="ko">
 <style>
@@ -39,12 +40,12 @@
 			<button class="btn btn-success">골프장정보</button>
 		</div>
 	</div>
-	<div class="row mt-5 text-center col-md-6 offset-md-3"> 
+	<div class="row mt-5 text-center col-md-8 offset-md-2"> 
 	<c:forEach var="teetimeVO" items="${teetimeList}">
-		<div class="col-md-6 ftco-animate mt-2">
+		<div class="col-md-3 ftco-animate mt-2">
 			<div style="border: black solid 1px">
 				<button class="btn">${teetimeVO.teeTimeT}</button>
-		      <h6><a href="Reservation/courseNo=${teetimeVO.courseNo}">${teetimeVO.courseName}</a></h6>
+		      <h6><a href="Reservation?teeTimeNo=${teetimeVO.teeTimeNo}">${teetimeVO.courseName}</a></h6>
 		      <span class="days"><fmt:formatNumber value="${teetimeVO.fieldGreenfee}" />원~</span>
 		   </div>
 		</div>
