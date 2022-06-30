@@ -6,11 +6,11 @@
 
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
- <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
   <div class="container">
-    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 250px;">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 350px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span></p>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
        <h1 class="mb-0 bread">package</h1>
      </div>
    </div>
