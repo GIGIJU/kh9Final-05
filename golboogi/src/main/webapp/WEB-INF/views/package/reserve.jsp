@@ -3,7 +3,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
 <style>
 	/*Yujin custom style*/
 	        .tour-product-info {
@@ -55,24 +54,25 @@
 	  border-left: 1px solid rgba(0,0,0,.1);
 	}
 	
-	.img-box {
-  position: relative;}
-
-  .img-box .img-thumb {
-    position: absolute;
-    width: inherit;
-    height: inherit;
-    top: 0;
-    left: 0;
-    background-color: #f7f7f7;
-    background-size: cover;
-    background-position: 50%;
-    border-radius: inherit;
-    transition: all .3s ease-in-out;
-}
+		.button-toggle {
+	  justify-content: center;
+	  height: 60px;
+	  padding: 0 24px;
+	  font-size: 18px;
+	  color: #000;
+	  border: 1px solid rgba(0,0,0,.2);
+	}
 	
+	.button-toggle+.button-toggle {
+	  border-left-width: 0;
+	}
+	
+	.button-toggle:active{
+	  color: #fff;
+	  background-color: #000;
+	  border: 1px solid #000;
+	}
 </style>
-
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
@@ -92,6 +92,7 @@
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">
     
+    <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}" var="packageDto" items="${list3} ">
     <div class="row justify-content-center">
     <div class="text-center mt-5">
       <h3 style="font-weight: bold;">예약 신청</h3>
@@ -101,10 +102,10 @@
       <div class="product-info-item " >
         <div class="product-info-title" ><h2>상품 정보</h2></div>
         <div class="item-cont">
-          <h2 style="color:#17a2b8">킹즈락(구.힐데스하임)</h2> 
-          <p>• 출발일 : 찍어줍니다</p>
-          <p>• 기간 : 찍어줍니다</p>
-          <p>• 지역 : 찍어줍니다</p>
+          <h2 style="color:#17a2b8">${stayDto.stayName}</h2> 
+          <p>• 출발일 : ${packageDto.packageDepart}</p>
+          <p>• 기간 : 1박2일</p>
+          <p>• 지역 : 어케 찍어주지</p>
       </div>
       <div class="img-box">
         <img src="images/hotel-resto-1.jpg" style="height: 200px; width: 200px; border-radius: 30%;">
@@ -141,7 +142,7 @@
               <div class="product-info-title" ><h2>결제 정보</h2>
             </div>
               <div class="item-cont">
-                <h5 style="color:#fff;">1인 기준 : 500,000 </h5>
+                <h5 style="color:#fff;">1인 기준 : ${stayDto.stayPrice} </h5>
                 <h5 style="color:#fff;  ">신청 인원 : 4인</h5>
                 <h1 style="color:#ffc107; font-weight: bold; text-decoration: underline;"> 예상결제금액 2,000,000원</h1> 
                 <p>•신청하시면 확정가격/티오프시간 등 최종 확인 후 연락을 드립니다.</p>
@@ -163,6 +164,7 @@
       <button class="btn btn-success p-3">신청하기</button>
     </div>
 
+</c:forEach>
     </div>
     </section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

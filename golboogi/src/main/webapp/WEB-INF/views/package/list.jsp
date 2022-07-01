@@ -4,6 +4,77 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
+<style>
+	/*Yujin custom style*/
+	        .tour-product-info {
+	      display: flex;
+	      align-items: center;
+	      flex-direction: column;
+	  }
+	    .tour-product-info .product-info-item+.product-info-item {
+	      margin-top: 30px;
+	  }
+	    .tour-product-info .product-info-item {
+	      display: flex;
+	      width: 100%;
+	      padding: 40px;
+	      background-color:#343a40;
+	      border-radius: 15px;
+	  }
+	  .tour-product-info .product-info-item .item-title {
+	    width: 240px;
+	    font-size: 24px;
+	    font-weight: 700;
+	}
+	  .tour-product-info .product-info-item .item-cont {
+	    flex: 1;
+	    flex-grow: 1;
+	    flex-shrink: 1;
+	    flex-basis: 0%;
+	    margin-left: 100px;
+	    
+	}
+	.button-toggle {
+	  justify-content: center;
+	  height: 60px;
+	  padding: 0 24px;
+	  font-size: 18px;
+	  color: #000;
+	  border: 1px solid rgba(0,0,0,.2);
+	}
+	.tour-detail-info {
+	  display: flex;
+	  justify-content: center;
+	}
+	.tour-detail-info .info-item {
+	  color: #343a40;
+	  width: 200px;
+	  text-align: center;
+	}
+	.tour-detail-info .info-item+.info-item {
+	  border-left: 1px solid rgba(0,0,0,.1);
+	}
+	
+		.button-toggle {
+	  justify-content: center;
+	  height: 60px;
+	  padding: 0 24px;
+	  font-size: 18px;
+	  color: #000;
+	  border: 1px solid rgba(0,0,0,.2);
+	}
+	
+	.button-toggle+.button-toggle {
+	  border-left-width: 0;
+	}
+	
+	.button-toggle:active{
+	  color: #fff;
+	  background-color: #000;
+	  border: 1px solid #000;
+	}
+</style>
+
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">

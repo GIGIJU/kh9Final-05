@@ -55,16 +55,47 @@
 	.tour-detail-info .info-item+.info-item {
 	  border-left: 1px solid rgba(0,0,0,.1);
 	}
+	
+		.button-toggle {
+	  justify-content: center;
+	  height: 60px;
+	  padding: 0 24px;
+	  font-size: 18px;
+	  color: #000;
+	  border: 1px solid rgba(0,0,0,.2);
+	}
+	
+	.button-toggle+.button-toggle {
+	  border-left-width: 0;
+	}
+	
+	.button-toggle:active{
+	  color: #fff;
+	  background-color: #000;
+	  border: 1px solid #000;
+	}
 </style>
+
+<!-- 헤더 밑 이미지 타이틀 세션 -->
+<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
+  <div class="container">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 350px;">
+      <div class="col-md-9 ftco-animate pb-5 text-center">
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
+       <h1 class="mb-0 bread">package</h1>
+     </div>
+   </div>
+ </div>
+</section>
 
 <!--숙소 사진-->
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">
 
-    <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}">
+    <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}" var="packageDto" items="${list3} ">
     <div class="row justify-content-center">
     <div class="text-center mt-5">
-      <h3 style="font-weight: bold;">호텔리조트아무튼</h3>
+      <h3 style="font-weight: bold;">${stayDto.stayName}</h3>
     </div>
     </div>
     <div class="row justify-content-center">
@@ -77,7 +108,7 @@
       <h5 style="font-weight: thin;">1인 기준</h5>
       </div>
       <div class="text-center p-1 md-10">
-      <h3 style="font-weight: bold; color: #fd7e14;">500,000</h3>
+      <h3 style="font-weight: bold; color: #fd7e14;">${stayDto.stayPrice}</h3>
     </div>
   </div>
   </div>
@@ -93,11 +124,11 @@
       <div class="tour-detail-info">
         <div class="info-item">
           <p>출발일</p>
-          <p>날짜찍어줘</p>
+          <p>${packageDto.packageDepart}</p>
         </div>
         <div class="info-item">
           <p>지역</p>
-          <p>경상도</p>
+          <p>경상도</p> 
         </div>
         <div class="info-item">
           <p>기간</p>
@@ -112,12 +143,13 @@
       <button class="btn btn-success">예약신청</button>
     </div>
 
-              <!--페이지네이션 버튼 -->
-    <!-- <div class="row justify-content-center mt-5">
-      <button class="btn ">투어정보</button>
-      <button class="btn ">골프장</button>
-      <button class="btn">숙소</button>
-    </div> -->
+    <!--페이지네이션 버튼 -->
+    <div class="row justify-content-center mt-5 mb-5">
+      <button class="button-toggle" style="width: 200px;">투어정보</button>
+      <button class="button-toggle" style="width: 200px;">골프장</button>
+      <button class="button-toggle" style="width: 200px;">숙소</button>
+      <button class="button-toggle" style="width: 200px;">후기</button>
+    </div>
 
 
    <!--투어정보 페이지1 -->
