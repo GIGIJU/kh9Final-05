@@ -261,5 +261,8 @@ public class MemberController {
 		return "member/find_pw_send_mail";
 	}
 	
-	
+	@GetMapping("/changeInfo")
+	public String changeInfo() {
+		return "member/changeInfo";
+	}
 }
