@@ -57,10 +57,38 @@
 	}
 </style>
 
-<!-- 패키지 상세  -->
+<!--숙소 사진-->
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">
-    
+
+    <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}">
+    <div class="row justify-content-center">
+    <div class="text-center mt-5">
+      <h3 style="font-weight: bold;">호텔리조트아무튼</h3>
+    </div>
+    </div>
+    <div class="row justify-content-center">
+    <div class="col-md-8 ftco-animate">
+    <div class="project-wrap hotel">
+      <image class="img" src="images/hotel-resto-1.jpg">
+      </image>
+     </div>
+     <div class="text-center p-1 md-2">
+      <h5 style="font-weight: thin;">1인 기준</h5>
+      </div>
+      <div class="text-center p-1 md-10">
+      <h3 style="font-weight: bold; color: #fd7e14;">500,000</h3>
+    </div>
+  </div>
+  </div>
+
+</div>
+
+
+
+<!--숙소 상세-->
+  <div class="container">
+    <!--상세 내역 부분-->
     <div class="row justify-content-center">
       <div class="tour-detail-info">
         <div class="info-item">
@@ -79,19 +107,22 @@
     </div>
 
     <!--예약 버튼 -->
-    <div class="row justify-content-center">
-      <div class="btn btn-primary">날짜변경</div>
-      <div class="btn btn-primary">예약신청</div>
+    <div class="row justify-content-center mt-5 mb-5">
+      <button class="btn btn-success p-2" style="margin-right: 5px">날짜변경</button>
+      <button class="btn btn-success">예약신청</button>
     </div>
 
-    <!--페이지네이션 버튼 -->
-    <div class="row justify-content-center">
-    <div class="btn ">투어정보</div>
-    <div class="btn ">골프장</div>
-    <div class="btn">숙소</div>
-  </div>
+              <!--페이지네이션 버튼 -->
+    <!-- <div class="row justify-content-center mt-5">
+      <button class="btn ">투어정보</button>
+      <button class="btn ">골프장</button>
+      <button class="btn">숙소</button>
+    </div> -->
 
-  <!--투어정보 페이지1 -->
+
+   <!--투어정보 페이지1 -->
+
+    
    <div class="row justify-content-center tour-product-info">
       <div class="product-info-item ">
         <div class="product-info-title"><h2>투어 정보</h2></div>
@@ -135,13 +166,7 @@
 
 
   <!--숙소소개 페이지3 -->
-
-
-<form method="post">
-	<input type="hidden" name="no" value="${stayDto.stayNo}">
-	<!--<input type="number" name="quantity" value="1" min="1" required>-->
-	<input type="submit" value="결제하기" formaction="pay_purchase">
-</form>
+</c:forEach>
 
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
