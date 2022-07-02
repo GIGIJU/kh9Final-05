@@ -46,7 +46,7 @@ public class BookingController {
 	}
 	
 	@GetMapping("/detail")
-	public String detail(@RequestParam int fieldNo, Model model) {
+	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 		List<TeetimeDto> teetimeList = golfFieldDao.selectTeetimeList(fieldNo);
 		
@@ -97,15 +97,18 @@ public class BookingController {
 	}
 	
 	@PostMapping("/reservation")
-	public String reservation(@ModelAttribute BookingDto bookingDto, HttpSession session) {
+	public String reservation(@ModelAttribute BookingDto bookingDto,int fieldNo, HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
-		System.out.println(bookingDto.getBookingPrice());
 		MemberDto memberDto = memberDao.info(memberId);
 		String memberName = memberDto.getMemberName();
 		bookingDto.setMemberId(memberId);
 		bookingDto.setBookingName(memberName);
 		
 		bookingDao.reservation(bookingDto);
+		
+		int commission = bookingDto.getBookingPrice()/10;
+		golfFieldDao.addCommission(fieldNo,commission);
+		
 		return "redirect:reservation_success";
 	}
 	

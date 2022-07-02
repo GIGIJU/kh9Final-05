@@ -1,6 +1,8 @@
 package com.gf.golboogi.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,5 +101,18 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
 		return sqlSession.selectList("golfField.search", teeTimeD);
 	}
+
+	//예약 시 수수료 추가
+	@Override
+	public void addCommission(int fieldNo, int commission) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("commission", commission);
+		param.put("fieldNo", fieldNo);
+		
+		sqlSession.update("golfField.commissionUpdate",param);	
+	}
+	
+	
+	
 	
 }

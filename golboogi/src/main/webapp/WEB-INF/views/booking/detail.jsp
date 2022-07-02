@@ -55,7 +55,7 @@
 					<div style="border: black solid 1px">
 						<button class="btn">${teetimeVO.teeTimeT}</button>
 						<h6>
-							<a href="reservation/${teetimeVO.teeTimeNo}">${teetimeVO.courseName}</a>
+							<a href="reservation?teeTimeNo=${teetimeVO.teeTimeNo}&teeTimeD=${param.teeTimeD}">${teetimeVO.courseName}</a>
 						</h6>
 						<span class="days"><fmt:formatNumber
 								value="${teetimeVO.fieldGreenfee}" />원~</span>
@@ -80,8 +80,6 @@
             data(){
                 return {
                 	teeTimeD:"",
-                	feildList:[],
-                	url:"",
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -93,18 +91,7 @@
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
             	location(){
-            		axios({
-                        url:"http://localhost:8080/rest/booking/"+this.teeTimeD,
-                        methods:"get"
-                    })
-                    .then(resp=>{
-                        console.log(resp.data);
-                        this.feildList=resp.data;
-                    })
-            	},
-            	updateUrl(index){
-            		const teeTimeNo = this.feildList[index].teeTimeNo;
-            		this.url= "http://localhost:8080/booking/reservation/"+teeTimeNo+"/"+this.teeTimeD;
+            		window.location.href="http://localhost:8080/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+this.teeTimeD;
             	}
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
@@ -115,7 +102,7 @@
 
             }, 
             created(){
-            	this.location();
+        
             },
         });
         app.mount("#app");

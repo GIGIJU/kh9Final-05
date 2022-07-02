@@ -99,18 +99,18 @@
 				</div>
 			</div>
 			<!-- 검색어 추가하기 -->
-			<div class="row mt-4">
-				<div class="col-3 text-center">
-					<span>가격대</span>
+			<div class="row mt-4" style="font-size: 14px">
+				<div class="col-2 text-center">
+					<span style="font-weight: bold;">가격대</span>
 				</div>
 				<div class="col-2">
-					<input type="radio" id="10" name="fieldGreenfee" value="100000"><label for="10">~10만원</label>
+					<input type="radio" id="10" name="fieldGreenfee" value="100000"> <label for="10">~10만원</label>
 				</div>
 				<div class="col-2">
-					<input type="radio" id="20" name="fieldGreenfee" value="200000"><label for="20">~20만원</label>
+					<input type="radio" id="20" name="fieldGreenfee" value="200000"> <label for="20"> ~20만원</label>
 				</div>
 				<div class="col-2">
-					<input type="radio" id="30" name="fieldGreenfee" value="300000"><label for="30">~30만원</label>
+					<input type="radio" id="30" name="fieldGreenfee" value="300000"> <label for="30">~30만원</label>
 				</div>
 			</div>
 		</form>
@@ -123,7 +123,7 @@
 				<c:forEach var="golfFieldDto" items="${list}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}" class="img"
+							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-04" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">

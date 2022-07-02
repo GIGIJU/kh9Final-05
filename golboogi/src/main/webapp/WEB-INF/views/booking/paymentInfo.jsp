@@ -106,12 +106,32 @@ p {
 						<div class="row">
 							<span class="col-6" style="font-size: 14px">4인그린피</span> 
 							<span class="col-6" style="font-size: 14px">
-								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}"/></span>
+						<c:choose>
+							<c:when test="${teetimeVO.partTime == 1}">
+								<fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-20000)*4}"/>
+							</c:when>
+							<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+								<fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-10000)*4}"/>
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}"/>
+							</c:otherwise>
+						</c:choose>원</span>
 						</div>
 						<div class="row">
 							<span class="col-6" style="color: gray;">-1인그린피</span>
 							<span class="col-6" style="color: gray;">
+							<c:choose>
+							<c:when test="${teetimeVO.partTime == 1}">
+								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}"/>
+							</c:when>
+							<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-10000}"/>
+							</c:when>
+							<c:otherwise>
 								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee}"/>
+							</c:otherwise>
+						</c:choose>원
 							</span>
 						</div>
 						<li>
@@ -123,13 +143,35 @@ p {
 
 						<div class="row" style="color: black;">
 							<h6 class="col-6">합계</h6>
-							<h6 class="col-6"><fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}"/>원</h6>
+							<h6 class="col-6">
+						<c:choose>
+							<c:when test="${teetimeVO.partTime == 1}">
+								<fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-20000)*4}"/>
+							</c:when>
+							<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+								<fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-10000)*4}"/>
+							</c:when>
+							<c:otherwise>
+								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}"/>
+							</c:otherwise>
+						</c:choose>원</h6>
 						</div>
 						<form action="reservation" method="post">
+							<input type="hidden" name="fieldNo" value="${golfFieldDto.fieldNo}">
 							<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
 							<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
-							<input type="hidden" name="bookingPrice" value="${golfFieldDto.fieldGreenfee*4}">
-							<div class="row mt-4 ml-1">
+						<c:choose>
+							<c:when test="${teetimeVO.partTime == 1}">
+								<input type="hidden" name="bookingPrice" value="${(golfFieldDto.fieldGreenfee-20000)*4}">
+							</c:when>
+							<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+								<input type="hidden" name="bookingPrice" value="${(golfFieldDto.fieldGreenfee-10000)*4}">
+							</c:when>
+							<c:otherwise>
+								<input type="hidden" name="bookingPrice" value="${(golfFieldDto.fieldGreenfee)*4}">
+							</c:otherwise>
+						</c:choose>							
+						<div class="row mt-4 ml-1">
 								<button class="btn" style="width: 90%">예약하기</button>
 							</div>
 						</form>

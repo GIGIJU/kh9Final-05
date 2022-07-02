@@ -17,4 +17,5 @@ public interface GolfFieldDao {
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
 	List<BookingSearchListVO> teeTimeDayList(String teeTimeD);
+	void addCommission(int fieldNo, int commission);
 }
