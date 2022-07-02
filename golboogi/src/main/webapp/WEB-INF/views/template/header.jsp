@@ -25,7 +25,7 @@
 
   <link rel="stylesheet" href="${root}/css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="${root}/css/jquery.timepicker.css">
-
+<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"><!-- 데이터피커 -->
   
   <link rel="stylesheet" href="${root}/css/flaticon.css">
   <link rel="stylesheet" href="${root}/css/style.css">

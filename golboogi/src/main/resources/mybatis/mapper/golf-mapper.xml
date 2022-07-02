@@ -39,24 +39,8 @@
 		select * from golf_course where course_no=#{courseNo}
 	</select>
 	
-<!-- 	<select id="search" resultType="BookingSearchListVO" parameterType="BookingComplexSearchVO">
- 		<bind name="teeTimeDExist" value="teeTimeD != null and !teeTimeD.equals('')"/>
-		<bind name="partTimeExist" value="partTime != null and !partTime.equals('')"/>		 
-		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
-		(
-		select * from golf_course C inner join 
-		(
-		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
-		left outer join (select * from booking where tee_time_d= to_date(#{teeTimeD},'YYYY-MM-DD')) B 
-		on T.tee_time_no = B.tee_time_no where T.course_no=2 and B.booking_date is null order by tee_time_t
-		) B on B.course_no = C.course_no
-		) B on B.field_no = G.field_no where B.part_time=#{partTime}
-	</select> -->
-	
-	<select id="search" resultType="BookingSearchListVO" parameterType="BookingComplexSearchVO">
-		<bind name="partTimeExist" value="partTime != null and !partTime.equals('')"/>
-		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/>
-		<bind name="fieldGreefeeExist" value="fieldGreefee != null and !fieldGreefee.equals('')"/>
+	<select id="search" resultType="BookingSearchListVO" parameterType="Map">
+		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/> 
 		 
 		select 
 		G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, 
@@ -70,15 +54,15 @@
 		) B on B.course_no = C.course_no
 		) B on B.field_no = G.field_no 
  		<where>
-			<if test="partTimeExist">
-				and B.part_time = #{partTime}
+			<if test="partTime > 0">
+				and part_time = #{partTime}
 			</if>
 			<if test="fieldAreaExist">
-				and G.field_area = #{fieldArea}
+				and field_area = #{fieldArea}
 			</if>
-			<if test="fieldGreefeeExist">
+ 			<if test="fieldGreenfee > 0">
 			<![CDATA[
-				and G.field_greenfee <= #{fieldGreefee}
+				and field_greenfee <= #{fieldGreenfee}
 			]]>
 			</if>
 		</where> 

@@ -28,15 +28,15 @@
 	</section>
 	
 	<div class="col-4 offset-4">
-		<input type="date" name="date" v-model="date" v-on:input="location">
+		<input type="date" name="date" v-model="teeTimeD" v-on:input="location">
 	</div>
 	
 	<section class="ftco-section ftco-no-pb">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="search-wrap-1 ftco-animate">
-						<form action="search" class="search-property-1" method="get">
+		<form action="search" class="search-property-1" method="get">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="search-wrap-1 ftco-animate">
 							<div class="row no-gutters">
 								<div class="col-lg d-flex">
 									<div class="form-group p-4 border-0">
@@ -46,7 +46,7 @@
 												<i class="fa-solid fa-location-dot"></i>
 											</div>
 
-											<select class="form-control" name="fieldArea">
+											<select class="form-control" v-model="area" v-bind:name="checkFieldArea">
 												<option value="">지역선택</option>
 												<option value="경기">경기</option>
 												<option value="강원">강원</option>
@@ -61,11 +61,8 @@
 									<div class="form-group p-4">
 										<label for="#">언제 가세요?</label>
 										<div class="form-field">
-											<div class="icon">
-												<span class="fa fa-calendar"></span>
-											</div>
-											<input type="date" class="form-control" placeholder="날짜 선택"
-												v-model="bookingDate" name="teeTimeD">
+											<div class="icon"><span class="fa fa-calendar"></span></div>
+											<input type="date" class="form-control" placeholder="날짜 선택" v-model="bookingDate" name="teeTimeD">
 										</div>
 									</div>
 								</div>
@@ -77,8 +74,8 @@
 												<div class="icon">
 													<i class="fa-solid fa-golf-ball-tee"></i>
 												</div>
-												<select class="form-control" v-model="part" name="partTime">
-													<option value="">선택</option>
+												<select class="form-control" v-model="part" v-bind:name="checkPartTime">
+													<option value="" selected>선택</option>
 													<option value="1">오전</option>
 													<option value="2">오후</option>
 													<option value="3">저녁</option>
@@ -97,18 +94,26 @@
 									</div>
 								</div>
 							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
 			<!-- 검색어 추가하기 -->
 			<div class="row mt-4">
-					<div class="col-3 text-center"><span>가격대</span></div>
-					<div class="col-2"><input type="radio" id="10" name="filedGreenfee" value="100000"><label for="10">~10만원</label></div>
-					<div class="col-2"><input type="radio" id="20" name="filedGreenfee" value="200000"><label for="20">~20만원</label></div>
-					<div class="col-2"><input type="radio" id="30" name="filedGreenfee" value="300000"><label for="30">~30만원</label></div>
+				<div class="col-3 text-center">
+					<span>가격대</span>
 				</div>
-					
+				<div class="col-2">
+					<input type="radio" id="10" name="fieldGreenfee" value="100000"><label for="10">~10만원</label>
+				</div>
+				<div class="col-2">
+					<input type="radio" id="20" name="fieldGreenfee" value="200000"><label for="20">~20만원</label>
+				</div>
+				<div class="col-2">
+					<input type="radio" id="30" name="fieldGreenfee" value="300000"><label for="30">~30만원</label>
+				</div>
+			</div>
+		</form>
 	</section>
 
 
@@ -169,25 +174,29 @@
         const app = Vue.createApp({
             data(){
                 return {
+                	teeTimeD:"",
                 	bookingDate: "",
                 	area:"",
                 	part:"",
                 	
-                	date:"",
-                	price:"",
-                	not: 
+                	
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
             //- 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
             //- 반드시 return을 통해 값을 반환해야 한다
             computed:{
-
+				checkPartTime(){
+					if(!this.part=="") return "PartTime";
+				},
+				checkFieldArea(){
+					if(!this.area=="") return "fieldArea";
+				}
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
             	location(){
-            		
+            		window.location.href="http://localhost:8080/booking/search?teeTimeD="+this.teeTimeD;
             	}
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
