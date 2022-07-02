@@ -19,16 +19,16 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	@Autowired
 	private SqlSession sqlSession;
 
-	//골프장 리스트 출력
+	//골프장 전체 리스트 출력
 	@Override
 	public List<GolfFieldDto> selectList() {
-		return sqlSession.selectList("golfFeild.list");
+		return sqlSession.selectList("golfField.list");
 	}
 
 	//골프장 상세 출력
 	@Override
 	public GolfFieldDto selectOne(int fieldNo) {
-		return sqlSession.selectOne("golfFeild.one",fieldNo);
+		return sqlSession.selectOne("golfField.one",fieldNo);
 	}
 
 
@@ -76,9 +76,10 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		}
 	}
 
+	//검색
 	@Override
 	public List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO) {
-		List<BookingSearchListVO> list = sqlSession.selectList("golfFeild.search",searchVO);
+		List<BookingSearchListVO> list = sqlSession.selectList("golfField.search",searchVO);
 		if(list.isEmpty()) {
 			return null;			
 		}
@@ -87,15 +88,16 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		}
 	}
 
-	//날짜별 예약가능 골프장 목록
+	//날짜별 예약가능 골프장 목록 (계층형)
+//	@Override
+//	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
+//		return sqlSession.selectList("teetime.treeSearch", teeTimeD);
+//	}
+	
+	//날짜별 예약가능 골프장 목록 (계층형X)
 	@Override
 	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
-		return sqlSession.selectList("golfFeild.teeTimeDayList",teeTimeD);
+		return sqlSession.selectList("golfField.search", teeTimeD);
 	}
-	
-	
-
-	
-	
 	
 }

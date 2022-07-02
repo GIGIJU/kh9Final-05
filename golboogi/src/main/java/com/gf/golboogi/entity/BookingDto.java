@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class BookingDto {
 	private int bookingNo;
-	private String memeberId;
+	private String memberId;
 	private int teeTimeNo;
-	private Date teeTimeD;
+	private String teeTimeD;
 	private String bookingName;
 	private Date bookingDate;
 	private int bookingPeople;

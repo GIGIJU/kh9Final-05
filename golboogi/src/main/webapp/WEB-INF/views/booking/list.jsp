@@ -10,7 +10,7 @@
 
 <div id="app">
 	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('${root}/images/bg_1.jpg');">
+		style="background-image: url('${root}/images/golf-dummy.jpg');">
 		<div class="container">
 			<div
 				class="row no-gutters slider-text align-items-end justify-content-center"
@@ -46,11 +46,11 @@
 												<i class="fa-solid fa-location-dot"></i>
 											</div>
 
-											<select class="form-control" v-model="area">
+											<select class="form-control" name="fieldArea">
 												<option value="">지역선택</option>
-												<option value="경기도">경기도</option>
-												<option value="강원도">강원도</option>
-												<option value="전라도">전라도</option>
+												<option value="경기">경기</option>
+												<option value="강원">강원</option>
+												<option value="전라">전라도</option>
 												<option value="경상도">경상도</option>
 												<option value="제주도">제주도</option>
 											</select>
@@ -104,9 +104,9 @@
 			<!-- 검색어 추가하기 -->
 			<div class="row mt-4">
 					<div class="col-3 text-center"><span>가격대</span></div>
-					<div class="col-2"><input type="radio" id="10" name="price" v-model="price" value="100000"><label for="10">~10만원</label></div>
-					<div class="col-2"><input type="radio" id="20" name="price" v-model="price" value="200000"><label for="20">~20만원</label></div>
-					<div class="col-2"><input type="radio" id="30" name="price" v-model="price" value="300000"><label for="30">~30만원</label></div>
+					<div class="col-2"><input type="radio" id="10" name="filedGreenfee" value="100000"><label for="10">~10만원</label></div>
+					<div class="col-2"><input type="radio" id="20" name="filedGreenfee" value="200000"><label for="20">~20만원</label></div>
+					<div class="col-2"><input type="radio" id="30" name="filedGreenfee" value="300000"><label for="30">~30만원</label></div>
 				</div>
 					
 	</section>
@@ -122,13 +122,11 @@
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
-								<span class="days"><fmt:formatNumber
-										value="${golfFieldDto.fieldGreenfee}" />원~</span>
-								<h3>
-									<a href="#">${golfFieldDto.fieldName}</a>
-								</h3>
+								<span class="days">
+								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
 								<p class="location">
-									<span class="fa fa-map-marker"></span>지역
+									<span class="fa fa-map-marker">${golfFieldDto.fieldArea}</span>
 								</p>
 							</div>
 						</div>

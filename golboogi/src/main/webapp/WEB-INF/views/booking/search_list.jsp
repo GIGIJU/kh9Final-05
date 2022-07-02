@@ -15,9 +15,8 @@
 				style="height: 300px;">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/">Home <i
-								class="fa fa-chevron-right"></i></a></span> <span>Hotel <i
-							class="fa fa-chevron-right"></i></span>
+						<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+						<span>Hotel <i class="fa fa-chevron-right"></i></span>
 					</p>
 					<h1 class="mb-0 bread">booking</h1>
 				</div>
@@ -25,28 +24,41 @@
 		</div>
 	</section>
 	<div class="col-4 offset-4">
-		<input type="date" name="date" v-model="teeTimeD" v-on:input="location">
+		<input type="date" name="date" v-model="teeTimeD" v-on:input="location" >
 	</div>
 	<section class="ftco-section ftco-no-pt ftco-no-pb">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 offset-md-3">
 					<div class="pt-5 mt-5">
-						<h3 class="mb-5 text-center" style="font-size: 20px; font-weight: bold;">{{teeTimeD}}</h3>
+						<h3 class="mb-5 text-center" style="font-size: 20px; font-weight: bold;">${param.teeTimeD}</h3>
 						<hr>
 						<ul class="comment-list">
-								<li class="comment" v-for="(feild,index) in feildList" v-bind:key="index">
-									<div class="vcard bio">
-										<img src="${root}/images/golf-dummy.jpg" alt="Image placeholder" height="50px">
-									</div>
-									<div class="comment-body">
-										<h3>{{feild.fieldName}}</h3>
-										<div class="meta" style="font-size: 9px">{{feild.courseName}}</div>
-										<p>
-											<a href="#" class="reply">{{feild.teeTimeT}}</a>
-										</p>
-									</div>
-								</li>
+							<c:forEach var="teetimeVO" items="${list}">
+									<li class="comment">
+										<div class="vcard bio">
+											<img src="${root}/images/golf-dummy.jpg" alt="Image placeholder" height="50px">
+										</div>
+										<div class="comment-body">
+											<h3>${teetimeVO.fieldName}</h3>
+											<div class="meta" style="font-size: 9px">
+											<c:choose>
+												<c:when test="${teetimeVO.partTime == 1}">
+													<fmt:formatNumber value="${teetimeVO.fieldGreenfee-20000}"/>
+												</c:when>
+												<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+													<fmt:formatNumber value="${teetimeVO.fieldGreenfee-10000}"/>
+												</c:when>
+												<c:otherwise>
+													<fmt:formatNumber value="${teetimeVO.fieldGreenfee}"/>
+												</c:otherwise>
+											</c:choose></div>
+											<p>
+												<a class="reply" href="">${teetimeVO.teeTimeT}</a>
+											</p>
+										</div>
+									</li>
+							</c:forEach>
 						</ul>
 					</div>
 				</div>
@@ -68,45 +80,30 @@
             data(){
                 return {
                 	teeTimeD:"",
-                	feildList:[],
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
             //- 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
             //- 반드시 return을 통해 값을 반환해야 한다
             computed:{
-
+				
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
             	location(){
-            		axios({
-                        url:"http://localhost:8080/rest/booking/"+this.teeTimeD,
-                        methods:"get"
-                    })
-                    .then(resp=>{
-                        console.log(resp.data);
-                        this.feildList=resp.data;
-                    })
-            	},
-/*             	setNowTimes () {        
-            	    let myDate = new Date()  
-            	    let wk = myDate.getDay()  
-            	    let yy = String(myDate.getFullYear())  
-            	    let mm = myDate.getMonth() + 1  
-            	    let dd = String(myDate.getDate() < 10 ? '0' + myDate.getDate() : myDate.getDate())  
-            	    this.teeTimeD = yy + '-' + mm + '-' + dd  
-            	}, */
+            		window.location.href="http://localhost:8080/booking/search?teeTimeD="+this.teeTimeD;
+            	}
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{
 
             },
             mounted(){
-/*             	this.teeTimeD = setInterval(() => {    
-            	    this.setNowTimes()  
-            	},1000) */
-            }
+
+            }, 
+            created(){
+       
+            },
         });
         app.mount("#app");
     </script>

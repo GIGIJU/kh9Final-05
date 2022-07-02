@@ -2,22 +2,25 @@ package com.gf.golboogi.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.gf.golboogi.entity.BookingDto;
-import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
+import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.repository.BookingDao;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.Teetime1VO;
@@ -30,7 +33,8 @@ public class BookingController {
 	private GolfFieldDao golfFieldDao;
 	@Autowired
 	private BookingDao bookingDao;
-	
+	@Autowired
+	private MemberDao memberDao;
 	
 	
 	@GetMapping("/list")
@@ -52,7 +56,7 @@ public class BookingController {
 		return "booking/detail";
 	}
 	
-	@GetMapping("test")
+	@GetMapping("/test")
 	public String test() {
 		return "booking/test";
 	}
@@ -60,10 +64,11 @@ public class BookingController {
 	
 	@GetMapping("/reservation")
 	public String reservation(
-			@RequestParam int teeTimeNo, Model model) {
+			@RequestParam int teeTimeNo,@RequestParam String teeTimeD, Model model) {
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
 		
+		model.addAttribute("teeTimeD",teeTimeD);
 		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeVO",teetimeVO);
 		return "booking/reservation";
@@ -72,12 +77,12 @@ public class BookingController {
 	@GetMapping("/teetime")
 	public String teetime(@RequestParam int courseNo){
 		golfFieldDao.teetimeInsert(courseNo);
-		return "/";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/search")
-	public String search() {		
-		
+	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
+		model.addAttribute("list",golfFieldDao.searchList(searchVO));
 		return "booking/search_list";
 	}
 	
@@ -92,9 +97,23 @@ public class BookingController {
 	}
 	
 	@PostMapping("/reservation")
-	public String reservation(@ModelAttribute BookingDto bookingDto) {
+	public String reservation(@ModelAttribute BookingDto bookingDto, HttpSession session) {
+		String memberId = (String) session.getAttribute("login");
+		System.out.println(bookingDto.getBookingPrice());
+		MemberDto memberDto = memberDao.info(memberId);
+		String memberName = memberDto.getMemberName();
+		bookingDto.setMemberId(memberId);
+		bookingDto.setBookingName(memberName);
+		
 		bookingDao.reservation(bookingDto);
+		return "redirect:reservation_success";
+	}
+	
+	@GetMapping("/reservation_success")
+	public String reservationSuccess() {
 		return "booking/reservation_success";
 	}
+	
+	
 	
 }

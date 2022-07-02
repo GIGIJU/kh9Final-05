@@ -23,4 +23,5 @@ public class GolfFieldDto {
 	private int fieldPeople;
 	private int fieldPrepay;
 	private int fieldNumber;
+	private String fieldArea;
 }

@@ -9,4 +9,6 @@ import lombok.NoArgsConstructor;
 public class BookingComplexSearchVO {
 	private String teeTimeD;
 	private int partTime;
+	private String fieldArea;
+	private int fieldGreefee;
 }

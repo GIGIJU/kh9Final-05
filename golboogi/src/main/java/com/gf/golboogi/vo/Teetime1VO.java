@@ -15,4 +15,5 @@ public class Teetime1VO {
 	private String courseName;
 	private int fieldGreenfee;
 	private String teeTimeT;
+	private int partTime;
 }

@@ -48,7 +48,7 @@ p {
 							<div class="row mt-5">
 								<div class="col-4">
 									<p>일자</p>
-									<span>2022-07-28</span>
+									<span>${param.teeTimeD}</span>
 								</div>
 								<div class="col">
 									<p>시간</p>
@@ -126,9 +126,9 @@ p {
 							<h6 class="col-6"><fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}"/>원</h6>
 						</div>
 						<form action="reservation" method="post">
-							<input type="hidden" name="tTimeNo" value="${teetimeVO.teeTimeNo}">
-							<input type="hidden" name="tTimeD" value="${param.tTimeD}">
-							<input type="hidden" name="${golfFeildDto.price}">
+							<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
+							<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
+							<input type="hidden" name="bookingPrice" value="${golfFieldDto.fieldGreenfee*4}">
 							<div class="row mt-4 ml-1">
 								<button class="btn" style="width: 90%">예약하기</button>
 							</div>

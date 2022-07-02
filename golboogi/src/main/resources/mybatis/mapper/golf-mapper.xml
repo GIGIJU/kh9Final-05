@@ -24,7 +24,7 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="golfFeild">
+<mapper namespace="golfField">
 
 	<select id="list" resultType="GolfFieldDto">
 		select * from golf_field
@@ -53,16 +53,36 @@
 		) B on B.field_no = G.field_no where B.part_time=#{partTime}
 	</select> -->
 	
-		<select id="teeTimeDayList" resultType="BookingSearchListVO" parameterType="String">	 
-		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
+	<select id="search" resultType="BookingSearchListVO" parameterType="BookingComplexSearchVO">
+		<bind name="partTimeExist" value="partTime != null and !partTime.equals('')"/>
+		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/>
+		<bind name="fieldGreefeeExist" value="fieldGreefee != null and !fieldGreefee.equals('')"/>
+		 
+		select 
+		G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, 
+		B.tee_time_no,G.field_area from golf_field G left outer join
 		(
 		select * from golf_course C inner join 
 		(
 		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
-		left outer join (select * from booking where tee_time_d= to_date(#{teeTimeD},'YYYY-MM-DD')) B 
-		on T.tee_time_no = B.tee_time_no where T.course_no=2 and B.booking_date is null order by tee_time_t
+		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
+		on T.tee_time_no = B.tee_time_no where B.booking_date is null
 		) B on B.course_no = C.course_no
-		) B on B.field_no = G.field_no
+		) B on B.field_no = G.field_no 
+ 		<where>
+			<if test="partTimeExist">
+				and B.part_time = #{partTime}
+			</if>
+			<if test="fieldAreaExist">
+				and G.field_area = #{fieldArea}
+			</if>
+			<if test="fieldGreefeeExist">
+			<![CDATA[
+				and G.field_greenfee <= #{fieldGreefee}
+			]]>
+			</if>
+		</where> 
+ 		order by field_no, tee_time_t 
 	</select>
 </mapper> 
 
