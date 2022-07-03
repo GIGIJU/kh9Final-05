@@ -40,11 +40,12 @@
 
 	<resultMap type="GolfFieldBookingVO" id="feildMap">
 		<!-- 객체에 대한 매핑 설정 : association -자료형은 변수에 맞게 자동 변환되며 불가능할 경우 -->
-		<association property="GolfFieldDto" javaType="GolfFieldDto">
+		<association property="golfFieldDto" javaType="GolfFieldDto">
 			<result column="field_no" property="fieldNo" />
 			<result column="field_name" property="fieldName" />
 			<result column="field_post" property="fieldPost" />
 			<result column="field_basic_adress" property="fieldBasicAdress" />
+			<result column="field_detail_adress" property="fieldDetailAdress" />
 			<result column="field_info" property="fieldInfo" />
 			<result column="field_Phone" property="fieldPhone" />
 			<result column="field_caddiefee" property="fieldCaddiefee" />
@@ -53,7 +54,7 @@
 			<result column="field_openday" property="fieldOpenday" />
 			<result column="field_people" property="fieldPeople" />
 			<result column="field_prepay" property="fieldPrepay" />
-			<result column="field_number" property="fieldNumber" />
+			<result column="field_commission" property="fieldCommission" />
 			<result column="field_area" property="fieldArea" />
 		</association>
 		<!-- 컬렉션(List<paymentDetailDto>)에 대한 매핑 설정 : collection -컬렉션 자료형을 두 가지로 
@@ -73,7 +74,7 @@
 	<select id="treeSearch" resultMap="feildMap">
 		select * from golf_field
 	</select>
-	<select id="treeSearchSubquery" resultType="BookingSearchListVO" parameterType="String">
+	<select id="treeSearchSubquery" resultType="BookingSearchListVO" parameterType="int">
 		select G.field_no, G.field_name, G.field_greenfee, B.course_name,
 		B.tee_time_t, B.part_time, B.tee_time_no,B.part_time from golf_field G
 		left outer join
@@ -82,10 +83,10 @@
 		(
 		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date
 		from tee_time T
-		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B
+		left outer join (select * from booking where tee_time_d= '2022-07-04') B
 		on T.tee_time_no = B.tee_time_no where B.booking_date is null
 		) B on B.course_no = C.course_no
-		) B on B.field_no = G.field_no
+		) B on B.field_no = G.field_no where tee_time_t is not null and G.field_no =#{fieldNo}
 		order by field_no, tee_time_t
 	</select>
 </mapper> 

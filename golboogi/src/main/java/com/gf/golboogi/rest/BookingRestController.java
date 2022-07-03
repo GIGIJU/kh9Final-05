@@ -25,10 +25,10 @@ public class BookingRestController {
 	private GolfFieldDao golfFieldDao;
 	
 	
-	@GetMapping("/{teeTimeD}")
-	public List<BookingSearchListVO> list(@PathVariable String teeTimeD){
-		return golfFieldDao.teeTimeDayList(teeTimeD);
-	}
+//	@GetMapping("/{teeTimeD}")
+//	public List<BookingSearchListVO> list(@PathVariable String teeTimeD){
+//		return golfFieldDao.teeTimeDayList(teeTimeD);
+//	}
 	
 	
 }

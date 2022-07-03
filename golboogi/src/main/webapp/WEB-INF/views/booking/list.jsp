@@ -32,7 +32,7 @@
 	</div>
 	
 	<section class="ftco-section ftco-no-pb">
-		<form action="search" class="search-property-1" method="get">
+		<form action="search" class="search-property-1" method="get" v-on:submit="sendSarch">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -97,21 +97,21 @@
 						</div>
 					</div>
 				</div>
-			</div>
 			<!-- 검색어 추가하기 -->
-			<div class="row mt-4" style="font-size: 14px">
-				<div class="col-2 text-center">
+			<div class="row mt-4 text-center" style="font-size: 14px">
+				<div class="col-md-1">
 					<span style="font-weight: bold;">가격대</span>
 				</div>
-				<div class="col-2">
+				<div class="col-md-2">
 					<input type="radio" id="10" name="fieldGreenfee" value="100000"> <label for="10">~10만원</label>
 				</div>
-				<div class="col-2">
+				<div class="col-md-2">
 					<input type="radio" id="20" name="fieldGreenfee" value="200000"> <label for="20"> ~20만원</label>
 				</div>
-				<div class="col-2">
+				<div class="col-md-2">
 					<input type="radio" id="30" name="fieldGreenfee" value="300000"> <label for="30">~30만원</label>
 				</div>
+			</div>
 			</div>
 		</form>
 	</section>
@@ -197,7 +197,13 @@
             methods:{
             	location(){
             		window.location.href="http://localhost:8080/booking/search?teeTimeD="+this.teeTimeD;
-            	}
+            	},
+            	sendSarch(e){
+            		if(this.bookingDate==""){
+            			alert("날짜를 선택해주세요")
+            			e.preventDefault();
+            		}
+            	},
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{

@@ -12,6 +12,7 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
+import com.gf.golboogi.vo.GolfFieldBookingVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
 @Repository
@@ -92,15 +93,15 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 
 	//날짜별 예약가능 골프장 목록 (계층형)
 //	@Override
-//	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
-//		return sqlSession.selectList("teetime.treeSearch", teeTimeD);
-//	}
+	public List<GolfFieldBookingVO> teeTimeDayList() {
+		return sqlSession.selectList("teetime.treeSearch");
+	}
 	
 	//날짜별 예약가능 골프장 목록 (계층형X)
-	@Override
-	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
-		return sqlSession.selectList("golfField.search", teeTimeD);
-	}
+//	@Override
+//	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
+//		return sqlSession.selectList("golfField.search", teeTimeD);
+//	}
 
 	//예약 시 수수료 추가
 	@Override

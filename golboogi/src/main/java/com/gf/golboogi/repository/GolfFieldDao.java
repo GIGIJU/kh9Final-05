@@ -7,6 +7,7 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
+import com.gf.golboogi.vo.GolfFieldBookingVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
 public interface GolfFieldDao {
@@ -16,6 +17,6 @@ public interface GolfFieldDao {
 	List<TeetimeDto> selectTeetimeList(int fieldNo);
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
-	List<BookingSearchListVO> teeTimeDayList(String teeTimeD);
+	List<GolfFieldBookingVO> teeTimeDayList();
 	void addCommission(int fieldNo, int commission);
 }

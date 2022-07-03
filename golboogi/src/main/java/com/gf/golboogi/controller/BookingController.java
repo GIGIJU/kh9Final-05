@@ -57,8 +57,9 @@ public class BookingController {
 	}
 	
 	@GetMapping("/test")
-	public String test() {
-		return "booking/test";
+	public String test(Model model) {
+		model.addAttribute("list",golfFieldDao.teeTimeDayList());
+		return "booking/search_list2";
 	}
 	
 	
