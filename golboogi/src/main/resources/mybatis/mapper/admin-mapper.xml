@@ -53,6 +53,13 @@
 		select * from member where member_id = #{memberId}
 	</select>
 	
+	<update id="blacklist" parameterType="MemberDto">
+		update member
+		set member_grade = #{memberGrade}
+		where member_id = #{memberId}
+	</update>
+	
+	
 </mapper> 
 
 

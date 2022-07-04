@@ -64,22 +64,28 @@
 					<td>${memberDto.memberLogindate}</td>
 				</tr>
 				<tr>
-					<th>블랙리스트</th>
-					<td>${memberDto.memberGrade}</td>
+					<th>블랙리스트 여부</th>
+					<c:if test="${memberDto.memberGrade == 0}">
+						<td>N</td>
+					</c:if>
+					<c:if test="${memberDto.memberGrade == 1 }">
+						<td style="color:red;">Y</td>
+					</c:if>
 				</tr>
 			</table>
 		</div>
 	 </div>
 	 <div class="row ml-2">
-	 	<div class="col-2 col-md-3">
+	 	<div class="col-3 col-md-3">
 			<a href="${root}/admin/member_list" class="btn btn-secondary">돌아가기</a>
 		</div>
-	 	<div class="col-2 col-md-3">
-			<a href="${root}/admin/member_blacklist" class="btn btn-danger">블랙리스트 만들기</a>
-		</div>
+<!-- 		<div class="col-3 col-md-3"> -->
+<%-- 			<a href="${root}/admin/member_blacklist?memberId=${memberDto.memberId}" class="btn btn-danger">블랙리스트 지정</a> --%>
+<!-- 		</div> -->
 	 </div>
 	 <br><br><br>
 	    
 </div>
+
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

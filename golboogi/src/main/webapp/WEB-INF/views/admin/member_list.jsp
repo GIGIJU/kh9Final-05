@@ -37,7 +37,14 @@
                         <td>${memberList.memberId}</td>
                         <td>${memberList.memberName}</td>
                         <td>${memberList.memberPhone}</td>
-                        <td>${memberList.memberGrade}</td>
+                        <td>
+                        		<c:if test="${memberList.memberGrade == 0}">
+                        			<a href="${root}/admin/member_blacklist?memberId=${memberList.memberId}" class="btn btn-secondary" >N</a>
+                        		</c:if>
+                        		<c:if test="${memberList.memberGrade == 1}">
+                        			<a href="${root}/admin/member_blacklist?memberId=${memberList.memberId}" class="btn btn-danger">Y</a>
+                        		</c:if>
+                        </td>
                         <td>
 							<a href="${root}/admin/member_detail?memberId=${memberList.memberId}" class="btn btn-primary">이동</a>
 						</td>

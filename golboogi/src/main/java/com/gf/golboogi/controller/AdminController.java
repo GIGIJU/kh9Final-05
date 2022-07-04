@@ -71,5 +71,48 @@ public class AdminController {
 		model.addAttribute("memberDto", memberDto);
 		return "admin/member_detail";
 	}
+	
+//	@PostMapping("/member_detail")
+//	public String memberDetail(@ModelAttribute MemberDto memberDto) {
+//		boolean success = adminDao.selectBlack(memberDto);
+//		if(success) {
+//			return "redirect:list";
+//		}
+//		else {
+//			return "redirect:member_detail?error";
+//		}
+//	}
+	
+	
+	@GetMapping("/member_blacklist")
+	public String memberBlacklist(@RequestParam String memberId, Model model) {
+		MemberDto memberDto = adminDao.memberDetail(memberId);
+		model.addAttribute("memberDto", memberDto);
+		return "admin/member_blacklist";
+	}
+	
+	@PostMapping("/member_blacklist")
+	public String memberBlacklist(@ModelAttribute MemberDto memberDto) {
+		String memberId = memberDto.getMemberId();
+		boolean success = adminDao.blacklist(memberDto);
+		if(success) {
+			return "redirect:member_blacklist?memberId="+memberId;
+		} else {
+			return "redirect:member_blacklist?error";
+		}
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
