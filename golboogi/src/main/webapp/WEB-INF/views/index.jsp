@@ -14,13 +14,10 @@
 					<h1 class="mb-4">골프의 모든 것<br>오직 골북이에서</h1>  
 					<p class="caps">골프는 자연과 건강이 함께하는 스포츠입니다. 관리하며, 알고 치는 골프는 더 즐겁습니다</p>
 				</div>
-				<a href="https://vimeo.com/45830194" class="icon-video popup-vimeo d-flex align-items-center justify-content-center mb-4">
-					<span class="fa fa-play"></span>
-				</a>
 			</div>
 		</div>
 	</div>
-		<section class="ftco-section img ftco-select-destination" style="background-image: url(images/bg_3.jpg);">
+		<section class="ftco-section img ftco-select-destination" style="background-image: url(images/);">
 			<div class="container">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
