@@ -47,7 +47,7 @@
 				$(this).val(encData);
 			});
 		});
-	});
+	}); 
 	</script>
 </head>
 <body>
@@ -64,7 +64,7 @@
          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
          <li class="nav-item active"><a href="hotel.html" class="nav-link">투어</a></li>
          <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
-         <li class="nav-item"><a href="contact.html" class="nav-link">골프장</a></li>
+         <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
          <c:choose>
          	<c:when test="${isLogin}">
 	         	 <li class="nav-item"><a href="${root}/member/mypage" class="nav-link">마이페이지</a></li>
