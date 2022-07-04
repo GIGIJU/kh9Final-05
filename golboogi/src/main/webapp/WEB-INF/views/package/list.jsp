@@ -1,9 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+ <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <style>
 	/*Yujin custom style*/
 	        .tour-product-info {
@@ -77,9 +75,9 @@
 
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/bg_1.jpg');">
   <div class="container">
-    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 350px;">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
        <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
        <h1 class="mb-0 bread">package</h1>
@@ -100,7 +98,6 @@
         <div class="form-group p-4 border-0">
          <label for="#">지역</label>
          <div class="form-field">
-<!--            <div class="icon"><span class="fa fa-search"></span></div> -->
             <div class="icon"><span class="fa fa-chevron-down"></span></div>
                  <select name="" id="" class="form-control">
                     <option value="">전체</option>
@@ -165,27 +162,29 @@
 <!-- 숙소 리스트 -->
 <section class="ftco-section">
  <div class="container">
- 
- <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}">
   <div class="row">
+<%--  <c:forEach var="stayDto" items="${list}"  var="golfFieldDto" items="${list2}"> --%>
+<c:forEach var = "stayDto" items="${list}">
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
-     <a href="detail?stayNo=${stayDto.stayNo}" class="img" style="background-image: url(images/hotel-resto-1.jpg);">
+     <a href="detail?stayNo=${stayDto.stayNo}" class="img" style="background-image: url(${root}/images/hotel-resto-1.jpg);">
       <span class="price">알뜰</span>
     </a>
     <div class="text p-4">
-      <span class="days"><fmt:formatNumber value=“${stayDto.stayPrice} ” type=“currency”/>~</span>
-      <h3><a href="detail?stayNo=${stayDto.stayNo}">${stayDto.stayName}</a></h3>
-      <p class="location"><span class="fa fa-map-marker"></span>지역</p>
+	<span class="days"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${stayDto.stayPrice}" />~</span>
+      <h3><a href="detail?stayNo=${stayDto.stayNo}"><c:out value="${stayDto.stayName}" /></a></h3>
+      <p class="location"><span class="fa fa-map-marker"></span><c:out value="${stayDto.stayLocal}" /></p>
       <ul>
-       <li><span class="flaticon-mountains"></span>${golfFieldDto.fieldName}</li>
-       <li><span class="flaticon-king-size"></span>${stayDto.stayType}</li>
+       <li><span class="flaticon-mountains"></span><c:out value="${golfFieldDto.fieldName}"/></li>
+       <li><span class="flaticon-king-size"></span><c:out value="${stayDto.stayType}" /></li>
      </ul>
    </div>
  </div>
 </div>
+</c:forEach> 
 </div>
-</c:forEach>
+
+
 
 <!-- 페이지네이션 -->
 <div class="row mt-5">

@@ -14,5 +14,8 @@ public interface StayDao {
 	StayDto find(String stayName); //숙소명 검색 
 	StayDto one(int stayNo); //숙소번호 검색
 	
+	
+	
+	
 
 }

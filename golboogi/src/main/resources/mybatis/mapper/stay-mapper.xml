@@ -1,91 +1,87 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
-	mapper 파일은 특정 테이블에 대한 SQL 구문을 보관하는 파일이다
-	- myBatis를 이용하는 개발자는 이곳에 저장된 SQL 구문을 "아이디"를 이용해서 호출한다
-	- 파일마다 동일한 아이디로 인해 발생하는 충돌을 방지하기 위해 고유한 namespace를 사용한다 
-	- 만약 namespace가 olympic이고 구문 ID가 list라면 외부에서는 olympic.list로 호출한다
-	- 일반적으로 namespace는 테이블명으로 한다!
-	- mapper 내부에는 다음 종류 태그로 구문을 저장할 수 있다.
-		- <insert>
-		- <select>
-		- <update>
-		- <delete>
-	- 각 구문은 반드시 아이디를 가져야 한다.
-	- 각 구문에는 다음과 같은 속성을 작성할 수 있다
-		- parameterType : 해당 구문이 실행되기 위해 필요한 데이터의 자료형(1개만 작성 가능, 선택)
-		- resultType : 해당 구문의 실행 결과를 변환하기 위한 자료형(1개만 작성 가능, 필수)
-			- (주의) List이든 아니든 DTO의 형태를 작성한다(모르는 부분을 알려준다)
-	- 각 구문에는 데이터를 다음과 같이 바인딩할 수 있다
-		- 정적 바인딩 : ${이름} 형태로 작성하면 어떠한 추가 작업도 없이 해당 위치에 데이터가 그대로 작성된다
-		- 동적 바인딩 : #{이름} 형태로 작성하면 자동으로 자료형에 맞게 해당 데이터를 추출하여 작성해준다(DTO 변수명)
- -->
+<!-- mapper 파일은 특정 테이블에 대한 SQL 구문을 보관하는 파일이다 - myBatis를 이용하는 개발자는 이곳에 저장된 
+	SQL 구문을 "아이디"를 이용해서 호출한다 - 파일마다 동일한 아이디로 인해 발생하는 충돌을 방지하기 위해 고유한 namespace를 
+	사용한다 - 만약 namespace가 olympic이고 구문 ID가 list라면 외부에서는 olympic.list로 호출한다 - 일반적으로 
+	namespace는 테이블명으로 한다! - mapper 내부에는 다음 종류 태그로 구문을 저장할 수 있다. - <insert> - 
+	<select> - <update> - <delete> - 각 구문은 반드시 아이디를 가져야 한다. - 각 구문에는 다음과 같은 속성을 
+	작성할 수 있다 - parameterType : 해당 구문이 실행되기 위해 필요한 데이터의 자료형(1개만 작성 가능, 선택) - resultType 
+	: 해당 구문의 실행 결과를 변환하기 위한 자료형(1개만 작성 가능, 필수) - (주의) List이든 아니든 DTO의 형태를 작성한다(모르는 
+	부분을 알려준다) - 각 구문에는 데이터를 다음과 같이 바인딩할 수 있다 - 정적 바인딩 : ${이름} 형태로 작성하면 어떠한 추가 
+	작업도 없이 해당 위치에 데이터가 그대로 작성된다 - 동적 바인딩 : #{이름} 형태로 작성하면 자동으로 자료형에 맞게 해당 데이터를 
+	추출하여 작성해준다(DTO 변수명) -->
 
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="stay">
-	
 	<!-- 숙소목록 -->
 	<select id="list" resultType="StayDto">
-		select * from stay 
+		select *
+		from stay
 	</select>
-	
+
 	<!-- 숙소명 검색 -->
 	<select id="find" resultType="StayDto" parameterType="String">
-		select * from stay where stay_name= #{stayName}
+		select *
+		from stay where stay_name= #{stayName}
 	</select>
-	
+
 	<!-- 숙소번호 검색 -->
 	<select id="one" resultType="StayDto" parameterType="int">
-		select * from stay where stay_no= #{stayNo}
+		select *
+		from stay where stay_no= #{stayNo}
 	</select>
-	
+
 	<!-- 숙소삭제 -->
 	<delete id="delete" parameterType="int">
-		delete stay where stay_no= #{stayNo}
-	</delete >
-	
-		<!-- 숙소등록 -->
+		delete stay where stay_no=
+		#{stayNo}
+	</delete>
+
+	<!-- 숙소등록 -->
 	<insert id="insert" parameterType="StayDto">
 		insert into stay(
-			stay_no, stay_name, stay_type, stay_phone, stay_room, 
-			stay_price, stay_post_address, stay_basic_address, stay_detail_address, stay_status
+		stay_no, stay_name, stay_type, stay_phone, stay_room,
+		stay_price, stay_post_address, stay_basic_address, stay_detail_address,
+		stay_status
 		)
 		values(
-			#{stayNo}, #{stayName},#{stayType}, #{stayPhone}, #{stayRoom}, #{stayPrice},
-			#{stayPostAddress}, #{stayBasicAddress}, #{stayDetailAddress}, #{stayStatus}	
+		#{stayNo}, #{stayName},#{stayType}, #{stayPhone}, #{stayRoom}, #{stayPrice},
+		#{stayPostAddress}, #{stayBasicAddress}, #{stayDetailAddress},
+		#{stayStatus}
 		)
 	</insert>
-	
+
 	<!-- 시퀀스 번호 확인 -->
 	<select id="sequence" resultType="int">
-		select stay_seq.nextval from dual
+		select stay_seq.nextval from
+		dual
 	</select>
-	
-			<!-- 숙소 정보 수정 -->
-		<update id="infoEdit" parameterType="StayDto">
+
+	<!-- 숙소 정보 수정 -->
+	<update id="infoEdit" parameterType="StayDto">
 		update stay
-			set 
-				stay_name = #{stayName},
-				stay_type = #{stayType},
-				stay_phone = #{stayPhone},
-				stay_post_address = #{stayPostAddress},
-				stay_basic_address= #{stayBasicAddress},
-				stay_detail_address = #{stayDetailAddress}
-			where
-				stay_no = #{stayNo}
+		set
+		stay_name = #{stayName},
+		stay_type = #{stayType},
+		stay_phone = #{stayPhone},
+		stay_post_address = #{stayPostAddress},
+		stay_basic_address= #{stayBasicAddress},
+		stay_detail_address = #{stayDetailAddress}
+		where
+		stay_no = #{stayNo}
 	</update>
-	
+
 	<!-- 숙소 가격 수정 -->
-<!-- 		<update id="priceEdit" parameterType="StayDto"> -->
-<!-- 		update stay -->
-<!-- 			set  -->
-<!-- 				stay_price = #{stayPrice}, -->
-<!-- 			where -->
-<!-- 				stay_no = #{stayNo} -->
-<!-- 	</update> -->
-	
+	<!-- <update id="priceEdit" parameterType="StayDto"> -->
+	<!-- update stay -->
+	<!-- set -->
+	<!-- stay_price = #{stayPrice}, -->
+	<!-- where -->
+	<!-- stay_no = #{stayNo} -->
+	<!-- </update> -->
+
 </mapper> 
 
 

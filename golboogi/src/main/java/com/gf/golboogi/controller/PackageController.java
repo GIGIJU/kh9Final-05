@@ -29,7 +29,7 @@ public class PackageController {
 	private GolfFieldDao golfFieldDao;
 
 	//패키지 목록
-	@GetMapping("/list ")
+	@GetMapping("/list")
 	public String list(Model model) {
 	    List<StayDto> list = stayDao.list();
 	    List<GolfFieldDto> list2 = golfFieldDao.selectList();
@@ -39,8 +39,8 @@ public class PackageController {
 	}
 	
 	@GetMapping("/detail")
-	public String insert(@RequestParam int boardNo, Model model, HttpSession session) {
-		StayDto stayDto = stayDao.one(boardNo);
+	public String insert(@RequestParam int stayNo, Model model) {
+		StayDto stayDto = stayDao.one(stayNo);
 		model.addAttribute("stayDto", stayDto);
 		return "package/detail";
 	}
