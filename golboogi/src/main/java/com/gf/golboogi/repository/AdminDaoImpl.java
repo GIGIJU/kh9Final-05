@@ -47,6 +47,12 @@ public class AdminDaoImpl implements AdminDao{
 		return sqlSession.selectOne("admin.memberOne", memberId);
 	}
 
+	@Override
+	public boolean blacklist(MemberDto memberDto) {
+		return sqlSession.update("admin.blacklist", memberDto) > 0;
+	}
+
+
 
 
 }

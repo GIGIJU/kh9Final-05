@@ -20,6 +20,10 @@ public interface AdminDao {
 
 	MemberDto memberDetail(String memberId);
 
+	boolean blacklist(MemberDto memberDto);
+
+
+
 
 
 }
