@@ -29,6 +29,9 @@
 	<div class="col-4 offset-4">
 		<input type="date" name="date" v-model="teeTimeD" v-on:input="location">
 	</div>
+	<div class="col-4 offset-4">
+		<h4>{{teeTimeD}}</h4>
+	</div>
 	<%-- <div style="background-image: url('${root}/images/bg_1.jpg'),opacity:0.1;"> --%>
 	<div class="container-fluid">
 		<div class="row mt-5">
@@ -36,8 +39,7 @@
 				<h2 style="font-weight: bold;">${golfFieldDto.fieldName}</h2>
 			</div>
 			<div class="col-md-6 offset-md-3 text-center">
-				<img src="${root}/images/golf-dummy.jpg" width="400px"
-					height="300px">
+				<img src="${root}/images/bg_5.jpg" width="400px" height="300px">
 			</div>
 			<div class="col-md-4 offset-md-4 mt-2">
 				<span style="font-size: 9px;">${golfFieldDto.fieldInfo}</span>
@@ -45,11 +47,11 @@
 		</div>
 		<div class="row mt-5">
 			<div class="col-md-8 offset-md-2 text-center">
-				<button class="btn" style="width: 100px;">타임정보</button>
-				<button class="btn" style="width: 100px;">골프장정보</button>
+				<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>
+				<button class="btn" style="width: 100px;" @click="clickGolf">골프장정보</button>
 			</div>
 		</div>
-		<div class="row mt-5 mb-5 text-center col-md-8 offset-md-2">
+		<div class="row mt-5 mb-5 text-center col-md-8 offset-md-2" v-if="showTeeTime">
 			<c:forEach var="teetimeVO" items="${teetimeList}">
 				<div class="col-md-3 ftco-animate mt-2">
 					<div style="border: black solid 1px">
@@ -64,22 +66,24 @@
 			</c:forEach>
 			<hr>
 		</div>
+		<div class="row mt-5 mb-5 text-center col-md-8 offset-md-2" v-else>
+			<h1>골프장 정보</h1>
+		</div>
 	</div>
 </div>
 <!--vue jis도 lazy loading을 사용한다-->
 <script src="http://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-	integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-	crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
         const app = Vue.createApp({
             //data : 화면을 구현하는데 필요한 데이터를 작성해둔다
             data(){
                 return {
+                	timer:null,
                 	teeTimeD:"",
+                	showTeeTime:true,
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -91,18 +95,48 @@
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
             	location(){
-            		window.location.href="http://localhost:8080/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+this.teeTimeD;
-            	}
+            		//window.location.href="http://localhost:8080/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+this.teeTimeD;
+            		axios({
+                        url:"${root}/rest/booking/"+this.teeTimeD,
+                        methods:"get"
+                    })
+                    .then(resp=>{
+                        console.log(resp.data);
+                        this.feildList=resp.data;
+                    })
+            	},
+            	setNowTimes () {  
+            	    let myDate = new Date()
+            	    let yy = String(myDate.getFullYear()) 
+            	    let m = myDate.getMonth() + 1;  
+            	    let mm = String(m < 10 ? '0' + m : m) 
+            	    let t= myDate.getDate()+1;
+            	    let dd = String(t < 10 ? '0' + t : t) 
+            	    this.teeTimeD = yy + '-' + mm + '-' + dd  
+            	},
+            	clickTime(){
+            		this.showTeeTime = true;
+            	},
+            	clickGolf(){
+            		this.showTeeTime = false;
+            	},
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{
 
             },
             mounted(){
-
+            	if(${param.teeTimeD != null}){
+            		this.teeTimeD = ${param.teeTimeD};
+            	}
+            	else{
+	            	this.timer = setInterval(() => {    
+	            	    this.setNowTimes()  
+	            	},1000)
+            	}
             }, 
             created(){
-        
+        		//this.location();
             },
         });
         app.mount("#app");

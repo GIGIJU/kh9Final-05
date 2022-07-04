@@ -16,9 +16,17 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teetime">
 
-	<select id="list" parameterType="int" resultType="Teetime1VO">
-		select * from
-		tee_time_1 where field_no = #{fieldNo} order by tee_time_t
+	<select id="list" parameterType="Map" resultType="BookingSearchListVO">
+		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
+		(
+		select * from golf_course C inner join 
+		(
+		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
+		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
+		on T.tee_time_no = B.tee_time_no where B.booking_date is null
+		) B on B.course_no = C.course_no
+		) B on B.field_no = G.field_no where  tee_time_t is not null and G.field_no = #{fieldNo}
+ 		order by field_no, tee_time_t
 	</select>
 
 	<select id="one" parameterType="int" resultType="Teetime1VO">

@@ -48,7 +48,7 @@ public class BookingController {
 	@GetMapping("/detail")
 	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
-		List<TeetimeDto> teetimeList = golfFieldDao.selectTeetimeList(fieldNo);
+		List<TeetimeDto> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
 		
 		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeList",teetimeList);

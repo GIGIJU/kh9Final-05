@@ -15,7 +15,7 @@
 	</section>
 <br><br><br><br>
 	<div class="container mb-5">
-	<div class="col-md-6 offset-md-3 text-center">
+	<div class="col-md-7 offset-md-3 text-center">
 		<div class="row">
 			<h1>페이지를 찾을 수 없습니다.</h1>
 		</div>

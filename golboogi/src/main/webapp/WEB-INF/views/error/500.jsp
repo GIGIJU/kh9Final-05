@@ -15,7 +15,7 @@
 	</section>
 <br><br><br><br>
 	<div class="container mb-5">
-	<div class="col-md-6 offset-md-3 text-center">
+	<div class="col-md-8 offset-md-2 text-center">
 		<div class="row">
 			<h1>일시적인 오류가 발생했습니다.</h1>
 		</div>

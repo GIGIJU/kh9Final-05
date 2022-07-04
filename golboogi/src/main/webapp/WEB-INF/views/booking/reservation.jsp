@@ -39,8 +39,7 @@ span{
 			<div class="col-md-7 mt-4 ml-4">
 				<div>
 					<h4>${golfFieldDto.fieldName}</h4>
-				</div>
-				<a href="teetime?courseNo=${teetimeVO.courseNo}"><button class="btn btn-primary">티타임등록</button></a>
+				</div>				
 				<div class="row mt-5">
 					<div class="col">
 						<p>일자</p>

@@ -51,9 +51,10 @@
 		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
 		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
 		on T.tee_time_no = B.tee_time_no where B.booking_date is null
-		) B on B.course_no = C.course_no
+		) B on B.course_no = C.course_no 
 		) B on B.field_no = G.field_no 
  		<where>
+ 			 and tee_time_t is not null
 			<if test="partTime > 0">
 				and part_time = #{partTime}
 			</if>

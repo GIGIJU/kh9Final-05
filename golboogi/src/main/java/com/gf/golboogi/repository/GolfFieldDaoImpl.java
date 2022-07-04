@@ -37,8 +37,12 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 
 	//한 골프장의 티타임 리스트 출력
 	@Override
-	public List<TeetimeDto> selectTeetimeList(int fieldNo) {
-		return sqlSession.selectList("teetime.list",fieldNo);
+	public List<TeetimeDto> selectTeetimeList(int fieldNo,String teeTimeD) {
+		Map<String , Object> param = new HashMap<>();
+		param.put("teeTimeD", teeTimeD);
+		param.put("fieldNo", fieldNo);
+		
+		return sqlSession.selectList("teetime.list",param);
 	}
 
 	//골프장 , 코스 정보 출력

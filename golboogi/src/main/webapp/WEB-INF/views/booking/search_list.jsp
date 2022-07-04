@@ -15,9 +15,9 @@
 				style="height: 300px;">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/">Home <i
-								class="fa fa-chevron-right"></i></a></span> <span>Hotel <i
-							class="fa fa-chevron-right"></i></span>
+						<span class="mr-2"><a href="/">Home 
+						<i class="fa fa-chevron-right"></i></a></span> 
+						<span>Hotel <i class="fa fa-chevron-right"></i></span>
 					</p>
 					<h1 class="mb-0 bread">booking</h1>
 				</div>

@@ -14,7 +14,7 @@ public interface GolfFieldDao {
 	List<GolfFieldDto> selectList();
 	GolfFieldDto selectOne(int fieldNo);
 	void teetimeInsert(int courseNo);
-	List<TeetimeDto> selectTeetimeList(int fieldNo);
+	List<TeetimeDto> selectTeetimeList(int fieldNo,String teeTimeD);
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
 	List<GolfFieldBookingVO> teeTimeDayList();
