@@ -15,4 +15,5 @@ public class BookingSearchListVO {
 	private String teeTimeT;
 	private int partTime;
 	private int teeTimeNo;
+	private String fieldArea;
 }

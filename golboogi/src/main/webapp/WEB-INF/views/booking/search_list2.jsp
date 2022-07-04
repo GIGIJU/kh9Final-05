@@ -3,6 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html lang="ko">
@@ -15,9 +16,9 @@
 				style="height: 300px;">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/">Home 
-						<i class="fa fa-chevron-right"></i></a></span> 
-						<span>Hotel <i class="fa fa-chevron-right"></i></span>
+						<span class="mr-2"><a href="/">Home <i
+								class="fa fa-chevron-right"></i></a></span> <span>Hotel <i
+							class="fa fa-chevron-right"></i></span>
 					</p>
 					<h1 class="mb-0 bread">booking</h1>
 				</div>
@@ -25,7 +26,7 @@
 		</div>
 	</section>
 	<div class="col-4 offset-4">
-		 <input type="text" id="booking-datePicker" class="form-control" value="${param.teeTimeD}" v-on:input="location"/>			
+		 <input type="text" id="booking-datePicker" class="form-control" value="2022-07-30" v-on:input="location"/>			
 	</div>
 	<section class="ftco-section ftco-no-pt ftco-no-pb">
 		<div class="container">
@@ -33,33 +34,41 @@
 				<div class="col-md-8 offset-md-2">
 					<div class="pt-5 mt-5">
 						<h3 class="mb-5 text-center"
-							style="font-size: 20px; font-weight: bold;">${param.teeTimeD}</h3>
+							style="font-size: 20px; font-weight: bold;">2022-07-30</h3>
 						<hr>
 						<ul class="comment-list">
-							<c:forEach var="teetimeVO" items="${list}">
+							<c:forEach var="GolfFieldBookingVO" items="${list}">
 								<li class="comment">
 									<div class="vcard bio">
 										<img src="${root}/images/golf-dummy.jpg" height="50px">
 									</div>
 									<div class="comment-body">
-										<h3>${teetimeVO.fieldName}</h3>
-										<div class="meta" style="font-size: 9px">
+										<h3>${GolfFieldBookingVO.golfFieldDto.fieldName}</h3>
+									<div class="row">
+									<c:forEach var="BookingSearchListVO" items="${GolfFieldBookingVO.timeList}">
+										<c:if test="${BookingSearchListVO==null}">
+											<div class="col-1"><h5>없음</h5></div>
+										</c:if>
+<%-- 										<div class="row" style="font-size: 9px">
 											<c:choose>
-												<c:when test="${teetimeVO.partTime == 1}">
-													<fmt:formatNumber value="${teetimeVO.fieldGreenfee-20000}" />
+												<c:when test="${BookingSearchListVO.partTime == 1}">
+													<fmt:formatNumber value="${BookingSearchListVO.fieldGreenfee-20000}" />
 												</c:when>
 												<c:when
-													test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
-													<fmt:formatNumber value="${teetimeVO.fieldGreenfee-10000}" />
+													test="${BookingSearchListVO.partTime == 2 || BookingSearchListVO.partTime == 4}">
+													<fmt:formatNumber value="${BookingSearchListVO.fieldGreenfee-10000}" />
 												</c:when>
 												<c:otherwise>
-													<fmt:formatNumber value="${teetimeVO.fieldGreenfee}" />
+													<fmt:formatNumber value="${BookingSearchListVO.fieldGreenfee}" />
 												</c:otherwise>
 											</c:choose>
+										</div> --%>
+										
+										<div class="col-1">
+										<a class="reply" href="">${BookingSearchListVO.teeTimeT}</a>
 										</div>
-										<p>
-											<a class="reply" href="">${teetimeVO.teeTimeT}</a>
-										</p>
+									</c:forEach>
+									</div>
 									</div>
 								</li>
 							</c:forEach>

@@ -23,24 +23,26 @@ class GolboogiApplicationTests {
 	@Autowired
 	private SqlSession sqlSession;
 
-//	@Test
-//	void contextLoads() {
-//		BookingComplexSearchVO searchVO = BookingComplexSearchVO.builder()
-//								.partTime(1)
-//								.teeTimeD("2022-06-30")
-//								.build();
-//		List<BookingSearchListVO> list = sqlSession.selectList("golfField.search",searchVO);
-//		for(BookingSearchListVO listVO : list) {
-//			System.out.println(listVO);
-//			log.debug("list={}",listVO.getTeeTimeNo());
-//		}
-//	}
-	
 	@Test
 	void contextLoads() {
-		GolfFieldDto fieldDto = sqlSession.selectOne("golfFeild.one",1);
-		log.debug("fieldDto= {}",fieldDto);
+		BookingComplexSearchVO searchVO = BookingComplexSearchVO.builder()
+								//.partTime(2)
+								.teeTimeD("2022-07-01")
+								.fieldGreenfee(100000)
+								//.fieldArea("경기")
+								.build();
+		List<BookingSearchListVO> list = sqlSession.selectList("golfField.search",searchVO);
+		for(BookingSearchListVO listVO : list) {
+			System.out.println(listVO);
+			log.debug("listVO={}",listVO);
+		}
 	}
+	
+//	@Test
+//	void contextLoads() {
+//		GolfFieldDto fieldDto = sqlSession.selectOne("golfFeild.one",1);
+//		log.debug("fieldDto= {}",fieldDto);
+//	}
 
 
 }
