@@ -14,7 +14,7 @@
 </div>
 <div data-v-23d36a4d class="sub-title-bn-text">
 <h3 data-v-23d36a4d class="bold fs-30">골프장</h3>
-<div data-v-23d36a4d class="mt-15 fs-18">골프장 정보 여기에 다 모였다.</div>
+<div data-v-23d36a4d class="mt-15 fs-18">골프장 정보 여기에 다 모였다.</div>    
 </div>
 <div data-v-23d36a4d class="sub-page-nav-wrap">
 <div data-v-23d36a4d class="sub=page-nav-con">
