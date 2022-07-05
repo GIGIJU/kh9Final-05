@@ -22,7 +22,9 @@ public interface AdminDao {
 
 	boolean blacklist(MemberDto memberDto);
 
+	GolfManagerDto login(String golfManagerId, String golfManagerPw);
 
+ 
 
 
 

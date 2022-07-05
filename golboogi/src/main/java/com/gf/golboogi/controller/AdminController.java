@@ -2,6 +2,8 @@ package com.gf.golboogi.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,7 +45,7 @@ public class AdminController {
 		if(success) {
 			return "redirect:list";
 		} else {
-			return ""; // 인터셉터나 오류페이지 만들 예정!
+			return "redirect:list?error";
 		}
 	}
 	
@@ -72,18 +74,6 @@ public class AdminController {
 		return "admin/member_detail";
 	}
 	
-//	@PostMapping("/member_detail")
-//	public String memberDetail(@ModelAttribute MemberDto memberDto) {
-//		boolean success = adminDao.selectBlack(memberDto);
-//		if(success) {
-//			return "redirect:list";
-//		}
-//		else {
-//			return "redirect:member_detail?error";
-//		}
-//	}
-	
-	
 	@GetMapping("/member_blacklist")
 	public String memberBlacklist(@RequestParam String memberId, Model model) {
 		MemberDto memberDto = adminDao.memberDetail(memberId);
@@ -101,12 +91,35 @@ public class AdminController {
 			return "redirect:member_blacklist?error";
 		}
 	}
-
 	
+	@GetMapping("/login")
+	public String login() {
+		return "admin/login";
+	}
 	
+	@PostMapping("/login")
+	public String login(
+			@RequestParam String golfManagerId,
+			@RequestParam String golfManagerPw,
+			HttpSession session) {
+		
+		GolfManagerDto golfManagerDto = adminDao.login(golfManagerId, golfManagerPw);
+		
+		if(golfManagerDto == null) {
+			return "redirect:login?error";
+		} else {
+			session.setAttribute("adminLogin", golfManagerDto.getGolfManagerId());
+			session.setAttribute("auth", golfManagerDto.getGolfManagerGrade());
+			return "redirect:/";
+		}
+	}
 	
-	
-	
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("login");
+		session.removeAttribute("auth");
+		return "redirect:/";
+	}
 	
 	
 	
