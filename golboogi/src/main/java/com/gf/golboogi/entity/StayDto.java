@@ -19,5 +19,6 @@ public class StayDto {
 		private String stayBasicAddress;
 		private String stayDetailAddress;
 		private String stayStatus;
+		private String stayLocal;
 	}
 
