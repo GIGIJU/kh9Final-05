@@ -36,7 +36,7 @@
 		- 암호화 알고리즘은 상황에 맞게 선택
 		- input[type=password] 형태의 컬럼을 찾아서 전송 전에 암호화한 값으로 교체
 	*/
-	$(function(){
+	(function(){
 		$("form").submit(function(){
 			//this == form
 			$(this).find("input[type=password]").each(function(){

@@ -75,9 +75,9 @@
 </style>
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('images/bg_1.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/bg_1.jpg');">
   <div class="container">
-    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 350px;">
+    <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
        <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
        <h1 class="mb-0 bread">package</h1>
@@ -92,7 +92,6 @@
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">
     
-    <c:forEach var="stayDto" items="${list}" var="golfFieldDto" items="${list2}" var="packageDto" items="${list3} ">
     <div class="row justify-content-center">
     <div class="text-center mt-5">
       <h3 style="font-weight: bold;">예약 신청</h3>
@@ -103,7 +102,7 @@
         <div class="product-info-title" ><h2>상품 정보</h2></div>
         <div class="item-cont">
           <h2 style="color:#17a2b8">${stayDto.stayName}</h2> 
-          <p>• 출발일 : ${packageDto.packageDepart}</p>
+          <p>• 출발일 : 패키지출발일</p>
           <p>• 기간 : 1박2일</p>
           <p>• 지역 : 어케 찍어주지</p>
       </div>
@@ -159,12 +158,15 @@
               </div>
 
 
-    <!--예약 버튼 -->
+    <!--결제 버튼 -->
+    <form method="post">
+    <input type="hidden" name="stayNo" value="${stayDto.stayNo}">
+    <input type="hidden" name="quantity" value="1" min="1" required>
     <div class="row justify-content-center mt-5 mb-5">
-      <button class="btn btn-success p-3">신청하기</button>
+      <button class="btn btn-success p-3">결제하기</button>
     </div>
+    </form>
 
-</c:forEach>
     </div>
     </section>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

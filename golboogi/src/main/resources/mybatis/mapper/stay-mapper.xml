@@ -44,12 +44,12 @@
 		insert into stay(
 		stay_no, stay_name, stay_type, stay_phone, stay_room,
 		stay_price, stay_post_address, stay_basic_address, stay_detail_address,
-		stay_status
+		stay_status, stay_local
 		)
 		values(
 		#{stayNo}, #{stayName},#{stayType}, #{stayPhone}, #{stayRoom}, #{stayPrice},
 		#{stayPostAddress}, #{stayBasicAddress}, #{stayDetailAddress},
-		#{stayStatus}
+		#{stayStatus},#{stayLocal}
 		)
 	</insert>
 

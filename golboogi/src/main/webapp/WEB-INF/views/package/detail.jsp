@@ -166,7 +166,7 @@
       <h5 style="font-weight: thin;">1인 기준</h5>
       </div>
       <div class="text-center p-1 md-10">
-      <h3 style="font-weight: bold; color: #fd7e14;">${stayDto.stayPrice}</h3>
+      <h3 style="font-weight: bold; color: #fd7e14;"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${stayDto.stayPrice}" /></h3>
     </div>
   </div>
   </div>
@@ -199,33 +199,29 @@
     <!--예약 버튼 -->
     <div class="row justify-content-center mt-5 mb-5">
       <button class="btn btn-success p-2" style="margin-right: 5px">날짜변경</button>
-      <button class="btn btn-success">예약신청</button>
+      <button class="btn btn-success"><a href="${root}/reserve?stayNo=${stayDto.stayNo}" style="color:white" >예약신청</a></button>
     </div>
 
     <!--페이지네이션 버튼 -->
     <div class="row justify-content-center mt-5 mb-5">
-      <button class="button-toggle" style="width: 200px;">투어정보</button>
-      <button class="button-toggle" style="width: 200px;">골프장</button>
-      <button class="button-toggle" style="width: 200px;">숙소</button>
-      <button class="button-toggle" style="width: 200px;">후기</button>
+      <button class="button-toggle" style="width: 200px;"  >투어정보</button>
+      <button class="button-toggle" style="width: 200px;"  >골프장</button>
+      <button class="button-toggle" style="width: 200px;" >숙소</button>
+      <button class="button-toggle" style="width: 200px;" >후기</button>
     </div>
 
-
    <!--투어정보 페이지1 -->
-
-    
    <div class="row justify-content-center tour-product-info">
       <div class="product-info-item ">
         <div class="product-info-title"><h2>투어 정보</h2></div>
         <div class="item-cont">
 <%--           <p>•조식 :</p><p>${packageDto.packageBreakfast}</p> --%>
           <p>•골프장 도착 후 프론트 데스크 체크인이 필요합니다.</p>
-          <p>•출발일 7~4일 전 취소 : 총 상품가의 50% 제외 한 금액 환불</p>
-          <p>•출발일 3일 전~당일 취소 : 전액 환불 불가</p>
-          <p>•단, 골프장 취소수수료 규정이 자사의 규정보다 높을 경우 골프장에 따라 변경될 수 있습니다.</p>
+          <p>•1박2일 패키지 상품입니다.</p>
+          <p>•숙소는 4박1실 타입입니다.</p>
+          <p>•교통편(개별출발)은 미포함 사항입니다.</p>
       </div>
     </div>
-
     <div class="product-info-item ">
       <div class="product-info-title"><h2>유의 사항</h2></div>
       <div class="item-cont">
@@ -238,7 +234,6 @@
       <p>•예약확정 이후 취소 시 취소시점에 따라 위약금이 발생할 수 있습니다.</p>
     </div>
   </div>
-
     <div class="product-info-item ">
       <div class="product-info-title"><h2>취소 규정</h2></div>
       <div class="item-cont">
@@ -251,11 +246,15 @@
   </div>
 </div>
  </div>
- </section>
 
  <!--골프장소개 페이지2 -->
 
-
   <!--숙소소개 페이지3 -->
 
+   <!--후기 페이지4 -->
+
+   
+   </section>
+    
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+
