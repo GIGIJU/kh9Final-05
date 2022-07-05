@@ -95,4 +95,14 @@
 		and
 			member_birth = #{memberBirth}
 	</select>
+	
+	<select id="selectNick" resultType="MemberDto" parameterType="String">
+		select * from member
+		where member_nick = #{memberNick}
+	</select>
+	
+	<select id="selectPhone" resultType="MemberDto" parameterType="String">
+		select * from member
+		where member_phone = #{memberPhone}
+	</select>
 </mapper> 
