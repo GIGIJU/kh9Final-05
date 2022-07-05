@@ -23,6 +23,7 @@ import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
+import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
 @Controller
@@ -48,18 +49,18 @@ public class BookingController {
 	@GetMapping("/detail")
 	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
-		List<TeetimeDto> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
+		List<TeeTimeListVO> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
 		
 		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeList",teetimeList);
 		
-		return "booking/detail";
+		return "booking/detail2";
 	}
 	
 	@GetMapping("/test")
 	public String test(Model model) {
 		model.addAttribute("list",golfFieldDao.teeTimeDayList());
-		return "booking/search_list2";
+		return "booking/search_list3";
 	}
 	
 	
@@ -84,7 +85,7 @@ public class BookingController {
 	@GetMapping("/search")
 	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
 		model.addAttribute("list",golfFieldDao.searchList(searchVO));
-		return "booking/search_list";
+		return "booking/search_list3";
 	}
 	
 	@GetMapping("/paymentInfo")

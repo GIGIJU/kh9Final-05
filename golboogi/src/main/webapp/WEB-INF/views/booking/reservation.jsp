@@ -36,7 +36,7 @@ span{
 			<div class="col-md-4">
 				<img src="${root}/images/bg_1.jpg" width="200" height="190" style="border-radius: 100%;">
 			</div>
-			<div class="col-md-7 mt-4 ml-4">
+			<div class="col-md-7 mt-4 ml-3">
 				<div>
 					<h4>${golfFieldDto.fieldName}</h4>
 				</div>				
@@ -55,7 +55,7 @@ span{
 					</div>
 					<div class="col">
 						<p>지역</p>
-						<span>지역</span>
+						<span>${golfFieldDto.fieldArea}</span>
 					</div>
 				</div>
 			</div>
@@ -68,9 +68,9 @@ span{
 			</div>
 			<div class="col-md-7">
 				<span>취소가능기한</span>
-				<p>${param.teeTimeD}</p>
-				<span>${golfFieldDto.fieldPeople}인 필수</span>
-				<p>코스</p>
+				<p>${teeTimeD}</p>
+				<span>내장인원</span>
+				<p>${golfFieldDto.fieldPeople}인 필수</p>
 			</div>			
 		</div>		
 		<hr>
@@ -133,8 +133,8 @@ span{
 					<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
 					<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
 					<%-- <input type="hidden" name="prepay" value="${golfFieldDto.fieldPrepay}"> --%>
-					<button class="btn">결제정보</button>
 			</div>
+					<button class="btn" style="width: 100%;">결제정보</button>
 		</form>
 	</div>
 </div>
