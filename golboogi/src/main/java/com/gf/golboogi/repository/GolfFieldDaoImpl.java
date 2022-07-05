@@ -13,6 +13,7 @@ import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.GolfFieldBookingVO;
+import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
 @Repository
@@ -37,12 +38,18 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 
 	//한 골프장의 티타임 리스트 출력
 	@Override
-	public List<TeetimeDto> selectTeetimeList(int fieldNo,String teeTimeD) {
+	public List<TeeTimeListVO> selectTeetimeList(int fieldNo,String teeTimeD) {
 		Map<String , Object> param = new HashMap<>();
 		param.put("teeTimeD", teeTimeD);
 		param.put("fieldNo", fieldNo);
 		
-		return sqlSession.selectList("teetime.list",param);
+		return sqlSession.selectList("teetime.list2",param);
+	}
+	
+	//한 골프장의 티타임 리스트 출력
+	@Override
+	public List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO) {
+		return sqlSession.selectList("teetime.list",searchVO);
 	}
 
 	//골프장 , 코스 정보 출력

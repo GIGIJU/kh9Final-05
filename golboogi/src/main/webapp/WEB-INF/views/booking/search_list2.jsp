@@ -40,7 +40,7 @@
 							<c:forEach var="GolfFieldBookingVO" items="${list}">
 								<li class="comment">
 									<div class="vcard bio">
-										<img src="${root}/images/golf-dummy.jpg" height="50px">
+										<img src="${root}/images/golf-dummy.jpg">
 									</div>
 									<div class="comment-body">
 										<h3>${GolfFieldBookingVO.golfFieldDto.fieldName}</h3>

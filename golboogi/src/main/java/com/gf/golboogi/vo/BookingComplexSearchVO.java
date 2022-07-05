@@ -11,15 +11,16 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class BookingComplexSearchVO {
-	private String teeTimeD =getTomorrow("yyyy-MM-dd");
+	private String teeTimeD;
 	private int partTime;
 	private String fieldArea;
 	private int fieldGreenfee;
+	private int fieldNo;
 	
-	 public static String getTomorrow(String pattern) {
-	        DateFormat dtf = new SimpleDateFormat(pattern);
-	        final Calendar cal = Calendar.getInstance();
-	        cal.add(Calendar.DATE, 1);
-	        return dtf.format(cal.getTime());
-	    }
+//	 public static String getTomorrow(String pattern) {
+//	        DateFormat dtf = new SimpleDateFormat(pattern);
+//	        final Calendar cal = Calendar.getInstance();
+//	        cal.add(Calendar.DATE, 1);
+//	        return dtf.format(cal.getTime());
+//	    }
 }

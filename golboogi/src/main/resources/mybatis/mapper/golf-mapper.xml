@@ -41,33 +41,35 @@
 	
 	<select id="search" resultType="BookingSearchListVO" parameterType="Map">
 		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/> 
-		 
-		select 
-		G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, 
-		B.tee_time_no,G.field_area from golf_field G left outer join
-		(
-		select * from golf_course C inner join 
-		(
-		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
-		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
-		on T.tee_time_no = B.tee_time_no where B.booking_date is null
-		) B on B.course_no = C.course_no 
-		) B on B.field_no = G.field_no 
- 		<where>
- 			 and tee_time_t is not null
-			<if test="partTime > 0">
-				and part_time = #{partTime}
-			</if>
-			<if test="fieldAreaExist">
-				and field_area = #{fieldArea}
-			</if>
- 			<if test="fieldGreenfee > 0">
-			<![CDATA[
-				and field_greenfee <= #{fieldGreenfee}
-			]]>
-			</if>
-		</where> 
- 		order by field_no, tee_time_t 
+		select F.field_no, F.field_name, F.field_area, F.field_greenfee,B.count from golf_field F inner join(
+		select field_no, count(*) as count from(
+			select 
+			G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, 
+			B.tee_time_no,G.field_area from golf_field G left outer join
+			(
+			select * from golf_course C inner join 
+			(
+			select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
+			left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
+			on T.tee_time_no = B.tee_time_no where B.booking_date is null
+			) B on B.course_no = C.course_no 
+			) B on B.field_no = G.field_no 
+	 		<where>
+	 			 and tee_time_t is not null
+				<if test="partTime > 0">
+					and part_time = #{partTime}
+				</if>
+				<if test="fieldAreaExist">
+					and field_area = #{fieldArea}
+				</if>
+	 			<if test="fieldGreenfee > 0">
+				<![CDATA[
+					and field_greenfee <= #{fieldGreenfee}
+				]]>
+				</if>
+			</where> 
+ 		) group by field_no having count(*) > 0
+        ) B on B.field_no = F.field_no
 	</select>
 	
 	<update id="commissionUpdate" parameterType="Map">

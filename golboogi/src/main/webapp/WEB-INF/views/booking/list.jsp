@@ -57,7 +57,7 @@
 										<label for="#">언제 가세요?</label>
 										<div class="form-field">
 											<div class="icon"><span class="fa fa-calendar"></span></div>
-											<input type="text" class="form-control" id="datepicker" placeholder="날짜 선택" 
+											 <input type="text" class="form-control" id="datepicker" placeholder="날짜 선택" 
 											 name="teeTimeD" autocomplete="off" readonly>
 										</div>
 									</div>
@@ -81,10 +81,26 @@
 										</div>
 									</div>
 								</div>
+								 <div class="col-lg d-flex">
+								  <div class="form-group p-4">
+								   <label for="#">가격대</label>
+								   <div class="form-field">
+								     <div class="select-wrap">
+								      <div class="icon"><span class="fa fa-chevron-down"></span></div>
+								      <select class="form-control" v-model="price" v-bind:name="checkGreenfee">
+								        <option value="" selected>선택</option>
+								        <option value="100000">~100,000원</option>
+								        <option value="200000">~200,000원</option>
+								        <option value="300000">~300,000원</option>
+								      </select>
+								    </div>
+								  </div>
+								</div>
+								</div>
 								<div class="col-lg d-flex">
 									<div class="form-group d-flex w-100 border-0">
 										<div class="form-field w-100 align-items-center d-flex">
-											<input type="submit" value="Search"
+											<input type="submit" value="검색"
 												class="align-self-stretch form-control btn btn-primary">
 										</div>
 									</div>
@@ -93,21 +109,7 @@
 						</div>
 					</div>
 				</div>
-			<!-- 검색어 추가하기 -->
-			<div class="row mt-4 text-center" style="font-size: 14px">
-				<div class="col-md-1">
-					<span style="font-weight: bold;">가격대</span>
-				</div>
-				<div class="col-md-2">
-					<input type="radio" id="10" name="fieldGreenfee" value="100000"> <label for="10">~10만원</label>
-				</div>
-				<div class="col-md-2">
-					<input type="radio" id="20" name="fieldGreenfee" value="200000"> <label for="20"> ~20만원</label>
-				</div>
-				<div class="col-md-2">
-					<input type="radio" id="30" name="fieldGreenfee" value="300000"> <label for="30">~30만원</label>
-				</div>
-			</div>
+
 			</div>
 		</form>
 	</section>
@@ -170,6 +172,7 @@
                 	teeTimeD:"",
                 	area:"",
                 	part:"",
+                	price:"",
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -181,6 +184,9 @@
 				},
 				checkFieldArea(){
 					if(!this.area=="") return "fieldArea";
+				},
+				checkGreenfee(){
+					if(!this.price=="") return "fieldGreenfee";
 				}
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
@@ -212,6 +218,10 @@
                     ],
                     minDate: '+1D',
                     maxDate: '+60D',
+                    onSelect:(dateText)=>{
+                    	console.log(dateText);
+                    	this.teeTimeD = dateText;
+                    },
                 });
                 $("#datepicker").datepicker(); 
             },

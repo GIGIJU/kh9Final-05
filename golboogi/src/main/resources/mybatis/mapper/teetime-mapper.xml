@@ -16,7 +16,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="teetime">
 
-	<select id="list" parameterType="Map" resultType="BookingSearchListVO">
+	<select id="list" parameterType="BookingComplexSearchVO" resultType="TeeTimeListVO">
+		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/> 
 		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
 		(
 		select * from golf_course C inner join 
@@ -25,8 +26,38 @@
 		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
 		on T.tee_time_no = B.tee_time_no where B.booking_date is null
 		) B on B.course_no = C.course_no
-		) B on B.field_no = G.field_no where  tee_time_t is not null and G.field_no = #{fieldNo}
+		) B on B.field_no = G.field_no
+		<where>
+	 			 and tee_time_t is not null 
+	 			 and G.field_no = #{fieldNo}
+				<if test="partTime > 0">
+					and part_time = #{partTime}
+				</if>
+				<if test="fieldAreaExist">
+					and field_area = #{fieldArea}
+				</if>
+	 			<if test="fieldGreenfee > 0">
+				<![CDATA[
+					and field_greenfee <= #{fieldGreenfee}
+				]]>
+				</if>
+			</where> 
  		order by field_no, tee_time_t
+	</select>
+	
+	<select id="list2" parameterType="Map" resultType="TeeTimeListVO">
+		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
+		(
+		select * from golf_course C inner join 
+		(
+		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
+		left outer join (select * from booking where tee_time_d= #{teeTimeD}) B 
+		on T.tee_time_no = B.tee_time_no where B.booking_date is null
+		) B on B.course_no = C.course_no
+		) B on B.field_no = G.field_no
+	 			 where tee_time_t is not null 
+	 			 and G.field_no = #{fieldNo}
+		order by field_no, tee_time_t
 	</select>
 
 	<select id="one" parameterType="int" resultType="Teetime1VO">
@@ -80,23 +111,34 @@
 	</resultMap>
 
 	<select id="treeSearch" resultMap="feildMap">
-		select * from golf_field
+		select * from golf_field 
 	</select>
 	<select id="treeSearchSubquery" resultType="BookingSearchListVO" parameterType="int">
-		select G.field_no, G.field_name, G.field_greenfee, B.course_name,
-		B.tee_time_t, B.part_time, B.tee_time_no,B.part_time from golf_field G
-		left outer join
-		(
-		select * from golf_course C inner join
-		(
-		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date
-		from tee_time T
-		left outer join (select * from booking where tee_time_d= '2022-07-04') B
-		on T.tee_time_no = B.tee_time_no where B.booking_date is null
-		) B on B.course_no = C.course_no
+		select 
+			G.field_no, G.field_name, G.field_greenfee, B.course_name,
+			B.tee_time_t, B.part_time, B.tee_time_no,B.part_time 
+		from golf_field G
+			left outer join
+			(
+				select * from golf_course C inner join(
+					select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date
+					from tee_time T
+					left outer join (
+							select * from booking where tee_time_d= '2022-07-04'
+					) B
+					on T.tee_time_no = B.tee_time_no where B.booking_date is null
+			) B on B.course_no = C.course_no
 		) B on B.field_no = G.field_no where tee_time_t is not null and G.field_no =#{fieldNo}
 		order by field_no, tee_time_t
 	</select>
+	
+	<!-- 
+		원하는 것
+		- 검색어(지역, 날짜, 시간대, 가격)을 입력하면 조회되도록 구문을 만드는 것
+			- 지역(fieldArea), 날짜(teeTimeD), 시간대(PartTime), 가격대(fieldGreenFee)
+		- 필요한 테이블 : gold_fild(골프장), golf_course(골프코스), tee_time(시간표), booking(예약)		
+	 	- 검색항목에 따라 예약이 안된 목록이 시간대별로 출력
+	 -->
 </mapper> 
 
 

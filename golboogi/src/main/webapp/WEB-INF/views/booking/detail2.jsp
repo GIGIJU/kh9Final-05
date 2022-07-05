@@ -42,63 +42,69 @@ p {
 			</div>
 		</div>
 	</section>
-	<div class="col-4 offset-4">
-		<input type="date" name="date" v-model="teeTimeD" v-on:input="location">
-	</div>
-	<div class="col-4 offset-4">
-		<h4>{{teeTimeD}}</h4>
-	</div>
+
 	<%-- <div style="background-image: url('${root}/images/bg_1.jpg'),opacity:0.1;"> --%>
 	<div class="container-fluid">
 		<div class="row mt-5">
 			<div class="col-md-6 offset-md-3 text-center">
-				<h2 style="font-weight: bold;">{{fieldList[0].fieldName}}</h2>
+				<h2 style="font-weight: bold;">${golfFieldDto.fieldName}</h2>
 			</div>
 			<div class="col-md-6 offset-md-3 text-center">
 				<img src="${root}/images/bg_5.jpg" style="width: 400px; height: 300px;">
 			</div>
-			<div class="col-md-4 offset-md-4 mt-2">
-				<span style="font-size: 9px;">{{fieldList[0].fieldInfo}}</span>
-			</div>
 		</div>
 		<div class="row mt-5">
 			<div class="col-md-8 offset-md-2 text-center">
-				<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>
-				<button class="btn" style="width: 100px;" @click="clickGolf">골프장정보</button>
-			</div>
-		</div>
-		<div class="row mt-5 mb-5 text-center col-md-8 offset-md-2">
-			<%-- <c:forEach var="teetimeVO" items="${teetimeList}">
-				<div class="col-md-3 ftco-animate mt-2">
-					<div style="border: black solid 1px">
-						<button class="btn">${teetimeVO.teeTimeT}</button>
-						<h6>
-							<a href="reservation?teeTimeNo=${teetimeVO.teeTimeNo}&teeTimeD=${param.teeTimeD}">${teetimeVO.courseName}</a>
-						</h6>d
-						<span class="days"><fmt:formatNumber
-								value="${teetimeVO.fieldGreenfee}" />원~</span>
+				<div class="row">
+					<div class="col-4 text-left">
+						<input type="date" name="date" v-model="teeTimeD" v-on:input="location">
+					</div>
+					<div class="col-4">
+						<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button> 
+						<button class="btn" style="width: 100px;" @click="clickGolf">골프장정보</button>
 					</div>
 				</div>
-			</c:forEach> --%>
-			<div class="col-md-3 ftco-animate mt-2" v-for="(field,index) in fieldList" v-bind:key="index">
-					<div style="border: black solid 1px">
-						<h6>
-							<%-- <a href="reservation?teeTimeNo=${teetimeVO.teeTimeNo}&teeTimeD=${param.teeTimeD}">${teetimeVO.courseName}</a> --%>
-							<span>{{field.courseName}}</span>
-						</h6>
-						<button class="tagcloud">{{field.teeTimeT}}</button>
-						<p class="days">{{field.fieldGreenfee}}
-						<%-- <fmt:formatNumber value="{{field.fieldGreenfee}}" />원~  --%>
-								</p>
-					</div>
+			<div class="row mt-4" v-show="showTeeTime">
+				<table class="table" style="font-size: 12px;">
+			 		<thead>
+				 		<tr>
+					 		<th>시간</th>
+					 		<th>코스</th>
+					 		<th>파트</th>
+					 		<th>가격</th>
+					 		<th width="20%">예약</th>
+					 	</tr>
+				 	</thead>
+				 	<tbody>
+				 	<c:forEach var="teetimeVO" items="${teetimeList}">
+					 	<tr>
+<%-- 					 		<fmt:parseDate var="teeTimeD"  value="${param.teeTimeD}" pattern="yyyy-MM-dd"/>
+					 		<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td> --%>
+					 		<td>${teetimeVO.teeTimeT}</td>
+					 		<td>${teetimeVO.courseName}</td>
+					 		<td>${teetimeVO.partTime}</td>
+							<c:choose>
+								<c:when test="${teetimeVO.partTime == 1}">
+									 <td><fmt:formatNumber value="${teetimeVO.fieldGreenfee-20000}" />원</td>
+								</c:when>
+								<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+									 <td><fmt:formatNumber value="${teetimeVO.fieldGreenfee-10000}" />원</td>
+								</c:when>
+								<c:otherwise>
+									<td><fmt:formatNumber value="${teetimeVO.fieldGreenfee}" />원</td>
+								</c:otherwise>
+							</c:choose>
+					 		<td><a class="tagcloud" href="reservation?teeTimeNo=${teetimeVO.teeTimeNo}&teeTimeD=${param.teeTimeD}">예약하기</a></td>
+					 	</tr>
+				 	</c:forEach> 
+				 	</tbody>
+			 	</table>
+			</div>	
+			<div class="row mt-4" v-show="showTeeTime">
+				<h1>골프장 정보</h1>
 			</div>
-			
-			<hr>
+			</div>
 		</div>
-		<div class="row mt-5 mb-5 text-center col-md-8 offset-md-2">
-			<h1>골프장 정보</h1>
-		</div>
-	</div>
 </div>
 <!--vue jis도 lazy loading을 사용한다-->
 <script src="http://unpkg.com/vue@next"></script>
@@ -114,6 +120,7 @@ p {
                 	timer:null,
                 	teeTimeD:"${param.teeTimeD}",
                 	showTeeTime:true,
+                	showGolfInfo:false,
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -125,19 +132,7 @@ p {
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
             	location(){
-            		//window.location.href="http://localhost:8080/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+this.teeTimeD;
-            		axios({
-                         url:"${root}/rest/booking",
-                         method:"post",
-                         params: {
-                        	 fieldNo : ${param.fieldNo},
-                        	 teeTimeD : this.teeTimeD,
-                         }
-                    })
-                    .then(resp=>{
-                        console.log(resp.data);
-                        this.fieldList=resp.data;
-                    })
+            		window.location.href="${root}/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+this.teeTimeD;
             	},
             	setNowTimes () {  
             	    let myDate = new Date()
@@ -150,9 +145,11 @@ p {
             	},
             	clickTime(){
             		this.showTeeTime = true;
+            		this.showGolfInfo = false
             	},
             	clickGolf(){
             		this.showTeeTime = false;
+            		this.showGolfInfo = true;
             	},
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
@@ -163,7 +160,6 @@ p {
             	
             }, 
             created(){
-        		this.location();
             },
         });
         app.mount("#app");

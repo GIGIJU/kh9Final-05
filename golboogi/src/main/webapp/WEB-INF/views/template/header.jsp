@@ -29,6 +29,7 @@
   <link rel="stylesheet" href="${root}/css/flaticon.css">
   <link rel="stylesheet" href="${root}/css/style.css">
   
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script>
 	/*
 		프론트엔드 암호화에 대한 계획
