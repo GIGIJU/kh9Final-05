@@ -24,13 +24,19 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="golfManager">
+<mapper namespace="admin">
 	
-	<select id="list" resultType="GolfManagerVO">
+	<select id="list" resultType="AdminVO">
 		select A.golf_manager_id, B.field_name from golf_manager"A", golf_field"B" where A.field_no = B.field_no
 	</select>
+
+	<select id="one" parameterType="String" resultType="AdminVO">
+		select A.golf_manager_id, B.field_name, B.field_no
+		from golf_manager"A", golf_field"B" 
+		where A.field_no = B.field_no and A.golf_manager_id = #{golfManagerId}
+	</select>
 	
-	<select id="one" resultType="GolfManagerDto" parameterType="String">
+	<select id="oneForLogin" parameterType="String" resultType="GolfManagerDto">
 		select * from golf_manager where golf_manager_id = #{golfManagerId}
 	</select>
 	
@@ -42,6 +48,21 @@
 		insert into golf_manager(golf_manager_id, field_no, golf_manager_pw) 
 		values(#{golfManagerId}, #{fieldNo}, #{golfManagerPw})
 	</insert>
+	
+	<select id="memberList" resultType="MemberDto">
+		select * from member
+	</select>
+	
+	<select id="memberOne" parameterType="String" resultType="MemberDto">
+		select * from member where member_id = #{memberId}
+	</select>
+	
+	<update id="blacklist" parameterType="MemberDto">
+		update member
+		set member_grade = #{memberGrade}
+		where member_id = #{memberId}
+	</update>
+	
 	
 </mapper> 
 

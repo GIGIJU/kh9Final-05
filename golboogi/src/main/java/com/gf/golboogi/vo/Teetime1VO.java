@@ -8,10 +8,12 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class Teetime1VO {
+	private int teeTimeNo;
 	private int fieldNo;
 	private String fieldName;
 	private int courseNo;
 	private String courseName;
 	private int fieldGreenfee;
 	private String teeTimeT;
+	private int partTime;
 }

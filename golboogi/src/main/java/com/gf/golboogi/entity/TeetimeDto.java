@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class TeetimeDto {
-	private int teetimeNo;
+	private int teeTimeNo;
 	private int courseNo;
-	private String teetimeT;
-	private int bookingFinish;
+	private String teeTimeT;
+	private int partTime;
 }

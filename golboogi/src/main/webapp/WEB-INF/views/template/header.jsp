@@ -14,9 +14,8 @@
   
   <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"/>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
   <link rel="stylesheet" href="${root}/css/animate.css">
   
   <link rel="stylesheet" href="${root}/css/owl.carousel.min.css">
@@ -25,11 +24,12 @@
 
   <link rel="stylesheet" href="${root}/css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="${root}/css/jquery.timepicker.css">
-
+<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"><!-- 데이터피커 -->
   
   <link rel="stylesheet" href="${root}/css/flaticon.css">
   <link rel="stylesheet" href="${root}/css/style.css">
   
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   <script>
 	/*
 		프론트엔드 암호화에 대한 계획
@@ -48,7 +48,7 @@
 				$(this).val(encData);
 			});
 		});
-	});
+	}); 
 	</script>
 </head>
 <body>
@@ -61,11 +61,11 @@
 
      <div class="collapse navbar-collapse" id="ftco-nav">
        <ul class="navbar-nav ml-auto">
-         <li class="nav-item"><a href="booking/list" class="nav-link">골프부킹</a></li>
+         <li class="nav-item"><a href="${root}/booking/list" class="nav-link">골프부킹</a></li>
          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
          <li class="nav-item"><a href="${root}/package/list" class="nav-link">투어</a></li>
          <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
-         <li class="nav-item"><a href="contact.html" class="nav-link">골프장</a></li>
+         <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
          <c:choose>
          	<c:when test="${isLogin}">
 	         	 <li class="nav-item"><a href="${root}/member/mypage" class="nav-link">마이페이지</a></li>

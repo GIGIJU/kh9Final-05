@@ -6,7 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
-public class GolfManagerVO {
+public class AdminVO {
 	private String golfManagerId;
 	private String fieldName;
 	private int fieldNo;
