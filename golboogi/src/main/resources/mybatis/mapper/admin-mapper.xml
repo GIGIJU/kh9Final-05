@@ -36,6 +36,10 @@
 		where A.field_no = B.field_no and A.golf_manager_id = #{golfManagerId}
 	</select>
 	
+	<select id="oneForLogin" parameterType="String" resultType="GolfManagerDto">
+		select * from golf_manager where golf_manager_id = #{golfManagerId}
+	</select>
+	
 	<delete id="delete" parameterType="String">
 		delete golf_manager where golf_manager_id = #{golfManagerId}
 	</delete>

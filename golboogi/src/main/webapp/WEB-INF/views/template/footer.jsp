@@ -25,6 +25,7 @@
             <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
             <li><a href="#" class="py-2 d-block">Club solution</a></li>
             <li><a href="#" class="py-2 d-block">Contact</a></li>
+            <li><a href="#" class="py-2 d-block">관리자 로그인</a></li>
           </ul>
         </div>
       </div>
@@ -63,6 +64,7 @@
       Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
       <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
     </div>
+    
   </div>
 </div>
 </footer>
