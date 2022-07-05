@@ -1,5 +1,9 @@
 package com.gf.golboogi.vo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,4 +13,14 @@ import lombok.NoArgsConstructor;
 public class BookingComplexSearchVO {
 	private String teeTimeD;
 	private int partTime;
+	private String fieldArea;
+	private int fieldGreenfee;
+	private int fieldNo;
+	
+//	 public static String getTomorrow(String pattern) {
+//	        DateFormat dtf = new SimpleDateFormat(pattern);
+//	        final Calendar cal = Calendar.getInstance();
+//	        cal.add(Calendar.DATE, 1);
+//	        return dtf.format(cal.getTime());
+//	    }
 }

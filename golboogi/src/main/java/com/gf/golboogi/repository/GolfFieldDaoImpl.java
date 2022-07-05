@@ -1,17 +1,19 @@
 package com.gf.golboogi.repository;
 
-import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
+import com.gf.golboogi.vo.GolfFieldBookingVO;
+import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
 @Repository
@@ -21,23 +23,33 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	@Autowired
 	private SqlSession sqlSession;
 
-	//골프장 리스트 출력
+	//골프장 전체 리스트 출력
 	@Override
 	public List<GolfFieldDto> selectList() {
-		return sqlSession.selectList("golfFeild.list");
+		return sqlSession.selectList("golfField.list");
 	}
 
 	//골프장 상세 출력
 	@Override
 	public GolfFieldDto selectOne(int fieldNo) {
-		return sqlSession.selectOne("golfFeild.one",fieldNo);
+		return sqlSession.selectOne("golfField.one",fieldNo);
 	}
 
 
 	//한 골프장의 티타임 리스트 출력
 	@Override
-	public List<TeetimeDto> selectTeetimeList(int fieldNo) {
-		return sqlSession.selectList("teetime.list",fieldNo);
+	public List<TeeTimeListVO> selectTeetimeList(int fieldNo,String teeTimeD) {
+		Map<String , Object> param = new HashMap<>();
+		param.put("teeTimeD", teeTimeD);
+		param.put("fieldNo", fieldNo);
+		
+		return sqlSession.selectList("teetime.list2",param);
+	}
+	
+	//한 골프장의 티타임 리스트 출력
+	@Override
+	public List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO) {
+		return sqlSession.selectList("teetime.list",searchVO);
 	}
 
 	//골프장 , 코스 정보 출력
@@ -78,9 +90,10 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		}
 	}
 
+	//검색
 	@Override
 	public List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO) {
-		List<BookingSearchListVO> list = sqlSession.selectList("golfFeild.search",searchVO);
+		List<BookingSearchListVO> list = sqlSession.selectList("golfField.search",searchVO);
 		if(list.isEmpty()) {
 			return null;			
 		}
@@ -88,9 +101,29 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 			return list;
 		}
 	}
-	
-	
 
+	//날짜별 예약가능 골프장 목록 (계층형)
+//	@Override
+	public List<GolfFieldBookingVO> teeTimeDayList() {
+		return sqlSession.selectList("teetime.treeSearch");
+	}
+	
+	//날짜별 예약가능 골프장 목록 (계층형X)
+//	@Override
+//	public List<BookingSearchListVO> teeTimeDayList(String teeTimeD) {
+//		return sqlSession.selectList("golfField.search", teeTimeD);
+//	}
+
+	//예약 시 수수료 추가
+	@Override
+	public void addCommission(int fieldNo, int commission) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("commission", commission);
+		param.put("fieldNo", fieldNo);
+		
+		sqlSession.update("golfField.commissionUpdate",param);	
+	}
+	
 	
 	
 	

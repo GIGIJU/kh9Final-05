@@ -22,5 +22,6 @@ public class GolfFieldDto {
 	private Date fieldOpenday;
 	private int fieldPeople;
 	private int fieldPrepay;
-	private int fieldNumber;
+	private int fieldCommission;
+	private String fieldArea;
 }

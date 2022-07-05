@@ -10,9 +10,7 @@ import lombok.NoArgsConstructor;
 public class BookingSearchListVO {
 	private int fieldNo;
 	private String fieldName;
+	private String fieldArea;
 	private int fieldGreenfee;
-	private String courseName;
-	private String teeTimeT;
-	private int partTime;
-	private int teeTimeNo;
+	private int count;
 }

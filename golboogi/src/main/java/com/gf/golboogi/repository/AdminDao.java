@@ -20,6 +20,12 @@ public interface AdminDao {
 
 	MemberDto memberDetail(String memberId);
 
+	boolean blacklist(MemberDto memberDto);
+
+	GolfManagerDto login(String golfManagerId, String golfManagerPw);
+
+ 
+
 
 
 }

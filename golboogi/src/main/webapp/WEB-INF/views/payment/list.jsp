@@ -11,7 +11,7 @@
 		${paymentDto}
 		<a href="more?paymentNo=${paymentDto.paymentNo}">더보기</a>
 	</li>
-</c:forEach>
+</c:forEach>  
 </ul>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -36,15 +36,14 @@ span{
 			<div class="col-md-4">
 				<img src="${root}/images/bg_1.jpg" width="200" height="190" style="border-radius: 100%;">
 			</div>
-			<div class="col-md-7 mt-4 ml-4">
+			<div class="col-md-7 mt-4 ml-3">
 				<div>
 					<h4>${golfFieldDto.fieldName}</h4>
-				</div>
-				<a href="teetime?courseNo=${teetimeVO.courseNo}"><button class="btn btn-primary">티타임등록</button></a>
+				</div>				
 				<div class="row mt-5">
 					<div class="col">
 						<p>일자</p>
-						<span>2022-07-28</span>
+						<span>${teeTimeD}</span>
 					</div>
 					<div class="col">
 						<p>시간</p>
@@ -56,7 +55,7 @@ span{
 					</div>
 					<div class="col">
 						<p>지역</p>
-						<span>지역</span>
+						<span>${golfFieldDto.fieldArea}</span>
 					</div>
 				</div>
 			</div>
@@ -69,9 +68,9 @@ span{
 			</div>
 			<div class="col-md-7">
 				<span>취소가능기한</span>
-				<p>2022-07-21</p>
-				<span>${golfFieldDto.fieldPeople}인 필수</span>
-				<p>코스</p>
+				<p>${teeTimeD}</p>
+				<span>내장인원</span>
+				<p>${golfFieldDto.fieldPeople}인 필수</p>
 			</div>			
 		</div>		
 		<hr>
@@ -80,9 +79,9 @@ span{
 				<h5><i class="fa-solid fa-golf-ball-tee"></i> 부대비용</h5>
 			</div>
 			<div class="col-md-7">
-				<span>주간 캐디피 (현장결제)</span>
+				<span>카트피 (현장결제)</span>
 				<p><fmt:formatNumber value="${golfFieldDto.fieldCartfee}" />원</p>
-				<span>야간 캐디피 (현장결제)</span>
+				<span>캐디피 (현장결제)</span>
 				<p><fmt:formatNumber value="${golfFieldDto.fieldCaddiefee}" />원</p>
 			</div>			
 		</div>		
@@ -92,10 +91,26 @@ span{
 				<h5><i class="fa-solid fa-sack-dollar"></i> 요금정보</h5>
 			</div>
 			<div class="col-md-7">
-				<span>그린피 [1인당]</span>
-				<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원</p>
-				<span>${golfFieldDto.fieldPeople}인 필수</span> 
-				<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}" />원</p>
+				<span>그린피 [1인당]</span>				
+				
+				<c:choose>
+					<c:when test="${teetimeVO.partTime == 1}">
+						 <p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원</p>					
+						<span>${golfFieldDto.fieldPeople}인 필수</span> 
+						<p><fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-20000)*4}" />원</p>
+					</c:when>
+					<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+						 <p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee-10000}" />원</p>					
+						<span>${golfFieldDto.fieldPeople}인 필수</span> 
+						<p><fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-10000)*4}" />원</p>
+					</c:when>
+					<c:otherwise>
+						<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원</p>					
+						<span>${golfFieldDto.fieldPeople}인 필수</span> 
+						<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}" />원</p>
+					</c:otherwise>
+				</c:choose>
+			
 			</div>			
 		</div>		
 		<hr>
@@ -116,9 +131,10 @@ span{
 		<form action="paymentInfo" method="get">
 			<div class="col-md-4 offset-md-4 mt-5">
 					<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
+					<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
 					<%-- <input type="hidden" name="prepay" value="${golfFieldDto.fieldPrepay}"> --%>
-					<button class="btn">결제정보</button>
 			</div>
+					<button class="btn" style="width: 100%;">결제정보</button>
 		</form>
 	</div>
 </div>
