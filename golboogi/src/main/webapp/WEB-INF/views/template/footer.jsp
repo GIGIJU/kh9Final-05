@@ -25,7 +25,7 @@
             <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
             <li><a href="#" class="py-2 d-block">Club solution</a></li>
             <li><a href="#" class="py-2 d-block">Contact</a></li>
-            <li><a href="#" class="py-2 d-block">관리자 로그인</a></li>
+            <li><a href="${root}/admin/login" class="py-2 d-block">관리자 로그인</a></li>
           </ul>
         </div>
       </div>
