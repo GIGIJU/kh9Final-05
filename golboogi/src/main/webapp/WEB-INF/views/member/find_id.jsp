@@ -31,9 +31,16 @@
                     <span>생년월일</span>
                     <input type="date" class="form-control" v-model="member.memberBirth" name="memberBirth">
                 </div>
-                <div class="mt-3 d-grid">
+                <br><br>
+                <div class="mt-3 d-grid" align="center">
                   <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.idFind">아이디 찾기</button>
                 </div>
+                <br><br>
+                <% if(request.getParameter("error") != null) { %>
+					<div class="mt-3" align="center">
+						<h3 style="color:red;">입력한 정보와 일치하는 데이터가 없습니다</h3>
+					</div>
+				<% } %>
             </form>
         </div>
         <br><br><br><br>

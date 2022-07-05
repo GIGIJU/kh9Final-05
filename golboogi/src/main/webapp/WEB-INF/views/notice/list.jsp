@@ -9,16 +9,20 @@
 		<h1>공지 게시판</h1>
 	</div>
 	<br> <br>
-	<div align="right">
-		<a href="write">글쓰기</a>
+	<div class="offset-10" align="right">
+		<a href="write" class="btn btn-primary btn-lg">글쓰기</a>
 	</div>
 	<br> <br>
 
-	<div align="right">
+	<div class="offset-8" align="right">
 		<!-- 검색창 -->
-		<form action="list" method="get">
-			<input type="search" name="keyword" placeholder="검색어 입력"
-				value="${keyword}"> <input type="submit" value="검색">
+		<form class="form-inline" action="list" method="get">
+			<div class="form-group" align="right">
+			    <label class="sr-only" for="keyword">Search keyword</label>
+				<input type="search" class="form-control" name="keyword" placeholder="검색어 입력"> 
+		    </div>
+		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="submit" class="btn btn-primary btn-lg" value="검색">
 		</form>
 	</div>
 	<br> <br>
@@ -42,7 +46,7 @@
 				<c:forEach var="noticeDto" items="${list}">
 					<tr>
 						<td>${noticeDto.noticeNo}</td>
-						<td><a href="detail/${noticeDto.noticeNo}">
+						<td><a href="${root}/notice/detail/${noticeDto.noticeNo}">
 							<c:if test="${noticeDto.noticeHead != null}">
 								[${noticeDto.noticeHead}] 
 							</c:if>
@@ -129,5 +133,5 @@
 	
 	</div>
 </div>
-
+<br><br><br>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

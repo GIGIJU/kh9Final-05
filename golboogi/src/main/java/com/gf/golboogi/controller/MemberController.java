@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gf.golboogi.entity.CertDto;
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.CertDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.service.MailService;
@@ -42,9 +43,31 @@ public class MemberController {
 	}
 	
 	@PostMapping("/join")
-	public String join(@ModelAttribute MemberDto memberDto) {
-		memberDao.join(memberDto);
-		return "redirect:join_success";
+	public String join(
+			@ModelAttribute MemberDto memberDto,
+			Model model) {
+		MemberDto idfindDto = memberDao.info(memberDto.getMemberId());
+		MemberDto nickfindDto = memberDao.selectNick(memberDto.getMemberNick());
+		MemberDto phonefindDto = memberDao.selectPhone(memberDto.getMemberPhone());
+		boolean check1 = idfindDto != null;
+		boolean check2 = nickfindDto != null;
+		boolean check3 = phonefindDto != null;
+		if(check1) {
+			return "redirect:join?error=1";
+		}
+		if(check2) {
+			return "redirect:join?error=2";
+		}
+		if(check3) {
+			return "redirect:join?error=3";
+		}
+		
+		if(!check1 && !check2 && !check3) {
+			memberDao.join(memberDto);
+			model.addAttribute("memberDto",memberDto);
+			return "redirect:join_success";
+		}
+		throw new CannotFindException();
 	}
 	
 	@GetMapping("/join_success")
@@ -72,6 +95,7 @@ public class MemberController {
 			return "redirect:blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
+			session.setAttribute("auth", memberDto.getMemberGrade());
 			return "redirect:/";
 		}
 		
@@ -86,6 +110,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("login");
+		session.removeAttribute("auth");
 		return "redirect:/";
 	}
 	
@@ -111,7 +136,6 @@ public class MemberController {
 	public String edit(HttpSession session,@ModelAttribute MemberDto memberDto) {
 		String memberId = (String) session.getAttribute("login");
 		memberDto.setMemberId(memberId);
-		
 		boolean success = memberDao.changeInformation(memberDto);
 		if(success) {
 			return "redirect:mypage";
@@ -141,12 +165,19 @@ public class MemberController {
 	}
 	
 	@GetMapping("/exit")
-	public String exit() {
+	public String exit(
+			Model model,
+			HttpSession session
+			) {
+		String memberId = (String) session.getAttribute("login");
+		model.addAttribute("memberId",memberId);
 		return "member/exit";
 	}
 	
 	@PostMapping("/exit")
-	public String exit(HttpSession session,@RequestParam String memberPw) {
+	public String exit(HttpSession session,
+			@RequestParam String memberPw
+			) {
 		String memberId = (String) session.getAttribute("login");
 		boolean success = memberDao.exit(memberId,memberPw);
 		if(success) {

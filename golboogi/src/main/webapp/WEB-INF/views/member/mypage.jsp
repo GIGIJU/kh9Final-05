@@ -4,12 +4,13 @@
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
- <style>
-        #mypage{
-            text-align: center;
-            font-size: 2em;
-        }
-    </style>
+<br><br>
+<style>
+    #mypage{
+        text-align: center;
+        font-size: 2em;
+    }
+</style>
 <body>
     <div class="container">
         <div class="mt-3 col-12">
@@ -59,8 +60,9 @@
                         <td>${memberDto.memberLogindate}</td>
                     </tr>
                 </table>
-                <div class="mt-4 d-grid">
-                    <a href="${root}/member/changeInfo" class="btn btn-primary rounded">회원정보 수정</a>
+                <br><br>
+                <div class="mt-4 d-grid" align="center">
+                    <a href="${root}/member/changeInfo" class="btn btn-primary btn-lg">회원정보 수정</a>
                 </div>
             </div>
         </div>

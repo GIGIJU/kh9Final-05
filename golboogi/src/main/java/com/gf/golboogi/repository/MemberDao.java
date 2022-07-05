@@ -22,5 +22,9 @@ public interface MemberDao {
 
 	boolean changPassword(MemberDto memberDto);
 
+	MemberDto selectNick(String memberNick);
+
+	MemberDto selectPhone(String memberPhone);
+
 
 }

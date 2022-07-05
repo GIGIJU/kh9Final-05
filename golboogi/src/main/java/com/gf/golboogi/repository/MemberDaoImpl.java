@@ -103,5 +103,15 @@ public class MemberDaoImpl implements MemberDao{
 		int count = sqlSession.update("member.changePw",memberDto);
 		return count > 0;
 	}
+
+	@Override
+	public MemberDto selectNick(String memberNick) {
+		return sqlSession.selectOne("member.selectNick",memberNick);
+	}
+
+	@Override
+	public MemberDto selectPhone(String memberPhone) {
+		return sqlSession.selectOne("member.selectPhone",memberPhone);
+	}
 	
 }

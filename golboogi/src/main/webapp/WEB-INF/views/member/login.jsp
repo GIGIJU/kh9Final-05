@@ -4,18 +4,13 @@
 <section class="hero-wrap hero-wrap-2 js-fullheight"
 	style="background-image: url('${root}/images/bg_1.jpg');"></section>
 <style>
-#login {
-	text-align: center;
-	font-size: 2em;
-}
-#check{
-	display: none;
-}
+	#login {
+		text-align: center;
+		font-size: 2em;
+	}
 </style>
-
-
 <div class="container col-12" id="app">
-	<div class="mt-5">
+	<div class="mt-3">
 		<h2 id="login">로그인</h2>
 	</div>
 
@@ -34,18 +29,21 @@
 				<span v-if="PwFalse">잘못된 작성입니다.</span>
 			</div>
 			<div class="form-group form-check mt-3">
-				<label> 비밀번호 확인 
-				<input type="checkbox" id="check" class="form-check-input" v-model="showPassword">
+				<label>  
+					<input type="checkbox" class="form-check-input" v-model="showPassword">
+					비밀번호 확인
 				</label>
 			</div>
-			<div class="mt-3 ">
+			<div class="mt-3 " align="center">
 				 <a href="${root}/member/find_id">아이디 찾기</a> &nbsp; <span>/</span> &nbsp; <a href="${root}/member/find_pw">비밀번호 찾기</a>
 			</div>
-			<div class="mt-3 d-grid">
+				<br>
+			<div class="mt-3 d-grid" align="center">
 				<button type="submit" class="btn btn-primary btn-lg" v-bind:click="isLogin">로그인</button>
 			</div>
+			<br><br>
 			<% if(request.getParameter("error") != null) { %>
-				<div class="row center">
+				<div class="mt-3" align="center">
 					<h3 style="color:red;">입력한 정보와 일치하는 데이터가 없습니다</h3>
 				</div>
 			<% } %>
@@ -53,8 +51,8 @@
 	</div>
 	<br><br><br><br>
 </div>
-		<script src="https://unpkg.com/vue@next"></script>
-		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 		
 		<script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
