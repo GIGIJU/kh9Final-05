@@ -136,7 +136,7 @@
 </style>
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/bg_1.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
