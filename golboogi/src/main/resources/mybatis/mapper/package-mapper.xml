@@ -26,26 +26,30 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="package">
 
-	<!-- 패키지 등록 -->
-	<insert id="insert" parameterType="packageDto">
-		insert into package_booking(
-		package_no, stay_no, package_depart, package_arrive, package_breakfast
-		)
-		values(
-		#{packageNo}, #{stayNo},#{packageDepart}, #{packageArrive}, #{packageBreakfast}
-		)
-	</insert>
+	<!-- 패키지 숙소 등록 -->
+<!-- 	<insert id="insert_stay" parameterType="packageDto"> -->
+<!-- 		insert into package_booking( -->
+<!-- 		package_no, stay_no, package_depart, package_arrive, package_breakfast -->
+<!-- 		) -->
+<!-- 		values( -->
+<!-- 		#{packageNo}, #{stayNo},#{packageDepart}, #{packageArrive}, #{packageBreakfast} -->
+<!-- 		) -->
+<!-- 	</insert> -->
 	
 	<!--패키지 숙소 정보 검색 -->
-	<select id="one" resultType="StayDto" parameterType="int">
-		select 
-			s.stay_name, s.stay_type ,s.stay_local,s.stay_price,
-       		s.stay_room, s.stay_post_address, s.stay_basic_address, s.stay_detail_address, s.stay_status,
-      		 p.package_no, p.package_arrive, p.package_depart
-		from stay s  
-			right outer join package_booking p on s.stay_no = p.stay_no;
-	</select>
+<!-- 	<select id="one" resultType="StayDto" parameterType="int"> -->
+<!-- 		select  -->
+<!-- 			s.stay_name, s.stay_type ,s.stay_local,s.stay_price, -->
+<!--        		s.stay_room, s.stay_post_address, s.stay_basic_address, s.stay_detail_address, s.stay_status, -->
+<!--       		 p.package_no, p.package_arrive, p.package_depart -->
+<!-- 		from stay s   -->
+<!-- 			right outer join package_booking p on s.stay_no = p.stay_no; -->
+<!-- 	</select> -->
 	
+		<!-- 패키지 골프장, 숙소 엮기 -->
+<!-- 	<insert id="insert_package" parameterType="packageVo"> -->
+<!-- 		insert into package_reserve values(#{bookingNo},#{packageNo}); -->
+<!-- 	</insert> -->
 	
 	
 	
