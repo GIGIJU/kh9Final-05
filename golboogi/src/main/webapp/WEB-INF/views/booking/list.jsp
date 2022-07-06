@@ -12,7 +12,7 @@
 <html lang="ko">
 
 <div id="app">
-	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/golf-dummy.jpg');">
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
 			<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
@@ -89,7 +89,7 @@
 								      <div class="icon"><span class="fa fa-chevron-down"></span></div>
 								      <select class="form-control" v-model="price" v-bind:name="checkGreenfee">
 								        <option value="" selected>선택</option>
-								        <option value="100000">~100,000원</option>
+								        <option value="150000">~150,000원</option>
 								        <option value="200000">~200,000원</option>
 								        <option value="300000">~300,000원</option>
 								      </select>
@@ -219,7 +219,6 @@
                     minDate: '+1D',
                     maxDate: '+60D',
                     onSelect:(dateText)=>{
-                    	console.log(dateText);
                     	this.teeTimeD = dateText;
                     },
                 });

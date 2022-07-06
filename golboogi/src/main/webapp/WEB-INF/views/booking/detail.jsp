@@ -114,7 +114,7 @@ p {
                 	timer:null,
                 	teeTimeD:"${param.teeTimeD}",
                 	showTeeTime:true,
-                };
+                };ㅌ
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
             //- 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
@@ -140,13 +140,9 @@ p {
                     })
             	},
             	setNowTimes () {  
-            	    let myDate = new Date()
-            	    let yy = String(myDate.getFullYear()) 
-            	    let m = myDate.getMonth() + 1;  
-            	    let mm = String(m < 10 ? '0' + m : m) 
-            	    let t= myDate.getDate()+1;
-            	    let dd = String(t < 10 ? '0' + t : t) 
-            	    this.teeTimeD = yy + '-' + mm + '-' + dd  
+            	    let maxTeeTimeD = new Date()
+            	    nextMonth.setMonth(nextMonth.getMonth() + 1);
+            	    console.log(nextMonth.toLocaleString());
             	},
             	clickTime(){
             		this.showTeeTime = true;
@@ -160,7 +156,9 @@ p {
 
             },
             mounted(){
-            	
+            	let maxTeeTimeD = new Date()
+        	    nextMonth.setMonth(nextMonth.getMonth() + 1);
+        	    console.log(nextMonth.toLocaleString());
             }, 
             created(){
         		this.location();
