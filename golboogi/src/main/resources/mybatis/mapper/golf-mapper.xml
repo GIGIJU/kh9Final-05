@@ -41,7 +41,7 @@
 	
 	<select id="search" resultType="BookingSearchListVO" parameterType="Map">
 		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/> 
-		select F.field_no, F.field_name, F.field_area, F.field_greenfee,B.count from golf_field F inner join(
+		select F.field_no, F.field_name, F.field_area, F.field_greenfee,F.field_prepay, B.count from golf_field F inner join(
 		select field_no, count(*) as count from(
 			select 
 			G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, 
@@ -75,6 +75,29 @@
 	<update id="commissionUpdate" parameterType="Map">
 		update golf_field set field_commission = (field_commission + #{commission}) where field_no = #{fieldNo}
 	</update>
+	
+	
+	<select id="ranking" resultType="BookingSearchListVO">
+		<![CDATA[
+		select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay, C.count from golf_field F 
+			inner join 
+			(select field_name, count(*) as count from
+			(select * from 
+			    golf_field F 
+			        inner join golf_course C on F.field_no = C.field_no
+			        inner join tee_time T on C.course_no = T.course_no
+			        inner join booking B on T.tee_time_no = B.tee_time_no
+			) GROUP BY field_name order by count desc) C on F.field_name = C.field_name  where rownum<=3
+		]]>
+	</select>
+	
+	<select id="prepay" resultType="GolfFieldDto">
+		<![CDATA[select * from golf_field where field_prepay = 1 and rownum <=3]]>
+	</select>
+	
+	<select id="cheap" resultType="GolfFieldDto">
+		<![CDATA[select * from (select * from golf_field where field_greenfee <= 150000 order by field_greenfee) where rownum <=3]]>
+	</select>
 </mapper> 
 
 

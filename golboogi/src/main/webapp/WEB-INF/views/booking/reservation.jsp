@@ -4,9 +4,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<script type="text/javascript">
-
-</script>
 <style>
 p{
 	font-size: 11px;	
@@ -87,8 +84,9 @@ textarea {
     color: gray;
 }
 </style>
-
 <div id="app">
+<fmt:parseDate var="teeTimeD"  value="${param.teeTimeD}" pattern="yyyy-MM-dd"/>
+<fmt:formatDate value="${teeTimeD}" var="teeDate" pattern="yyyy-MM-dd"/>
  <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
@@ -115,7 +113,7 @@ textarea {
 				<div class="row mt-5">
 					<div class="col">
 						<p>일자</p>
-						<span>${teeTimeD}</span>
+						<span>${param.teeTimeD}</span>
 					</div>
 					<div class="col">
 						<p>시간</p>
@@ -140,7 +138,8 @@ textarea {
 			</div>
 			<div class="col-md-7">
 				<span>취소가능기한</span>
-				<p>${teeTimeD}</p>
+				<p style="color: red;" v-if="isDropAble">취소불가</p>
+				<p style="color: red;" v-else>{{dropAble}}</p>
 				<span>내장인원</span>
 				<p>${golfFieldDto.fieldPeople}인 필수</p>
 			</div>			
@@ -369,10 +368,13 @@ textarea {
  <script src="http://unpkg.com/vue@next"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
         const app = Vue.createApp({
             data(){
                 return {
+                	teeTimeD:"${teeDate}",
+                	dropAble:"",
                 	agree1:false,//첫 번째 이용약관 동의여부
                     agree2:false,//두 번째 이용약관 동의여부
                     agree3:false,//세 번째 이용약관 동의여부
@@ -385,12 +387,21 @@ textarea {
             	isAgreeAll(){
                     return this.agree1 && this.agree2 && this.agree3;
                 },
+                isDropAble(){
+                	return moment(this.dropAble) <= moment();
+                }
             },
             methods:{
             	agreeAll(){
-            		this.agree1 = !this.agree1;
-            		this.agree2 = !this.agree2;
-            		this.agree3 = !this.agree3;
+            		if(!this.isAgreeAll){
+            			this.agree1 = true;
+            			this.agree2 = true;
+            			this.agree3 = true;
+            		}else{
+            			this.agree1 = false;
+            			this.agree2 = false;
+            			this.agree3 = false;
+            		}
             	},
             	sendForm(e){
                     if(!this.isAgreeAll){
@@ -436,6 +447,11 @@ textarea {
             watch:{
 
             },
+            mounted(){
+				let teeTimeD = moment(this.teeTimeD);
+				teeTimeD = teeTimeD.subtract("7","d").format('YYYY-MM-DD');
+				this.dropAble = teeTimeD;
+            },   	 
         });
         app.mount("#app");
     </script>

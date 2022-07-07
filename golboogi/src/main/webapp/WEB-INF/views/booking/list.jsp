@@ -8,9 +8,14 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
-<html lang="ko">
-
+<style>
+.prepay{
+	background-color: #ff7675;
+	color: white;
+	border-radius: 2px;
+	padding: 3px 3px 3px 3px;
+}
+</style>
 <div id="app">
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
@@ -118,27 +123,91 @@
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 mb-3"><h3 style="font-weight: bold;">인기골프장</h3></div>
+				<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">인기골프장</h4></div>
 			</div>
 			<div class="row">
-				<c:forEach var="golfFieldDto" items="${list}">
+				<c:forEach var="golfFieldDto" items="${rank}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-04" class="img"
+							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-09" :href="addTeeTimeD" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
 								<span class="days">
-								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+								<div class="row">
+									<div class="col-md-6 text-left">
+										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+									</div>
+									<div class="col-md-6 text-right">
+										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
+									</div>
+								</div>
 								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
 								<p class="location">
-									<span class="fa fa-map-marker">${golfFieldDto.fieldArea}</span>
+									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
 								</p>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
-
+				</div>
+				<div class="row mt-3">
+					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">선결제골프장</h4></div>
+				</div>
+					<div class="row">
+					<c:forEach var="golfFieldDto" items="${prepay}">
+					<div class="col-md-4 ftco-animate">
+						<div class="project-wrap hotel">
+							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-08" :href="addTeeTimeD" class="img"
+								style="background-image: url(${root}/images/golf-dummy.jpg);">
+							</a>
+							<div class="text p-2">
+								<span class="days">
+								<div class="row">
+									<div class="col-md-6 text-left">
+										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+									</div>
+									<div class="col-md-6 text-right">
+										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
+									</div>
+								</div>
+								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
+								<p class="location">
+									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+				<div class="row mt-3">
+					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
+				</div>
+					<div class="row">
+					<c:forEach var="golfFieldDto" items="${cheap}">
+					<div class="col-md-4 ftco-animate">
+						<div class="project-wrap hotel">
+							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-08" :href="addTeeTimeD" class="img"
+								style="background-image: url(${root}/images/golf-dummy.jpg);">
+							</a>
+							<div class="text p-2">
+								<span class="days">
+								<div class="row">
+									<div class="col-md-6 text-left">
+										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+									</div>
+									<div class="col-md-6 text-right">
+										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
+									</div>
+								</div>
+								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
+								<p class="location">
+									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 			<div class="row mt-5">
 				<div class="col text-center">
@@ -173,6 +242,7 @@
                 	area:"",
                 	part:"",
                 	price:"",
+                	tomorrow:"",
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -187,19 +257,20 @@
 				},
 				checkGreenfee(){
 					if(!this.price=="") return "fieldGreenfee";
-				}
+				},
+				addTeeTimeD(){
+            		return this.tomorrow;
+            	}
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
-            	location(){
-            		window.location.href="http://localhost:8080/booking/search?teeTimeD="+this.teeTimeD;
-            	},
             	sendSearch(e){
             		if(this.teeTimeD==""){
             			alert("날짜를 선택해주세요")
             			e.preventDefault();
             		}
             	},
+            	
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{
@@ -223,6 +294,15 @@
                     },
                 });
                 $("#datepicker").datepicker(); 
+                
+            	//내일 날짜
+            	 let myDate = new Date()
+            	 let yy = String(myDate.getFullYear()) 
+            	 let m = myDate.getMonth() + 1;  
+            	 let mm = String(m < 10 ? '0' + m : m) 
+            	 let t= myDate.getDate()+1;
+            	 let dd = String(t < 10 ? '0' + t : t) 
+            	 this.tomorrow = yy + '-' + mm + '-' + dd 
             },
         });
         app.mount("#app");

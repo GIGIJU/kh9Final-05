@@ -21,4 +21,7 @@ public interface GolfFieldDao {
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
 	List<GolfFieldBookingVO> teeTimeDayList();
 	void addCommission(int fieldNo, int commission);
+	List<BookingSearchListVO> selectRank();
+	List<GolfFieldDto> selectPrepay();
+	List<GolfFieldDto> selectCheap();
 }

@@ -6,7 +6,6 @@ span {
 	font-size: 12px;
 	color: black;
 }
-
 p {
 	font-size: 12px;
 	margin-bottom: 0;
@@ -53,15 +52,14 @@ p {
 				<img src="${root}/images/bg_5.jpg" style="width: 300px; height: 300px; border-radius: 70%;">
 			</div>
 		</div>
-		<div class="row mt-5">
+		<div class="row mt-5" v-if="showAll">
 			<div class="col-md-6 offset-md-3">
 				<div class="row">
 					<div class="col-4 text-left">
 						<input type="date" name="date" v-model="teeTimeD" v-on:input="location" v-show="showTeeTime">
 					</div>
 					<div class="col-8 text-right">
-						<button class="btn" style="width: 100px;" @click="setNowTimes">타임정보</button> 
-<!-- 						<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>  -->
+ 						<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>
 						<button class="btn ml-1" style="width: 100px;" @click="clickGolf">골프장정보</button>
 					</div>
 				</div>
@@ -121,6 +119,11 @@ p {
 			<div class="row mt-4" v-show="showGolfInfo">
 				<h1>골프장 정보</h1>
 			</div>
+		</div>
+	</div>
+		<div class="row mt-5 mb-5" v-else>
+			<div class="col-md-8 offset-md-2 text-center">
+				<h5 style="font-weight: bold;">해당 날짜에 대한 예약 정보가 없습니다</h5>	
 			</div>
 		</div>
 </div>
@@ -140,6 +143,7 @@ p {
                 	today:"",
                 	showTeeTime:true,
                 	showGolfInfo:false,
+                	showAll: true,
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -167,14 +171,17 @@ p {
 				
             },
             mounted(){
+            	//내일 날짜
             	const tommorrow = new Date();
             	tommorrow.setDate(tommorrow.getDate() + 1);
-            	this.today = now.toLocaleString();
+            	this.today = tommorrow.toLocaleString();
             	
+            	//2달 후 날짜
             	const now = new Date();
             	now.setMonth(now.getMonth() + 2);
         	    this.maxTeeTimeD = now.toLocaleString();
-        	    console.log(now.toLocaleString());
+        	    
+        	    if(this.teeTimeD==""||this.teeTimeD>this.today) this.showAll=false; //날짜 문제 해결하기
             }, 
             created(){
             	

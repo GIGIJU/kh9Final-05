@@ -123,6 +123,23 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		
 		sqlSession.update("golfField.commissionUpdate",param);	
 	}
+
+	//골프장 인기순 출력
+	@Override
+	public List<BookingSearchListVO> selectRank() {
+		return sqlSession.selectList("golfField.ranking");
+	}
+	//선결제 골프장 출력
+	@Override
+	public List<GolfFieldDto> selectPrepay() {
+		return sqlSession.selectList("golfField.prepay");
+	}
+	//비용 저렴한 골프장 출력
+	@Override
+	public List<GolfFieldDto> selectCheap() {
+		return sqlSession.selectList("golfField.cheap");
+	}
+	
 	
 	
 	

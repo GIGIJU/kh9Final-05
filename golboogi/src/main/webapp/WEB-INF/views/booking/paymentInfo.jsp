@@ -12,6 +12,14 @@ span {
 p {
 	font-size: 11px;
 }
+.prepay{
+	background-color: #ff7675;
+	color: white;
+	border-radius: 2px;
+	padding: 3px 3px 3px 3px;
+	height: 30%;
+	vertical-align: middle;
+}
 </style>
 
 <section class="hero-wrap hero-wrap-2"
@@ -41,26 +49,26 @@ p {
 							<img src="${root}/images/bg_1.jpg" width="150" height="150"
 								style="border-radius: 100%;">
 						</div>
-						<div class="col-md-7 mt-4 ml-3">
-							<div>
+						<div class="col-md-7 mt-4">
+							<div class="row">
 								<h4>${golfFieldDto.fieldName}</h4>
 							</div>
 							<div class="row mt-5">
-								<div class="col-4">
+								<div class="col-3.8">
 									<p>일자</p>
 									<span>${param.teeTimeD}</span>
 								</div>
-								<div class="col">
+								<div class="col-3 ml-2">
 									<p>시간</p>
 									<span>${teetimeVO.teeTimeT}</span>
 								</div>
-								<div class="col">
+								<div class="col-4">
 									<p>코스</p>
 									<span>${teetimeVO.courseName}</span>
 								</div>
 								<div class="col">
 									<p>지역</p>
-									<span>지역</span>
+									<span>${golfFieldDto.fieldArea}</span>
 								</div>
 							</div>
 						</div>
@@ -90,7 +98,11 @@ p {
 							<span>결제조건</span>
 						</div>
 						<div class="col-md-8">
-							<span>현장 결제</span>
+							<c:choose>
+								<c:when test="${golfFieldDto.fieldPrepay==1}"><span>카카오페이</span></c:when>
+								<c:otherwise><span>현장 결제</span></c:otherwise>
+							</c:choose>
+							
 						</div>
 					</div>
 					<hr>
@@ -102,7 +114,18 @@ p {
 			<div class="col-lg-4 sidebar ftco-animate bg-light py-md-5">
 				<div class="sidebar-box ftco-animate pt-md-5">
 					<div class="categories">
-						<h3>결제정보</h3>
+						<div class="row mb-3">
+							<div class="col-md-6 text-left">
+								<h3>결제정보</h3>
+							</div>
+							<div class="col-md-4 text-left">
+								<c:choose>
+									<c:when test="${golfFieldDto.fieldPrepay==1}"><span class="prepay">선결제</span></c:when>
+									<c:otherwise><span class="prepay">현장결제</span></c:otherwise>
+								</c:choose>
+								
+							</div>
+						</div>
 						<div class="row">
 							<span class="col-6" style="font-size: 14px">4인그린피</span> 
 							<span class="col-6" style="font-size: 14px">
@@ -170,10 +193,20 @@ p {
 							<c:otherwise>
 								<input type="hidden" name="bookingPrice" value="${(golfFieldDto.fieldGreenfee)*4}">
 							</c:otherwise>
-						</c:choose>							
-						<div class="row mt-4 ml-1">
+						</c:choose>				
+						
+						<c:choose>
+						<c:when test="${golfFieldDto.fieldPrepay==1}">
+							<div class="row mt-4 ml-1">
+								<button class="btn" style="width: 90%">결제하기</button>
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="row mt-4 ml-1">
 								<button class="btn" style="width: 90%">예약하기</button>
 							</div>
+						</c:otherwise>
+						</c:choose>
 						</form>
 					</div>
 				</div>

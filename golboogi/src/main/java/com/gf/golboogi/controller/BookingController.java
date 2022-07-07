@@ -40,9 +40,13 @@ public class BookingController {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<GolfFieldDto> list = golfFieldDao.selectList();
+		List<BookingSearchListVO> rank = golfFieldDao.selectRank();
+		List<GolfFieldDto> prepay = golfFieldDao.selectPrepay();
+		List<GolfFieldDto> cheap = golfFieldDao.selectCheap();
 		
-		model.addAttribute("list",list);
+		model.addAttribute("rank",rank);
+		model.addAttribute("prepay",prepay);
+		model.addAttribute("cheap",cheap);
 		return "booking/list";
 	}
 	
