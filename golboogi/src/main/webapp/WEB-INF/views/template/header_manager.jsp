@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="admin" value="${adminLogin}"></c:set>
-<c:set var="root" value="${root}"></c:set>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
 <!DOCTYPE html>
 <html lang="ko">
@@ -58,20 +58,20 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">dashboard</div>
-                            <a class="nav-link" href="${root}/manager/stat">
+                            <a class="nav-link" href="${root}/manager/stat/${adminId}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Overall stat.
                             </a>
                             <div class="sb-sidenav-menu-heading">statistics</div>
-                            <a class="nav-link" href="${root}/manager/charts">
+                            <a class="nav-link" href="${root}/manager/charts/${adminId}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
                             </a>
-                            <a class="nav-link" href="${root}/manager/tables">
+                            <a class="nav-link" href="${root}/manager/tables/${adminId}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
                             </a>
-                            <a class="nav-link" href="${root}/manager/payment">
+                            <a class="nav-link" href="${root}/manager/payment/${adminId}">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
                                 Payment
                             </a>
@@ -79,8 +79,8 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        ${admin}
+                        <div class="small">반갑습니다 <i class="fa-solid fa-face-smile"></i></div>
+                        ${adminId}님
                     </div>
                 </nav>
             </div>
