@@ -50,8 +50,18 @@
 		});
 	}); 
 	</script>
+	
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+	
+	
 </head>
 <body>
+<df-messenger
+  intent="WELCOME"
+  chat-title="GOLF_BOT"
+  agent-id="6ff71c6c-70c1-4b5f-924d-544ac3698b6c"
+  language-code="ko"
+></df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
      <a class="navbar-brand" href="/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>

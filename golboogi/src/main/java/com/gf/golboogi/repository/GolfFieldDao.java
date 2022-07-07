@@ -21,4 +21,6 @@ public interface GolfFieldDao {
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
 	List<GolfFieldBookingVO> teeTimeDayList();
 	void addCommission(int fieldNo, int commission);
+	List<GolfFieldDto> list(String type, String keyword, int page, int size);
+	int count(String type, String keyword);
 }
