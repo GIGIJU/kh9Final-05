@@ -89,7 +89,7 @@
 	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
          	</c:when>
          	<c:when test="${isAdmin && auth == 1}">
-	         	 <li class="nav-item"><a href="${root}/manager/stat" class="nav-link">관리자 페이지</a></li>
+	         	 <li class="nav-item"><a href="${root}/manager/stat/${adminId}" class="nav-link">관리자 페이지</a></li>
 	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
          	</c:when>
          	<c:otherwise>
