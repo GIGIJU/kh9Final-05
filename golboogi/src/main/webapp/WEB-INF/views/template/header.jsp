@@ -73,17 +73,13 @@
 	         	 <li class="nav-item"><a href="${root}/member/mypage" class="nav-link">마이페이지</a></li>
 	         	 <li class="nav-item"><a href="${root}/member/logout" class="nav-link">로그아웃</a></li>
          	</c:when>
-         	<c:otherwise>
-	         	<li class="nav-item"><a href="${root}/member/login" class="nav-link">로그인</a></li>
-	         	<li class="nav-item"><a href="${root}/member/join" class="nav-link">회원가입</a></li>
-         	</c:otherwise>
-         </c:choose>
-         
-         <!-- 관리자 -->
-         <c:choose>
-         	<c:when test="${isAdmin}">
-	         	 <li class="nav-item"><a href="${root}/admin/list" class="nav-link">일반회원 목록</a></li>
-	         	 <li class="nav-item"><a href="${root}/admin/member_list" class="nav-link">골프장 관리자 목록</a></li>
+         	<c:when test="${isAdmin && auth == 0}">
+	         	 <li class="nav-item"><a href="${root}/admin/list" class="nav-link">골프장 관리자 목록</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/member_list" class="nav-link">일반회원 목록</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
+         	</c:when>
+         	<c:when test="${isAdmin && auth == 1}">
+	         	 <li class="nav-item"><a href="${root}/manager/stat" class="nav-link">관리자 페이지</a></li>
 	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
          	</c:when>
          	<c:otherwise>
