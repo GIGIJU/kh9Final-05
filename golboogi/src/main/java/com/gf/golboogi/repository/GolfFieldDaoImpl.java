@@ -141,7 +141,27 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	}
 	
 	
-	
-	
+	@Override
+	public List<GolfFieldDto> list(String type, String keyword, int page, int size) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("type", type);
+		param.put("keyword", keyword);
+		
+		int end = page * size;
+		int begin = end - (size - 1);
+		param.put("begin", begin);
+		param.put("end", end);
+		
+		return sqlSession.selectList("golfField.list", param);
+	}
+
+	@Override
+	public int count(String type, String keyword) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("type", type);
+		param.put("keyword", keyword);
+		
+		return sqlSession.selectOne("golfField.count", param);
+	}
 	
 }

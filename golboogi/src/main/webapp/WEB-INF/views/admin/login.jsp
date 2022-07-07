@@ -30,7 +30,7 @@
                             <input v-model="golfManagerId" name="golfManagerId" v-model="golfManagerId" type="text" class="form-control" placeholder="ID" >
                         </div>
                         <div class="form-group">
-                            <input v-bind:type="passwordInputType" name="golManagerPw" v-model="golfManagerPw" type="password" class="form-control" placeholder="Password" >
+                            <input v-bind:type="passwordInputType" name="golfManagerPw" v-model="golfManagerPw"  class="form-control" placeholder="Password" >
                         </div>
                         <div class="form-group">
 	                        <label>비밀번호 표시

@@ -43,7 +43,7 @@
 		<div class="row mt-3">
 			<div class="col col-md-3 offset-md-3">
 				<label class="form-label">비밀번호 확인</label>
-				<input type="password" class="form-control rounded" name="golfManagerPw"
+				<input type="password" class="form-control rounded" 
 					v-bind:class="pwCheckClassObject" v-model="golfManager.golfManagerPwCheck"
 					v-on:blur="pwCheckValidation">
 				<div class="valid-feedback">비밀번호가 일치합니다</div>
