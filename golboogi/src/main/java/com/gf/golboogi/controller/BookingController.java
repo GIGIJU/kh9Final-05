@@ -64,7 +64,7 @@ public class BookingController {
 	@GetMapping("/test")
 	public String test(Model model) {
 		model.addAttribute("list",golfFieldDao.teeTimeDayList());
-		return "booking/search_list3";
+		return "booking/search_list";
 	}
 	
 	
@@ -89,7 +89,7 @@ public class BookingController {
 	@GetMapping("/search")
 	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
 		model.addAttribute("list",golfFieldDao.searchList(searchVO));
-		return "booking/search_list3";
+		return "booking/search_list";
 	}
 	
 	@GetMapping("/paymentInfo")

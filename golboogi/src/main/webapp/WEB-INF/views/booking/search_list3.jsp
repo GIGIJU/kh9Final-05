@@ -61,7 +61,6 @@
 					
 					for(let i=0; i < json.length; i++){
 						let template = $("#time-a-template").html();
-						//template = template.replace("{{time}}",json[i].teeTimeT);
 						let tag = $(template).text(json[i].teeTimeT)
 											//.attr("data-field-no", json[i].fieldNo)
 											//.attr("data-teetime-no", json[i].teeTimeNo)

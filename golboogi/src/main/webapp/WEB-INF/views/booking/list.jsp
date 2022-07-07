@@ -4,9 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<!-- datepicker ui -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style>
 .prepay{
@@ -187,7 +186,7 @@
 					<c:forEach var="golfFieldDto" items="${cheap}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-08" :href="addTeeTimeD" class="img"
+							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=" :href="addTeeTimeD" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
@@ -231,8 +230,8 @@
 
 <!-- vueJs -->
 <script src="http://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
         const app = Vue.createApp({
@@ -250,7 +249,7 @@
             //- 반드시 return을 통해 값을 반환해야 한다
             computed:{
 				checkPartTime(){
-					if(!this.part=="") return "PartTime";
+					if(!this.part=="") return "partTime";
 				},
 				checkFieldArea(){
 					if(!this.area=="") return "fieldArea";
@@ -296,13 +295,7 @@
                 $("#datepicker").datepicker(); 
                 
             	//내일 날짜
-            	 let myDate = new Date()
-            	 let yy = String(myDate.getFullYear()) 
-            	 let m = myDate.getMonth() + 1;  
-            	 let mm = String(m < 10 ? '0' + m : m) 
-            	 let t= myDate.getDate()+1;
-            	 let dd = String(t < 10 ? '0' + t : t) 
-            	 this.tomorrow = yy + '-' + mm + '-' + dd 
+            	 this.tomorrow = moment().add("1","d").format('YYYY-MM-DD');
             },
         });
         app.mount("#app");

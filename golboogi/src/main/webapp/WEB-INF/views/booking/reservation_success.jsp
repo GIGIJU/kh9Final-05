@@ -17,9 +17,9 @@
 	</div>
 </section>
 
-<div class="container text-center">
+<div class="container-fluid mt-5" style="text-align: center;">
 	<div class="col-md-4 offset-md-4">
-		<div class="row mt-5">
+		<div class="row">
 			<h5 style="font-weight: bold;">예약이 완료되었습니다</h5>
 		</div>
 		<div class="row mt-3">
@@ -28,7 +28,6 @@
 		<div class="row mt-5 mb-5">
 			<a href="#" class="btn">내 예약 현황 보기</a>
 		</div>
-		
 	</div>
 </div>
  

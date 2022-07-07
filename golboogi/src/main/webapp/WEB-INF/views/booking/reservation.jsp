@@ -98,7 +98,7 @@ textarea {
  </div>
 </section>
 
-<div class="container-fluid mt-5 mb-5 ">
+<div class="container-fluid mt-5 mb-5" v-if="!isNoTeeTime">
 	<div class="col-md-6 offset-md-3">
 		<h4 style="font-weight: bold;">티타임 정보</h4>
 		<hr>
@@ -230,13 +230,17 @@ textarea {
 			<div class="col-md-4 offset-md-4 mt-5">
 					<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
 					<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
-					<%-- <input type="hidden" name="prepay" value="${golfFieldDto.fieldPrepay}"> --%>
 			</div>
 					<button class="btn" style="width: 100%;">결제정보</button>
 		</form>
 		</div>
+</div>
+<div class="container-fluid mt-5 mb-5" style="text-align: center;" v-else>
+	<div class="col-md-4 offset-md-4">
+	<img src="https://image.smartscore.kr/pc4/img_illust_03.svg" style="white: 300px; height: 300px;">
+		<h5 style="font-weight: bold;">티타임 정보가 없습니다</h5>
 	</div>
-	
+</div>	
 	
 	
 <!-- 약관동의 모달창 1 -->
@@ -364,9 +368,7 @@ textarea {
 	</div>
 
 </div>
-
- <script src="http://unpkg.com/vue@next"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+ 	<script src="http://unpkg.com/vue@next"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
@@ -375,6 +377,7 @@ textarea {
                 return {
                 	teeTimeD:"${teeDate}",
                 	dropAble:"",
+                	maxDate:"",
                 	agree1:false,//첫 번째 이용약관 동의여부
                     agree2:false,//두 번째 이용약관 동의여부
                     agree3:false,//세 번째 이용약관 동의여부
@@ -389,6 +392,9 @@ textarea {
                 },
                 isDropAble(){
                 	return moment(this.dropAble) <= moment();
+                },
+                isNoTeeTime(){
+                	return moment(this.teeTimeD) <= moment() || moment(this.teeTimeD) > moment(this.maxDate);
                 }
             },
             methods:{
@@ -449,8 +455,9 @@ textarea {
             },
             mounted(){
 				let teeTimeD = moment(this.teeTimeD);
-				teeTimeD = teeTimeD.subtract("7","d").format('YYYY-MM-DD');
-				this.dropAble = teeTimeD;
+				this.dropAble = teeTimeD.subtract("7","d").format('YYYY-MM-DD');
+				this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
+				
             },   	 
         });
         app.mount("#app");

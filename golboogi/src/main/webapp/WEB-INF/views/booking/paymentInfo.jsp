@@ -21,7 +21,7 @@ p {
 	vertical-align: middle;
 }
 </style>
-
+<div id="app">
 <section class="hero-wrap hero-wrap-2"
 	style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 	<div class="container">
@@ -39,7 +39,7 @@ p {
 	</div>
 </section>
 
-<section class="ftco-section ftco-no-pt ftco-no-pb">
+<section class="ftco-section ftco-no-pt ftco-no-pb" v-if="!isNoTeeTime">
 	<div class="container">
 		<div class="row col-10 offset-1">
 			<div class="col-lg-8 ftco-animate py-md-5 mt-md-5">
@@ -82,7 +82,8 @@ p {
 							<span>취소가능기한</span>
 						</div>
 						<div class="col-md-8">
-							<span style="color: red;">2022-07-21</span>
+							<span style="color: red;" v-if="isDropAble">취소불가</span>
+							<span style="color: red;" v-else>{{dropAble}}</span>
 						</div>
 					</div>
 					<div class="row mt-2 ml-2">
@@ -118,7 +119,7 @@ p {
 							<div class="col-md-6 text-left">
 								<h3>결제정보</h3>
 							</div>
-							<div class="col-md-4 text-left">
+							<div class="col-md-6 text-left">
 								<c:choose>
 									<c:when test="${golfFieldDto.fieldPrepay==1}"><span class="prepay">선결제</span></c:when>
 									<c:otherwise><span class="prepay">현장결제</span></c:otherwise>
@@ -210,15 +211,46 @@ p {
 						</form>
 					</div>
 				</div>
-
-
-				<!--         <div class="sidebar-box ftco-animate">
-          <h3>Paragraph</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
-        </div> -->
 			</div>
 		</div>
 	</div>
 </section>
+<div class="container-fluid mt-5 mb-5" style="text-align: center;" v-else>
+	<div class="col-md-4 offset-md-4">
+	<img src="https://image.smartscore.kr/pc4/img_illust_03.svg" style="white: 300px; height: 300px;">
+		<h5 style="font-weight: bold;">티타임 정보가 없습니다</h5>
+	</div>
+</div>	
+</div>
+ 	<script src="http://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script>
+        const app = Vue.createApp({
+            data(){
+                return {
+                   teeTimeD:"${param.teeTimeD}",
+                   maxDate:"",
+                   dropAbleDate:"",
+                };
+            },
+            computed:{
+            	isDropAble(){
+                	return moment(this.dropAble) <= moment();
+                },
+                isNoTeeTime(){
+                	return moment(this.teeTimeD) <= moment() || moment(this.teeTimeD) > moment(this.maxDate);
+                }
+            },
+            methods:{
 
+            },
+            mounted(){
+            	let teeTimeD = moment(this.teeTimeD);
+				this.dropAbleDate = teeTimeD.subtract("7","d").format('YYYY-MM-DD');
+				this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
+            },
+        });
+        app.mount("#app");
+    </script>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

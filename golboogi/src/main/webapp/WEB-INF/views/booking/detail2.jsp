@@ -52,7 +52,7 @@ p {
 				<img src="${root}/images/bg_5.jpg" style="width: 300px; height: 300px; border-radius: 70%;">
 			</div>
 		</div>
-		<div class="row mt-5" v-if="showAll">
+		<div class="row mt-5" v-if="!isNoTeeTime">
 			<div class="col-md-6 offset-md-3">
 				<div class="row">
 					<div class="col-4 text-left">
@@ -132,6 +132,7 @@ p {
 <script src="http://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
         const app = Vue.createApp({
@@ -139,18 +140,18 @@ p {
             data(){
                 return {
                 	teeTimeD:"${param.teeTimeD}",
-                	maxTeeTimeD:"",
-                	today:"",
+                	maxDate:"",
                 	showTeeTime:true,
-                	showGolfInfo:false,
-                	showAll: true,
+                	showGolfInfo:false
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
             //- 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
             //- 반드시 return을 통해 값을 반환해야 한다
             computed:{
-				
+            	 isNoTeeTime(){
+            		 return moment(this.teeTimeD) <= moment() || moment(this.teeTimeD) > moment(this.maxDate);
+            	 }
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
@@ -171,21 +172,9 @@ p {
 				
             },
             mounted(){
-            	//내일 날짜
-            	const tommorrow = new Date();
-            	tommorrow.setDate(tommorrow.getDate() + 1);
-            	this.today = tommorrow.toLocaleString();
-            	
-            	//2달 후 날짜
-            	const now = new Date();
-            	now.setMonth(now.getMonth() + 2);
-        	    this.maxTeeTimeD = now.toLocaleString();
-        	    
-        	    if(this.teeTimeD==""||this.teeTimeD>this.today) this.showAll=false; //날짜 문제 해결하기
+            	let teeTimeD = moment(this.teeTimeD);
+				this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
             }, 
-            created(){
-            	
-            },
         });
         app.mount("#app");
     </script>
