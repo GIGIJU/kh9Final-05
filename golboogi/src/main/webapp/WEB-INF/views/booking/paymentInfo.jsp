@@ -20,6 +20,10 @@ p {
 	height: 30%;
 	vertical-align: middle;
 }
+label{
+	font-size: 11px;
+	color: black;
+}
 </style>
 <div id="app">
 <section class="hero-wrap hero-wrap-2"
@@ -83,7 +87,7 @@ p {
 						</div>
 						<div class="col-md-8">
 							<span style="color: red;" v-if="isDropAble">취소불가</span>
-							<span style="color: red;" v-else>{{dropAble}}</span>
+							<span style="color: red;" v-else>{{dropAbleDate}}</span>
 						</div>
 					</div>
 					<div class="row mt-2 ml-2">
@@ -100,7 +104,10 @@ p {
 						</div>
 						<div class="col-md-8">
 							<c:choose>
-								<c:when test="${golfFieldDto.fieldPrepay==1}"><span>카카오페이</span></c:when>
+								<c:when test="${golfFieldDto.fieldPrepay==1}">
+									<label for="kakao">카카오페이</label><input type="radio" id="kakao" name="pay">&nbsp;
+     								<label for="card">신용/체크카드</label><input type="radio" id="card" name="pay">
+								</c:when>
 								<c:otherwise><span>현장 결제</span></c:otherwise>
 							</c:choose>
 							
@@ -236,7 +243,7 @@ p {
             },
             computed:{
             	isDropAble(){
-                	return moment(this.dropAble) <= moment();
+                	return moment(this.dropAbleDate) <= moment();
                 },
                 isNoTeeTime(){
                 	return moment(this.teeTimeD) <= moment() || moment(this.teeTimeD) > moment(this.maxDate);
