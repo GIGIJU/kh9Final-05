@@ -19,9 +19,19 @@ public class BookingDaoImpl implements BookingDao{
 	public void reservation(BookingDto bookingDto) {
 		int bookingSequence = sqlSession.selectOne("booking.sequence");
 		bookingDto.setBookingNo(bookingSequence);
-		
 		sqlSession.insert("booking.insert",bookingDto);
 	}
+
+	@Override
+	public BookingDto checkBooking(int teeTimeNo, String teeTimeD) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("teeTimeNo", teeTimeNo);
+		param.put("teeTimeD", teeTimeD);
+
+		BookingDto bookingDto = sqlSession.selectOne("booking.check",param);
+		return bookingDto;
+	}
+	
 	
 	
 	

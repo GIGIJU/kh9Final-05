@@ -33,7 +33,11 @@
 	<insert id="insert" parameterType="BookingDto">
 		insert into booking(booking_no,member_id,tee_time_no,tee_time_d,booking_name,booking_price,booking_status,booking_drop_able)
 		values(#{bookingNo},#{memberId},#{teeTimeNo},to_date(#{teeTimeD},'YYYY-MM-DD'),#{bookingName},#{bookingPrice},'예약완료',to_date(#{teeTimeD},'YYYY-MM-DD')-7)
-	</insert>										
+	</insert>	
+	
+	<select id="check" parameterType="Map" resultType="BookingDto">
+		select * from booking where tee_time_no=#{teeTimeNo} and tee_time_d=#{teeTimeD} and booking_status='예약완료'
+	</select>									
 </mapper> 
 
 

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
 <style>
 span {
 	font-size: 12px;
@@ -19,6 +21,14 @@ p {
     color: #000000;
     border: 1px solid #ccc;
     font-size: 11px;
+}
+.prepay{
+	background-color: #ff7675;
+	color: white;
+	border-radius: 2px;
+	padding: 3px 3px 3px 3px;
+	height: 30%;
+	vertical-align: middle;
 }
 
 </style>
@@ -46,7 +56,8 @@ p {
 	<div class="container-fluid">
 		<div class="row mt-5 mb-5">
 			<div class="col-md-6 offset-md-3 text-center">
-				<h3 style="font-weight: bold;">${golfFieldDto.fieldName}</h3>
+				<span style="font-weight: bold; font-size: 30px;">${golfFieldDto.fieldName}</span>&nbsp;
+				<c:if test="${golfFieldDto.fieldPrepay == 1}"><span class="prepay">선결제</span></c:if>
 			</div>
 			<div class="col-md-6 offset-md-3 text-center">
 				<img src="${root}/images/bg_5.jpg" style="width: 300px; height: 300px; border-radius: 70%;">
@@ -56,14 +67,15 @@ p {
 			<div class="col-md-6 offset-md-3">
 				<div class="row">
 					<div class="col-4 text-left">
-						<input type="date" name="date" v-model="teeTimeD" v-on:input="location" v-show="showTeeTime">
+						<div v-show="showTeeTime"><i class="fa-solid fa-check"></i>&nbsp;
+						<input type="text" id="datepicker" :value="teeTimeD" v-model="teeTimeD" style="width: 110px;"></div>
 					</div>
 					<div class="col-8 text-right">
  						<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>
 						<button class="btn ml-1" style="width: 100px;" @click="clickGolf">골프장정보</button>
 					</div>
 				</div>
-			<div class="row mt-4" v-show="showTeeTime">
+			<div class="row mt-4 mb-5" v-show="showTeeTime">
 				<table class="table table-hover text-center" style="font-size: 12px;">
 			 		<thead>
 				 		<tr>
@@ -128,9 +140,8 @@ p {
 		</div>
 </div>
 </div>
-<!--vue jis도 lazy loading을 사용한다-->
+<!--vue js-->
 <script src="http://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
@@ -155,9 +166,6 @@ p {
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
-            	location(){
-            		window.location.href="${root}/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+this.teeTimeD;
-            	},
             	clickTime(){
             		this.showTeeTime = true;
             		this.showGolfInfo = false
@@ -174,6 +182,24 @@ p {
             mounted(){
             	let teeTimeD = moment(this.teeTimeD);
 				this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
+				
+				$.datepicker.setDefaults({
+                    showMonthAfterYear: true,
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    nextText: "다음달",
+                    prevText: "이전달",
+                    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+                    monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8",
+                        "9", "10", "11", "12"
+                    ],
+                    minDate: '+1D',
+                    maxDate: '+60D',
+                    onSelect:(dateText)=>{
+                    	window.location.href="${root}/booking/detail?fieldNo="+${param.fieldNo}+"&teeTimeD="+dateText;
+                    },
+                });
+                $("#datepicker").datepicker(); 
             }, 
         });
         app.mount("#app");

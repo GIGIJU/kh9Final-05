@@ -287,7 +287,7 @@ textarea {
 			<div class="col text-center">
 				<button class="btn" style="width: 50%" @click="clickAgree1">동의</button>
 			</div>
-			</div>
+		</div>
 		</div>
 	</div>
 <!-- 약관동의 모달창 2 -->
@@ -413,6 +413,9 @@ textarea {
                     if(!this.isAgreeAll){
                         alert("약관에 모두 동의해주세요");
                         e.preventDefault();
+                    }
+                    else if(this.isDropAble){
+                    	alert("선택하신 타임은 취소가능 기한이 경과하여 \n예약 후 취소가 불가능 합니다.");
                     }
                 },
                 hiddenModal1(){

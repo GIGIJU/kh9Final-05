@@ -74,9 +74,10 @@
      <div class="collapse navbar-collapse" id="ftco-nav">
        <ul class="navbar-nav ml-auto">
          <li class="nav-item"><a href="${root}/booking/list" class="nav-link">골프부킹</a></li>
-         <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
          <li class="nav-item"><a href="${root}/package/list" class="nav-link">투어</a></li>
-         <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
+         <li class="nav-item"><a href="${root}/join/list" class="nav-link">조인</a></li>
+         <li class="nav-item"><a href="${root}/review/list" class="nav-link">리뷰게시판</a></li>
+         <li class="nav-item"><a href="${root}/notice/list" class="nav-link">공지사항</a></li>
          <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
          <c:choose>
          	<c:when test="${isLogin}">
