@@ -26,33 +26,81 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="package">
 
-	<!-- 패키지 숙소 등록 -->
-<!-- 	<insert id="insert_stay" parameterType="packageDto"> -->
-<!-- 		insert into package_booking( -->
-<!-- 		package_no, stay_no, package_depart, package_arrive, package_breakfast -->
-<!-- 		) -->
-<!-- 		values( -->
-<!-- 		#{packageNo}, #{stayNo},#{packageDepart}, #{packageArrive}, #{packageBreakfast} -->
-<!-- 		) -->
-<!-- 	</insert> -->
+	<!-- 패키지 등록 -->
+	<insert id="insert" parameterType="packageDto">
+		insert into package_booking(
+		package_no, stay_no, field_no, package_depart, package_arrive, package_breakfast
+		)
+		values(
+		#{packageNo}, #{stayNo},#{fieldNo},#{packageDepart}, #{packageArrive}, #{packageBreakfast}
+		)
+	</insert>
 	
-	<!--패키지 숙소 정보 검색 -->
-<!-- 	<select id="one" resultType="StayDto" parameterType="int"> -->
-<!-- 		select  -->
-<!-- 			s.stay_name, s.stay_type ,s.stay_local,s.stay_price, -->
-<!--        		s.stay_room, s.stay_post_address, s.stay_basic_address, s.stay_detail_address, s.stay_status, -->
-<!--       		 p.package_no, p.package_arrive, p.package_depart -->
-<!-- 		from stay s   -->
-<!-- 			right outer join package_booking p on s.stay_no = p.stay_no; -->
-<!-- 	</select> -->
-	
-		<!-- 패키지 골프장, 숙소 엮기 -->
-<!-- 	<insert id="insert_package" parameterType="packageVo"> -->
-<!-- 		insert into package_reserve values(#{bookingNo},#{packageNo}); -->
-<!-- 	</insert> -->
+		<!-- 시퀀스 번호 확인 -->
+	<select id="sequence" resultType="int">
+		select package_no_seq.nextval from
+		dual
+	</select>
 	
 	
 	
+	<!--  패키지 지역별 검색 -->
+			<select id="searchLocal" resultType="com.gf.golboogi.vo.PackageVO">
+				A.field_no
+			, A.field_name
+			, A.field_basic_address
+			, A.field_detail_address
+			, A.field_no
+			, A.field_phone
+			, A.field_cadifee
+			, A.field_cartfee
+			, A.field_greenfee
+			, A.field_people
+			, A.field_prepay
+			, A.field_commision
+			, A.field_post
+			, A.field_area
+			, B.stay_no
+			, B.stay_name
+			, B.stay_type
+			, B.stay_phone
+			, B.stay_room
+			, B.stay_price
+			, B.stay_post_address
+			, B.stay_basic_address
+			, B.stay_detail_address
+			, B.stay_status
+			, B.stay_local
+			  from golf_field A
+			     , stay B
+			 where A.field_area =  B.stay_local
+			   and A.field_area like '%'|| '#{keyword}'  ||'%';
+	</select>
+	
+	<!--패키지 리스트 -->
+		<select id="list" resultType="com.gf.golboogi.vo.PackageVO">
+		select 
+		*
+		from stay S  
+			left outer join package_booking P on S.stay_no = P.stay_no
+			left outer join  golf_field F
+       	on F.field_no = P.field_no
+       	 where P.package_no is not null;
+	</select>
+	
+		<!--패키지 상세 -->
+		<select id="one" resultType="com.gf.golboogi.vo.PackageVO" parameterType="int">
+		select 
+		*
+		from stay S 
+			left outer join package_booking P  on S.stay_no = P.stay_no
+			left outer join  golf_field F
+       	on F.field_no = P.field_no
+       	 where P.package_no = #{packageNo};
+	</select>
+
+
+
 </mapper> 
 
 

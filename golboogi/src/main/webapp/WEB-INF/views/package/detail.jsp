@@ -199,7 +199,7 @@
     <!--예약 버튼 -->
     <div class="row justify-content-center mt-5 mb-5">
       <button class="btn btn-success p-2" style="margin-right: 5px">날짜변경</button>
-      <button class="btn btn-success"><a href="${root}/reserve?stayNo=${stayDto.stayNo}" style="color:white" >예약신청</a></button>
+      <button class="btn btn-success"><a href="${root}/package/reserve?stayNo=${stayDto.stayNo}" style="color:white" >예약신청</a></button>
     </div>
 
     <!--페이지네이션 버튼 -->

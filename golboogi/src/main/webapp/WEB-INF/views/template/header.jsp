@@ -63,7 +63,7 @@
        <ul class="navbar-nav ml-auto">
          <li class="nav-item"><a href="${root}/booking/list" class="nav-link">골프부킹</a></li>
          <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-         <li class="nav-item"><a href="${root}/package/list" class="nav-link">투어</a></li>
+         <li class="nav-item active"><a href="${root}/package/list" class="nav-link">투어</a></li>
          <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
          <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
          <c:choose>

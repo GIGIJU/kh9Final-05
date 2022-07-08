@@ -55,7 +55,7 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 
 //		String prefix = ServletUriComponentsBuilder
 //													.fromCurrentContextPath()
-//													.path("/pay")
+//													.path("/payment")
 //													.toUriString();
 		String prefix = "http://localhost:8080/golboogi/payment";
 		body.add("approval_url", prefix+"/approve");
