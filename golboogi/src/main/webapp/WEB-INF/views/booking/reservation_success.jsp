@@ -17,17 +17,12 @@
 	</div>
 </section>
 
-<div class="container-fluid mt-5" style="text-align: center;">
-	<div class="col-md-4 offset-md-4">
-		<div class="row">
+<div class="container-fluid mt-5" style="text-align: center; height: 500px;">
+	<div class="col-md-4 offset-md-4 mb-5">
 			<h5 style="font-weight: bold;">예약이 완료되었습니다</h5>
-		</div>
-		<div class="row mt-3">
-				<img src="https://image.smartscore.kr/pc4/img_illust_03.svg">
-		</div>
-		<div class="row mt-5 mb-5">
+			<img src="https://image.smartscore.kr/pc4/img_illust_03.svg">
+			<br><br>
 			<a href="#" class="btn">내 예약 현황 보기</a>
-		</div>
 	</div>
 </div>
  

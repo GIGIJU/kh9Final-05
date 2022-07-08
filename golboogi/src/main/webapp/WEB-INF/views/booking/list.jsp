@@ -128,7 +128,7 @@
 				<c:forEach var="golfFieldDto" items="${rank}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-09" :href="addTeeTimeD" class="img"
+							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
@@ -157,7 +157,7 @@
 					<c:forEach var="golfFieldDto" items="${prepay}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-08" :href="addTeeTimeD" class="img"
+							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
@@ -186,7 +186,7 @@
 					<c:forEach var="golfFieldDto" items="${cheap}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=" :href="addTeeTimeD" class="img"
+							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
@@ -207,21 +207,6 @@
 						</div>
 					</div>
 				</c:forEach>
-			</div>
-			<div class="row mt-5">
-				<div class="col text-center">
-					<div class="block-27">
-						<ul>
-							<li><a href="#">&lt;</a></li>
-							<li class="active"><span>1</span></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">&gt;</a></li>
-						</ul>
-					</div>
-				</div>
 			</div>
 		</div>
 	</section>
@@ -257,9 +242,6 @@
 				checkGreenfee(){
 					if(!this.price=="") return "fieldGreenfee";
 				},
-				addTeeTimeD(){
-            		return this.tomorrow;
-            	}
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{

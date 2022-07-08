@@ -71,6 +71,11 @@ public class BookingController {
 	@GetMapping("/reservation")
 	public String reservation(
 			@RequestParam int teeTimeNo,@RequestParam String teeTimeD, Model model) {
+		BookingDto bookingDto = bookingDao.checkBooking(teeTimeNo,teeTimeD);
+		if(bookingDto != null){
+			return "404";
+		}
+		
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
 		
@@ -93,7 +98,12 @@ public class BookingController {
 	}
 	
 	@GetMapping("/paymentInfo")
-	public String paymentInfo(@RequestParam int teeTimeNo, Model model) {
+	public String paymentInfo(@RequestParam int teeTimeNo,@RequestParam String teeTimeD, Model model) {
+		BookingDto bookingDto = bookingDao.checkBooking(teeTimeNo,teeTimeD);
+		if(bookingDto != null){
+			return "404";
+		}
+		
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
 		
