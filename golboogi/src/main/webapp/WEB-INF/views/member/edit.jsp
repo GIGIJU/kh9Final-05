@@ -37,6 +37,13 @@
 				<input type="email" name="memberEmail" class="form-control" value="${memberDto.memberEmail}" autocomplete="off">
 			</div>
 			<div class="mt-3">
+				<span>성별</span>
+				<select name="memberGender" class="form-control">
+					<option <c:if test="${memberDto.memberGender == '남'}">selected</c:if>>남</option>
+					<option <c:if test="${memberDto.memberGender == '여'}">selected</c:if>>여</option>
+				</select>
+			</div>
+			<div class="mt-3">
 				<span>지역</span> 
 				<input type="text" name="memberLocal" class="form-control" value="${memberDto.memberLocal}" autocomplete="off" placeholder="한글만 허용 2자리 ex)서울">
 			</div>
@@ -47,7 +54,7 @@
 			</div>
 			<br><br>
 			<div class="mt-4 d-grid" align="center">
-				<button type="submit" class="btn btn-primary btn-lg">정보 변경하기</button>
+				<button type="submit" class="btn btn-success btn-lg btn-block">정보 변경하기</button>
 			</div>
 		</form>
 	</div>

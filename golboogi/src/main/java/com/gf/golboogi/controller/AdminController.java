@@ -18,7 +18,6 @@ import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.vo.AdminVO;
 
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -104,7 +103,6 @@ public class AdminController {
 			HttpSession session) {
 		
 		GolfManagerDto golfManagerDto = adminDao.login(golfManagerId, golfManagerPw);
-		
 		if(golfManagerDto == null) {
 			return "redirect:login?error";
 		} else {

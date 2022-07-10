@@ -14,7 +14,7 @@
 	</div>
 	<br><br>
 	<div class="mt-3" align="center">
-		<a href="https://mail.google.com/mail/u/0/#inbox" class="btn btn-primary btn-lg">Gmail 바로가기</a>
+		<a href="http://www.google.com" class="btn btn-success btn-lg btn-block">Google 바로가기</a>
 	</div>
 	<br><br>
 </div>

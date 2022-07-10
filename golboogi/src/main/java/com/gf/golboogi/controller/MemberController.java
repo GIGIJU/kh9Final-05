@@ -1,5 +1,6 @@
 package com.gf.golboogi.controller;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Random;
@@ -15,13 +16,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.CertDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.AttachmentDao;
 import com.gf.golboogi.repository.CertDao;
 import com.gf.golboogi.repository.MemberDao;
+import com.gf.golboogi.repository.MemberProfileDao;
 import com.gf.golboogi.service.MailService;
+import com.gf.golboogi.service.MemberService;
 
 
 @Controller
@@ -35,7 +40,16 @@ public class MemberController {
 	private MailService mailService;
 	
 	@Autowired
+	private AttachmentDao attachmentDao;
+	
+	@Autowired
+	private MemberProfileDao memberProfileDao;
+	
+	@Autowired
 	private CertDao certDao;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("/join")
 	public String join() {
@@ -45,7 +59,8 @@ public class MemberController {
 	@PostMapping("/join")
 	public String join(
 			@ModelAttribute MemberDto memberDto,
-			Model model) {
+			@RequestParam MultipartFile memberProfile,
+			Model model)throws IllegalStateException, IOException {
 		MemberDto idfindDto = memberDao.info(memberDto.getMemberId());
 		MemberDto nickfindDto = memberDao.selectNick(memberDto.getMemberNick());
 		MemberDto phonefindDto = memberDao.selectPhone(memberDto.getMemberPhone());
@@ -63,7 +78,7 @@ public class MemberController {
 		}
 		
 		if(!check1 && !check2 && !check3) {
-			memberDao.join(memberDto);
+			memberService.join(memberDto, memberProfile);
 			model.addAttribute("memberDto",memberDto);
 			return "redirect:join_success";
 		}
@@ -120,6 +135,17 @@ public class MemberController {
 		
 		MemberDto memberDto = memberDao.info(memberId);
 		model.addAttribute("memberDto", memberDto);
+		
+		//프로필 이미지의 다운로드 주소를 추가
+		// - member_profile 에서 아이디를 이용하여 단일조회를 수행
+		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
+		int attachmentNo = memberProfileDao.info(memberId);
+		if(attachmentNo == 0) {
+			model.addAttribute("profileUrl", "/image/user.png");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+		}
 		
 		return "member/mypage";
 	}

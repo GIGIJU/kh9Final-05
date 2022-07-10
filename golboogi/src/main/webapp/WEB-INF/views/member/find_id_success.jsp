@@ -16,7 +16,14 @@
 	<div class="mt-3" align="center">
 		<h2>아이디 : ${findUserId} 입니다.</h2>
 	</div>
-	<br><br>
+	<br><hr><br>
+	<div class="mt-3" align="center">
+		<a href="${root}/member/login" class="btn btn-success btn-lg btn-block">로그인</a>
+	</div>
+	<br>
+	<div class="mt-3" align="center">
+		<a href="${roo}/member/find_pw" class="btn btn-success btn-lg btn-block">비밀번호 찾기</a>
+	</div>
 </div>
 <br><br><br><br>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

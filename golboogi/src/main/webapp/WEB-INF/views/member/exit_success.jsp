@@ -19,7 +19,7 @@
 		</div>
 		<br>
 		<div class="mt-3" align="center">
-			<a href="${root}/" class="btn btn-primary btn-lg">Golboogi</a>
+			<a href="${root}/" class="btn btn-success btn-lg btn-block">Golboogi</a>
 		</div>
 	<br><br>
 	<hr>

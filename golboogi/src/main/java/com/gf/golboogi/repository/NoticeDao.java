@@ -10,7 +10,6 @@ public interface NoticeDao {
 
 	int count(String keyword);
 
-	void write(String noticeHead,String noticeTitle);
 
 	NoticeDto read(int noticeNo);
 
@@ -19,6 +18,7 @@ public interface NoticeDao {
 	boolean edit(NoticeDto noticeDto);
 
 	boolean delete(int noticeNo);
-	
+
+	void write(NoticeDto noticeDto);
 
 }

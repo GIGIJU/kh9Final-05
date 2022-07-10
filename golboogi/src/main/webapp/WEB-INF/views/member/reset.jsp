@@ -27,7 +27,7 @@
 		</div>
 		<br>
 		<div class="mt-3" align="center">
-			<input type="submit" class="btn btn-primary btn-lg" value="변경">
+			<input type="submit" class="btn btn-success btn-lg btn-block" value="변경">
 		</div>
 		<br>
 		 <% if(request.getParameter("error") != null) { %>

@@ -10,38 +10,38 @@
 	}
 </style>
 <div class="container">
-	<div class="row">
-		<h4>사진 후기</h4>
+	<div class="mt-3">
+		<h2>Photo & Review</h2>
 	</div>
 	<br><br>
 	
 	<!-- 검색창 -->
-	<div align="left" class="mt-3">
-		<!-- 검색창 -->
+	<div align="left" class="form-inline">
 		<form action="list" method="get">
-			<input class="form" type="search" name="keyword" placeholder="검색어 입력" value="${keyword}"> 
-			<input class="btn btn-primary btn-lg" type="submit" value="검색">
+			<input class="form-control" type="text" name="keyword" placeholder="검색어 입력">&nbsp;
+			<input class="btn btn-success btn-lg" type="submit" value="검색">
 		</form>
 	</div>
 	<div class="mt-3" align="right">
-		<a href="${root}/review/write" class="btn btn-primary btn-lg">글쓰기</a>
+		<a href="${root}/review/write" class="btn btn-success btn-lg">글쓰기</a>
 	</div>
 	<br><br>
 	
 	<!-- 테이블 -->
 	<div>
-		<table class="table">
-			<thead>
+		<table class="table table table-bordered">
+			<thead align="center">
 				<tr>
 					<th>순서</th>
 					<th>사진</th>
 					<th>골프장</th>
 					<th>제목</th>
 					<th>회원평점</th>
-					<th>조회&nbsp;/&nbsp;추천</th>
+					<th>조회/추천</th>
 					<th>등록일자</th>
 				</tr>
 			</thead>
+			<tbody align="center">
 				<c:if test="${list.isEmpty()}">
 					<tr>
 						<td colspan="7" align="center">검색결과가 없습니다.</td>
@@ -49,17 +49,15 @@
 				</c:if>
 				<c:forEach var="reviewDto" items="${list}">
 						<tr>
-							<td>${reviewDto.reviewNo}</td>
-							<td><a href="detail/${reviewDto.reviewNo}">사진</a></td>
-							<td>${reviewDto.fieldName}</td>
-							<td width="40%"><a href="detail/${reviewDto.reviewNo}">${reviewDto.reviewTitle}</a></td>
-							<td>${reviewDto.reviewRating}</td>
-							<td align="center">${reviewDto.reviewReadcount}&nbsp;/&nbsp;${reviewDto.reviewSuggestion}</td>
-							<td>${reviewDto.reviewTime}</td>
+							<td width="6%">${reviewDto.reviewNo}</td>
+							<td width="14%"><a href="${root}/review/detail/${reviewDto.reviewNo}"><img src="#" alt="사진"></a></td>
+							<td width="10%">${reviewDto.fieldName}</td>
+							<td width="40%" align="left"><a href="${root}/review/detail/${reviewDto.reviewNo}">${reviewDto.reviewTitle}</a></td>
+							<td width="9%">${reviewDto.reviewRating}</td>
+							<td width="9%">${reviewDto.reviewReadcount}&nbsp;/&nbsp;${reviewDto.reviewSuggestion}</td>
+							<td width="12%">${reviewDto.reviewTime}</td>
 						</tr>
 				</c:forEach>
-			<tbody>
-			
 			</tbody>
 		</table>
 	</div>

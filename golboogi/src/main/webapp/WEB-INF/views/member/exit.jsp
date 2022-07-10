@@ -20,14 +20,17 @@
                 	<label>아이디</label>
                 	<input type="text" class="form-control" name="memberId" value="${memberId}" readonly>
                 </div>
+                 <br>
                 <div class="mt-3">
                     <label>비밀번호</label>
                     <input type="password" class="form-control" name="memberPw" >
                 </div>
-                <br><br>
-                <div class="mt-3 d-grid" align="center">
-                    <button type="submit" class="btn btn-primary btn-lg" >회원 탈퇴</button> &nbsp;&nbsp;
-                    <a href="${root}/member/changeInfo" class="btn btn-secondary btn-lg">취소</a>
+                <br>
+                <div class="mt-3" align="center">
+                    <button type="submit" class="btn btn-danger btn-lg btn-block">회원 탈퇴</button> &nbsp;&nbsp;
+                </div>
+                <div class="mt-3" align="center">
+                    <a href="${root}/member/changeInfo" class="btn btn-success btn-lg btn-block">취소</a>
                 </div>
                 <% if(request.getParameter("error") != null) { %>
 					<div class="mt-3" align="center">

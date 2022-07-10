@@ -16,6 +16,14 @@
         <div class="mt-3 col-12">
             <h2 id="mypage">내정보</h2>
         </div>
+        <br>
+        
+       	<!-- 프로필 이미지 -->
+		<div class="mt-3" align="center">
+			<img src="${pageContext.request.contextPath}${profileUrl}" width="300px;" class="img img-circle img-shadow">
+		</div>
+		
+        <br>
         <div class="row mt-4">
             <div class="col-sm-8 offset-sm-2">
                 <table class="table">
@@ -62,16 +70,10 @@
                 </table>
                 <br><br>
                 <div class="mt-4 d-grid" align="center">
-                    <a href="${root}/member/changeInfo" class="btn btn-primary btn-lg">회원정보 수정</a>
+                    <a href="${root}/member/changeInfo" class="btn btn-success btn-lg btn-block">회원정보 수정</a>
                 </div>
             </div>
         </div>
         <br><br><br><br>
     </div>
-    
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script>
-      
-    </script>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

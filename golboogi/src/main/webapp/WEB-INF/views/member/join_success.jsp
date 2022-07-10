@@ -18,7 +18,7 @@
 	</div>
 	<br><br>
 	<div class="mt-3" align="center">
-		<a href="${root}/member/login" class="btn btn-primary btn-lg">로그인</a>
+		<a href="${root}/member/login" class="btn btn-success btn-lg btn-block">로그인</a>
 	</div>
 	<br><br>
 </div>
