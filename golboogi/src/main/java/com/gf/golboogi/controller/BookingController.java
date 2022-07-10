@@ -40,9 +40,13 @@ public class BookingController {
 	
 	@GetMapping("/list")
 	public String list(Model model) {
-		List<GolfFieldDto> list = golfFieldDao.selectList();
+		List<BookingSearchListVO> rank = golfFieldDao.selectRank();
+		List<GolfFieldDto> prepay = golfFieldDao.selectPrepay();
+		List<GolfFieldDto> cheap = golfFieldDao.selectCheap();
 		
-		model.addAttribute("list",list);
+		model.addAttribute("rank",rank);
+		model.addAttribute("prepay",prepay);
+		model.addAttribute("cheap",cheap);
 		return "booking/list";
 	}
 	
@@ -60,13 +64,18 @@ public class BookingController {
 	@GetMapping("/test")
 	public String test(Model model) {
 		model.addAttribute("list",golfFieldDao.teeTimeDayList());
-		return "booking/search_list3";
+		return "booking/search_list";
 	}
 	
 	
 	@GetMapping("/reservation")
 	public String reservation(
 			@RequestParam int teeTimeNo,@RequestParam String teeTimeD, Model model) {
+		BookingDto bookingDto = bookingDao.checkBooking(teeTimeNo,teeTimeD);
+		if(bookingDto != null){
+			return "404";
+		}
+		
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
 		
@@ -85,11 +94,16 @@ public class BookingController {
 	@GetMapping("/search")
 	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
 		model.addAttribute("list",golfFieldDao.searchList(searchVO));
-		return "booking/search_list3";
+		return "booking/search_list";
 	}
 	
 	@GetMapping("/paymentInfo")
-	public String paymentInfo(@RequestParam int teeTimeNo, Model model) {
+	public String paymentInfo(@RequestParam int teeTimeNo,@RequestParam String teeTimeD, Model model) {
+		BookingDto bookingDto = bookingDao.checkBooking(teeTimeNo,teeTimeD);
+		if(bookingDto != null){
+			return "404";
+		}
+		
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
 		

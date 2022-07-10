@@ -114,7 +114,7 @@ public class AdminController {
 	
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("login");
+		session.removeAttribute("adminLogin");
 		session.removeAttribute("auth");
 		return "redirect:/";
 	}

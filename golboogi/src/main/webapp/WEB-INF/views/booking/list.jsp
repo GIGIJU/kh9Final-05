@@ -4,15 +4,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<!-- datepicker ui -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
-
-<html lang="ko">
-
+<style>
+.prepay{
+	background-color: #ff7675;
+	color: white;
+	border-radius: 2px;
+	padding: 3px 3px 3px 3px;
+}
+</style>
 <div id="app">
-	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/golf-dummy.jpg');">
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
 			<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
@@ -89,7 +93,7 @@
 								      <div class="icon"><span class="fa fa-chevron-down"></span></div>
 								      <select class="form-control" v-model="price" v-bind:name="checkGreenfee">
 								        <option value="" selected>선택</option>
-								        <option value="100000">~100,000원</option>
+								        <option value="150000">~150,000원</option>
 								        <option value="200000">~200,000원</option>
 								        <option value="300000">~300,000원</option>
 								      </select>
@@ -118,42 +122,91 @@
 	<section class="ftco-section">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-4 mb-3"><h3 style="font-weight: bold;">인기골프장</h3></div>
+				<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">인기골프장</h4></div>
 			</div>
 			<div class="row">
-				<c:forEach var="golfFieldDto" items="${list}">
+				<c:forEach var="golfFieldDto" items="${rank}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD=2022-07-04" class="img"
+							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">
 								<span class="days">
-								<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+								<div class="row">
+									<div class="col-md-6 text-left">
+										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+									</div>
+									<div class="col-md-6 text-right">
+										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
+									</div>
+								</div>
 								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
 								<p class="location">
-									<span class="fa fa-map-marker">${golfFieldDto.fieldArea}</span>
+									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
 								</p>
 							</div>
 						</div>
 					</div>
 				</c:forEach>
-
-			</div>
-			<div class="row mt-5">
-				<div class="col text-center">
-					<div class="block-27">
-						<ul>
-							<li><a href="#">&lt;</a></li>
-							<li class="active"><span>1</span></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">&gt;</a></li>
-						</ul>
-					</div>
 				</div>
+				<div class="row mt-3">
+					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">선결제골프장</h4></div>
+				</div>
+					<div class="row">
+					<c:forEach var="golfFieldDto" items="${prepay}">
+					<div class="col-md-4 ftco-animate">
+						<div class="project-wrap hotel">
+							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+								style="background-image: url(${root}/images/golf-dummy.jpg);">
+							</a>
+							<div class="text p-2">
+								<span class="days">
+								<div class="row">
+									<div class="col-md-6 text-left">
+										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+									</div>
+									<div class="col-md-6 text-right">
+										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
+									</div>
+								</div>
+								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
+								<p class="location">
+									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
+			</div>
+				<div class="row mt-3">
+					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
+				</div>
+					<div class="row">
+					<c:forEach var="golfFieldDto" items="${cheap}">
+					<div class="col-md-4 ftco-animate">
+						<div class="project-wrap hotel">
+							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+								style="background-image: url(${root}/images/golf-dummy.jpg);">
+							</a>
+							<div class="text p-2">
+								<span class="days">
+								<div class="row">
+									<div class="col-md-6 text-left">
+										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
+									</div>
+									<div class="col-md-6 text-right">
+										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
+									</div>
+								</div>
+								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
+								<p class="location">
+									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</c:forEach>
 			</div>
 		</div>
 	</section>
@@ -162,8 +215,8 @@
 
 <!-- vueJs -->
 <script src="http://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
         const app = Vue.createApp({
@@ -173,6 +226,7 @@
                 	area:"",
                 	part:"",
                 	price:"",
+                	tomorrow:"",
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -180,26 +234,24 @@
             //- 반드시 return을 통해 값을 반환해야 한다
             computed:{
 				checkPartTime(){
-					if(!this.part=="") return "PartTime";
+					if(!this.part=="") return "partTime";
 				},
 				checkFieldArea(){
 					if(!this.area=="") return "fieldArea";
 				},
 				checkGreenfee(){
 					if(!this.price=="") return "fieldGreenfee";
-				}
+				},
             },
             //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
-            	location(){
-            		window.location.href="http://localhost:8080/booking/search?teeTimeD="+this.teeTimeD;
-            	},
             	sendSearch(e){
             		if(this.teeTimeD==""){
             			alert("날짜를 선택해주세요")
             			e.preventDefault();
             		}
             	},
+            	
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{
@@ -219,11 +271,13 @@
                     minDate: '+1D',
                     maxDate: '+60D',
                     onSelect:(dateText)=>{
-                    	console.log(dateText);
                     	this.teeTimeD = dateText;
                     },
                 });
                 $("#datepicker").datepicker(); 
+                
+            	//내일 날짜
+            	 this.tomorrow = moment().add("1","d").format('YYYY-MM-DD');
             },
         });
         app.mount("#app");

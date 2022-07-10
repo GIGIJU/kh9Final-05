@@ -25,7 +25,7 @@
             <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
             <li><a href="#" class="py-2 d-block">Club solution</a></li>
             <li><a href="#" class="py-2 d-block">Contact</a></li>
-            <li><a href="#" class="py-2 d-block">관리자 로그인</a></li>
+            <li><a href="${root}/admin/login" class="py-2 d-block">관리자 로그인</a></li>
           </ul>
         </div>
       </div>
@@ -87,7 +87,7 @@
 <script src="${root}/js/jquery.animateNumber.min.js"></script>
 <script src="${root}/js/bootstrap-datepicker.js"></script>
 <script src="${root}/js/scrollax.min.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script> -->
 <script src="${root}/js/google-map.js"></script>
 <script src="${root}/js/main.js"></script>
 

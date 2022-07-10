@@ -69,11 +69,10 @@ public class AdminDaoImpl implements AdminDao{
 		boolean isPasswordMatch = passwordEncoder.matches(golfManagerPw, golfManagerDto.getGolfManagerPw());
 		if(isPasswordMatch) {
 			return golfManagerDto;
-		}else {
+		} else {
 			return null;
 		}
+		
 	}
-
-
 
 }

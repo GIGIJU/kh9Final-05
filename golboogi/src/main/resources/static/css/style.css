@@ -1511,7 +1511,6 @@ pre {
   .table th,
   .table td {
     padding: 0.75rem;
-    vertical-align: top;
     border-top: 1px solid #dee2e6; }
   .table thead th {
     vertical-align: bottom;
@@ -8576,7 +8575,7 @@ h1, h2, h3, h4, h5,
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  background-attachment: fixed; }
+ }
   
   /* 커스텀 스타일 추가 */
   .hero-wrap-custom {

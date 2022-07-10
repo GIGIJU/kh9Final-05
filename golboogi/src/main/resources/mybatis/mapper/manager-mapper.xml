@@ -24,20 +24,20 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="booking">
-	
-	<select id="sequence" resultType="int">
-		select booking_seq.nextval from dual
-	</select>
+<mapper namespace="manager">
 
-	<insert id="insert" parameterType="BookingDto">
-		insert into booking(booking_no,member_id,tee_time_no,tee_time_d,booking_name,booking_price,booking_status,booking_drop_able)
-		values(#{bookingNo},#{memberId},#{teeTimeNo},to_date(#{teeTimeD},'YYYY-MM-DD'),#{bookingName},#{bookingPrice},'예약완료',to_date(#{teeTimeD},'YYYY-MM-DD')-7)
-	</insert>	
+	<select id="list" parameterType="String" resultType="GolfManagerVO">
+		select F.field_name, C.course_name, B.tee_time_d, B.booking_name, B.booking_date, b.booking_people, b.booking_price, b.booking_status, M.golf_manager_id
+		from golf_field F 
+		    inner join golf_course C on F.field_no = C.field_no
+		    inner join tee_time T on C.course_no = T.course_no
+		    inner join booking B on T.tee_time_no = B.tee_time_no
+		    inner join golf_manager M on M.field_no = F.field_no
+        where M.golf_manager_id = #{golfManagerId}
+        order by tee_time_d
+        
+	</select>
 	
-	<select id="check" parameterType="Map" resultType="BookingDto">
-		select * from booking where tee_time_no=#{teeTimeNo} and tee_time_d=#{teeTimeD} and booking_status='예약완료'
-	</select>									
 </mapper> 
 
 

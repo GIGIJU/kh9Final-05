@@ -42,22 +42,85 @@
 
 			</div>
 
+<div class="text-center mb-4">
 
-<div class="row mt-5">
-  <div class="col text-center">
-    <div class="block-27">
-      <ul>
-        <li><a href="#">&lt;</a></li>
-        <li class="active"><span>1</span></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&gt;</a></li>
-      </ul>
-    </div>
-  </div>
+   <c:if test="${p > 1}">
+      <c:choose>
+         <c:when test="${search}">
+            <a href="list?p=1&s=${s}&type=${type}&keyword=${keyword}">&laquo;</a>
+         </c:when>
+         <c:otherwise>
+            <a href="list?p=1&s=${s}">&laquo;</a>
+         </c:otherwise>
+      </c:choose>
+   </c:if>
+
+   <c:if test="${startBlock > 1}">
+      <c:choose>
+         <c:when test="${search}">
+            <a
+               href="list?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}">&laquo;</a>
+         </c:when>
+         <c:otherwise>
+            <a href="list?p=${startBlock-1}&s=${s}">&laquo;</a>
+         </c:otherwise>
+      </c:choose>
+   </c:if>
+
+   <!-- 숫자 링크 영역 -->
+   <c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
+      <c:choose>
+         <c:when test="${search}">
+            <c:choose>
+               <c:when test="${i == p}">
+                  <a class="active"
+                     href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}">${i}</a>
+               </c:when>
+               <c:otherwise>
+                  <a href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}">${i}</a>
+               </c:otherwise>
+            </c:choose>
+         </c:when>
+         <c:otherwise>
+            <c:choose>
+               <c:when test="${i == p}">
+                  <a class="active" href="list?p=${i}&s=${s}">${i}</a>
+               </c:when>
+               <c:otherwise>
+                  <a href="list?p=${i}&s=${s}">${i}</a>
+               </c:otherwise>
+            </c:choose>
+         </c:otherwise>
+      </c:choose>
+   </c:forEach>
+
+   <!-- 다음 버튼 영역 -->
+   <c:if test="${endBlock < lastPage}">
+      <c:choose>
+         <c:when test="${search}">
+            <a
+               href="list?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}">&gt;</a>
+         </c:when>
+         <c:otherwise>
+            <a href="list?p=${endBlock+1}&s=${s}">&gt;</a>
+         </c:otherwise>
+      </c:choose>
+   </c:if>
+
+   <c:if test="${p < lastPage}">
+      <c:choose>
+         <c:when test="${search}">
+            <a href="list?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}">&raquo;</a>
+         </c:when>
+         <c:otherwise>
+            <a href="list?p=${lastPage}&s=${s}">&raquo;</a>
+         </c:otherwise>
+      </c:choose>
+   </c:if>
+
 </div>
+
+
 </div>
 </section>	
 

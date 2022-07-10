@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="memberId" value="${login}"></c:set>
 <c:set var="isLogin" value="${memberId != null}"></c:set>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="isAdmin" value="${adminId != null}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -50,8 +52,18 @@
 		});
 	}); 
 	</script>
+	
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+	
+	
 </head>
 <body>
+<df-messenger
+  intent="WELCOME"
+  chat-title="GOLF_BOT"
+  agent-id="6ff71c6c-70c1-4b5f-924d-544ac3698b6c"
+  language-code="ko"
+></df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
      <a class="navbar-brand" href="/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>
@@ -62,14 +74,24 @@
      <div class="collapse navbar-collapse" id="ftco-nav">
        <ul class="navbar-nav ml-auto">
          <li class="nav-item"><a href="${root}/booking/list" class="nav-link">골프부킹</a></li>
-         <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
          <li class="nav-item"><a href="${root}/package/list" class="nav-link">투어</a></li>
-         <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
+         <li class="nav-item"><a href="${root}/join/list" class="nav-link">조인</a></li>
+         <li class="nav-item"><a href="${root}/review/list" class="nav-link">리뷰게시판</a></li>
+         <li class="nav-item"><a href="${root}/notice/list" class="nav-link">공지사항</a></li>
          <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
          <c:choose>
          	<c:when test="${isLogin}">
 	         	 <li class="nav-item"><a href="${root}/member/mypage" class="nav-link">마이페이지</a></li>
 	         	 <li class="nav-item"><a href="${root}/member/logout" class="nav-link">로그아웃</a></li>
+         	</c:when>
+         	<c:when test="${isAdmin && auth == 0}">
+	         	 <li class="nav-item"><a href="${root}/admin/list" class="nav-link">골프장 관리자 목록</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/member_list" class="nav-link">일반회원 목록</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
+         	</c:when>
+         	<c:when test="${isAdmin && auth == 1}">
+	         	 <li class="nav-item"><a href="${root}/manager/stat/${adminId}" class="nav-link">관리자 페이지</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
          	</c:when>
          	<c:otherwise>
 	         	<li class="nav-item"><a href="${root}/member/login" class="nav-link">로그인</a></li>

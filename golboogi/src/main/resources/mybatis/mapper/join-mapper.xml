@@ -24,20 +24,17 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="booking">
-	
-	<select id="sequence" resultType="int">
-		select booking_seq.nextval from dual
+<mapper namespace="join">
+	<select id="list" resultType="JoinListVO">
+		select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,join_time,member_nick from 
+    join J 
+        inner join member M on M.member_id = J.member_id
+        inner join booking B on J.booking_no = B.booking_no
+        inner join tee_time T on B.tee_time_no = T.tee_time_no
+        inner join golf_course C on T.course_no = C.course_no
+        inner join golf_field G on G.field_no = C.field_no
 	</select>
-
-	<insert id="insert" parameterType="BookingDto">
-		insert into booking(booking_no,member_id,tee_time_no,tee_time_d,booking_name,booking_price,booking_status,booking_drop_able)
-		values(#{bookingNo},#{memberId},#{teeTimeNo},to_date(#{teeTimeD},'YYYY-MM-DD'),#{bookingName},#{bookingPrice},'예약완료',to_date(#{teeTimeD},'YYYY-MM-DD')-7)
-	</insert>	
 	
-	<select id="check" parameterType="Map" resultType="BookingDto">
-		select * from booking where tee_time_no=#{teeTimeNo} and tee_time_d=#{teeTimeD} and booking_status='예약완료'
-	</select>									
 </mapper> 
 
 
