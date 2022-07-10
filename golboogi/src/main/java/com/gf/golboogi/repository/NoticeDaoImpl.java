@@ -37,13 +37,10 @@ public class NoticeDaoImpl implements NoticeDao{
 	
 	
 	@Override
-	public void write(String noticeHead,String noticeTitle) {
+	public void write(NoticeDto noticeDto) {
 		int noticeNo = sqlSession.selectOne("notice.sequence");
-		Map<String,Object> param = new HashMap<>();
-		param.put("noticeNo", noticeNo);
-		param.put("noticeHead", noticeHead);
-		param.put("noticeTitle", noticeTitle);
-		sqlSession.insert("notice.write",param);
+		noticeDto.setNoticeNo(noticeNo);
+		sqlSession.insert("notice.write",noticeDto);
 	}
 
 	@Override

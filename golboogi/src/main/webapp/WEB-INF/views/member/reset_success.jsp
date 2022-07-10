@@ -9,7 +9,7 @@
 	</div>
 	<br><br>
 	<div class="mt-3" align="center">
-		<h2><a href="${root}/member/login" class="btn btn-primary btn-lg">로그인</a></h2>
+		<h2><a href="${root}/member/login" class="btn btn-success btn-lg btn-block">로그인</a></h2>
 	</div>
 	<br><br>
 </div>

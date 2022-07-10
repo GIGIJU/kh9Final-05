@@ -28,13 +28,17 @@
 	.reply-header .fa-solid:hover {
 		color:red;
 	} 
+	#check{
+		display: none;
+	}
+	
 </style>
 <div class="container" id="app">
 	<div class="mt-3">
 		<h1>${reviewDto.reviewNo}번 후기글</h1>
 	</div>
 	<div class="mt-3">
-		<table class="table">
+		<table class="table table table-bordered">
 			<thead>
 				<tr>
 					<th colspan="5">게시글 명 :${reviewDto.reviewTitle}</th>
@@ -52,7 +56,7 @@
 						</c:choose>
 					</th>
 					<th>장성일 : ${reviewDto.reviewTime}</th>
-					<th colspan="2" align="center">조회수/추천 : ${reviewDto.reviewReadcount}/${reviewDto.reviewSuggestion}</th>
+					<th colspan="2" align="center">조회수/추천 : ${reviewDto.reviewReadcount}/추천</th>
 				</tr>
 				<tr>
 					<th>개인평점 : ${reviewDto.reviewRating}</th>
@@ -70,12 +74,12 @@
 				</tr>
 				<tr>
 				<td class="right" colspan="5" align="right">
-					<a href="${root}/review/write" class="btn btn-primary btn-sm">글쓰기</a>&nbsp;
-					<a href="${root}/review/list" class="btn btn-primary btn-sm">목록</a>&nbsp;
+					<a href="${root}/review/write" class="btn btn-success btn-sm">글쓰기</a>&nbsp;
+					<a href="${root}/review/list" class="btn btn-success btn-sm">목록</a>&nbsp;
 					
 					<c:if test="${reviewDto.reviewWriter == memberId}">
-						<a href="${root}/review/edit/${reviewDto.reviewNo}" class="btn btn-primary btn-sm">수정</a> &nbsp;
-						<a href="${root}/review/delete/${reviewDto.reviewNo}" class="btn btn-secondary btn-sm">삭제</a>&nbsp;
+						<a href="${root}/review/edit/${reviewDto.reviewNo}" class="btn btn-success btn-sm">수정</a> &nbsp;
+						<a href="${root}/review/delete/${reviewDto.reviewNo}" class="btn btn-danger btn-sm">삭제</a>&nbsp;
 					</c:if>
 				</td>
 			</tr>
@@ -92,7 +96,7 @@
 							<span>{{reviewContentIsLength}}/100</span>
 						</div>
 						<div class="mt-3 d-grid" align="right">
-							<button class="btn btn-primary btn-lg" :disabled="isAnonymous"  @click="addReply">{{buttonPlaceholder}}</button>
+							<button class="btn btn-success btn-lg" :disabled="isAnonymous"  @click="addReply">{{buttonPlaceholder}}</button>
 						</div>
 					</td>
 				</tr>
@@ -142,9 +146,9 @@
 		<h3>[${reviewDto.fieldName}] 후기 목록</h3>
 	</div>
 	<div class="mt-3">
-		<table class="table">
+		<table class="table table table-bordered">
 			<thead>
-				<tr>
+				<tr align="center">
 					<th>순서</th>
 					<th>아이디</th>
 					<th width="40%">제목</th>
@@ -160,7 +164,7 @@
 <!-- 					</tr> -->
 <%-- 				</c:if> --%>
 				<c:forEach var="reviewDto" items="${list}">
-					<tr>
+					<tr align="center">
 						<td>${reviewDto.reviewNo}</td>
 						<td>
 							<c:choose>
@@ -172,7 +176,7 @@
 								</c:otherwise>
 							</c:choose>
 						</td>
-						<td><a href="${root}/review/detail/${reviewDto.reviewNo}">${reviewDto.reviewTitle}</a></td>
+						<td align="left"><a href="${root}/review/detail/${reviewDto.reviewNo}">${reviewDto.reviewTitle}</a></td>
 						<td>${reviewDto.reviewRating}</td>
 						<td>${reviewDto.reviewTime}</td>
 						<td>${reviewDto.reviewReadcount}/${reviewDto.reviewSuggestion}</td>
@@ -193,10 +197,11 @@ const app = Vue.createApp({
     //data : 화면을 구현하는데 필요한 데이터를 작성한다.
     data(){
         return {
-        	//서버에서 전달된 정보
+        	// 서버에서 전달된 정보
             memberId:"${login}",
             memberGrade:"${auth}",
             reviewNo:${reviewDto.reviewNo},
+            
             
             //댓글 입력 정보
             reviewContent:"",
@@ -214,6 +219,7 @@ const app = Vue.createApp({
         isMember(){
         	return this.memberId != "" && this.memberGrade != "";
         },
+        
 //         isAdmin(){
 //         	return this.isMember && this.memberGrade == "관리자";
 //         },
@@ -223,6 +229,7 @@ const app = Vue.createApp({
         buttonPlaceholder(){
         	return this.isAnonymous ? "댓글 작성 불가" : "댓글 등록하기";
         },
+       
         reviewContentIsEmpty(){
         	return this.reviewContent.length == 0;
         },
@@ -232,6 +239,7 @@ const app = Vue.createApp({
         reviewContentIsOver(){
         	return this.reviewContent.length > 100;
         },
+       
     },
     //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
     methods:{
@@ -256,6 +264,7 @@ const app = Vue.createApp({
         		this.loadReply();
         	});
         },
+        
         loadReply(){
         	axios({
         		url:"${pageContext.request.contextPath}/rest/reply/"+this.reviewNo,
@@ -265,6 +274,7 @@ const app = Vue.createApp({
         		this.replyList = resp.data;
         	});
         },
+		
         isEditAndDeleteAvailable(replyWriter){
         	//1.관리자면 통과
         	if(this.isAdmin) return true;

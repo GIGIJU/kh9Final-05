@@ -4,36 +4,47 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
 <br><br><br><br>
-<div class="container w800 m30">
-	<div align="center">
+<div class="container">
+	<div align="center" class="mt-3">
 		<h1>News & Notice</h1>
+	</div>
+	
+	<div align="right" class="mt-3">
+		<a href="${root}/notice/edit/${noticeDto.noticeNo}" class="btn btn-success btn-sm">수정</a>
 	</div>
 	<br><br>
 
-	<div>
-		<h2>
-			<c:if test="${noticeDto.noticeHead != null}">
-				[${noticeDto.noticeHead}]
-			</c:if>
-			${noticeDto.noticeTitle}
-		</h2>
-	</div>
-	<br><br>
-	
-	<div>
-		${noticeDto.noticeTime} 
-			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		${noticeDto.noticeReadcount}
+	<div class="mt-3">
+		<div class="mt-3" align="left">
+			<h2>
+				<c:if test="${noticeDto.noticeHead != null}">
+					[${noticeDto.noticeHead}]
+				</c:if>
+				${noticeDto.noticeTitle}
+			</h2>
+		</div>
+		
+		<div class="mt-3" align="right">
+			작성시간 : ${noticeDto.noticeTime} 
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			조회수 : ${noticeDto.noticeReadcount}
+		</div>
 	</div>
 	<br><br>
 	<hr>
+	<!-- 사진 영역 -->
+	<br>
+		<!-- 프로필 이미지 -->
+		<div class="mt-3" align="center">
+			<img src="${pageContext.request.contextPath}${profileUrl}" width="80%" height="100%" class="img img-circle img-shadow">
+		</div>
 	
-	<div align="center">
-		<a href="${root}/notice/list">목록</a>
-	</div>
-	
-	<div align="right">
-		<a href="${root}/notice/edit/${noticeDto.noticeNo}">수정</a>
+	<br>
+	<hr>
+	<br><br>
+	<div align="center" class="mt-3">
+		<h2><a href="${root}/notice/list" class="btn btn-success btn-lg btn-block">목록</a></h2>
 	</div>
 </div>
+<br><br><br><br>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

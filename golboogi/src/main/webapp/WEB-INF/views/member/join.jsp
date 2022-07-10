@@ -17,11 +17,12 @@
 </head>
 <body>
     <div class="container col-12" id="app">
+    	<br><br>
         <div class="mt-3">
             <h2 id="join">회원가입</h2>
         </div>
         <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1">
-            <form v-on:submit="sendForm($event)" action="join" method="post">
+            <form v-on:submit="sendForm($event)" action="join" method="post" enctype="multipart/form-data">
                 <!-- 1단계 -->
                
                 <div class="mt-3">
@@ -83,13 +84,18 @@
                         <label>성별</label>
                         <select name="memberGender" v-model="member.memberGender" class="form-control">
                             <option>남</option>
-				            <option>녀</option>
+				            <option>여</option>
                         </select>
                     </div>
                     <div class="mt-3">
                         <label>지역</label>
                         <input type="tel" class="form-control" name="memberLocal" v-model="member.memberLocal"  placeholder="한글 ~10자" autocomplete="off">
                     </div>
+                    
+                    <div class="mt-3">
+				    	<label>프로필 이미지</label><br>
+				    	<input type="file" name="memberProfile" class="form-control">
+				    </div>
                 </div>
                 <br>
                <% if(type1) { %>
@@ -109,7 +115,7 @@
 				<% } %>
 				<br>
                 <div class="mt-3 d-grid" align="center">
-                    <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.isJoin">회원가입</button>
+                    <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.isJoin">회원가입</button>
                 </div>
             </form>
         </div>
