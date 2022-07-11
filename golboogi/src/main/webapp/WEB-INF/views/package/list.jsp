@@ -75,7 +75,7 @@
 
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/bg_1.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
@@ -159,24 +159,23 @@
 </div>
 </section>
 
-<!-- 숙소 리스트 -->
+<!-- 패키지 리스트 -->
 <section class="ftco-section">
  <div class="container">
   <div class="row">
-<%--  <c:forEach var="stayDto" items="${list}"  var="golfFieldDto" items="${list2}"> --%>
-<c:forEach var = "stayDto" items="${list}">
+ <c:forEach var="PackageVO" items="${list}" varStatus="status">
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
-     <a href="detail?stayNo=${stayDto.stayNo}" class="img" style="background-image: url(${root}/images/hotel-resto-1.jpg);">
+     <a href="detail?packageNo=${PackageVO.packageNo}" class="img" style="background-image: url(${root}/images/hotel-resto-1.jpg);">
       <span class="price">알뜰</span>
     </a>
     <div class="text p-4">
-	<span class="days"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${stayDto.stayPrice}" />~</span>
-      <h3><a href="detail?stayNo=${stayDto.stayNo}"><c:out value="${stayDto.stayName}" /></a></h3>
-      <p class="location"><span class="fa fa-map-marker"></span><c:out value="${stayDto.stayLocal}" /></p>
+	<span class="days"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${PackageVO.stayDto.stayPrice}" />~</span>
+      <h3><a href="detail?stayNo=${PackageVO.packageNo}"><c:out value="${PackageVO.stayDto.stayName}" /></a></h3>
+      <p class="location"><span class="fa fa-map-marker"></span><c:out value="${PackageVO.stayDto.stayLocal}" /></p>
       <ul>
-       <li><span class="flaticon-mountains"></span><c:out value="${golfFieldDto.fieldName}"/></li>
-       <li><span class="flaticon-king-size"></span><c:out value="${stayDto.stayType}" /></li>
+       <li><span class="flaticon-mountains"></span><c:out value="${PackageVO.fieldDto.fieldName}"/></li>
+       <li><span class="flaticon-king-size"></span><c:out value="${PackageVO.stayDto.stayType}" /></li>
      </ul>
    </div>
  </div>
