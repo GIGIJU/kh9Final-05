@@ -23,11 +23,8 @@ public class PaymentDaoImpl implements PaymentDao {
 	}
 
 	@Override
-	public int insertPayment(PaymentDto paymentDto) {
-		int sequence = sqlSession.selectOne("payment.sequence");
-		paymentDto.setPaymentNo(sequence);
+	public void insertPayment(PaymentDto paymentDto) {
 		sqlSession.insert("payment.insert", paymentDto);
-		return sequence;
 	}
 
 	
@@ -47,6 +44,21 @@ public class PaymentDaoImpl implements PaymentDao {
 	@Override
 	public PaymentDto find(int paymentNo) {
 		return sqlSession.selectOne("payment.one", paymentNo);
+	}
+
+	@Override
+	public List<PaymentDetailDto> listDetail(int paymentNo) {
+		return sqlSession.selectList("paymentDetail.list", paymentNo);
+	}
+
+	@Override
+	public boolean cancelDetail(int paymentDetailNo) {
+		return sqlSession.update("paymentDetail.cancel", paymentDetailNo) > 0;
+	}
+
+	@Override
+	public PaymentDetailDto findDetail(int paymentDetailNo) {
+		return sqlSession.selectOne("paymentDetail.one", paymentDetailNo);
 	}
 
 

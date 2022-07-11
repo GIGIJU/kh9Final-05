@@ -4,6 +4,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
@@ -23,19 +25,22 @@ import com.gf.golboogi.vo.KakaoPayReadyResponseVO;
 
 import lombok.extern.slf4j.Slf4j;
 
+@PropertySource("application.properties")
 @Slf4j
 @Service
 public class KakaoPayServiceVersion1  implements KakaoPayService{
-
-	private String urlPrefix = "https://kapi.kakao.com/v1/payment";
+	
+    @Value("${kakao.authorization}")
+    String authorization;
+    @Value("${kakao.urlPrefix}")
+    String urlPrefix;
+    @Value("${kakao.contentType}")
+    String contentType;
+    @Value("${kakao.cid}")
+    String cid;
 	
 	private RestTemplate template = new RestTemplate();
 	
-	private String authorization = "KakaoAK 7115d0b612502f18b186496d94cc1200";
-	private String contentType = "application/x-www-form-urlencoded;charset=utf-8";
-	
-	private String cid = "TC0ONETIME";
-
 	@Override
 	public KakaoPayReadyResponseVO ready(KakaoPayReadyRequestVO requestVO) throws URISyntaxException {
 		//header

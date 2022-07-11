@@ -42,61 +42,117 @@
 		dual
 	</select>
 	
+	<!-- result map  생성 -->
+		<!-- golf_field -->
+	 <resultMap type="PackageVO"  id="packageMap">
+	 	<association property="fieldDto" javaType="GolfFieldDto">
+		<result column="field_no" property="fieldNo"/>
+		<result column="field_name" property="fieldName"/>
+		<result column="field_post" property="fieldPost"/>
+		<result column="field_basic_address" property="fieldBasicAdress"/>
+		<result column="field_detail_address" property="fieldDetailAdress"/>
+		<result column="field_info" property="fieldInfo"/>
+		<result column="field_phone" property="fieldPhone"/>
+		<result column="field_caddiefee" property="fieldCaddiefee"/>
+		<result column="field_cartfee" property="fieldCartfee"/>
+		<result column="field_greenfee" property="fieldGreenfee"/>
+		<result column="field_openday" property="fieldOpenday"/>
+		<result column="field_people" property="fieldPeople"/>
+		<result column="field_prepay" property="fieldPrepay"/>
+		<result column="field_commission" property="fieldCommission"/>	
+		<result column="field_area" property="fieldArea"/>	
+		</association>
+		<!-- stay -->
+		<association property="stayDto" javaType="StayDto">
+		<result column="stay_no" property="stayNo"/>
+		<result column="stay_name" property="stayName"/>
+		<result column="stay_type" property="stayType"/>
+		<result column="stay_phone" property="stayPhone"/>
+		<result column="stay_room" property="stayRoom"/>
+		<result column="stay_price" property="stayPrice"/>
+		<result column="stay_post_address" property="stayPostAddress"/>
+		<result column="stay_basic_address" property="stayBasicAddress"/>
+		<result column="stay_detail_address" property="stayDetailAddress"/>
+		<result column="stay_status" property="stayStatus"/>
+		<result column="stay_local" property="stayLocal"/>
+		</association>
+		<!-- package -->
+		<association property="packageDto" javaType="PackageDto">
+		<result column="package_no" property="packageNo"/>
+		<result column="stay_no" property="stayNo"/>
+		<result column="field_no" property="fieldNo"/>
+		<result column="package_depart" property="packageDepart"/>
+		<result column="package_arrive" property="packageArrive"/>
+		<result column="package_breakfast" property="packageBreakfast"/>
+		</association>
+		<association property="packageNo" javaType="int">
+		<result column="package_no" property="packageNo"/>
+		</association>
+<!-- 		<collection column="package_no"  -->
+<!--                                     property="packageNo"  -->
+<!--                                     javaType="java.util.List"  -->
+<!--                                     ofType="com.gf.golboogi.vo.PackageVO"  -->
+<!--                                     select="list"></collection> -->
+	</resultMap>
+	
+	
+	
+	
 	
 	
 	<!--  패키지 지역별 검색 -->
-			<select id="searchLocal" resultType="com.gf.golboogi.vo.PackageVO">
-				A.field_no
-			, A.field_name
-			, A.field_basic_address
-			, A.field_detail_address
-			, A.field_no
-			, A.field_phone
-			, A.field_cadifee
-			, A.field_cartfee
-			, A.field_greenfee
-			, A.field_people
-			, A.field_prepay
-			, A.field_commision
-			, A.field_post
-			, A.field_area
-			, B.stay_no
-			, B.stay_name
-			, B.stay_type
-			, B.stay_phone
-			, B.stay_room
-			, B.stay_price
-			, B.stay_post_address
-			, B.stay_basic_address
-			, B.stay_detail_address
-			, B.stay_status
-			, B.stay_local
-			  from golf_field A
-			     , stay B
-			 where A.field_area =  B.stay_local
-			   and A.field_area like '%'|| '#{keyword}'  ||'%';
-	</select>
+<!-- 			<select id="searchLocal" resultMap="localListResultMap"> -->
+<!-- 				A.field_no -->
+<!-- 			, A.field_name -->
+<!-- 			, A.field_basic_address -->
+<!-- 			, A.field_detail_address -->
+<!-- 			, A.field_no -->
+<!-- 			, A.field_phone -->
+<!-- 			, A.field_cadifee -->
+<!-- 			, A.field_cartfee -->
+<!-- 			, A.field_greenfee -->
+<!-- 			, A.field_people -->
+<!-- 			, A.field_prepay -->
+<!-- 			, A.field_commision -->
+<!-- 			, A.field_post -->
+<!-- 			, A.field_area -->
+<!-- 			, B.stay_no -->
+<!-- 			, B.stay_name -->
+<!-- 			, B.stay_type -->
+<!-- 			, B.stay_phone -->
+<!-- 			, B.stay_room -->
+<!-- 			, B.stay_price -->
+<!-- 			, B.stay_post_address -->
+<!-- 			, B.stay_basic_address -->
+<!-- 			, B.stay_detail_address -->
+<!-- 			, B.stay_status -->
+<!-- 			, B.stay_local -->
+<!-- 			  from golf_field A -->
+<!-- 			     , stay B -->
+<!-- 			 where A.field_area =  B.stay_local -->
+<!-- 			   and A.field_area like '%'|| '#{keyword}'  ||'%' -->
+<!-- 	</select> -->
 	
 	<!--패키지 리스트 -->
-		<select id="list" resultType="com.gf.golboogi.vo.PackageVO">
+		<select id="list" resultMap="packageMap">
 		select 
 		*
 		from stay S  
 			left outer join package_booking P on S.stay_no = P.stay_no
 			left outer join  golf_field F
        	on F.field_no = P.field_no
-       	 where P.package_no is not null;
+       	 where P.package_no is not null
 	</select>
 	
 		<!--패키지 상세 -->
-		<select id="one" resultType="com.gf.golboogi.vo.PackageVO" parameterType="int">
+		<select id="one" resultMap="packageMap" parameterType="int">
 		select 
 		*
 		from stay S 
 			left outer join package_booking P  on S.stay_no = P.stay_no
 			left outer join  golf_field F
        	on F.field_no = P.field_no
-       	 where P.package_no = #{packageNo};
+       	 where P.package_no = #{packageNo}
 	</select>
 
 

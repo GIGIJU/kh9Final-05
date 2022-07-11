@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <style>
   /* 유진 커스텀 style */
     .tour-product-info {
@@ -154,8 +155,8 @@
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>pay<i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">pay</h1>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package<i class="fa fa-chevron-right"></i></span></p>
+       <h1 class="mb-0 bread">package</h1>
      </div>
    </div>
  </div>
@@ -165,20 +166,21 @@
   <div class="container">
     <div class="row justify-content-center">
         <div class="text-center mt-5 md-3">
-
-    <h3  style="font-weight: bold; color: #23aed2 ">결제가 취소되었습니다.</h3>
+            <h3  style="font-weight: bold; color: #23aed2 ">🎉</h3>
+    <h3  style="font-weight: bold; color: #23aed2 ">예약이 완료되었습니다.</h3>
     <h5 style="font-size: medium; color:#7f7f7f ">이용해 주셔서 감사합니다. 최고의 서비스를 제공하는 골북이가 되겠습니다.</h5>
 <div class="item-cont">
-      <div class="img-box mt-5 mb-5"">
-                 <h1  style="font-weight: bold;  color: #afc666 " >⛳ . . . 🐢</h1>
+      <div class="img-box">
+        <img src="${root}/images/success_image.jpg" >
       </div>
       </div>
             <div class="row justify-content-center mt-3 mb-3">
-         <a href="${root}/pay/list" class="btn" style="width:50%;font-size: large ">결제내역 확인하기</a>
+         <a href="/ " class="btn" style="width:50%;font-size: large ">예약내역 확인하기</a>
          </div>
             <div class="row justify-content-center mt-2mb-3">
          <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
       </div>
+       <a href="${root}/pay/payment">선결제하러가기</a>
 </div>
 </div>
 </div>

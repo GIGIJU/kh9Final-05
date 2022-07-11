@@ -32,6 +32,8 @@
 		dual
 	</select>
 	
+	
+	
 	<insert id="insert" parameterType="PaymentDto">
 		insert into payment(
 			payment_no, booking_no, package_no,  payment_tid, payment_total, payment_name, 
@@ -42,6 +44,21 @@
 			sysdate, '승인'
 		)	
 	</insert>
+	
+		<select id="list" resultType="PaymentDto">
+		select * from payment order by payment_no desc
+	</select>
+	
+		<select id="one" resultType="PaymentDto" parameterType="int">
+		select * from payment where payment_no = #{paymentNo}
+	</select>
+	
+		<!-- 골프예약번호가 null 일때 패키지상품이고, 패키지예약번호가 null 일때 골프예약이다. -->
+<!-- 	<select id="sequence" resultType="int"> -->
+<!-- 		select payment_seq.nextval from -->
+<!-- 		dual -->
+<!-- 	</select> -->
+	
 </mapper> 
 
 

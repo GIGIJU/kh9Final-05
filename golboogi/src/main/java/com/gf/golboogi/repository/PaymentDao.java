@@ -9,10 +9,15 @@ import com.gf.golboogi.entity.PaymentDto;
 
 public interface PaymentDao {
 	int sequence();
-	int insertPayment(PaymentDto paymentDto);
+	void insertPayment(PaymentDto paymentDto);
 	List<PaymentDto> list();
 	PaymentDto find(int paymentNo);
+	List<PaymentDetailDto> listDetail(int paymentNo);
+	
 	
 	int insertPaymentDetail(PaymentDetailDto paymentDetailDto);
+	
+	boolean cancelDetail(int paymentDetailNo);
+	PaymentDetailDto findDetail(int paymentDetailNo);
 	
 }

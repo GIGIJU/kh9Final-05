@@ -1,6 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- fmt에서는 formatDate, formatNumber를 사용한다 --%>
+
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
   /* 유진 커스텀 style */
@@ -154,35 +157,63 @@
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>pay<i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">pay</h1>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>mypage<i class="fa fa-chevron-right"></i></span></p>
+       <h1 class="mb-0 bread">mypage</h1>
      </div>
    </div>
  </div>
 </section>
 
-<section class="ftco-intro ftco-section ftco-no-pt">
-  <div class="container">
-    <div class="row justify-content-center">
-        <div class="text-center mt-5 md-3">
+<h1>결제 내역 상세 페이지</h1>
 
-    <h3  style="font-weight: bold; color: #23aed2 ">결제가 취소되었습니다.</h3>
-    <h5 style="font-size: medium; color:#7f7f7f ">이용해 주셔서 감사합니다. 최고의 서비스를 제공하는 골북이가 되겠습니다.</h5>
-<div class="item-cont">
-      <div class="img-box mt-5 mb-5"">
-                 <h1  style="font-weight: bold;  color: #afc666 " >⛳ . . . 🐢</h1>
-      </div>
-      </div>
-            <div class="row justify-content-center mt-3 mb-3">
-         <a href="${root}/pay/list" class="btn" style="width:50%;font-size: large ">결제내역 확인하기</a>
-         </div>
-            <div class="row justify-content-center mt-2mb-3">
-         <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
-      </div>
-</div>
-</div>
-</div>
-</section>
+<h2>대표 정보</h2>
 
+<ul>
+	<li>결제 번호 : ${paymentDto.paymentNo}</li>
+	<li>거래 번호 : ${paymentDto.paymentTid}</li>
+	<li>거래 상품명 : ${paymentDto.paymentName}</li>
+	<li>거래 금액 : ${paymentDto.paymentTotal}</li>
+	<li>거래 시각 : ${paymentDto.paymentTime}</li>
+	<li>
+		거래 시각 : 
+		<fmt:formatDate 
+				value="${paymentDto.paymentTime}" 
+				pattern="y년 M월 d일 E a h시 m분 s초"></fmt:formatDate>
+	</li>
+</ul>
+
+<a href="#">전체 취소</a>
+
+<h2>상세 내역</h2>
+
+<c:forEach var="paymentDetailDto" items="${paymentDetailList}">
+	<div>
+		<h3>
+			이름 : ${paymentDetailDto.paymentDetailName} , 
+			개수 : ${paymentDetailDto.paymentDetailQuantity}개 , 
+			금액 : ${paymentDetailDto.paymentDetailPrice}원
+<a href="cancel?paymentDetailNo=${paymentDetailDto.paymentDetailNo}">취소하기</a>
+		</h3>
+	</div>
+</c:forEach>
+
+<h2>API 조회 결과</h2>
+
+<ul>
+	<li>결제 상태 : ${responseVO.status}</li>
+	<li>결제 방법 : ${responseVO.payment_method_type}</li>
+</ul>
+
+<h3>결제 진행 단계</h3>
+<ul>
+	<c:forEach var="paymentActionDetailVO" items="${responseVO.payment_action_details}">
+		<li>
+			[${paymentActionDetailVO.payment_action_type}]
+			금액 : ${paymentActionDetailVO.amount}원
+			(${paymentActionDetailVO.approved_at})
+
+		</li>
+	</c:forEach>
+</ul>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

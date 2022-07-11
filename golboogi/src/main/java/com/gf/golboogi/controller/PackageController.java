@@ -15,12 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.GolfFieldDto;
+import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.entity.PackageDto;
+import com.gf.golboogi.entity.PackageReserveDto;
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.PackageDao;
+import com.gf.golboogi.repository.PackageReserveDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.service.KakaoPayService;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
@@ -45,30 +50,51 @@ public class PackageController {
 	@Autowired
 	private GolfFieldDao golfFieldDao;
 	
+	
+	@Autowired
+	private MemberDao memberDao;
+	
+	@Autowired
+	private PackageReserveDao packageReserveDao;
+	
 
     //패키지 목록
-//	@GetMapping("/list")
-//	public String list(Model model) {
-//		List<PackageDto> list = packageDao.list();
-//		model.addAttribute("list",list);
-//		return "package/list";
-//	}
+	@GetMapping("/list")
+	public String list(Model model) {
+		List<PackageVO> list = packageDao.list();
+		model.addAttribute("list",list);
+		return "package/list";
+	}
 	
 	//패키지 상세
-//	@GetMapping("/detail")
-//	public String detail(@RequestParam int packageNo, Model model) {
-//		PackageDto packageVo = packageDao.one(packageNo);
-//		model.addAttribute("packageDto", packageDto);
-//		return "package/detail";
-//	}
+	@GetMapping("/detail")
+	public String detail(@RequestParam int packageNo, Model model ) {
+		PackageVO packageVo = packageDao.one(packageNo);
+		model.addAttribute("packageVo", packageVo);
+		return "package/detail";
+	}
 
 	//패키지 예약내역 확인 페이지 
-//	@GetMapping("/reserve")
-//	public String reserve(@RequestParam int stayNo, Model model) {
-//		StayDto stayDto = stayDao.one(stayNo);
-//		model.addAttribute("stayDto",stayDto);
-//		return "package/reserve";
-//	}
-
+	@GetMapping("/reserve")
+	public String reserve(@RequestParam int packageNo, Model model ) {
+		PackageVO packageVo = packageDao.one(packageNo);
+		model.addAttribute("packageVo", packageVo);
+		return "package/reserve";
+	}
+	
+	@PostMapping("/reserve")
+	public String reserve(@ModelAttribute int packageNo, PackageReserveDto packageReserveDto, HttpSession session ) {
+		String memberId = (String) session.getAttribute("login");
+		MemberDto memberDto = memberDao.info(memberId);
+		String memberName = memberDto.getMemberName();
+		packageReserveDto.setMemberId(memberId);
+		packageReserveDao.reserve(packageReserveDto);
+		return "redirect:reserve_finish";
+	}
+	
+	@GetMapping("/reserve_finish")
+	public String reserveFinish() {
+		return "booking/reserve_finish";
+	}
 }
 	

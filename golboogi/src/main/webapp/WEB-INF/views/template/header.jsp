@@ -30,6 +30,7 @@
   <link rel="stylesheet" href="${root}/css/style.css">
   
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
   <script>
 	/*
 		프론트엔드 암호화에 대한 계획

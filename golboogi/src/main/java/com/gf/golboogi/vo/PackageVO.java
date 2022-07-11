@@ -15,11 +15,12 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class PackageVO {
+	private int packageNo;
 	private StayDto stayDto;
-	private GolfFieldDto golfFieldDto;
+	private GolfFieldDto fieldDto;
 	private PackageDto packageDto;
 		
-	List<PackageVO> packageList;
+	List<PackageVO> packagelist;
 
 	
 }
