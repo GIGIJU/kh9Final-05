@@ -28,6 +28,9 @@ public class JoinController {
 		List<JoinListVO> list = joinDao.selectList(type,keyword,p,s);
 		model.addAttribute("list",list);
 		
+		boolean search = type != null && keyword != null;
+		model.addAttribute("search", search);
+		
 		int count = joinDao.count(type, keyword);
 		int lastPage = (count + s - 1) / s;
 		

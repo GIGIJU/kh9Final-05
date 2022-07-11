@@ -53,5 +53,5 @@ public class GolfFieldController {
 			model.addAttribute("lastPage", lastPage);			
 			return "field/golf_field";
 	}
-
+	
 }

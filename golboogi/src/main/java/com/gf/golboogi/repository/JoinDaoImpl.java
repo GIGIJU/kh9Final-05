@@ -37,8 +37,6 @@ public class JoinDaoImpl implements JoinDao{
 		int joinApplyNo = sqlSession.selectOne("join.applySequence");
 		joinApplyDto.setJoinApplyNo(joinApplyNo);
 		
-		System.out.println("Dao 되나ㅜㅜㅜㅜㅜ"+joinApplyDto);
-		
 		sqlSession.insert("join.applyInsert",joinApplyDto);
 		
 	}

@@ -27,7 +27,7 @@ $(function() {
 	top: 0;
 	left: 0;
 	width: 90%;
-	height: 65%;
+	height: 50%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -101,8 +101,27 @@ textarea {
 </section>	
 <div class="container-fluid">
 	<div class="col-6 offset-3 mt-5">
-		<h4>조인게시판</h4>
-	<div class="row mt-4 mb-5">
+	<div class="row mt-4">
+		<div class="col-md-6 text-left">
+			<h4>조인게시판</h4>
+		</div>
+		<div class="col-md-6 text-right">
+			<form action="list" method="get">
+					<input type="hidden" name="p" value="1" class="form-input">
+					<input type="hidden" name="s" value="10" class="form-input">
+				<select name="type" style="height: 30px; margin-right: 3px; font-size: 12px;">
+					<option value="">선택</option>
+ 					<option value="field_area" <c:if test="${type == 'field_area'}">selected</c:if>>지역</option>
+					<option value="field_name" <c:if test="${type == 'field_name'}">selected</c:if>>골프장</option>
+					<option value="member_nick" <c:if test="${type == 'member_nick'}">selected</c:if>>등록자</option> 
+				</select>
+				<input type="text" name="keyword" placeholder="검색어입력" value="${param.keyword}" autocomplete="off"
+					 style="height: 32px; margin-right: 3px; font-size: 12px;">
+				<button type="submit" class="btn" style="height: 30px;">검색</button>
+			</form>
+		</div>
+	</div>
+	<div class="row mb-5">
 			<table class="table table-hover text-center" style="font-size: 12px;">
 		 		<thead>
 			 		<tr>
@@ -156,60 +175,57 @@ textarea {
 				<div class="col text-center">
 					<div class="block-27">
 						<ul>
-							<li><c:if test="${p > 1}">
+							<c:if test="${p > 1}">
 								<c:choose>
 									<c:when test="${search}">
-										<a href="list?p=1&s=${s}&type=${type}&keyword=${keyword}" class="link">&laquo;</a>
+										<li><a href="list?p=1&s=${s}&type=${type}&keyword=${keyword}" class="link">&laquo;</a></li>
 									</c:when>
 									<c:otherwise>
-										<a href="list?p=1&s=${s}" class="link">&laquo;</a>
+										<li><a href="list?p=1&s=${s}" class="link">&laquo;</a></li>
 									</c:otherwise>			
 								</c:choose>
-							</c:if></li>
-							<li><c:if test="${startBlock > 1}">
+							</c:if>
+							<c:if test="${startBlock > 1}">
 								<c:choose>
 									<c:when test="${search}">
-										<a href="list?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&lt;</a>
+										<li><a href="list?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&lt;</a></li>
 									</c:when>
 									<c:otherwise>
-										<a href="list?p=${startBlock-1}&s=${s}" class="link">&lt;</a>
+										<li><a href="list?p=${startBlock-1}&s=${s}" class="link">&lt;</a></li>
 									</c:otherwise>			
 								</c:choose>
-							</c:if></li>
+							</c:if>
 							<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
-								<li><c:choose>
+								<c:choose>
 									<c:when test="${search}">
-										<a href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}" class="link">${i}</a>
+										<li><a href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}" class="link">${i}</a></li>
 									</c:when>
 									<c:otherwise>
-										<a href="list?p=${i}&s=${s}" class="link">${i}</a>
+										<li><a href="list?p=${i}&s=${s}" class="link">${i}</a></li>
 									</c:otherwise>			
-								</c:choose></li>		
-							</c:forEach>	
-							<li>		
+								</c:choose>		
+							</c:forEach>			
 							<!-- 다음 버튼 영역 -->
 							<c:if test="${endBlock < lastPage}">
 								<c:choose>
 									<c:when test="${search}">
-										<a href="list?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&gt;</a>
+										<li><a href="list?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&gt;</a></li>
 									</c:when>
 									<c:otherwise>
-										<a href="list?p=${endBlock+1}&s=${s}" class="link">&gt;</a>
-									</c:otherwise>			
-								</c:choose>
-							</c:if></li>
-							<li>
-							<c:if test="${p < lastPage}">
-								<c:choose>
-									<c:when test="${search}">
-										<a href="list?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}" class="link">&raquo;</a>
-									</c:when>
-									<c:otherwise>
-										<a href="list?p=${lastPage}&s=${s}" class="link">&raquo;</a>
+										<li><a href="list?p=${endBlock+1}&s=${s}" class="link">&gt;</a></li>
 									</c:otherwise>			
 								</c:choose>
 							</c:if>
-							</li>
+							<c:if test="${p < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="list?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}" class="link">&raquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list?p=${lastPage}&s=${s}" class="link">&raquo;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
 						</ul>
 					</div>
 				</div>
