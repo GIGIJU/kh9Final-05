@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.repository.PackageReserveDao;
 import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.entity.PaymentDto;
 import com.gf.golboogi.entity.StayDto;
+import com.gf.golboogi.entity.PackageReserveDto;
 import com.gf.golboogi.entity.PaymentDetailDto;
 import com.gf.golboogi.service.KakaoPayService;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
@@ -30,6 +32,7 @@ import com.gf.golboogi.vo.KakaoPayCancelRequestVO;
 import com.gf.golboogi.vo.KakaoPayCancelResponseVO;
 import com.gf.golboogi.vo.KakaoPayReadyRequestVO;
 import com.gf.golboogi.vo.KakaoPayReadyResponseVO;
+import com.gf.golboogi.vo.PackageVO;
 import com.gf.golboogi.vo.PurchaseVO;
 
 import lombok.extern.log4j.Log4j2;
@@ -37,6 +40,9 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 public class PayController {
 
+//	@Autowired
+//	private PackageVO packageVo;
+	
 	@Autowired
 	private StayDao stayDao;
 	
@@ -47,6 +53,9 @@ public class PayController {
 	private PaymentDao paymentDao;
 	
 	@Autowired
+	private PackageReserveDao packageReserveDao;
+	
+	@Autowired
 //	private PaymentService paymentService;
 	
     @GetMapping("package/package_purchase")
@@ -54,26 +63,26 @@ public class PayController {
         
     }
 	
-	@PostMapping("/package_purchase")
+	@PostMapping("package/package_purchase")
 	public String pay1Purchase(
 				//@RequestParam int no, @RequestParam int quantity
 				@ModelAttribute PurchaseVO purchaseVO, HttpSession session
 			) throws URISyntaxException {
 		
-		StayDto stayDto = stayDao.one(purchaseVO.getNo());
+		PackageReserveDto packageReserveDto = packageReserveDao.one(purchaseVO.getNo());
 		//상품이 없다면 결제가 진행되지 않도록 처리
-				if(stayDto == null) {
+				if(packageReserveDto == null) {
 					return "redirect:package_purchase";
 				}
 				
 		//결제 준비(ready) 요청을 진행
-		int totalAmount = stayDto.getStayPrice() * purchaseVO.getQuantity();
+		int totalAmount = packageReserveDto.getPackageTotalPrice() * purchaseVO.getQuantity();
 		int paymentNo = paymentDao.sequence();
 		KakaoPayReadyRequestVO requestVO = 
 									KakaoPayReadyRequestVO.builder()
 												.partner_order_id(String.valueOf(paymentNo))
 												.partner_user_id(session.getId())
-												.item_name(stayDto.getStayName())
+												.item_name("골부기예약결제")
 												.quantity(purchaseVO.getQuantity())
 												.total_amount(totalAmount)
 											.build();

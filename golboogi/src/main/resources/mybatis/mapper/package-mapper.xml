@@ -100,7 +100,7 @@
 	
 	
 	
-	<!--  패키지 지역별 검색 -->
+	 <!-- 패키지 지역별 검색-->
 <!-- 			<select id="searchLocal" resultMap="localListResultMap"> -->
 <!-- 				A.field_no -->
 <!-- 			, A.field_name -->

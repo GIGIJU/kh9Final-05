@@ -180,7 +180,17 @@
             <div class="row justify-content-center mt-2mb-3">
          <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
       </div>
-       <a href="${root}/pay/payment">선결제하러가기</a>
+      
+    <!--선결제 페이지 이동 버튼 -->
+    <form method="post" action="package_purchase">
+      <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}">
+      <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
+      <input type="hidden" name="quantity" value="1" min="1" required>
+      <div class="row justify-content-center mt-5 mb-5">
+        <a href="${root}/package/reserve?packageNo=${packageVo.packageDto.packageNo}" style="color:white" class="btn" >선결제하기</a>
+      </div>
+      </form>
+      
 </div>
 </div>
 </div>

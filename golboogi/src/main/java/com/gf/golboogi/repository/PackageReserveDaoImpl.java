@@ -15,7 +15,11 @@ public class PackageReserveDaoImpl implements PackageReserveDao{
 		int sequence = sqlSession.selectOne("package_reserve.sequence");
 		packageReserveDto.setPackageBookingNo(sequence);
 		sqlSession.insert("package_reserve.insert", packageReserveDto);
-		
+	}
+
+	@Override
+	public PackageReserveDto one(int packageBookingNo) {
+		return sqlSession.selectOne("package_reserve.one",packageBookingNo);
 	}
 
 }

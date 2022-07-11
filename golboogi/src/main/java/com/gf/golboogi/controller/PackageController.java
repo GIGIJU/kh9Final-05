@@ -76,14 +76,26 @@ public class PackageController {
 
 	//패키지 예약내역 확인 페이지 
 	@GetMapping("/reserve")
-	public String reserve(@RequestParam int packageNo, Model model ) {
+	public String reserve(@RequestParam int packageNo, Model model, MemberDto memberDto, HttpSession session ) {
 		PackageVO packageVo = packageDao.one(packageNo);
+		
+		String memberId = (String) session.getAttribute("login");
+		memberDto = memberDao.info(memberId);
+		
+		//예약자 이름. 이메일. 번호 가져오기 
+		String memberName = memberDto.getMemberName();
+		String memberEmail = memberDto.getMemberEmail();
+		String memberPhone = memberDto.getMemberPhone();
+		
+		model.addAttribute("memberDto", memberDto );
 		model.addAttribute("packageVo", packageVo);
 		return "package/reserve";
 	}
 	
 	@PostMapping("/reserve")
 	public String reserve(@ModelAttribute int packageNo, PackageReserveDto packageReserveDto, HttpSession session ) {
+		PackageVO packageVo = packageDao.one(packageNo);
+		
 		String memberId = (String) session.getAttribute("login");
 		MemberDto memberDto = memberDao.info(memberId);
 		String memberName = memberDto.getMemberName();

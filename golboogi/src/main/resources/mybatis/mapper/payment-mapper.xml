@@ -36,11 +36,11 @@
 	
 	<insert id="insert" parameterType="PaymentDto">
 		insert into payment(
-			payment_no, booking_no, package_no,  payment_tid, payment_total, payment_name, 
+			payment_no, booking_no, package_booking_no,  payment_tid, payment_total, payment_name, 
 			payment_time, payment_status
 		)
 		values(
-			#{paymentNo}, #{bookingNo}, #{packageNo},#{paymentTid}, #{paymentTotal}, #{paymentName}, 
+			#{paymentNo}, #{bookingNo}, #{packageBookingNo},#{paymentTid}, #{paymentTotal}, #{paymentName}, 
 			sysdate, '승인'
 		)	
 	</insert>
@@ -54,10 +54,7 @@
 	</select>
 	
 		<!-- 골프예약번호가 null 일때 패키지상품이고, 패키지예약번호가 null 일때 골프예약이다. -->
-<!-- 	<select id="sequence" resultType="int"> -->
-<!-- 		select payment_seq.nextval from -->
-<!-- 		dual -->
-<!-- 	</select> -->
+
 	
 </mapper> 
 

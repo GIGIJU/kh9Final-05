@@ -206,7 +206,7 @@
             </div>
                       <div class="item-cont">
             <h6  >휴대폰 * </h6>
-               <input type="text" value="${memberDto.memberName}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
+               <input type="text" value="${memberDto.memberPhone}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
                <div class="field-button-box"></div>
             </div>
         </div>
@@ -259,8 +259,8 @@
               <div class="product-info-title" ><h2 >결제 정보</h2>
             </div>
               <div class="item-cont">
-                <h5 style="color:#fff; text-align: center; text-style:bold;">[숙박] 1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" />  </h5> 
-                <h5 style="color:#fff; text-align: center; text-style:bold;">[티업] 1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.fieldDto.fieldGreenfee}" />  </h5> 
+                <h5 style="color:#fff; text-align: center; text-style:bold;">[숙박]    1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" />  </h5> 
+                <h5 style="color:#fff; text-align: center; text-style:bold;">[티업]    1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.fieldDto.fieldGreenfee}" />  </h5> 
                 <h5 style="color:#fff; text-align: center; text-style:bold;">신청 인원 : 4인 1팀 </h5> 
                 <hr style="background-color :#fff">
                 <div >
@@ -291,8 +291,7 @@
       <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
       <input type="hidden" name="quantity" value="1" min="1" required>
       <div class="row justify-content-center mt-5 mb-5">
-        <input type="submit" value="예약하기" >
-        <!-- <button class="btn btn-success p-3">신청하기</button> -->
+        <button  class="btn btn-success p-3">예약하기</button>
       </div>
       </form>
 

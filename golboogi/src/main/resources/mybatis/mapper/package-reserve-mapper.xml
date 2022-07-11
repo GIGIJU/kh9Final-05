@@ -30,14 +30,20 @@
 		select package_reserve_seq.nextval from dual
 	</select>
 	
-		<insert id="insert" parameterType="PackageReserveDto">
+		<insert id="reserve" parameterType="PackageReserveDto">
 		insert into package_reserve(
-		package_booking_no, package_no, member_id, package_total_price, package_status
+		package_booking_no, booking_no, package_no, member_id, package_total_price, package_status
 		)
 		values(
-		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, #{packageStatus}
+		#{packageBookingNo}, #{bookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, #{packageStatus}
 		)
-	</insert>												
+	</insert>										
+	
+		<!-- 패키지예약완료 번호 검색 -->
+	<select id="one" resultType="PackageReserveDto" parameterType="int">
+		select *
+		from package_reserve where package_booking_no= #{packageBookingNo}
+	</select>		
 </mapper> 
 
 
