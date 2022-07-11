@@ -55,6 +55,7 @@ public class GolfFieldController {
 			return "field/golf_field";
 	}
 	
+
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info=golfFieldDao.selectOne(fieldNo);

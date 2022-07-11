@@ -104,8 +104,7 @@
 								<div class="col-lg d-flex">
 									<div class="form-group d-flex w-100 border-0">
 										<div class="form-field w-100 align-items-center d-flex">
-											<input type="submit" value="검색"
-												class="align-self-stretch form-control btn btn-primary">
+											<input type="submit" value="검색" class="align-self-stretch form-control btn btn-primary">
 										</div>
 									</div>
 								</div>
@@ -121,14 +120,8 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row mb-3">
-				<div class="col-md-6 text-left"><h4 style="font-weight: bold;">인기골프장</h4></div>
-				<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
-				<a href="list_all" style="font-size: 12px; color: gray;">더보기 ></a>
-				</div>
-			</div>
 			<div class="row">
-				<c:forEach var="golfFieldDto" items="${rank}">
+				<c:forEach var="golfFieldDto" items="${list}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
 							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
@@ -153,66 +146,70 @@
 					</div>
 				</c:forEach>
 				</div>
-				<div class="row mt-3">
-					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">선결제골프장</h4></div>
-				</div>
-					<div class="row">
-					<c:forEach var="golfFieldDto" items="${prepay}">
-					<div class="col-md-4 ftco-animate">
-						<div class="project-wrap hotel">
-							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
-								style="background-image: url(${root}/images/golf-dummy.jpg);">
-							</a>
-							<div class="text p-2">
-								<span class="days">
-								<div class="row">
-									<div class="col-md-6 text-left">
-										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
-									</div>
-									<div class="col-md-6 text-right">
-										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
-									</div>
-								</div>
-								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
-								<p class="location">
-									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
-								</p>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
-				<div class="row mt-3">
-					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
-				</div>
-					<div class="row">
-					<c:forEach var="golfFieldDto" items="${cheap}">
-					<div class="col-md-4 ftco-animate">
-						<div class="project-wrap hotel">
-							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
-								style="background-image: url(${root}/images/golf-dummy.jpg);">
-							</a>
-							<div class="text p-2">
-								<span class="days">
-								<div class="row">
-									<div class="col-md-6 text-left">
-										<fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원~</span>
-									</div>
-									<div class="col-md-6 text-right">
-										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
-									</div>
-								</div>
-								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
-								<p class="location">
-									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
-								</p>
-							</div>
-						</div>
-					</div>
-				</c:forEach>
-			</div>
 		</div>
 	</section>
+	
+	
+			<!-- 페이지네이션 -->
+			<div class="row mt-5 mb-5">
+				<div class="col text-center">
+					<div class="block-27">
+						<ul>
+							<c:if test="${p > 1}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="list_all?p=1&s=${s}&type=${type}&keyword=${keyword}" class="link">&laquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_all?p=1&s=${s}" class="link">&laquo;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							<c:if test="${startBlock > 1}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="list_all?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&lt;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_all?p=${startBlock-1}&s=${s}" class="link">&lt;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="list_all?p=${i}&s=${s}&type=${type}&keyword=${keyword}" class="link">${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_all?p=${i}&s=${s}" class="link">${i}</a></li>
+									</c:otherwise>			
+								</c:choose>		
+							</c:forEach>			
+							<!-- 다음 버튼 영역 -->
+							<c:if test="${endBlock < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="list_all?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&gt;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_all?p=${endBlock+1}&s=${s}" class="link">&gt;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							<c:if test="${p < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="list_all?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}" class="link">&raquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="list_all?p=${lastPage}&s=${s}" class="link">&raquo;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</div>
 </div>
 
 
