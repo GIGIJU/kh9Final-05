@@ -29,6 +29,4 @@ public class BookingRestController {
 	public List<TeeTimeListVO> list(@ModelAttribute BookingComplexSearchVO searchVO){
 		return golfFieldDao.selectTeetimeList(searchVO);
 	}
-	
-	
 }

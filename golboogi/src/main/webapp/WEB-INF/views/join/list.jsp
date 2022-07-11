@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <script>
 $(function() {
-	$(".modal").hide();
+	//$(".modal").hide();
 	$(".show-detail").each(function(){
 		$(this).click(function() {
 			$(this).next().toggle();
@@ -14,7 +14,7 @@ $(function() {
 	
 	$(".show-modal").each(function(){
 		$(this).click(function() {
-			$(this).parent().next().toggle();
+			$(this).parent().parent().next(".modal").show();
 		});
 	});
 	
@@ -85,6 +85,7 @@ textarea {
     color: gray;
 }
 </style>
+<div id="app">
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
@@ -143,59 +144,177 @@ textarea {
 			 					<img src="${root}/images/join_x.png" style="height: 40px; width: 40px; border-radius: 70%;">
 			 				</c:forEach>
 						</td>
-						<td class="show-modal"><button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;">신청하기</button></td>
+						<td><button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">신청하기</button></td>
 			 		</tr>
-			 		<div class="modal">
-			 			<div class="modal-content">
-							<div class="row">
-								<div class="col-8 text-left">
-									<h5 style="font-weight: bold;">조인 신청</h5>			
-								</div>
-								<div class="col-4 text-right">
-									<button class="btn-cancel"><i class="fa-solid fa-xmark"></i></button>
-								</div>
-							</div>
-							<div class="row mt-2">
-								<span style="color: black; font-size: 11px;">인원 수 : </span> 
-								<select name="join">
-								<c:forEach var="i" begin="1" end="${joinListVO.joinPeople}">
-									<option>${i}</option>
-								</c:forEach>
-								</select>
-							</div>
-							<div class="row mt-2">
-								<textarea placeholder="나와 동반자를 표현하는 글을 작성해보세요" name="join"></textarea>
-							</div>
-							<div class="row mt-4">
-							<div class="col text-center">
-								<button class="btn" style="width: 50%">신청하기</button>
-							</div>
-						</div>
-						</div>
-			 		</div>
 			 	</c:forEach>
 			 	</tbody>
 			 </table>
 		</div>
 		
+		<!-- 페이지네이션 -->
 			<div class="row mt-5 mb-5">
 				<div class="col text-center">
 					<div class="block-27">
 						<ul>
-							<li><a href="#">&lt;</a></li>
-							<li class="active"><span>1</span></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#">&gt;</a></li>
+							<li><c:if test="${p > 1}">
+								<c:choose>
+									<c:when test="${search}">
+										<a href="list?p=1&s=${s}&type=${type}&keyword=${keyword}" class="link">&laquo;</a>
+									</c:when>
+									<c:otherwise>
+										<a href="list?p=1&s=${s}" class="link">&laquo;</a>
+									</c:otherwise>			
+								</c:choose>
+							</c:if></li>
+							<li><c:if test="${startBlock > 1}">
+								<c:choose>
+									<c:when test="${search}">
+										<a href="list?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&lt;</a>
+									</c:when>
+									<c:otherwise>
+										<a href="list?p=${startBlock-1}&s=${s}" class="link">&lt;</a>
+									</c:otherwise>			
+								</c:choose>
+							</c:if></li>
+							<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
+								<li><c:choose>
+									<c:when test="${search}">
+										<a href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}" class="link">${i}</a>
+									</c:when>
+									<c:otherwise>
+										<a href="list?p=${i}&s=${s}" class="link">${i}</a>
+									</c:otherwise>			
+								</c:choose></li>		
+							</c:forEach>	
+							<li>		
+							<!-- 다음 버튼 영역 -->
+							<c:if test="${endBlock < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<a href="list?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&gt;</a>
+									</c:when>
+									<c:otherwise>
+										<a href="list?p=${endBlock+1}&s=${s}" class="link">&gt;</a>
+									</c:otherwise>			
+								</c:choose>
+							</c:if></li>
+							<li>
+							<c:if test="${p < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<a href="list?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}" class="link">&raquo;</a>
+									</c:when>
+									<c:otherwise>
+										<a href="list?p=${lastPage}&s=${s}" class="link">&raquo;</a>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
 	</div>
-	
 </div>
 
+<!-- 조인신청 창 -->
+<div class="modal" style="display: none;">
+	<div class="modal-content">
+	<div class="row">
+		<div class="col-8 text-left">
+			<h5 style="font-weight: bold;">조인 신청</h5>			
+		</div>
+		<div class="col-4 text-right">
+			<button class="btn-cancel" @click="hiddenModal"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+	</div>
+		<div class="row mt-2">
+			<span style="color: black; font-size: 11px;">인원 수 : </span> 
+			<select v-model="joinApplyPeople">
+			<%-- <c:forEach var="i" begin="1" end="2"> --%>
+				<option>1</option>
+				<option>2</option>
+				<option>3</option>
+			</select>
+		</div>
+		<div class="row mt-2">
+			<textarea placeholder="나와 동반자를 표현하는 글을 작성해보세요" v-model="joinApplyInfo"></textarea>
+		</div>
+		<div class="row mt-4">
+			<div class="col text-center">
+				<button class="btn" style="width: 50%" @click="joinApply">신청하기</button>
+			</div>
+		</div>
+</div>
+</div>
+
+</div>
+
+<script src="http://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    //div[id=app]을 제어할 수 있는 Vue instance를 생성
+    const app = Vue.createApp({
+        //data : 화면을 구현하는데 필요한 데이터를 작성해둔다
+        data(){
+            return {
+               joinNo:"",
+               joinApplyPeople:0,
+               joinApplyInfo:"",
+               joinPeople:0,
+            };
+        },
+        //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
+        //- 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
+        //- 반드시 return을 통해 값을 반환해야 한다
+        computed:{
+
+        },
+        //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
+        methods:{
+        	showModal(joinNo,joinPeople){
+        		console.log(joinNo,joinPeople);
+        		this.joinPeople = joinPeople;
+       			this.joinNo = joinNo;
+       			$(".modal").show();
+        	},
+        	hiddenModal(){
+        		this.joinApplyPeople = 0;
+        		this.joinApplyInfo = "";
+        		$(".modal").hide();
+        	},
+        	joinApply(){				
+				if(this.joinNo=="" || this.joinApplyPeople==0 || this.joinApplyInfo==""){
+					window.alert("신청란을 작성해주세요.");
+					return;
+				}
+				
+				axios({
+					url:"${pageContext.request.contextPath}/rest/apply/",
+					method:"post",
+					data:{
+						joinNo:this.joinNo,
+			            joinApplyPeople:this.joinApplyPeople,
+			            joinApplyInfo:this.joinApplyInfo
+					},
+				})
+				.then(resp=>{
+					//완성 시
+					window.alert("신청이 완료되었습니다.");
+					$(".modal").hide();
+				});
+			},
+        },
+        //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
+        watch:{
+
+        },
+        mounted(){
+			
+        }
+    });
+    app.mount("#app");
+</script>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
