@@ -164,4 +164,22 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		return sqlSession.selectOne("golfField.count", param);
 	}
 	
+	//골프 부킹 전체 리스트
+	@Override
+	public List<GolfFieldDto> listAll(String type, int page, int size) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("type", type);
+		
+		int end = page * size;
+		int begin = end - (size - 1);
+		param.put("begin", begin);
+		param.put("end", end);
+		
+		return sqlSession.selectList("golfField.listAll", param);
+	}
+	
+	@Override
+	public int countAll() {
+		return sqlSession.selectOne("golfField.countAll");
+	}
 }

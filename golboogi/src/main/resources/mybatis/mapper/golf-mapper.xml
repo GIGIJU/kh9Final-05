@@ -114,6 +114,30 @@
 	<select id="cheap" resultType="GolfFieldDto">
 		<![CDATA[select * from (select * from golf_field where field_greenfee <= 150000 order by field_greenfee) where rownum <=3]]>
 	</select>
+	
+	<!-- 골프부킹 전체리스트 -->
+	<select id="listAll" resultType="GolfFieldDto" parameterType="Map">
+	 select * from(
+		select rownum rn, TMP.* from (
+            select * from golf_field 
+	        <if test ="type != null">
+	        	<if test="type == 'field_prepay'">
+					order by field_prepay desc
+	        	</if>
+	        	<if test="type == 'field_greenfee'">
+					order by field_greenfee
+	        	</if>
+	        	<if test="type == 'field_no'">
+	        		order by field_no
+	        	</if>
+			</if>
+			) TMP
+		)where rn between #{begin} and #{end}	
+    </select> 
+    
+    <select id="countAll" resultType="int">
+      select count(*) from golf_field
+   </select>
 </mapper> 
 
 

@@ -238,19 +238,18 @@ textarea {
 	<div class="modal-content">
 	<div class="row">
 		<div class="col-8 text-left">
-			<h5 style="font-weight: bold;">조인 신청</h5>			
+			<span style="font-weight: bold;">조인 신청</span>			
 		</div>
 		<div class="col-4 text-right">
 			<button class="btn-cancel" @click="hiddenModal"><i class="fa-solid fa-xmark"></i></button>
 		</div>
 	</div>
 		<div class="row mt-2">
-			<span style="color: black; font-size: 11px;">인원 수 : </span> 
+			<span style="color: black; font-size: 11px; margin-right: 3px;">인원 수 : </span> 
 			<select v-model="joinApplyPeople">
-			<%-- <c:forEach var="i" begin="1" end="2"> --%>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
+			<c:forEach var="i" begin="1" end="2">
+				<option>${i}</option>
+			</c:forEach>
 			</select>
 		</div>
 		<div class="row mt-2">

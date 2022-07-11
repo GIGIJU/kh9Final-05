@@ -53,18 +53,17 @@ public class BookingController {
 	@GetMapping("/list_all")
 	public String listAll(
 			@RequestParam(required = false) String type,
-			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "9") int s,
 			Model model) {
 		
-			List<GolfFieldDto> list = golfFieldDao.list(type, keyword, p, s);
+			List<GolfFieldDto> list = golfFieldDao.listAll(type, p, s);
 			model.addAttribute("list", list);
 			
-			boolean search = type != null && keyword != null;
-			model.addAttribute("search", search);
+			boolean range = type != null;
+			model.addAttribute("range", range);
 			 
-			int count = golfFieldDao.count(type, keyword);
+			int count = golfFieldDao.countAll();
 			int lastPage = (count + s - 1) / s;
 			
 			int blockSize = 10;//블록 크기
@@ -77,7 +76,6 @@ public class BookingController {
 			model.addAttribute("p", p);
 			model.addAttribute("s", s);
 			model.addAttribute("type", type);
-			model.addAttribute("keyword", keyword);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
 			model.addAttribute("lastPage", lastPage);			
@@ -92,7 +90,7 @@ public class BookingController {
 		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeList",teetimeList);
 		
-		return "booking/detail2";
+		return "booking/detail";
 	}
 	
 	@GetMapping("/test")

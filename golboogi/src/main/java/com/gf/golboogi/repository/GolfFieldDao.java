@@ -26,4 +26,6 @@ public interface GolfFieldDao {
 	List<GolfFieldDto> selectCheap();
 	List<GolfFieldDto> list(String type, String keyword, int page, int size);
 	int count(String type, String keyword);
+	List<GolfFieldDto> listAll(String type, int page, int size);
+	int countAll();
 }

@@ -153,8 +153,11 @@
 					</div>
 				</c:forEach>
 				</div>
-				<div class="row mt-3">
-					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">선결제골프장</h4></div>
+				<div class="row mb-3">
+					<div class="col-md-6 text-left"><h4 style="font-weight: bold;">선결제 골프장</h4></div>
+					<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
+					<a href="list_all?type=feild_prepay" style="font-size: 12px; color: gray;">더보기 ></a>
+					</div>
 				</div>
 					<div class="row">
 					<c:forEach var="golfFieldDto" items="${prepay}">
@@ -182,8 +185,11 @@
 					</div>
 				</c:forEach>
 			</div>
-				<div class="row mt-3">
-					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
+				<div class="row mb-3">
+					<div class="col-md-6 text-left"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
+					<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
+					<a href="list_all?type=feild_greenfee" style="font-size: 12px; color: gray;">더보기 ></a>
+					</div>
 				</div>
 					<div class="row">
 					<c:forEach var="golfFieldDto" items="${cheap}">

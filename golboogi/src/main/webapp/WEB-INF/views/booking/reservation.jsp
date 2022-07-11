@@ -22,7 +22,7 @@ span{
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -201,7 +201,7 @@ textarea {
 				<hr>
 				<div class="row mb-1">
 					<div class="col-md-6">
-						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="hidden1=false"> 골북이 부킹 계약 </button>						
+						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="showModal1"> 골북이 부킹 계약 </button>						
 					</div>
 					<div class="col-md-5">
 						<input type="checkbox" class="ml-3" v-model="agree1">
@@ -209,7 +209,7 @@ textarea {
 				</div>
 				<div class="row mb-1">
 					<div class="col-md-6">
-						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="hidden2=false"> 골프장 예약/위약 규정 </button>
+						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="showModal2"> 골프장 예약/위약 규정 </button>
 					</div>
 					<div class="col-md-5">
 						<input type="checkbox" class="ml-3" v-model="agree2">
@@ -217,7 +217,7 @@ textarea {
 				</div>
 				<div class="row">
 					<div class="col-md-6">
-						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="hidden3=false"> 골프장 이용 유의사항 </button>
+						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="showModal3"> 골프장 이용 유의사항 </button>
 					</div>
 					<div class="col-md-5">
 						<input type="checkbox" class="ml-3" v-model="agree3">
@@ -245,7 +245,7 @@ textarea {
 	
 <!-- 약관동의 모달창 1 -->
 	
-<div class="modal" v-bind:class="hiddenModal1()">
+<div class="modal modal1" style="display: none;">
 	<!-- <div class="modal-overlay"> -->
 		<div class="modal-content">
 			<div class="row">
@@ -292,7 +292,7 @@ textarea {
 	</div>
 <!-- 약관동의 모달창 2 -->
 	
-<div class="modal" v-bind:class="hiddenModal2()">
+<div class="modal modal2" style="display: none;">
 	<!-- <div class="modal-overlay"> -->
 		<div class="modal-content">
 			<div class="row">
@@ -334,7 +334,7 @@ textarea {
 	</div>
 <!-- 약관동의 모달창 3 -->
 	
-<div class="modal" v-bind:class="hiddenModal3()">
+<div class="modal modal3" style="display: none;">
 	<!-- <div class="modal-overlay"> -->
 		<div class="modal-content">
 			<div class="row">
@@ -381,9 +381,6 @@ textarea {
                 	agree1:false,//첫 번째 이용약관 동의여부
                     agree2:false,//두 번째 이용약관 동의여부
                     agree3:false,//세 번째 이용약관 동의여부
-                    hidden1:true,
-                    hidden2:true,
-                    hidden3:true,
                 };
             },
             computed:{
@@ -417,39 +414,27 @@ textarea {
                     else if(this.isDropAble){
                     	alert("선택하신 타임은 취소가능 기한이 경과하여 \n예약 후 취소가 불가능 합니다.");
                     }
-                },
-                hiddenModal1(){
-                	if(this.hidden1){
-                		return "hidden";
-                	}else{
-                		return "";
-                	}
-                },
+                },              
                 clickAgree1(){
                 	this.agree1 = true;
-                	this.hidden1 = true;                	
-                },
-                hiddenModal2(){
-                	if(this.hidden2){
-                		return "hidden";
-                	}else{
-                		return "";
-                	}
+                	$(".modal1").hide();               	
                 },
                 clickAgree2(){
                 	this.agree2 = true;
-                	this.hidden2 = true;                	
-                },
-                hiddenModal3(){
-                	if(this.hidden3){
-                		return "hidden";
-                	}else{
-                		return "";
-                	}
+                	$(".modal2").hide();                	
                 },
                 clickAgree3(){
                 	this.agree3 = true;
-                	this.hidden3 = true;                	
+                	$(".modal3").hide();               	
+                },
+                showModal1(){
+                	$(".modal1").show();
+                },
+                showModal2(){
+                	$(".modal2").show();
+                },
+                showModal3(){
+                	$(".modal3").show();
                 },
                
             },

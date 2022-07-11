@@ -26,13 +26,13 @@
 
   <link rel="stylesheet" href="${root}/css/bootstrap-datepicker.css">
   <link rel="stylesheet" href="${root}/css/jquery.timepicker.css">
-<link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"><!-- 데이터피커 -->
+  <link rel="stylesheet" href="resources/css/plugin/datepicker/bootstrap-datepicker.css"><!-- 데이터피커 -->
   
   <link rel="stylesheet" href="${root}/css/flaticon.css">
   <link rel="stylesheet" href="${root}/css/style.css">
   
-<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
-	</script>
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	
 	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
