@@ -26,7 +26,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="join">
 	<select id="list" resultType="JoinListVO">
-		select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,join_time,member_nick from 
+		select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,
+		join_time,member_nick,join_info,join_status,course_name from 
     join J 
         inner join member M on M.member_id = J.member_id
         inner join booking B on J.booking_no = B.booking_no

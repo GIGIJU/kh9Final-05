@@ -50,6 +50,14 @@ public class BookingController {
 		return "booking/list";
 	}
 	
+	@GetMapping("/list_all")
+	public String listAll(Model model) {
+		List<GolfFieldDto> list = golfFieldDao.selectList();
+		
+		model.addAttribute("list",list);
+		return "booking/list_all";
+	}
+	
 	@GetMapping("/detail")
 	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
