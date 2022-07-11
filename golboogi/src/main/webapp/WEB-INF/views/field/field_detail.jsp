@@ -66,17 +66,18 @@
 
  <!-- END nav -->
  
- <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/field3.jpeg');">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate pb-5 text-center">
-             <h1 class="mb-0 bread">골프장</h1>
-       <p class="breadcrumbs"><span class="mr-2"><a href="index.html"></i></a></span> <span>골프장 정보 여기에 다 모였다</i></span></p>
-     </div>
-   </div>
- </div>
-</section>
+ 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+				<div class="col-md-9 ftco-animate pb-5 text-center">
+			<h1 class="mb-0 bread">골프장</h1>
+       		<p class="breadcrumbs"><span class="mr-2"><a href="index.html"></i></a></span> <span>골프장 정보 여기에 다 모였다</i></span></p>
+				</div>
+			</div>
+		</div>
+	</section>	
+		    <h3>${info.fieldName}</h3>
+		
 
 <div class="swiper mySwiper">
       <div class="swiper-wrapper">
@@ -113,7 +114,35 @@
       });
     </script>
     <h1>골프장 정보<h1>
-    <h3>${info.fieldInfo}</h3>
-
-
+    <hr>
+    <h3></h3>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="well-middle">
+              <div class="single-well">
+                <p>${info.fieldInfo}</p>
+                <ul>
+                  <li>
+                    <i class="bi bi-check"></i> ${info.fieldArea}
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i> ${info.fieldBasicAddress}
+                  </li>
+                  <li>
+                    <i class="bi bi-check"></i> ${info.fieldPhone}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+   <div id="map" style="width:500px;height:400px;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b03de227a4e196a92952ccb566363417"></script>
+    <script>
+        var container = document.getElementById('map');
+        var options = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667),
+            level: 3
+        };
+        var map = new kakao.maps.Map(container, options);
+    </script>
+</body>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

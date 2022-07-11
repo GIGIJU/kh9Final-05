@@ -6,18 +6,19 @@
 <body>
 
  <!-- END nav -->
- 
- <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/field3.jpeg');">
-  <div class="overlay"></div>
-  <div class="container">
-    <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-      <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="index.html">Home <i class="fa fa-chevron-right"></i></a></span> <span>Field<i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">Field</h1>
-     </div>
-   </div>
- </div>
-</section>
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+				<div class="col-md-9 ftco-animate pb-5 text-center">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+						<span>Field<i class="fa fa-chevron-right"></i></span>
+					</p>
+					<p class="mb-0" style="font-size: 17px">골프장</p>
+				</div>
+			</div>
+		</div>
+	</section>	
 
 <section class="ftco-section">
 		<div class="container">
