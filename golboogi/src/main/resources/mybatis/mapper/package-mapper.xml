@@ -47,10 +47,10 @@
 	 <resultMap type="PackageVO"  id="packageMap">
 	 	<association property="fieldDto" javaType="GolfFieldDto">
 		<result column="field_no" property="fieldNo"/>
-		<result column="field_name" property="fieldName"/>
+		<result column="field_name" property="fieldName"/>  
 		<result column="field_post" property="fieldPost"/>
-		<result column="field_basic_address" property="fieldBasicAdress"/>
-		<result column="field_detail_address" property="fieldDetailAdress"/>
+		<result column="field_basic_address" property="fieldBasicAddress"/>
+		<result column="field_detail_address" property="fieldDetailAddress"/>
 		<result column="field_info" property="fieldInfo"/>
 		<result column="field_phone" property="fieldPhone"/>
 		<result column="field_caddiefee" property="fieldCaddiefee"/>
