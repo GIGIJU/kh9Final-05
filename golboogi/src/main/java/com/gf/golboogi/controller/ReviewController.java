@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.entity.ReplyDto;
 import com.gf.golboogi.entity.ReviewDto;
 import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.ReplyDao;
 import com.gf.golboogi.repository.ReviewDao;
 
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +43,7 @@ public class ReviewController {
 		
 		boolean search = keyword != null;
 		model.addAttribute("search", search);
-		 
+		
 		int count = reviewDao.count(keyword);
 		int lastPage = (count + s - 1) / s;
 		

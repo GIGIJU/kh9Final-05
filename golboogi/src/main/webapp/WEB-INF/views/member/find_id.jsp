@@ -33,7 +33,7 @@
                 </div>
                 <br><br>
                 <div class="mt-3 d-grid" align="center">
-                  <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.idFind">아이디 찾기</button>
+                  <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.idFind">아이디 찾기</button>
                 </div>
                 <br><br>
                 <% if(request.getParameter("error") != null) { %>

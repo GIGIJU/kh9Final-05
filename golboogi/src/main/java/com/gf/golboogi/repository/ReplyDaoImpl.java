@@ -49,4 +49,5 @@ public class ReplyDaoImpl implements ReplyDao{
 	public void calculateReplyCount(int replyTarget) {
 		sqlSession.update("reply.calculateReplyCount", replyTarget);
 	}
+
 }

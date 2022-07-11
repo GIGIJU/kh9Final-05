@@ -10,6 +10,7 @@
 	}
 </style>
 <div class="container col-12" id="app">
+	<br><br><br>
 	<div class="mt-3">
 		<h2 id="login">로그인</h2>
 	</div>
@@ -39,7 +40,7 @@
 			</div>
 				<br>
 			<div class="mt-3 d-grid" align="center">
-				<button type="submit" class="btn btn-primary btn-lg" v-bind:click="isLogin">로그인</button>
+				<button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="isLogin">로그인</button>
 			</div>
 			<br><br>
 			<% if(request.getParameter("error") != null) { %>

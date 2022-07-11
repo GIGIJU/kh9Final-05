@@ -44,8 +44,8 @@
                     </label>
                 </div>
 
-                <div class="mt-3 d-grid" align="center">
-                    <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.changePwStart">비밀번호 변경</button>
+                <div class="mt-3" align="center">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.changePwStart">비밀번호 변경</button>
                 </div>
             </form>
         </div>

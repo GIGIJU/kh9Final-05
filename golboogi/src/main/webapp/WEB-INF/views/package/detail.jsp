@@ -136,7 +136,7 @@
 </style>
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
-<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/bg_1.jpg');">
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
@@ -152,7 +152,7 @@
   <div class="container">
     <div class="row justify-content-center">
     <div class="text-center mt-5 md-3">
-      <h3 style="font-weight: bold;">${stayDto.stayName}</h3>
+      <h3 style="font-weight: bold;">${packageVo.stayDto.stayName}</h3>
     </div>
     </div>
     <div class="row justify-content-center">
@@ -166,7 +166,7 @@
       <h5 style="font-weight: thin;">1인 기준</h5>
       </div>
       <div class="text-center p-1 md-10">
-      <h3 style="font-weight: bold; color: #fd7e14;"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${stayDto.stayPrice}" /></h3>
+      <h3 style="font-weight: bold; color: #fd7e14;"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" /></h3>
     </div>
   </div>
   </div>
@@ -182,12 +182,11 @@
       <div class="tour-detail-info">
         <div class="info-item">
           <p>출발일</p>
-<%--           <p>${packageDto.packageDepart}</p> --%>
-           <p>출발</p>
+			<p>${packageVo.packageDto.packageDepart}</p>
         </div>
         <div class="info-item">
           <p>지역</p>
-          <p>${stayDto.stayLocal}</p> 
+          <p>${packageVo.stayDto.stayLocal}</p> 
         </div>
         <div class="info-item">
           <p>기간</p>
@@ -199,7 +198,7 @@
     <!--예약 버튼 -->
     <div class="row justify-content-center mt-5 mb-5">
       <button class="btn btn-success p-2" style="margin-right: 5px">날짜변경</button>
-      <button class="btn btn-success"><a href="${root}/reserve?stayNo=${stayDto.stayNo}" style="color:white" >예약신청</a></button>
+      <button class="btn btn-success"><a href="${root}/package/reserve?packageNo=${packageVo.packageDto.packageNo}" style="color:white" >예약신청</a></button>
     </div>
 
     <!--페이지네이션 버튼 -->
@@ -215,7 +214,7 @@
       <div class="product-info-item ">
         <div class="product-info-title"><h2>투어 정보</h2></div>
         <div class="item-cont">
-<%--           <p>•조식 :</p><p>${packageDto.packageBreakfast}</p> --%>
+		 <p>•조식 : ${packageVo.packageDto.packageBreakfast}</p> 
           <p>•골프장 도착 후 프론트 데스크 체크인이 필요합니다.</p>
           <p>•1박2일 패키지 상품입니다.</p>
           <p>•숙소는 4박1실 타입입니다.</p>

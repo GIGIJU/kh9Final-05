@@ -4,34 +4,36 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
 <br><br><br><br>
-<div class="container w700 m30">
-	<div class="row center">
-		<h1>공지 게시판</h1>
+<div class="container">
+	<div class="mt-3">
+		<h1>News & Notice</h1>
 	</div>
 	<br> <br>
-	<div class="offset-10" align="right">
-		<a href="write" class="btn btn-primary btn-lg">글쓰기</a>
-	</div>
-	<br> <br>
-
 	<div class="offset-8" align="right">
 		<!-- 검색창 -->
 		<form class="form-inline" action="list" method="get">
-			<div class="form-group" align="right">
-			    <label class="sr-only" for="keyword">Search keyword</label>
+			<div class="form-group col-xs-4" align="right">
 				<input type="search" class="form-control" name="keyword" placeholder="검색어 입력"> 
 		    </div>
 		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="submit" class="btn btn-primary btn-lg" value="검색">
+			<input type="submit" class="btn btn-success btn-lg" value="검색">
 		</form>
 	</div>
-	<br> <br>
-
-	<div>
+	<br><br>
+	
+	<!-- 광고?,사진? -->
+	
+	<br><br>
+	<div class="offset-10" align="right">
+		<a href="write" class="btn btn-success btn-lg btn-block">글쓰기</a>
+	</div>
+	<br>
+	<div class="mt-3">
 		<table class="table table-border">
 			<thead>
 				<tr>
 					<th>번호</th>
+					<th>사진</th>
 					<th width="60%;">제목</th>
 					<th>조회수</th>
 					<th>시간</th>
@@ -46,6 +48,11 @@
 				<c:forEach var="noticeDto" items="${list}">
 					<tr>
 						<td>${noticeDto.noticeNo}</td>
+						<td>
+							<a href="${root}/notice/detail/${noticeDto.noticeNo}">
+								<img src="${pageContext.request.contextPath}${profileUrl}">
+							</a>
+						</td>
 						<td><a href="${root}/notice/detail/${noticeDto.noticeNo}">
 							<c:if test="${noticeDto.noticeHead != null}">
 								[${noticeDto.noticeHead}] 
@@ -58,7 +65,7 @@
 			</tbody>
 		</table>
 	</div>
-
+	
 	<div align="center">
 		<c:if test="${p > 1}">
 			<c:choose>
@@ -81,27 +88,27 @@
 				</c:otherwise>
 			</c:choose>
 		</c:if>
-		
+		<br><br>
 		<!-- 숫자 링크 영역 -->
 		<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
 			<c:choose>
 				<c:when test="${search}">
 					<c:choose>
 						<c:when test="${i == p}">
-							<a class="active" href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}">${i}</a>
+							<a class="active" href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}">${i} &nbsp;</a>
 						</c:when>
 						<c:otherwise>
-							<a href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}">${i}</a>
+							<a href="list?p=${i}&s=${s}&type=${type}&keyword=${keyword}">${i} &nbsp;</a>
 						</c:otherwise>
 					</c:choose>
 				</c:when>
 				<c:otherwise>
 					<c:choose>
 						<c:when test="${i == p}">
-							<a class="active" href="list?p=${i}&s=${s}">${i}</a>
+							<a class="active" href="list?p=${i}&s=${s}">${i} &nbsp;</a>
 						</c:when>
 						<c:otherwise>
-							<a href="list?p=${i}&s=${s}">${i}</a>
+							<a href="list?p=${i}&s=${s}">${i} &nbsp;</a>
 						</c:otherwise>
 					</c:choose>
 				</c:otherwise>

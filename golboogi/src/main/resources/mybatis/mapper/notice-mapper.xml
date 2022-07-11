@@ -51,7 +51,7 @@
 		select notice_seq.nextval from dual
 	</select>
 	
-	<insert id="write" parameterType="Map">
+	<insert id="write" parameterType="NoticeDto">
 		insert into notice(notice_no,notice_head,notice_title) values (#{noticeNo},#{noticeHead},#{noticeTitle})
 	</insert>
 	

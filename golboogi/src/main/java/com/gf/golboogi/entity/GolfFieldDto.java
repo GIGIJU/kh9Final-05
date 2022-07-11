@@ -12,8 +12,8 @@ public class GolfFieldDto {
 	private int fieldNo;
 	private String fieldName;
 	private String fieldPost;
-	private String fieldBasicAdress;
-	private String fieldDetailAdress;
+	private String fieldBasicAddress;
+	private String fieldDetailAddress;
 	private String fieldInfo;
 	private String fieldPhone;
 	private int fieldCaddiefee;

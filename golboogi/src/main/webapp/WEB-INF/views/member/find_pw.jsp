@@ -43,7 +43,7 @@
 
 				<br>
                 <div class="mt-3 d-grid" align="center">
-                    <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.findPw">비밀번호 찾기</button>
+                    <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.findPw">비밀번호 찾기</button>
                 </div>
                 <% if(request.getParameter("error") != null) { %>
 					<div class="mt-3" align="center">
