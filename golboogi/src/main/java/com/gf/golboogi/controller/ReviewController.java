@@ -14,11 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gf.golboogi.entity.NoticeDto;
+import com.gf.golboogi.entity.ReplyDto;
 import com.gf.golboogi.entity.ReviewDto;
 import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.ReplyDao;
 import com.gf.golboogi.repository.ReviewDao;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
@@ -39,7 +43,7 @@ public class ReviewController {
 		
 		boolean search = keyword != null;
 		model.addAttribute("search", search);
-		 
+		
 		int count = reviewDao.count(keyword);
 		int lastPage = (count + s - 1) / s;
 		
@@ -75,12 +79,15 @@ public class ReviewController {
 	@GetMapping("/detail/{reviewNo}")
 	public String detail(
 			@PathVariable int reviewNo,
+			HttpSession session,
 			Model model
 			) {
+		String memberId = (String)session.getAttribute("login");
 		ReviewDto reviewDto = reviewDao.read(reviewNo);
 		List<ReviewDto> list = reviewDao.otherview(reviewDto.getFieldName());
+//		System.out.println(list);
 		model.addAttribute("reviewDto", reviewDto);
-		
+		model.addAttribute("memberId",memberId);
 		model.addAttribute("list", list);
 		return "review/detail";
 	}

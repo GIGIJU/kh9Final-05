@@ -18,16 +18,22 @@
                 <div class="mt-3">
                     <label>아이디</label>
                     <input type="text" class="form-control" name="memberId" v-model="member.memberId" autocomplete="off" placeholder="영문(소),숫자 8~20자">
+                	<span v-if="member.IdPass"></span>
+                    <span v-if="member.IdFalse" style="color:red">다시 작성해주세요!</span>
                 </div>
 
                 <div class="mt-3">
                     <label>닉네임</label>
                     <input type="text" class="form-control" name="memberNick" v-model="member.memberNick" autocomplete="off" placeholder="한글,숫자 2~10">
+                	<span v-if="member.NickPass"></span>
+                    <span v-if="member.NickFalse" style="color:red">다시 작성해주세요!</span>
                 </div>
 
                 <div class="mt-3">
-                    <labe>전화번호</labe>
+                    <label>전화번호</label>
                     <input type="tel" class="form-control" name="memberPhone" v-model="member.memberPhone" autocomplete="off" placeholder="-제외">
+                	<span v-if="member.PhonePass"></span>
+                    <span v-if="member.PhoneFalse" style="color:red">잘못된 작성입니다.</span>
                 </div>
 
                 <div class="mt-3">
@@ -35,9 +41,15 @@
                     <input type="date" class="form-control" name="memberBirth" v-model="member.memberBirth">
                 </div>
 
-                <div class="mt-3 d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.findPw">비밀번호 찾기</button>
+				<br>
+                <div class="mt-3 d-grid" align="center">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.findPw">비밀번호 찾기</button>
                 </div>
+                <% if(request.getParameter("error") != null) { %>
+					<div class="mt-3" align="center">
+						<h3 style="color:red;">입력한 정보와 일치하는 데이터가 없습니다</h3>
+					</div>
+				<% } %>
             </form>
         </div>
         <br><br><br><br>
@@ -58,23 +70,42 @@
                         memberBirth:"",
 
                         get IdPass(){
-                            return this.memberId.length > 0;
-                        },
+                            const regex = /^[a-z0-9]{8,20}$/;
+                            return this.memberId.length > 0 && regex.test(this.memberId);
+                         },
+                        
+                         get IdFalse(){
+                             const regex = /^[a-z0-9]{8,20}$/;
+                             return this.memberId.length > 0 && !regex.test(this.memberId);
+                         },
 
-                        get NickPass(){
-                            return this.memberNick.length > 0;
-                        },
+                         get NickPass(){
+                             const regex = /^[가-힣0-9]{2,10}$/;
+                             return this.memberNick.length > 0 && regex.test(this.memberNick);
+                         },
 
-                        get PhoenPass(){
-                            return this.memberPhone.length > 0;
-                        },
+                         get NickFalse(){
+                             const regex = /^[가-힣0-9]{2,10}$/;
+                             return this.memberNick.length > 0 && !regex.test(this.memberNick);
+                         },
+
+                         get PhonePass(){
+                             const regex = /^\d{11}$/;
+                             return this.memberPhone.length > 0 && regex.test(this.memberPhone);
+                         },
+
+                         get PhoneFalse(){
+                             const regex = /^\d{11}$/;
+                             return this.memberPhone.length > 0 && !regex.test(this.memberPhone);
+                         },
+
 
                         get BirthPass(){
                             return this.memberBirth.length > 0;
                         },
 
                         get findPw(){
-                            return this.IdPass  && this.NickPass && this.PhoenPass && this.BirthPass;
+                            return this.IdPass  && this.NickPass && this.PhonePass && this.BirthPass;
                         },
                     },
                 };

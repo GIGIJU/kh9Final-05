@@ -1,5 +1,6 @@
 package com.gf.golboogi.controller;
 
+import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.Format;
 import java.util.Random;
@@ -15,12 +16,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.CertDto;
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.AttachmentDao;
 import com.gf.golboogi.repository.CertDao;
 import com.gf.golboogi.repository.MemberDao;
+import com.gf.golboogi.repository.MemberProfileDao;
 import com.gf.golboogi.service.MailService;
+import com.gf.golboogi.service.MemberService;
 
 
 @Controller
@@ -34,7 +40,16 @@ public class MemberController {
 	private MailService mailService;
 	
 	@Autowired
+	private AttachmentDao attachmentDao;
+	
+	@Autowired
+	private MemberProfileDao memberProfileDao;
+	
+	@Autowired
 	private CertDao certDao;
+	
+	@Autowired
+	private MemberService memberService;
 	
 	@GetMapping("/join")
 	public String join() {
@@ -42,9 +57,32 @@ public class MemberController {
 	}
 	
 	@PostMapping("/join")
-	public String join(@ModelAttribute MemberDto memberDto) {
-		memberDao.join(memberDto);
-		return "redirect:join_success";
+	public String join(
+			@ModelAttribute MemberDto memberDto,
+			@RequestParam MultipartFile memberProfile,
+			Model model)throws IllegalStateException, IOException {
+		MemberDto idfindDto = memberDao.info(memberDto.getMemberId());
+		MemberDto nickfindDto = memberDao.selectNick(memberDto.getMemberNick());
+		MemberDto phonefindDto = memberDao.selectPhone(memberDto.getMemberPhone());
+		boolean check1 = idfindDto != null;
+		boolean check2 = nickfindDto != null;
+		boolean check3 = phonefindDto != null;
+		if(check1) {
+			return "redirect:join?error=1";
+		}
+		if(check2) {
+			return "redirect:join?error=2";
+		}
+		if(check3) {
+			return "redirect:join?error=3";
+		}
+		
+		if(!check1 && !check2 && !check3) {
+			memberService.join(memberDto, memberProfile);
+			model.addAttribute("memberDto",memberDto);
+			return "redirect:join_success";
+		}
+		throw new CannotFindException();
 	}
 	
 	@GetMapping("/join_success")
@@ -72,6 +110,7 @@ public class MemberController {
 			return "redirect:blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
+			session.setAttribute("auth", memberDto.getMemberGrade());
 			return "redirect:/";
 		}
 		
@@ -86,6 +125,7 @@ public class MemberController {
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("login");
+		session.removeAttribute("auth");
 		return "redirect:/";
 	}
 	
@@ -95,6 +135,17 @@ public class MemberController {
 		
 		MemberDto memberDto = memberDao.info(memberId);
 		model.addAttribute("memberDto", memberDto);
+		
+		//프로필 이미지의 다운로드 주소를 추가
+		// - member_profile 에서 아이디를 이용하여 단일조회를 수행
+		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
+		int attachmentNo = memberProfileDao.info(memberId);
+		if(attachmentNo == 0) {
+			model.addAttribute("profileUrl", "/image/user.png");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+		}
 		
 		return "member/mypage";
 	}
@@ -111,7 +162,6 @@ public class MemberController {
 	public String edit(HttpSession session,@ModelAttribute MemberDto memberDto) {
 		String memberId = (String) session.getAttribute("login");
 		memberDto.setMemberId(memberId);
-		
 		boolean success = memberDao.changeInformation(memberDto);
 		if(success) {
 			return "redirect:mypage";
@@ -141,12 +191,19 @@ public class MemberController {
 	}
 	
 	@GetMapping("/exit")
-	public String exit() {
+	public String exit(
+			Model model,
+			HttpSession session
+			) {
+		String memberId = (String) session.getAttribute("login");
+		model.addAttribute("memberId",memberId);
 		return "member/exit";
 	}
 	
 	@PostMapping("/exit")
-	public String exit(HttpSession session,@RequestParam String memberPw) {
+	public String exit(HttpSession session,
+			@RequestParam String memberPw
+			) {
 		String memberId = (String) session.getAttribute("login");
 		boolean success = memberDao.exit(memberId,memberPw);
 		if(success) {

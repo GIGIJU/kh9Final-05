@@ -4,7 +4,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <section class="hero-wrap-custom" style="background-color:black;">
-    <!-- background-image: url('${root}/images/bg_1.jpg'); -->
+    background-image: url('${root}/images/bg_1.jpg');
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 250px;">
             <div class="col-md-9 ftco-animate pb-5 text-center">
@@ -27,10 +27,10 @@
                 <div class="col-md-6 order-md-last d-flex">
                     <form v-on:submit="sendForm($event)" action="login" method="post" class="bg-light p-5 contact-form">
                         <div class="form-group">
-                            <input v-model="golfManagerId" name="golfManagerId" v-model="golfManagerId" type="text" class="form-control" placeholder="ID" >
+                            <input type="text" name="golfManagerId" v-model="golfManagerId" class="form-control" placeholder="ID" >
                         </div>
                         <div class="form-group">
-                            <input v-bind:type="passwordInputType" name="golManagerPw" v-model="golfManagerPw" type="password" class="form-control" placeholder="Password" >
+                            <input v-bind:type="passwordInputType" name="golfManagerPw" v-model="golfManagerPw" class="form-control" placeholder="Password" >
                         </div>
                         <div class="form-group">
 	                        <label>비밀번호 표시
@@ -53,6 +53,7 @@
 
         </div>
     </section>
+  </div>
 
     <script src="https://unpkg.com/vue@next"></script>
     <script>

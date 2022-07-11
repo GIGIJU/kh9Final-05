@@ -1,21 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%
+	String error = request.getParameter("error");
+	boolean type1 = error != null && error.equals("1");
+	boolean type2 = error != null && error.equals("2");
+	boolean type3 = error != null && error.equals("3");
+%>	
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
 <style>
-         #join{
-            text-align: center;
-            font-size: 2em;
-        }
-    </style>
+     #join{
+        text-align: center;
+        font-size: 2em;
+    }
+</style>
 </head>
 <body>
     <div class="container col-12" id="app">
-        <div class="mt-5">
+    	<br><br>
+        <div class="mt-3">
             <h2 id="join">회원가입</h2>
         </div>
         <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1">
-            <form v-on:submit="sendForm($event)" action="join" method="post">
+            <form v-on:submit="sendForm($event)" action="join" method="post" enctype="multipart/form-data">
                 <!-- 1단계 -->
                
                 <div class="mt-3">
@@ -49,8 +56,8 @@
                     <div class="mt-3">
                         <label>닉네임</label>
                         <input type="text" class="form-control is-valid" name="memberNick" v-model="member.memberNick" placeholder="한글,숫자 2~10자" autocomplete="off">
-                        <span v-if="member.NamePass" class="valid-feedback">멋진 닉네임이네요!</span>
-                        <span v-if="member.NameFalse" class="invalid-feedback">닉네임 형식이 잘못됐어요</span>
+                        <span v-if="member.NickPass" class="valid-feedback">멋진 닉네임이네요!</span>
+                        <span v-if="member.NickFalse" class="invalid-feedback">닉네임 형식이 잘못됐어요</span>
                     </div>
                     <div class="mt-3">
                         <label>전화번호</label>
@@ -77,17 +84,38 @@
                         <label>성별</label>
                         <select name="memberGender" v-model="member.memberGender" class="form-control">
                             <option>남</option>
-				            <option>녀</option>
+				            <option>여</option>
                         </select>
                     </div>
                     <div class="mt-3">
                         <label>지역</label>
                         <input type="tel" class="form-control" name="memberLocal" v-model="member.memberLocal"  placeholder="한글 ~10자" autocomplete="off">
                     </div>
-    
+                    
+                    <div class="mt-3">
+				    	<label>프로필 이미지</label><br>
+				    	<input type="file" name="memberProfile" class="form-control">
+				    </div>
                 </div>
-                <div class="mt-3 d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.isJoin">회원가입</button>
+                <br>
+               <% if(type1) { %>
+					<div class="mt-3" align="center">
+						<h3 style="color:red;">아이디가 이미 존재합니다.</h3>
+					</div>
+				<% } %>
+				<% if(type2) { %>
+					<div class="mt-3" align="center">
+						<h3 style="color:red;">닉네임이 이미 존재합니다.</h3>
+					</div>
+				<% } %>
+				<% if(type3) { %>
+					<div class="mt-3" align="center">
+						<h3 style="color:red;">전화번호가 이미 존재합니다.</h3>
+					</div>
+				<% } %>
+				<br>
+                <div class="mt-3 d-grid" align="center">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.isJoin">회원가입</button>
                 </div>
             </form>
         </div>
@@ -125,12 +153,12 @@
                         },
 
                         get PwPass(){
-                            const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+                            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!#])[A-Za-z\d$@!#]{8,16}/;
                             return this.memberPw.length > 0 && regex.test(this.memberPw);
                         },
 
                         get PwFalse(){
-                            const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,16}$/;
+                            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@!#])[A-Za-z\d$@!#]{8,16}/;
                             return this.memberPw.length > 0 && !regex.test(this.memberPw);
                         },
 

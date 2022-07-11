@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="memberId" value="${login}"></c:set>
 <c:set var="isLogin" value="${memberId != null}"></c:set>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="isAdmin" value="${adminId != null}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
@@ -29,30 +31,22 @@
   <link rel="stylesheet" href="${root}/css/flaticon.css">
   <link rel="stylesheet" href="${root}/css/style.css">
   
-  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-  <script type="text/javascript" src="https://service.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-  <script>
-	/*
-		프론트엔드 암호화에 대한 계획
-		- 암호화 알고리즘은 상황에 맞게 선택
-		- input[type=password] 형태의 컬럼을 찾아서 전송 전에 암호화한 값으로 교체
-	*/
-	(function(){
-		$("form").submit(function(){
-			//this == form
-			$(this).find("input[type=password]").each(function(){
-				//this == 입력창
-				var rawData = $(this).val();
-				//var encData = 암호화(rawData);
-				var hash = CryptoJS.SHA1(rawData);//암호화
-				var encData = CryptoJS.enc.Hex.stringify(hash);//문자열화
-				$(this).val(encData);
-			});
-		});
-	}); 
+<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 	</script>
+	
+	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+
+	
+	
+	
 </head>
 <body>
+<df-messenger
+  intent="WELCOME"
+  chat-title="GOLBOOGI_BOT"
+  agent-id="3c50b777-09bd-41e8-9bfb-499ee77ffec3"
+  language-code="ko"
+></df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
      <a class="navbar-brand" href="/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>
@@ -63,14 +57,24 @@
      <div class="collapse navbar-collapse" id="ftco-nav">
        <ul class="navbar-nav ml-auto">
          <li class="nav-item"><a href="${root}/booking/list" class="nav-link">골프부킹</a></li>
-         <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
-         <li class="nav-item active"><a href="${root}/package/list" class="nav-link">투어</a></li>
-         <li class="nav-item"><a href="blog.html" class="nav-link">게시판</a></li>
+         <li class="nav-item"><a href="${root}/package/list" class="nav-link">투어</a></li>
+         <li class="nav-item"><a href="${root}/join/list" class="nav-link">조인</a></li>
+         <li class="nav-item"><a href="${root}/review/list" class="nav-link">리뷰게시판</a></li>
+         <li class="nav-item"><a href="${root}/notice/list" class="nav-link">공지사항</a></li>
          <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
          <c:choose>
          	<c:when test="${isLogin}">
 	         	 <li class="nav-item"><a href="${root}/member/mypage" class="nav-link">마이페이지</a></li>
 	         	 <li class="nav-item"><a href="${root}/member/logout" class="nav-link">로그아웃</a></li>
+         	</c:when>
+         	<c:when test="${isAdmin && auth == 0}">
+	         	 <li class="nav-item"><a href="${root}/admin/list" class="nav-link">골프장 관리자 목록</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/member_list" class="nav-link">일반회원 목록</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
+         	</c:when>
+         	<c:when test="${isAdmin && auth == 1}">
+	         	 <li class="nav-item"><a href="${root}/manager/stat/${adminId}" class="nav-link">관리자 페이지</a></li>
+	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
          	</c:when>
          	<c:otherwise>
 	         	<li class="nav-item"><a href="${root}/member/login" class="nav-link">로그인</a></li>

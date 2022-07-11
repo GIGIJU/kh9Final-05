@@ -47,7 +47,8 @@
 		update member
 		set
 			member_name = #{memberName}, member_nick = #{memberNick}, member_phone = #{memberPhone},
-			member_email = #{memberEmail},member_birth = #{memberBirth},member_local = #{memberLocal}
+			member_email = #{memberEmail},member_birth = #{memberBirth},member_gender = #{memberGender}
+			,member_local = #{memberLocal}
 		where
 			member_id = #{memberId}
 	</update>
@@ -94,5 +95,15 @@
 			member_phone = #{memberPhone}
 		and
 			member_birth = #{memberBirth}
+	</select>
+	
+	<select id="selectNick" resultType="MemberDto" parameterType="String">
+		select * from member
+		where member_nick = #{memberNick}
+	</select>
+	
+	<select id="selectPhone" resultType="MemberDto" parameterType="String">
+		select * from member
+		where member_phone = #{memberPhone}
 	</select>
 </mapper> 

@@ -309,7 +309,8 @@ h2, .h2 {
   font-size: 2rem; }
 
 h3, .h3 {
-  font-size: 1.75rem; }
+  font-size: 1.75rem; 
+  text-align: center;}
 
 h4, .h4 {
   font-size: 1.5rem; }
@@ -1511,7 +1512,6 @@ pre {
   .table th,
   .table td {
     padding: 0.75rem;
-    vertical-align: top;
     border-top: 1px solid #dee2e6; }
   .table thead th {
     vertical-align: bottom;
@@ -8576,9 +8576,9 @@ h1, h2, h3, h4, h5,
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  }
+ }
   
-  /* 而ㅼ뒪�� �뒪���씪 異붽� */
+  /* 커스텀 스타일 추가 */
   .hero-wrap-custom {
   width: 100%;
   height: 100px;
@@ -10094,4 +10094,4 @@ textarea.form-control {
     stroke-dashoffset: -35px; }
   100% {
     stroke-dasharray: 89, 200;
-    stroke-dashoffset: -136px; } }
+    stroke-dashoffset: -136px; } 

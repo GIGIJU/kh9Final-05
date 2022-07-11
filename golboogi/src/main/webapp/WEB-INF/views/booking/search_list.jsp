@@ -4,101 +4,210 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<!DOCTYPE html>
-<html lang="ko">
+
+<!-- jquery -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<script>
+	$(function(){
+		//예약가능 시간 보기를 누르면 비동기 통신으로 예약 가능한 시간 목록을 불러와서 태그를 만들어 하단에 추가한다.
+		$(".reply").click(function(e){
+			//this : a태그
+			var a = this;
+			e.preventDefault();
+			
+			const fieldNo = $(this).prev("input[name=fieldNo]").val();
+			
+			const data = {
+					fieldNo : fieldNo,
+					teeTimeD : "${param.teeTimeD}"
+			};
+			if("${param.fieldArea}") {
+				data.fieldArea = "${param.fieldArea}";
+			}
+			if("${param.PartTime}") {
+				data.PartTime = parseInt("${param.PartTime}");
+			}
+			if("${param.fieldGreenfee}") {
+				data.fieldGreenfee = parseInt("${param.fieldGreenfee}");
+			}
+			
+			$.ajax({
+				url:"${root}/rest/booking",
+				type:"post",
+				data:data,
+				success:function(json){
+					console.log(json);
+					const target = $(a).parent().parent().next();					
+					
+					for(let i=0; i < json.length; i++){
+						let template = $("#time-a-template").html();
+						//template = template.replace("{{time}}",json[i].teeTimeT);
+						let tag = $(template).text(json[i].teeTimeT)
+											//.attr("data-field-no", json[i].fieldNo)
+											//.attr("data-teetime-no", json[i].teeTimeNo)
+											.attr("href", "${root}/booking/reservation?teeTimeNo="+json[i].teeTimeNo+"&teeTimeD="+data.teeTimeD);
+						target.append(tag);
+					}
+					
+					$(a).off("click");//이벤트 제거
+					$(a).on("click", function(){
+						$(this).parent().parent().next().toggle();
+					});
+				},
+			});
+		});
+	});
+</script>
+
+<style>
+span {
+	font-size: 11px;
+	color: black;
+}
+p {
+	font-size: 11px;
+}
+.tagcloud {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 7px;
+    margin-right: 4px;
+    border-radius: 4px;
+    color: #000000;
+    border: 1px solid #ccc;
+    font-size: 11px;
+}
+.comment-list li {
+    padding: 30px 30px 10px 30px;
+    float: left;
+    width: 100%;
+    clear: both;
+    list-style: none;
+    background-color: #f1f2f6;
+    border: #dfe4ea solid 1px;
+}
+</style>
+
 <div id="app">
-	<section class="hero-wrap hero-wrap-2"
-		style="background-image: url('${root}/images/bg_1.jpg');">
-		<div class="container">
-			<div
-				class="row no-gutters slider-text align-items-end justify-content-center"
-				style="height: 300px;">
-				<div class="col-md-9 ftco-animate pb-5 text-center">
-					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/">Home 
-						<i class="fa fa-chevron-right"></i></a></span> 
-						<span>Hotel <i class="fa fa-chevron-right"></i></span>
-					</p>
-					<h1 class="mb-0 bread">booking</h1>
-				</div>
+<!-- 상단 사진 -->
+<section class="hero-wrap hero-wrap-2"
+	style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div
+			class="row no-gutters slider-text align-items-end justify-content-center"
+			style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span>search <i class="fa fa-chevron-right"></i></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
 			</div>
 		</div>
-	</section>
-	<div class="col-4 offset-4">
-		 <input type="text" id="booking-datePicker" class="form-control" value="${param.teeTimeD}" v-on:input="location"/>			
 	</div>
-	<section class="ftco-section ftco-no-pt ftco-no-pb">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-8 offset-md-2">
-					<div class="pt-5 mt-5">
-						<h3 class="mb-5 text-center"
-							style="font-size: 20px; font-weight: bold;">${param.teeTimeD}</h3>
-						<hr>
+</section>
+
+
+<div class="container-fluid">
+	<div class="row"> <!-- v-if="checkTeeTimeD" --><!-- <button @click="checkTeeTimeD">d</button> -->
+		<!-- 왼쪽 (달력)-->
+		<div class="col-md-3 sidebar ftco-animate bg-light py-md-5">
+			<div id="datepicker"></div>
+		</div>
+		<!-- 오른쪽 -->
+		<div class="col-md-9 ftco-animate py-md-5 mt-5" v-if="!isNoTeeTime">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-10">
+					<div class="text-center"><h3 class="mb-5" style="font-size: 20px; font-weight: bold;">${param.teeTimeD}</h3></div>			
 						<ul class="comment-list">
-							<c:forEach var="teetimeVO" items="${list}">
-								<li class="comment">
+							<c:forEach var="teetimeVO" items="${list}" varStatus="status">
+								<li class="comment mb-4">
 									<div class="vcard bio">
-										<img src="${root}/images/golf-dummy.jpg" style="height: 50px">
+										<img src="${root}/images/golf-dummy.jpg" style="height: 70px; width: 70px;">
 									</div>
 									<div class="comment-body">
 										<h3>${teetimeVO.fieldName}</h3>
 										<div class="meta" style="font-size: 9px">
-											~<fmt:formatNumber value="${teetimeVO.fieldGreenfee-20000}" />
-											<span>${teetimeVO.fieldArea}</span>
+											<span><i class="fa-solid fa-location-dot"></i> ${teetimeVO.fieldArea}</span>
+											<span> [~<fmt:formatNumber value="${teetimeVO.fieldGreenfee-20000}" />]</span>
 										</div>
 										<p>
-											<a class="reply" href="">${teetimeVO.count}개 예약시간 보기</a>
+											<input type="hidden" name="fieldNo" value="${teetimeVO.fieldNo}">
+											<a class="reply">${teetimeVO.count}개 예약 가능시간 보기</a>
 										</p>
+									</div>
+									<div class="comment-body">
+										
 									</div>
 								</li>
 							</c:forEach>
-						</ul>
+							</ul>
+						</div>
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-7 ftco-animate py-md-5 mt-5 text-center" v-else>	
+				<img src="https://image.smartscore.kr/pc4/img_illust_03.svg" style="white: 300px; height: 300px;">
+				<h5 style="font-weight: bold;">티타임 정보가 없습니다</h5>
+			</div>
 		</div>
-	</section>
+	</div>
 </div>
-<!--vue jis도 lazy loading을 사용한다-->
-<script src="https://code.jquery.com/jquery-3.2.1.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.ko.min.js"></script>
-<script src="http://unpkg.com/vue@next"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-        //div[id=app]을 제어할 수 있는 Vue instance를 생성
+
+<template id="time-a-template">
+<a href="" class="tagcloud" style="width: 50px"></a>
+</template>
+
+
+
+ <script src="http://unpkg.com/vue@next"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script>
         const app = Vue.createApp({
-            //data : 화면을 구현하는데 필요한 데이터를 작성해둔다
             data(){
                 return {
-                	teeTimeD:"",
+                	teeTimeD:"${param.teeTimeD}",
+                    maxDate:"",
                 };
             },
-            //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
-            //- 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
-            //- 반드시 return을 통해 값을 반환해야 한다
             computed:{
-				
+            	isNoTeeTime(){
+                	return moment(this.teeTimeD) <= moment() || moment(this.teeTimeD) > moment(this.maxDate);
+                }
             },
-            //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
             methods:{
-            	location(){
-            		window.location.href="http://localhost:8080/booking/search?teeTimeD="+this.teeTimeD;
-            	}
+
             },
-            //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{
 
             },
             mounted(){
+            	$.datepicker.setDefaults({
+                    showMonthAfterYear: true,
+                    changeMonth: true,
+                    dateFormat: "yy-mm-dd",
+                    nextText: "다음달",
+                    prevText: "이전달",
+                    dayNamesMin: ["일", "월", "화", "수", "목", "금", "토"],
+                    monthNamesShort: ["1", "2", "3", "4", "5", "6", "7", "8",
+                        "9", "10", "11", "12"
+                    ],
+                    minDate: '+1D',
+                    maxDate: '+60D',
+                    onSelect:(dateText)=>{
+                    	location.href="http://localhost:8080/booking/search?teeTimeD="+dateText;
+                    			//if(!${param.partTime} == "") +"&partTime="+${param.partTime};
+                    },
+                });
+                $("#datepicker").datepicker(); 
 
-            }, 
-            created(){
-       
-            },
+            	this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
+            }
         });
         app.mount("#app");
     </script>
-
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -9,11 +9,9 @@
             font-size: 2em;
         }
         #img{
-            width:30px;
-            height:30px;
+            width:50px;
+            height:50px;
         }
-        
-
         #check{
             display: none;
         }
@@ -21,9 +19,11 @@
 </head>
 <body>
     <div class="container col-12" id="app">
-        <div class="mt-5 col-6 offset-3">
+    	<br><br>
+        <div class="mt-4 col-6 offset-3">
             <h2 id="changePw">비밀번호 변경</h2>
         </div>
+        <br><br>
         <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1">
             <form v-on:submit="sendForm($event)" action="password" method="post">
                 <div class="mt-3">
@@ -44,8 +44,8 @@
                     </label>
                 </div>
 
-                <div class="mt-3 d-grid">
-                    <button type="submit" class="btn btn-primary btn-lg" v-bind:click="member.changePwStart">비밀번호 변경</button>
+                <div class="mt-3" align="center">
+                    <button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="member.changePwStart">비밀번호 변경</button>
                 </div>
             </form>
         </div>

@@ -1,8 +1,7 @@
 package com.gf.golboogi.controller;
 
+import java.io.IOException;
 import java.util.List;
-
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +12,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.gf.golboogi.entity.AttachmentDto;
 import com.gf.golboogi.entity.NoticeDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.NoticeDao;
+import com.gf.golboogi.repository.NoticeProfileDao;
+import com.gf.golboogi.service.NoticeService;
 
 @Controller
 @RequestMapping("/notice")
@@ -25,6 +27,12 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeDao noticeDao;
+	
+	@Autowired
+	private NoticeService noticeService;
+	
+	@Autowired
+	private NoticeProfileDao noticeProfileDao;
 	
 	
 	@GetMapping("/list")
@@ -40,7 +48,7 @@ public class NoticeController {
 		
 		boolean search = keyword != null;
 		model.addAttribute("search", search);
-		 
+		
 		int count = noticeDao.count(keyword);
 		int lastPage = (count + s - 1) / s;
 		
@@ -68,9 +76,9 @@ public class NoticeController {
 	
 	@PostMapping("/write")
 	public String write(
-			@RequestParam String noticeHead,
-			@RequestParam String noticeTitle) {
-		noticeDao.write(noticeHead,noticeTitle);
+			@ModelAttribute NoticeDto noticeDto,
+			@RequestParam MultipartFile noticeProfile)throws IllegalStateException, IOException {
+		noticeService.write(noticeDto, noticeProfile);
 		return "redirect:list";
 	}
 	
@@ -83,6 +91,15 @@ public class NoticeController {
 		model.addAttribute("noticeDto", noticeDto);
 		
 		//관리자 판정?
+		
+		//프로필
+		int attachmentNo = noticeProfileDao.read(noticeNo);
+		if(attachmentNo == 0) {
+			model.addAttribute("profileUrl", "/image/user.png");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+		}
 		
 		return "notice/detail";
 	}

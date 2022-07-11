@@ -4,8 +4,7 @@
 <section class="hero-wrap hero-wrap-2"
 	style="background-image: url('${root}/images/bg_1.jpg');">
 	<div class="container">
-		<div
-			class="row no-gutters slider-text align-items-end justify-content-center"
+		<div class="row no-gutters slider-text align-items-end justify-content-center"
 			style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
@@ -18,6 +17,13 @@
 	</div>
 </section>
 
-<h1>예약 성공</h1>
+<div class="container-fluid mt-5" style="text-align: center; height: 500px;">
+	<div class="col-md-4 offset-md-4 mb-5">
+			<h5 style="font-weight: bold;">예약이 완료되었습니다</h5>
+			<img src="https://image.smartscore.kr/pc4/img_illust_03.svg">
+			<br><br>
+			<a href="#" class="btn">내 예약 현황 보기</a>
+	</div>
+</div>
  
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
