@@ -65,7 +65,7 @@
         object-fit: cover;
       }
     </style>
-</head>
+</head>  
 <body>
 
  <!-- END nav -->
