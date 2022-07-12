@@ -40,6 +40,7 @@ public class StayDaoImpl implements StayDao{
 	@Override
 	public StayDto insert(StayDto stayDto) {
 		int sequence = sqlSession.selectOne("stay.sequence");
+		stayDto.setStayNo(sequence);
 		sqlSession.insert("stay.insert", stayDto);
 		return stayDto;
 	}

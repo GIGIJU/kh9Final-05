@@ -1,18 +1,24 @@
 package com.gf.golboogi.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.GolfFieldDto;
-import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.service.GolfFieldService;
+
+
 @Controller
 @RequestMapping("/field")
 public class GolfFieldController {
@@ -20,6 +26,8 @@ public class GolfFieldController {
 	@Autowired
 	private GolfFieldDao golfFieldDao;
 	
+	@Autowired
+	private GolfFieldService golfFieldService;
 	
 	@GetMapping("/golf_field")
 	public String golfField(
@@ -61,5 +69,22 @@ public class GolfFieldController {
 		model.addAttribute("info", info);
 		return "field/field_detail";
 	}
-
+	
+	@GetMapping("/insert")
+	public String insert() {
+		return "field/insert";
+	}
+	
+	@PostMapping("/insert")
+	public String insert(
+			@ModelAttribute GolfFieldDto golfFieldDto,
+			@RequestParam MultipartFile fieldProfile
+			) throws IllegalStateException, IOException {
+		
+		golfFieldService.insert(golfFieldDto, fieldProfile);
+		
+		return "redirect:/field/golf_field";
+	}
+	
+	
 }

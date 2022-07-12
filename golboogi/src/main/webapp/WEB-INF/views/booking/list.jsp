@@ -121,8 +121,11 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">인기골프장</h4></div>
+			<div class="row mb-3">
+				<div class="col-md-6 text-left"><h4 style="font-weight: bold;">인기골프장</h4></div>
+				<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
+				<a href="list_all" style="font-size: 12px; color: gray;">더보기 ></a>
+				</div>
 			</div>
 			<div class="row">
 				<c:forEach var="golfFieldDto" items="${rank}">

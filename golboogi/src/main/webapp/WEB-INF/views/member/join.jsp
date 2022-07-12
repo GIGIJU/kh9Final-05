@@ -7,18 +7,27 @@
 	boolean type3 = error != null && error.equals("3");
 %>	
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
-<style>
-     #join{
-        text-align: center;
-        font-size: 2em;
-    }
-</style>
-</head>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <body>
+
+ <!-- END nav -->
+	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+		<div class="container">
+			<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+				<div class="col-md-9 ftco-animate pb-5 text-center">
+					<p class="breadcrumbs">
+						<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+						<span>Join<i class="fa fa-chevron-right"></i></span>
+					</p>
+					<p class="mb-0" style="font-size: 17px">회원가입</p>
+				</div>
+			</div>
+		</div>
+	</section>	
     <div class="container col-12" id="app">
     	<br><br>
-        <div class="mt-3">
+        <div class="mt-3" style="text-align:center;">
             <h2 id="join">회원가입</h2>
         </div>
         <div class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1">

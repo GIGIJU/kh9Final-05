@@ -140,7 +140,6 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		return sqlSession.selectList("golfField.cheap");
 	}
 	
-	
 	@Override
 	public List<GolfFieldDto> list(String type, String keyword, int page, int size) {
 		Map<String, Object> param = new HashMap<>();
@@ -163,5 +162,14 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		
 		return sqlSession.selectOne("golfField.count", param);
 	}
+	
+	// 골프장 정보 입력 @이기주
+	@Override
+	public void insert(GolfFieldDto golfFieldDto) {
+		int sequence = sqlSession.selectOne("golfField.sequence");
+		golfFieldDto.setFieldNo(sequence);
+		sqlSession.insert("golfField.insert", golfFieldDto);
+	}
+	
 	
 }
