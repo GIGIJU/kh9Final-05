@@ -3,6 +3,7 @@ package com.gf.golboogi.controller;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.Format;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -18,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.CertDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.AttachmentDao;
+import com.gf.golboogi.repository.BookingDao;
 import com.gf.golboogi.repository.CertDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.MemberProfileDao;
@@ -50,6 +53,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private BookingDao bookingDao;
 	
 	@GetMapping("/join")
 	public String join() {
@@ -333,5 +339,26 @@ public class MemberController {
 	@GetMapping("/changeInfo")
 	public String changeInfo() {
 		return "member/changeInfo";
+	}
+	
+	@GetMapping("/myreservation")
+	public String myreservation(HttpSession session,Model model) {
+		String memberId = (String)session.getAttribute("login");
+		List<BookingDto> list = bookingDao.info(memberId);
+		model.addAttribute("list",list);
+		return "member/myreservation";
+	}
+	
+	@GetMapping("/memberProfile")
+	public String memberProfile() {
+		return "member/memberProfile";
+	}
+	
+	@PostMapping("/memberProfile")
+	public String memberProfile(HttpSession session,
+			@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
+		String memberId = (String)session.getAttribute("login");
+		memberService.changeProfile(memberId, memberProfile);
+		return "redirect:mypage";
 	}
 }

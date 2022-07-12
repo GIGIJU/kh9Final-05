@@ -8,4 +8,6 @@ import com.gf.golboogi.entity.MemberDto;
 
 public interface MemberService {
 	void join(MemberDto memberDto, MultipartFile memberProfile)throws IllegalStateException, IOException;
+
+	void changeProfile(String memberId, MultipartFile memberProfile) throws IllegalStateException, IOException;
 }

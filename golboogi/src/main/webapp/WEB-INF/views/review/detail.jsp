@@ -4,8 +4,21 @@
 <c:set var="check1" value="${reviewDto.reviewNo}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
-<br><br>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span>
+					<span class="mr-2"><a href="${root}/review/detail/${reviewDto.reviewNo}">detail <i class="fa fa-chevron-right"></i></a></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">${reviewDto.reviewNo}번 후기 게시글</p>
+			</div>
+		</div>
+	</div>
+</section>	
+<br><br><br><br>
 <style>
 	.table{
 		border: 1px solid black;
@@ -68,8 +81,15 @@
 			</thead>
 			<tbody>
 				<tr height="250">
-					<td valign="top" colspan="5" align="left">
-						${reviewDto.reviewContent}
+					<td valign="top" colspan="5" align="center">
+						<br>
+						<div class="mt-3">
+							<img src="${pageContext.request.contextPath}${profileUrl}" id="reviewImage">
+						</div>
+						<br><br>
+						<div class="mt-3" align="left">
+							${reviewDto.reviewContent}
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -145,6 +165,12 @@
 	<div class="mt-3">
 		<h3>[${reviewDto.fieldName}] 후기 목록</h3>
 	</div>
+	
+	<!-- 골프장별 평점 -->
+	<div class="mt-3">
+		<h3>평점 : ${rating}</h3>
+	</div>
+	
 	<div class="mt-3">
 		<table class="table table table-bordered">
 			<thead>

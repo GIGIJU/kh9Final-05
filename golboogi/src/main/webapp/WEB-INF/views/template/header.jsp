@@ -38,7 +38,7 @@
 		- 암호화 알고리즘은 상황에 맞게 선택
 		- input[type=password] 형태의 컬럼을 찾아서 전송 전에 암호화한 값으로 교체
 	*/
-	(function(){
+	&(function(){
 		$("form").submit(function(){
 			//this == form
 			$(this).find("input[type=password]").each(function(){
@@ -59,11 +59,11 @@
 </head>
 <body>
 <df-messenger
-  intent="WELCOME"
-  chat-title="GOLF_BOT"
-  agent-id="6ff71c6c-70c1-4b5f-924d-544ac3698b6c"
-  language-code="ko"
-></df-messenger>
+  	intent="WELCOME"
+   	chat-title="GOLBOOGI_BOT"
+  	agent-id="3c50b777-09bd-41e8-9bfb-499ee77ffec3"
+  	language-code="ko">
+</df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
      <a class="navbar-brand" href="/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>

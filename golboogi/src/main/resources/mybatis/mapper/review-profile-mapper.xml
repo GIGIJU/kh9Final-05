@@ -24,19 +24,25 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="memberProfile">
-	
+<mapper namespace="reviewProfile">
 	<insert id="insert" parameterType="Map">
-		insert into member_profile(
-			member_id, attachment_no
+		insert into review_profile(
+			review_no, attachment_no
 		)
 		values(
-			#{memberId}, #{attachmentNo}
+			#{reviewNo}, #{attachmentNo}
 		)
 	</insert>
 	
-	<select id="one" parameterType="String" resultType="Integer">
-		select attachment_no from member_profile where member_id = #{memberId}
+	<select id="one" parameterType="Integer" resultType="Integer">
+		select attachment_no from review_profile where review_no = #{reviewNo}
 	</select>
 	
 </mapper> 
+
+
+
+
+
+
+

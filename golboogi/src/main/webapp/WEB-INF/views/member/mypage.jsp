@@ -3,15 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
-<br><br>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="${root}/member/mypage">mypage <i class="fa fa-chevron-right"></i></a></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">MyPage</p>
+			</div>
+		</div>
+	</div>
+</section>	
+<br><br><br><br>
 <style>
     #mypage{
         text-align: center;
         font-size: 2em;
     }
 </style>
-<body>
     <div class="container">
         <div class="mt-3 col-12">
             <h2 id="mypage">내정보</h2>
@@ -69,6 +80,9 @@
                     </tr>
                 </table>
                 <br><br>
+                <div class="mt-3" align="center">
+                	<a href="${root}/member/memberProfile" class="btn btn-success btn-lg btn-block">프로필 수정</a>
+                </div>
                 <div class="mt-4 d-grid" align="center">
                     <a href="${root}/member/changeInfo" class="btn btn-success btn-lg btn-block">회원정보 수정</a>
                 </div>

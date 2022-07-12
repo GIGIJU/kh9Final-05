@@ -1,6 +1,7 @@
 package com.gf.golboogi.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -30,6 +31,12 @@ public class BookingDaoImpl implements BookingDao{
 
 		BookingDto bookingDto = sqlSession.selectOne("booking.check",param);
 		return bookingDto;
+	}
+
+	// 회원 예약 정보 가져오기
+	@Override
+	public List<BookingDto> info(String memberId) {
+		return sqlSession.selectList("booking.reservation",memberId);
 	}
 	
 	

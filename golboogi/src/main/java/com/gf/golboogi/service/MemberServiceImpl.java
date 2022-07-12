@@ -36,4 +36,16 @@ public class MemberServiceImpl implements MemberService{
 		}
 	}
 
+	@Override
+	public void changeProfile(String memberId, MultipartFile memberProfile) throws IllegalStateException, IOException {
+		int findNo = memberProfileDao.info(memberId);
+		if(findNo == 0) {
+			int attachmentNo = attachmentDao.save(memberProfile);
+			memberProfileDao.insert(memberId, attachmentNo);
+		}else {
+			attachmentDao.update(memberProfile,memberId);
+		}
+		
+	}
+
 }

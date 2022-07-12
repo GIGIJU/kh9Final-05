@@ -15,5 +15,11 @@ public interface AttachmentDao {
 
 	ByteArrayResource load(String attachmentSavename) throws IOException;
 
+	//memberProfile update
+	int update(MultipartFile memberProfile, String memberId) throws IllegalStateException, IOException;
+
+	//reviewProfile update
+	int update(int reviewNo, MultipartFile reviewProfile) throws IllegalStateException, IOException;
+
 	
 }

@@ -2,8 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
-<br><br><br><br><br><br>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span>
+					<span class="mr-2"><a href="${root}/review/edit/${reviewDto.reviewNo}">edit <i class="fa fa-chevron-right"></i></a></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">${reviewDto.reviewNo}번 후기 게시글(수정)</p>
+			</div>
+		</div>
+	</div>
+</section>	
+<br><br><br><br>
 <div class="container">
 	<div class="mt-3">
 		<h2>${reviewDto.reviewNo}번 후기글 수정</h2>
@@ -12,7 +25,7 @@
 	
 	<!-- 수정할 부분 -->
 	<div class="mt-3">
-		<form method="post">
+		<form method="post" enctype="multipart/form-data">
 			<div class="mt-3">
 				<label>글 제목</label>
 				<input type="text" name="reviewTitle" class="form-control" value="${reviewDto.reviewTitle}">
@@ -23,6 +36,10 @@
 				<textarea rows="5" class="form-control" cols="60" name="reviewContent">${reviewDto.reviewContent}</textarea>
 			</div>
 			<br>
+			<div class="mt-3">
+				<label>사진</label>
+				<input type="file" name="reviewProfile" class="form-control">
+			</div>
 			<div class="mt-3">
 				<input type="submit" class="btn btn-success btn-lg btn-block" value="변경">
 			</div>
