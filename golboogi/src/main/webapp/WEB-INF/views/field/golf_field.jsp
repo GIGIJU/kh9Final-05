@@ -17,7 +17,7 @@
 					<p class="mb-0" style="font-size: 17px">골프장</p>
 				</div>
 			</div>
-		</div>
+		</div>  
 	</section>	
 
 <section class="ftco-section">
