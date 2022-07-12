@@ -133,6 +133,7 @@ textarea {
 				 		<th>인당그린피</th>
 				 		<th>등록일</th>
 				 		<th>등록자</th>
+				 		<th>조인현황</th>
 				 	</tr>
 			 	</thead>
 			 	<tbody>
@@ -148,6 +149,10 @@ textarea {
 				 		<fmt:parseDate var="teeTimeD"  value="${joinListVO.joinTime}" pattern="yyyy-MM-dd"/>
 					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
 				 		<td>${joinListVO.memberNick}</td>
+				 		<c:choose>
+				 			<c:when test="${joinListVO.joinStatus==0}"><td>모집중</td></c:when>
+				 			<c:otherwise><td>마감</td></c:otherwise>
+				 		</c:choose>
 				 	</tr>
 			 		<tr style="display: none; text-align: left; background-color: #F2FFED;">
 			 			<td colspan="4">
@@ -155,7 +160,7 @@ textarea {
 							 * ${joinListVO.joinInfo}<br>
 							 
 						</td>
-			 			<td colspan="3" style="text-align: right;">
+			 			<td colspan="4" style="text-align: right;">
 			 				<c:forEach var="i" begin="1" end="${4-joinListVO.joinPeople}">
 			 					<img src="${root}/images/join_o.png" style="height: 40px; width: 40px; border-radius: 70%;">
 			 				</c:forEach>

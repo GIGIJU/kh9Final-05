@@ -23,7 +23,7 @@
 					teeTimeD : "${param.teeTimeD}"
 			};
 			if("${param.fieldArea}") {
-				data.fieldArea = "${param.fieldArea}";
+			 	data.fieldArea = "${param.fieldArea}";
 			}
 			if("${param.partTime}") {
 				data.PartTime = parseInt("${param.partTime}");

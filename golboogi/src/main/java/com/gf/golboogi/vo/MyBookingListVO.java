@@ -19,4 +19,5 @@ public class MyBookingListVO {
 	private int bookingPrice;
 	private String bookingStatus;
 	private Date bookingDropAble;
+	private int fieldPrepay;
 }

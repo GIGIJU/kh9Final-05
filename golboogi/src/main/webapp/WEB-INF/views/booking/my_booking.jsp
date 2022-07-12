@@ -18,6 +18,13 @@
     background-color: #f1f2f6;
     border: #dfe4ea solid 1px;
 }
+.prepay{
+	background-color: #ff7675;
+	color: white;
+	border-radius: 2px;
+	padding: 3px 3px 3px 3px;
+	font-size: 9px;
+}
 .modal {
 	position: fixed;
 	top: 20%;
@@ -97,17 +104,18 @@ textarea {
 </section>	
 
 	<div class="container-fluid">
-		<div class="row mt-5">
+		<div class="row mt-5 mb-5">
 			<div class="col-md-6 offset-md-3">
 			<div class="text-center"><h2 class="mb-5" style="font-size: 25px; font-weight: bold;">나의 예약 내역</h2></div>		
 				<ul class="comment-list">
 					<c:forEach var="myBookingListVO" items="${list}">
+						<a href="#">
 						<li class="comment mb-4">	
 							<div class="row">
 								<div class="col-md-5 text-left ml-4">
 									<span class="b12" style="font-weight: bold; font-size: 15px;">${myBookingListVO.fieldName}</span><br>
 								</div>
-								<div class="col-md-6 ml-1 text-right">
+								<div class="col-md-6 ml-3 text-right">
 									<span style="font-size:13px; color: red;">${myBookingListVO.bookingStatus}</span>
 								</div>
 							</div>
@@ -126,17 +134,23 @@ textarea {
 								</div>
 
 								<div class="col-md-4 ml-5 text-right">
+										<fmt:parseDate var="bookingDropAble"  value="${myBookingListVO.bookingDropAble}" pattern="yyyy-MM-dd"/>
+										<fmt:formatDate value="${bookingDropAble}" var="dropAbleDate" pattern="yyyy-MM-dd"/>
 										<button class="btn mb-2" @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
-										<button class="btn">예약취소</button><br><br>
+										<button class="btn" v-if="bookingDrop(${myBookingListVO.bookingDropAble})">예약취소</button>
+										<button class="btn" v-else style="background-color: gray;" disabled>예약불가</button><br><br>
+										<c:if test="${myBookingListVO.fieldPrepay==0}"><span class="prepay mr-2">현장결제</span></c:if>
 										<span class="b12" style="font-size: 14px;"><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</span>
+										
 								</div>
 							</div>
 						</li>
+					</a>
 					</c:forEach>
 				</ul>
 			</div>
 		</div>
-	</div>
+	</div> 
 
 	<!-- 조인등록 창 -->
 	<div class="modal" style="display: none;">
@@ -179,6 +193,7 @@ textarea {
 <script src="http://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
 <script>
     //div[id=app]을 제어할 수 있는 Vue instance를 생성
     const app = Vue.createApp({
@@ -203,13 +218,21 @@ textarea {
         	hiddenModal(){
         		$(".modal").hide();
         	},
+        	cancelBooking(bookingNo){
+        		window.location.href="${root}/booking/cancel/"+bookingNo;
+        	},
+        	bookingDrop(bookingDropAble){
+        		console.log("취소"+moment(bookingDropAble).format('YYYY-MM-DD'));
+        		console.log("현재"+moment().format('YYYY-MM-DD'));
+        		return moment(bookingDropAble) >= moment();
+        	}
         },
         //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
         watch:{
 
         },
         mounted(){
-			
+
         }
     });
     app.mount("#app");

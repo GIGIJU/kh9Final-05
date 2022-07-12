@@ -166,6 +166,12 @@ public class BookingController {
 		return "booking/reservation_success";
 	}
 	
+	@GetMapping("/cancel/{bookingNo}")
+	public String cancelBooking(@PathVariable int bookingNo){
+		
+		return "redirect:/booking/my_booking";
+	}
+	
 	@GetMapping("/my_booking")
 	public String myBooking(Model model,HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
@@ -174,5 +180,4 @@ public class BookingController {
 		
 		return "booking/my_booking";
 	}
-	
 }
