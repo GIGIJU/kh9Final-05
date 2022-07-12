@@ -3,7 +3,6 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<body>
 
  <!-- END nav -->
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -19,6 +18,7 @@
 			</div>
 		</div>
 	</section>	
+<div class="container col-12" id="app">
 	<div class="mt-3" style="text-align:center;">
 		<h2 id="login">로그인</h2>
 	</div>

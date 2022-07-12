@@ -136,8 +136,12 @@ body {
 						<div class="golf_field_info_content">
 							<div class="golf_field_score">
 								<div class="golf_field_score_content">
-									<h1>내장객 평균 스코어</h1>
-									<p>93.9</p>
+									<h1>내장객 평균 별점</h1>
+									<c:if test="${rating == null}">
+										<p>x</p>
+									</c:if>
+									
+									<p>${rating}</p>
 									<span>등록 라운드 330K</span>
 								</div>
 							</div>

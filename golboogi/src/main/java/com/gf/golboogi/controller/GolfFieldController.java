@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.service.GolfFieldService;
 
 
@@ -28,6 +29,9 @@ public class GolfFieldController {
 	
 	@Autowired
 	private GolfFieldService golfFieldService;
+	
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	@GetMapping("/golf_field")
 	public String golfField(
@@ -66,6 +70,11 @@ public class GolfFieldController {
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info=golfFieldDao.selectOne(fieldNo);
+		
+		//review 평점 가져오기
+		Double rating = reviewDao.ratingView(info.getFieldName());
+		model.addAttribute("rating",rating);
+		
 		model.addAttribute("info", info);
 		return "field/field_detail";
 	}
