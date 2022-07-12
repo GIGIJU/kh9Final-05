@@ -71,6 +71,16 @@
 	<update id="addJoinPeople" parameterType="Map">
 		update join set join_people = join_people-#{joinApplyPeople} where join_no=#{joinNo}
 	</update>
+	
+	
+	<select id="sequence" resultType="int">
+		select join_seq.nextval from dual
+	</select>
+	
+	<insert id="insert" parameterType="JoinDto">
+		insert into join(join_no,booking_no,member_id,join_info,join_people)
+		values(#{joinNo},#{bookingNo},#{memberId},#{joinInfo},#{joinPeople})
+	</insert>
 </mapper> 
 
 

@@ -136,7 +136,7 @@ p {
 										</div>
 										<p>
 											<input type="hidden" name="fieldNo" value="${teetimeVO.fieldNo}">
-											<a class="reply" style="cursor: pointer;">${teetimeVO.count}개 예약 가능시간 보기</a>
+											<a class="reply" style="cursor: pointer; background-color: black;">${teetimeVO.count}개 예약 가능시간 보기</a>
 										</p>
 									</div>
 									<div class="comment-body">
@@ -213,9 +213,6 @@ p {
                			if(this.fieldGreenfee != ""){
                				url += "&fieldGreenfee="+this.fieldGreenfee;
                			}
-                    	
-                    	
-                    	
                     	location.href= url;
                     },
                 });

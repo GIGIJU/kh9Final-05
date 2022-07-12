@@ -2,13 +2,18 @@ package com.gf.golboogi.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.entity.JoinDto;
 import com.gf.golboogi.repository.JoinDao;
 import com.gf.golboogi.vo.JoinListVO;
 
@@ -50,5 +55,15 @@ public class JoinController {
 		model.addAttribute("lastPage", lastPage);
 		
 		return "join/list"; 
+	}
+	
+	@PostMapping("/insert")
+	public String insert(@ModelAttribute JoinDto joinDto,HttpSession session) {
+		String memberId = (String) session.getAttribute("login");
+		joinDto.setMemberId(memberId);
+		
+		System.out.println("joinDto====="+joinDto);
+		joinDao.insert(joinDto);
+		return "redirect:/join/list";
 	}
 }

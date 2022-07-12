@@ -25,6 +25,7 @@ import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
+import com.gf.golboogi.vo.MyBookingListVO;
 
 @Controller
 @RequestMapping("/booking")
@@ -165,6 +166,13 @@ public class BookingController {
 		return "booking/reservation_success";
 	}
 	
-	
+	@GetMapping("/my_booking")
+	public String myBooking(Model model,HttpSession session) {
+		String memberId = (String) session.getAttribute("login");
+		List<MyBookingListVO> list = bookingDao.myBookingList(memberId);
+		model.addAttribute("list",list);
+		
+		return "booking/my_booking";
+	}
 	
 }

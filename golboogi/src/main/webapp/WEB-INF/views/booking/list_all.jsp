@@ -44,7 +44,6 @@
 											<div class="icon">
 												<i class="fa-solid fa-location-dot"></i>
 											</div>
-
 											<select class="form-control" v-model="area" v-bind:name="checkFieldArea">
 												<option value="">지역선택</option>
 												<option value="경기">경기</option>
@@ -112,7 +111,6 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</form>
 	</section>
@@ -160,7 +158,7 @@
 						</div>
 					</div>
 				</c:forEach>
-				</div>
+			</div>
 		</div>
 	</section>
 	
