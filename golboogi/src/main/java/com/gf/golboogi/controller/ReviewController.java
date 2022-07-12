@@ -1,5 +1,6 @@
 package com.gf.golboogi.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -13,12 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.gf.golboogi.entity.ReplyDto;
 import com.gf.golboogi.entity.ReviewDto;
 import com.gf.golboogi.error.CannotFindException;
-import com.gf.golboogi.repository.ReplyDao;
 import com.gf.golboogi.repository.ReviewDao;
+import com.gf.golboogi.repository.ReviewProfileDao;
+import com.gf.golboogi.service.ReviewService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +31,12 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewDao reviewDao;
+	
+	@Autowired
+	private ReviewService reviewService;
+	
+	@Autowired
+	private ReviewProfileDao reviewProfileDao;
 	
 	@GetMapping("/list")
 	public String list(
@@ -71,8 +79,9 @@ public class ReviewController {
 	}
 	
 	@PostMapping("/write")
-	public String write(@ModelAttribute ReviewDto reviewDto) {
-		reviewDao.write(reviewDto);
+	public String write(@ModelAttribute ReviewDto reviewDto,
+			@RequestParam MultipartFile reviewProfile)throws IllegalStateException, IOException {
+		reviewService.write(reviewDto, reviewProfile);
 		return "redirect:list";
 	}
 	
@@ -84,11 +93,22 @@ public class ReviewController {
 			) {
 		String memberId = (String)session.getAttribute("login");
 		ReviewDto reviewDto = reviewDao.read(reviewNo);
+		Double rating = reviewDao.ratingView(reviewDto.getFieldName());
 		List<ReviewDto> list = reviewDao.otherview(reviewDto.getFieldName());
 //		System.out.println(list);
+		model.addAttribute("rating",rating);
 		model.addAttribute("reviewDto", reviewDto);
 		model.addAttribute("memberId",memberId);
 		model.addAttribute("list", list);
+		
+		int attachmentNo = reviewProfileDao.read(reviewNo);
+		if(attachmentNo == 0) {
+			model.addAttribute("profileUrl", "/image/user.png");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+		}
+		
 		return "review/detail";
 	}
 	
@@ -102,16 +122,18 @@ public class ReviewController {
 	@PostMapping("/edit/{reviewNo}")
 	public String edit(
 			@ModelAttribute ReviewDto reviewDto,
-			@PathVariable int reviewNo
+			@PathVariable int reviewNo,
+			@RequestParam MultipartFile reviewProfile
 			//RedirectAttributes attr
-			) {
-		boolean success = reviewDao.edit(reviewDto);
+			) throws IllegalStateException, IOException {
+		boolean success = reviewNo != 0;
 		if(success) {
-			return "redirect:/review/list";
-		}
-		else {
+			reviewService.changeProfile(reviewNo, reviewProfile);
+			return "redirect:/review/detail/{reviewNo}";
+		}else {
 			throw new CannotFindException();
 		}
+		
 	}
 	
 	@GetMapping("/delete/{reviewNo}")

@@ -37,7 +37,12 @@
 	
 	<select id="check" parameterType="Map" resultType="BookingDto">
 		select * from booking where tee_time_no=#{teeTimeNo} and tee_time_d=#{teeTimeD} and booking_status='예약완료'
-	</select>									
+	</select>	
+	
+	<select id="reservation" parameterType="String" resultType="BookingDto">
+		select * from booking where member_id = #{memberId}
+		order by booking_no desc
+	</select>								
 </mapper> 
 
 
