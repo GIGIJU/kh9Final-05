@@ -8,7 +8,7 @@
 <form action="insert" method="post" enctype="multipart/form-data">
 	<div class="container w450 m30">
 	    <div class="row center">
-	        <h1>회원가입</h1>
+	        <h1>골프장 정보 입력</h1>
 	    </div>
 	    <div class="row">
 	        <label>골프장명</label>
@@ -17,7 +17,7 @@
 	    
 	    <div class="row">
 	        <label>소개글</label>
-	        <input type="text" name="fieldInfo"   placeholder="" class="form-input fill input-round" autocomplete="off">
+	        <textarea name="fieldInfo" placeholder="골프장의 소개글을 입력하세요." rows="5" cols="30"></textarea>
 	    </div>
 	    <div class="row">
 	        <label>대표전화</label>
@@ -51,8 +51,6 @@
 	        <input type="number" name="fieldGreenfee"   class="form-input input-round" autocomplete="off">
 	    </div>
 	    
-	    
-	    
 	    <div class="row">
 	        <label>개장일</label><br>
 	        <input type="date" name="fieldOpenday"   class="form-input input-round" autocomplete="off">
@@ -72,10 +70,11 @@
 	   
 	    <div class="row">
 	    	<label>프로필 이미지</label><br>
-	    	<input type="file" name="fieldProfile" class="form-input input-round">
+<!-- 	    	<input type="file" name="fieldProfile" accept=".png, .jpg, .gif" class="form-input input-round"> -->
+	    	<input type="file" name="fieldProfile" accept=".png, .jpg, .gif" multiple class="form-input input-round">
 	    </div>
 	    <div class="row">
-	        <button type="submit" class="btn btn-primary fill">회원가입</button>
+	        <button type="submit" class="btn btn-primary fill">정보 등록</button>
 	    </div>
 	</div>
 </form>

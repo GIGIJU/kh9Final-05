@@ -135,6 +135,16 @@
 		)
 	</insert>
 	
+	<!-- 골프장 이름으로 번호 검색 @이기주 -->
+	<select id="searchNo">
+		select field_no from golf_field where field_name = #{fieldName}
+	</select>
+	
+	<!-- 골프장 단순 전체 조회 -->
+	<select id="searchSimple" resultType="GolfFieldDto">
+		select field_no, field_name from golf_field
+	</select>
+	
 	
 	
 	

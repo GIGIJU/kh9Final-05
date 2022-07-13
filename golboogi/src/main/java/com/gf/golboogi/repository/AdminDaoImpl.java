@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.vo.AdminVO;
@@ -14,6 +15,9 @@ import com.gf.golboogi.vo.AdminVO;
 @Repository
 public class AdminDaoImpl implements AdminDao{
 
+	@Autowired
+	private GolfFieldDao golfFieldDao;
+	
 	@Autowired
 	private SqlSession sqlSession;
 	
@@ -73,6 +77,11 @@ public class AdminDaoImpl implements AdminDao{
 			return null;
 		}
 		
+	}
+
+	@Override
+	public void insertManager(AdminVO adminVO) {
+		sqlSession.insert("admin.insertManager", adminVO);
 	}
 
 }

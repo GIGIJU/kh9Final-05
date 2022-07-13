@@ -39,6 +39,9 @@
 		select attachment_no from golf_profile where field_no = #{fieldNo}
 	</select>
 	
+	<select id="multiInfo" parameterType="int" resultType="FieldProfileVO">
+		select attachment_no from golf_profile where field_no = #{fieldNo}
+	</select>
 	
 	
 </mapper> 
