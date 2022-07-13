@@ -2,29 +2,25 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
 
-<section class="hero-wrap-custom" style="background-color:black;"><!-- background-image: url('${root}/images/bg_1.jpg'); -->
-   <div class="container">
-       <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 250px;">
-            <div class="col-md-9 ftco-animate pb-5 text-center">
-            </div>
+<div class="container-fluid px-4">
+    <h1 class="mt-4">${memberDto.memberId}님 상세정보</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">회원관리메뉴</li>
+        <li class="breadcrumb-item active"><a href="${root}/admin/member_list">일반회원목록</a></li>
+        <li class="breadcrumb-item active">${memberDto.memberId}님 상세정보</li>
+    </ol>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fa-solid fa-person"></i>
+            ${memberDto.memberId}님의 상세정보 페이지 입니다.
         </div>
-    </div>
-</section>
-
-<div class="container mt-4">
-
-    <!-- jumbotron -->
-	<div class="p-3 mb-4 text-light bg-dark col-md-6 rounded">
-		<h1 style="color:white;">${memberDto.memberId}님 상세정보</h1>
-	</div>
-	
-	<div class="row-md-9">
-		<div class="col-md-3">
-			<table class="table table-bordered table-condensed table-hover" style="width: 500px;"> <!-- style="width: 100%;" -->
+        <div class="card-body">
+            <table class="table table-bordered table-condensed table-hover" style="width: 500px;"> 
 				<tr>
-					<th >아이디</th> <!-- style="width: 50;" -->
+					<th >아이디</th>
 					<td>${memberDto.memberId}</td>
 				</tr>
 				<tr>
@@ -73,19 +69,9 @@
 					</c:if>
 				</tr>
 			</table>
-		</div>
-	 </div>
-	 <div class="row ml-2">
-	 	<div class="col-3 col-md-3">
-			<a href="${root}/admin/member_list" class="btn btn-secondary">돌아가기</a>
-		</div>
-<!-- 		<div class="col-3 col-md-3"> -->
-<%-- 			<a href="${root}/admin/member_blacklist?memberId=${memberDto.memberId}" class="btn btn-danger">블랙리스트 지정</a> --%>
-<!-- 		</div> -->
-	 </div>
-	 <br><br><br>
-	    
+        </div>
+    </div>
 </div>
 
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>

@@ -47,6 +47,67 @@
 			</div>
 		</div>
 	</section>
-
+	
+	<!-- 페이지네이션 -->
+			<div class="row mt-5 mb-5">
+				<div class="col text-center">
+					<div class="block-27">
+						<ul>
+							<c:if test="${p > 1}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="golf_field?p=1&s=${s}&type=${type}&keyword=${keyword}" class="link">&laquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="golf_field?p=1&s=${s}" class="link">&laquo;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							<c:if test="${startBlock > 1}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="golf_field?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&lt;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="golf_field?p=${startBlock-1}&s=${s}" class="link">&lt;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="golf_field?p=${i}&s=${s}&type=${type}&keyword=${keyword}" class="link">${i}</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="golf_field?p=${i}&s=${s}" class="link">${i}</a></li>
+									</c:otherwise>			
+								</c:choose>		
+							</c:forEach>			
+							<!-- 다음 버튼 영역 -->
+							<c:if test="${endBlock < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="golf_field?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&gt;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="golf_field?p=${endBlock+1}&s=${s}" class="link">&gt;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+							<c:if test="${p < lastPage}">
+								<c:choose>
+									<c:when test="${search}">
+										<li><a href="golf_field?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}" class="link">&raquo;</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="golf_field?p=${lastPage}&s=${s}" class="link">&raquo;</a></li>
+									</c:otherwise>			
+								</c:choose>
+							</c:if>
+						</ul>
+					</div>
+				</div>
+			</div>
+	
 
 	<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

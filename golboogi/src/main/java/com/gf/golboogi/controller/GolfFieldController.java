@@ -1,7 +1,9 @@
 package com.gf.golboogi.controller;
 
 import java.io.IOException;
+
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,11 +17,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.GolfFieldDto;
+import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
-import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.service.GolfFieldService;
+import com.gf.golboogi.vo.FieldProfileVO;
+
+import lombok.extern.slf4j.Slf4j;
 
 
+@Slf4j
 @Controller
 @RequestMapping("/field")
 public class GolfFieldController {
@@ -28,10 +34,10 @@ public class GolfFieldController {
 	private GolfFieldDao golfFieldDao;
 	
 	@Autowired
-	private GolfFieldService golfFieldService;
+	private FieldProfileDao fieldProfileDao;
 	
 	@Autowired
-	private ReviewDao reviewDao;
+	private GolfFieldService golfFieldService;
 	
 	@GetMapping("/golf_field")
 	public String golfField(
@@ -67,33 +73,72 @@ public class GolfFieldController {
 			return "field/golf_field";
 	}
 	
+
+//	@GetMapping("/detail/{fieldNo}")
+//	public String detail(@PathVariable int fieldNo, Model model) {
+//		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
+//		model.addAttribute("info", info);
+//		
+//		//프로필 이미지의 다운로드 주소를 추가
+//		// - member_profile 에서 아이디를 이용하여 단일조회를 수행
+//		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
+//		int attachmentNo = fieldProfileDao.info(info.getFieldNo());
+//		if(attachmentNo == 0) {
+//			model.addAttribute("profileUrl", "http://via.placeholder/873x500");
+//		}
+//		else {
+//			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+//		}
+//		
+//		return "field/field_detail";
+//	}
+	
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
-		GolfFieldDto info=golfFieldDao.selectOne(fieldNo);
-		
-		//review 평점 가져오기
-		Double rating = reviewDao.ratingView(info.getFieldName());
-		model.addAttribute("rating",rating);
-		
+		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
 		model.addAttribute("info", info);
+		
+//		//골프장 이미지의 다운로드 주소를 추가 @이기주
+		List<FieldProfileVO> list = fieldProfileDao.multiInfo(info.getFieldNo());
+		model.addAttribute("list", list);
+		if(list == null) {
+			model.addAttribute("profileUrl", "/images/golf-dummy.jpg");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=");
+		}
+		
 		return "field/field_detail";
 	}
 	
+	// 골프장 정보 입력 @이기주
 	@GetMapping("/insert")
 	public String insert() {
 		return "field/insert";
 	}
 	
+	
 	@PostMapping("/insert")
 	public String insert(
 			@ModelAttribute GolfFieldDto golfFieldDto,
-			@RequestParam MultipartFile fieldProfile
+			@RequestParam List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException {
 		
 		golfFieldService.insert(golfFieldDto, fieldProfile);
 		
 		return "redirect:/field/golf_field";
 	}
+	
+//	@PostMapping("/insert")
+//	public String insert(
+//			@ModelAttribute GolfFieldDto golfFieldDto,
+//			@RequestParam MultipartFile fieldProfile
+//			) throws IllegalStateException, IOException {
+//		
+//		golfFieldService.insert(golfFieldDto, fieldProfile);
+//		
+//		return "redirect:/field/golf_field";
+//	}
 	
 	
 }
