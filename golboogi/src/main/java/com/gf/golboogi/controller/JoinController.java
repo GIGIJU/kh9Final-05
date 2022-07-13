@@ -29,7 +29,8 @@ public class JoinController {
 			@RequestParam(required = false) String type,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "10") int s) {
+			@RequestParam(required = false, defaultValue = "10") int s,
+			HttpSession session) {
 		List<JoinListVO> list = joinDao.selectList(type,keyword,p,s);
 		model.addAttribute("list",list);
 		
@@ -46,6 +47,9 @@ public class JoinController {
 			endBlock = lastPage;
 		}
 		
+		String memberId = (String) session.getAttribute("login");
+		
+		model.addAttribute("memberId", memberId);
 		model.addAttribute("p", p);
 		model.addAttribute("s", s);
 		model.addAttribute("type", type);

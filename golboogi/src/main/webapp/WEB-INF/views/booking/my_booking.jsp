@@ -122,7 +122,9 @@ textarea {
 							<hr>
 							<div class="row mt-3">
 								<div class="col-md-3 text-center">
-									<img src="${root}/images/golf-dummy.jpg" style="height: 120px; width: 120px;">
+									<img src="${root}/images/golf-dummy.jpg" style="height: 120px; width: 120px; 
+									<c:if test="${myBookingListVO.bookingStatus == '예약취소'}"> opacity: 0.4;
+									</c:if>	">
 								</div>
 								<div class="col-md-4">
 									<fmt:parseDate var="teeDate"  value="${myBookingListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
@@ -133,16 +135,15 @@ textarea {
 									<span class="b12">홀정보 : ${myBookingListVO.courseHole}</span>
 								</div>
 
+								<c:if test="${myBookingListVO.bookingStatus != '예약취소'}">
 								<div class="col-md-4 ml-5 text-right">
-										<fmt:parseDate var="bookingDropAble"  value="${myBookingListVO.bookingDropAble}" pattern="yyyy-MM-dd"/>
-										<fmt:formatDate value="${bookingDropAble}" var="dropAbleDate" pattern="yyyy-MM-dd"/>
 										<button class="btn mb-2" @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
-										<button class="btn" v-if="bookingDrop(${myBookingListVO.bookingDropAble})">예약취소</button>
-										<button class="btn" v-else style="background-color: gray;" disabled>예약불가</button><br><br>
+										<button class="btn" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo})">예약취소</button>
+										<button class="btn" v-else style="background-color: gray; cursor: default;" disabled>취소불가</button><br><br>
 										<c:if test="${myBookingListVO.fieldPrepay==0}"><span class="prepay mr-2">현장결제</span></c:if>
 										<span class="b12" style="font-size: 14px;"><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</span>
-										
 								</div>
+								</c:if>	
 							</div>
 						</li>
 					</a>
@@ -201,6 +202,7 @@ textarea {
         data(){
             return {
 				bookingNo:"",
+				dropAble:"",
             };
         },
         //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -219,12 +221,12 @@ textarea {
         		$(".modal").hide();
         	},
         	cancelBooking(bookingNo){
-        		window.location.href="${root}/booking/cancel/"+bookingNo;
+        		if(confirm("정말로 예약 취소 하시겠습니까?")){
+	        		window.location.href="${root}/booking/cancel/"+bookingNo;
+        		}
         	},
-        	bookingDrop(bookingDropAble){
-        		console.log("취소"+moment(bookingDropAble).format('YYYY-MM-DD'));
-        		console.log("현재"+moment().format('YYYY-MM-DD'));
-        		return moment(bookingDropAble) >= moment();
+        	bookingDrop(Date){
+        		return moment(Date) > moment();
         	}
         },
         //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다

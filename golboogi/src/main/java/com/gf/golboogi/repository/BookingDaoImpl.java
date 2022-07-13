@@ -38,6 +38,14 @@ public class BookingDaoImpl implements BookingDao{
 	public List<MyBookingListVO> myBookingList(String memberId) {
 		return sqlSession.selectList("booking.myBookingList",memberId);
 	}
+
+	@Override
+	public void cancel(int bookingNo) {
+		int count = sqlSession.update("booking.cancel",bookingNo);
+		if(count<1) {
+			//에러페이지
+		}
+	}
 	
 	
 	

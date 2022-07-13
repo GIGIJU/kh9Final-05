@@ -9,5 +9,6 @@ public interface BookingDao {
 	void reservation(BookingDto bookingDto);
 	BookingDto checkBooking(int teeTimeNo, String teeTimeD);
 	List<MyBookingListVO> myBookingList(String memberId);
+	void cancel(int bookingNo);
 
 }

@@ -168,6 +168,7 @@ public class BookingController {
 	
 	@GetMapping("/cancel/{bookingNo}")
 	public String cancelBooking(@PathVariable int bookingNo){
+		bookingDao.cancel(bookingNo);
 		
 		return "redirect:/booking/my_booking";
 	}

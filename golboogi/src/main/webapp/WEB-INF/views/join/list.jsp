@@ -168,8 +168,16 @@ textarea {
 			 					<img src="${root}/images/join_x.png" style="height: 40px; width: 40px; border-radius: 70%;">
 			 				</c:forEach>
 						</td>
-						<td style="text-align: center;"><button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;"
-						 @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">신청하기</button></td>
+						<td style="text-align: center;">
+						<c:choose>
+							<c:when test="${joinListVO.memberId != memberId}">
+								<button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">신청하기</button>							
+							</c:when>
+							<c:otherwise>
+								<button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">수정하기</button>
+							</c:otherwise>
+						</c:choose>
+						 </td>
 			 		</tr>
 			 	</c:forEach>
 			 	</tbody>
