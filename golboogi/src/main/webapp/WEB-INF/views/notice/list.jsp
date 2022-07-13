@@ -1,21 +1,35 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
-<br><br><br><br>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span><a href="${root}/notice/list">notice <i class="fa fa-chevron-right"></i></a></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">공지사항</p>
+			</div>
+		</div>
+	</div>
+</section>	
+<br><br>
+
+
+
 <div class="container">
 	<div class="mt-3">
 		<h1>News & Notice</h1>
 	</div>
 	<br> <br>
-	<div class="offset-8" align="right">
+	<div class="col-12 offset-8" align="right">
 		<!-- 검색창 -->
 		<form class="form-inline" action="list" method="get">
-			<div class="form-group col-xs-4" align="right">
-				<input type="search" class="form-control" name="keyword" placeholder="검색어 입력"> 
-		    </div>
-		    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="search" class="form-control" name="keyword" placeholder="검색어 입력"> 
+		    &nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="submit" class="btn btn-success btn-lg" value="검색">
 		</form>
 	</div>
@@ -33,7 +47,6 @@
 			<thead>
 				<tr>
 					<th>번호</th>
-					<th>사진</th>
 					<th width="60%;">제목</th>
 					<th>조회수</th>
 					<th>시간</th>
@@ -48,11 +61,6 @@
 				<c:forEach var="noticeDto" items="${list}">
 					<tr>
 						<td>${noticeDto.noticeNo}</td>
-						<td>
-							<a href="${root}/notice/detail/${noticeDto.noticeNo}">
-								<img src="${pageContext.request.contextPath}${profileUrl}">
-							</a>
-						</td>
 						<td><a href="${root}/notice/detail/${noticeDto.noticeNo}">
 							<c:if test="${noticeDto.noticeHead != null}">
 								[${noticeDto.noticeHead}] 

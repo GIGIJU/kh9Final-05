@@ -33,20 +33,36 @@
   
 	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	
-	<script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
 
-	
-	
+  <script>
+	/*
+		프론트엔드 암호화에 대한 계획
+		- 암호화 알고리즘은 상황에 맞게 선택
+		- input[type=password] 형태의 컬럼을 찾아서 전송 전에 암호화한 값으로 교체
+	*/
+	&(function(){
+		$("form").submit(function(){
+			//this == form
+			$(this).find("input[type=password]").each(function(){
+				//this == 입력창
+				var rawData = $(this).val();
+				//var encData = 암호화(rawData);
+				var hash = CryptoJS.SHA1(rawData);//암호화
+				var encData = CryptoJS.enc.Hex.stringify(hash);//문자열화
+				$(this).val(encData);
+			});
+		});
+	}); 
+	</script>
 	
 </head>
 <body>
 <df-messenger
-  intent="WELCOME"
-  chat-title="GOLBOOGI_BOT"
-  agent-id="3c50b777-09bd-41e8-9bfb-499ee77ffec3"
-  language-code="ko"
-></df-messenger>
+  	intent="WELCOME"
+   	chat-title="GOLBOOGI_BOT"
+  	agent-id="3c50b777-09bd-41e8-9bfb-499ee77ffec3"
+  	language-code="ko">
+</df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
      <a class="navbar-brand" href="/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>

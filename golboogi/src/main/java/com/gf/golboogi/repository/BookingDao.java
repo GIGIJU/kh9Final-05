@@ -11,4 +11,6 @@ public interface BookingDao {
 	List<MyBookingListVO> myBookingList(String memberId);
 	void cancel(int bookingNo);
 
+	//회원 예약 정보 불러오기
+	List<BookingDto> info(String memberId);
 }

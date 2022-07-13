@@ -44,4 +44,13 @@
 	<select id="one" resultType="AttachmentDto" parameterType="int">
 		select * from attachment where attachment_no = #{attachmentNo}
 	</select>
+	
+	<update id="update" parameterType="AttachmentDto">
+		update attachment
+		set
+			attachment_savename = #{attachmentSavename}, attachment_uploadname =#{attachmentUploadname},
+			attachment_type =#{attachmentType}, attachment_size = #{attachmentSize}
+		where attachment_no = #{attachmentNo}
+	</update>
+	
 </mapper> 

@@ -1,8 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">Review 게시판</p>
+			</div>
+		</div>
+	</div>
+</section>	
 <br><br><br><br>
 <style>
 	.table{
@@ -33,7 +46,6 @@
 			<thead align="center">
 				<tr>
 					<th>순서</th>
-					<th>사진</th>
 					<th>골프장</th>
 					<th>제목</th>
 					<th>회원평점</th>
@@ -50,7 +62,6 @@
 				<c:forEach var="reviewDto" items="${list}">
 						<tr>
 							<td width="6%">${reviewDto.reviewNo}</td>
-							<td width="14%"><a href="${root}/review/detail/${reviewDto.reviewNo}"><img src="#" alt="사진"></a></td>
 							<td width="10%">${reviewDto.fieldName}</td>
 							<td width="40%" align="left"><a href="${root}/review/detail/${reviewDto.reviewNo}">${reviewDto.reviewTitle}</a></td>
 							<td width="9%">${reviewDto.reviewRating}</td>
