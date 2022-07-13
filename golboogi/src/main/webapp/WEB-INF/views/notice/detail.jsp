@@ -27,7 +27,7 @@
 	<div align="center" class="mt-3">
 		<h1>News & Notice</h1>
 	</div>
-	<c:if test="${golfManagerDto.golfManagerId != null}">
+	<c:if test="${isAdmin && auth == 1}">
 		<div align="right" class="mt-3">
 			<a href="${root}/notice/edit/${noticeDto.noticeNo}" class="btn btn-success btn-lg">수정</a>
 		</div>

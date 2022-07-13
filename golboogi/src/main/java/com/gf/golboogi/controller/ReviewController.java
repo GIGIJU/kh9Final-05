@@ -38,6 +38,7 @@ public class ReviewController {
 	@Autowired
 	private ReviewProfileDao reviewProfileDao;
 	
+	
 	@GetMapping("/list")
 	public String list(
 			@RequestParam(required = false) String keyword,
@@ -71,12 +72,33 @@ public class ReviewController {
 		return "review/list";
 	}
 	
+	@GetMapping("/write/{fieldName}")
+	public String write(HttpSession session,
+			@PathVariable (required = false)String fieldName,
+			Model model) {
+		String memberId = (String)session.getAttribute("login");
+		model.addAttribute("fieldName",fieldName);
+		model.addAttribute("memberId",memberId);
+		return "review/write";
+	}
+	
 	@GetMapping("/write")
-	public String write(HttpSession session,Model model) {
+	public String write(HttpSession session,
+			Model model) {
 		String memberId = (String)session.getAttribute("login");
 		model.addAttribute("memberId",memberId);
 		return "review/write";
 	}
+	
+	@PostMapping("/write/{fieldName}")
+	public String write(@ModelAttribute ReviewDto reviewDto,
+			@PathVariable (required = false)String fieldName,
+			@RequestParam MultipartFile reviewProfile)throws IllegalStateException, IOException {
+		reviewDto.setFieldName(fieldName);
+		reviewService.write(reviewDto, reviewProfile);
+		return "redirect:/review/list";
+	}
+	
 	
 	@PostMapping("/write")
 	public String write(@ModelAttribute ReviewDto reviewDto,
@@ -95,7 +117,7 @@ public class ReviewController {
 		ReviewDto reviewDto = reviewDao.read(reviewNo);
 		Double rating = reviewDao.ratingView(reviewDto.getFieldName());
 		List<ReviewDto> list = reviewDao.otherview(reviewDto.getFieldName());
-//		System.out.println(list);
+		
 		model.addAttribute("rating",rating);
 		model.addAttribute("reviewDto", reviewDto);
 		model.addAttribute("memberId",memberId);
@@ -103,7 +125,7 @@ public class ReviewController {
 		
 		int attachmentNo = reviewProfileDao.read(reviewNo);
 		if(attachmentNo == 0) {
-			model.addAttribute("profileUrl", "/image/user.png");
+			model.addAttribute("attachmentNo",attachmentNo);
 		}
 		else {
 			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);

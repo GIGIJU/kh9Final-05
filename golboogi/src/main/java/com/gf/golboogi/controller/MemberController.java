@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -97,7 +98,11 @@ public class MemberController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(
+			@RequestHeader(value="Referer", defaultValue = "/") String referer,
+			Model model
+			) {
+		model.addAttribute("referer", referer);
 		return "member/login";
 	}
 	
@@ -105,6 +110,7 @@ public class MemberController {
 	public String login(
 			@RequestParam String memberId,
 			@RequestParam String memberPw,
+			@RequestParam String referer,
 			HttpSession session) {
 		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
@@ -117,7 +123,7 @@ public class MemberController {
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
 			session.setAttribute("auth", memberDto.getMemberGrade());
-			return "redirect:/";
+			return "redirect:" + referer;
 		}
 		
 	}
