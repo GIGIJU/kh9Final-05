@@ -19,6 +19,7 @@
 		</div>
 	</section>	
 <div class="container col-12" id="app">
+	<br><br>
 	<div class="mt-3" style="text-align:center;">
 		<h2 id="login">로그인</h2>
 	</div>
@@ -26,6 +27,7 @@
 	<div
 		class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1">
 		<form v-on:submit="sendForm($event)" action="login" method="post">
+		<input type="hidden" name="referer" value="${referer}">
 			<div class="mt-3">
 				<label>아이디</label> <input type="text" class="form-control"
 					name="memberId" v-model="memberId" placeholder="영문 소문자,숫자 8자 이상">

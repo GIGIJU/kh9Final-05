@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.NoticeDto;
+import com.gf.golboogi.vo.NoticeProfileListVO;
 
 @Repository
 public class NoticeDaoImpl implements NoticeDao{
@@ -17,7 +18,7 @@ public class NoticeDaoImpl implements NoticeDao{
 	private SqlSession sqlSession;
 
 	@Override
-	public List<NoticeDto> list(String keyword, int page, int size) {
+	public List<NoticeProfileListVO> list(String keyword, int page, int size) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("keyword", keyword);
 		
@@ -28,6 +29,7 @@ public class NoticeDaoImpl implements NoticeDao{
 		
 		return sqlSession.selectList("notice.list", param);
 	}
+	
 
 	@Override
 	public int count(String keyword) {
@@ -64,4 +66,5 @@ public class NoticeDaoImpl implements NoticeDao{
 		int count = sqlSession.delete("notice.delete", noticeNo);
 		return count > 0;
 	}
+
 }

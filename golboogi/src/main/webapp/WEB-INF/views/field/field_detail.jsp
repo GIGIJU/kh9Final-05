@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <head>
@@ -141,7 +142,7 @@ body {
 										<p>x</p>
 									</c:if>
 									
-									<p>${rating}</p>
+									<p><fmt:formatNumber value="${rating}" pattern="#.#"></fmt:formatNumber></p>
 									<span>등록 라운드 330K</span>
 								</div>
 							</div>
@@ -155,8 +156,8 @@ body {
 							</div>
 						</div>
 						<div class="place_round_btn_container">
-							<button id="round_review_write_btn" onclick="">라운드 후기 작성</button>
-							<button id="round_review_show_btn" onclick="">라운드 후기 보기</button>
+							<a href="${root}/review/write/${info.fieldName}" id="round_review_write_btn" onclick="">라운드 후기 작성</a>
+							<a href="${root}/review/list" id="round_review_show_btn" onclick="">라운드 후기 보기</a>
 						</div>
 
 					</div>

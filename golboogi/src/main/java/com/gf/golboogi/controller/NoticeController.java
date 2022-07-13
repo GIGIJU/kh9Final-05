@@ -20,6 +20,7 @@ import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.NoticeDao;
 import com.gf.golboogi.repository.NoticeProfileDao;
 import com.gf.golboogi.service.NoticeService;
+import com.gf.golboogi.vo.NoticeProfileListVO;
 
 @Controller
 @RequestMapping("/notice")
@@ -43,7 +44,7 @@ public class NoticeController {
 				Model model
 			) {
 		
-		List<NoticeDto> list = noticeDao.list(keyword, p, s);
+		List<NoticeProfileListVO> list = noticeDao.list(keyword, p, s);
 		model.addAttribute("list", list);
 		
 		boolean search = keyword != null;

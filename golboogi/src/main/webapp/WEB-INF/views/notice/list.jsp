@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="isAdmin" value="${adminId != null}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -38,15 +40,18 @@
 	<!-- 광고?,사진? -->
 	
 	<br><br>
-	<div class="offset-10" align="right">
-		<a href="write" class="btn btn-success btn-lg btn-block">글쓰기</a>
-	</div>
+	<c:if test="${isAdmin && auth == 1}">
+		<div class="offset-10" align="right">
+			<a href="write" class="btn btn-success btn-lg btn-block">글쓰기</a>
+		</div>
+	</c:if>
 	<br>
 	<div class="mt-3">
 		<table class="table table-border">
 			<thead>
-				<tr>
+				<tr align="center">
 					<th>번호</th>
+					<th>사진</th>
 					<th width="60%;">제목</th>
 					<th>조회수</th>
 					<th>시간</th>
@@ -58,16 +63,17 @@
 						<td colspan="4" align="center">검색결과가 없습니다.</td>
 					</tr>
 				</c:if>
-				<c:forEach var="noticeDto" items="${list}">
-					<tr>
-						<td>${noticeDto.noticeNo}</td>
-						<td><a href="${root}/notice/detail/${noticeDto.noticeNo}">
-							<c:if test="${noticeDto.noticeHead != null}">
-								[${noticeDto.noticeHead}] 
+				<c:forEach var="noticeProfileListVO" items="${list}">
+					<tr align="center">
+						<td>${noticeProfileListVO.noticeNo}</td>
+						<td><img src="/attachment/download?attachmentNo=${noticeProfileListVO.attachmentNo}" width="50px;" height="50px;"></td>
+						<td align="left"><a href="${root}/notice/detail/${noticeProfileListVO.noticeNo}">
+							<c:if test="${noticeProfileListVO.noticeHead != null}">
+								[${noticeProfileListVO.noticeHead}] 
 							</c:if>
-								${noticeDto.noticeTitle} </a></td>
-						<td>${noticeDto.noticeReadcount}</td>
-						<td>${noticeDto.noticeTime}</td>
+								${noticeProfileListVO.noticeTitle} </a></td>
+						<td>${noticeProfileListVO.noticeReadcount}</td>
+						<td>${noticeProfileListVO.noticeTime}</td>
 					</tr>
 				</c:forEach>
 			</tbody>

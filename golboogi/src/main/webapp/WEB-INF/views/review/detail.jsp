@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="check1" value="${reviewDto.reviewNo}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
@@ -44,6 +45,9 @@
 	#check{
 		display: none;
 	}
+	#move{
+		text-align:center;
+	}
 	
 </style>
 <div class="container" id="app">
@@ -69,7 +73,7 @@
 						</c:choose>
 					</th>
 					<th>장성일 : ${reviewDto.reviewTime}</th>
-					<th colspan="2" align="center">조회수/추천 : ${reviewDto.reviewReadcount}/추천</th>
+					<th colspan="2" id="move">(조회수,추천) : ${reviewDto.reviewReadcount}/추천</th>
 				</tr>
 				<tr>
 					<th>개인평점 : ${reviewDto.reviewRating}</th>
@@ -82,11 +86,13 @@
 			<tbody>
 				<tr height="250">
 					<td valign="top" colspan="5" align="center">
-						<br>
-						<div class="mt-3">
-							<img src="${pageContext.request.contextPath}${profileUrl}" id="reviewImage">
-						</div>
-						<br><br>
+						<c:if test="${attachmentNo != 0}">
+							<br>
+							<div class="mt-3">
+								<img src="${pageContext.request.contextPath}${profileUrl}" id="reviewImage">
+							</div>
+							<br><br>
+						</c:if>
 						<div class="mt-3" align="left">
 							${reviewDto.reviewContent}
 						</div>
@@ -163,12 +169,12 @@
 <!-- otherlist -->
 <div class="container">
 	<div class="mt-3">
-		<h3>[${reviewDto.fieldName}] 후기 목록</h3>
+		<h3>[${reviewDto.fieldName}]</h3>
 	</div>
 	
 	<!-- 골프장별 평점 -->
 	<div class="mt-3">
-		<h3>평점 : ${rating}</h3>
+		<h3>평점 : <fmt:formatNumber value="${rating}" pattern="#.#"></fmt:formatNumber></h3>
 	</div>
 	
 	<div class="mt-3">
@@ -349,7 +355,6 @@ const app = Vue.createApp({
         		this.loadReply();
         	});
         },
-       
     },
     //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
     watch:{

@@ -43,6 +43,6 @@
 
 /*라운드 후기 버튼 영역*/
 .place_round_btn_container{margin-top: 50px; text-align: center;}
-.place_round_btn_container button{height: 50px; padding: 0 24px; cursor: pointer;}
-.place_round_btn_container button:first-child{color: #000; background: #fff; border: 2px solid #000; margin-left: 5px;}
-.place_round_btn_container button:last-child{color: #fff; background: #000; border: 2px solid #000; margin-left: 5px;}
+.place_round_btn_container a{padding: 10px 24px; text-decoration: none; display: inline-block; cursor: pointer;}
+.place_round_btn_container a:first-child{color: #000; background: #fff; border: 2px solid #000; margin-left: 5px;}
+.place_round_btn_container a:last-child{color: #fff; background: #000; border: 2px solid #000; margin-left: 5px;}
