@@ -19,4 +19,5 @@ public class JoinListVO {
 	private String joinInfo;
 	private int joinStatus;
 	private String courseName;
+	private String memberId;
 }

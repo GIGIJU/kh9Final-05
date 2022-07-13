@@ -13,33 +13,21 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.repository.AdminDao;
-import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.vo.AdminVO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
-@Controller
-@RequestMapping("/admin")
-public class AdminController {
+//@Controller
+//@RequestMapping("/admin")
+public class AdminControllerOrigin {
 	@Autowired
 	private AdminDao adminDao;
-	@Autowired
-	private GolfFieldDao golfFieldDao;
 	
 	@GetMapping("/list")
 	public String list(Model model) {
 		List<AdminVO> vo = adminDao.list();
 		model.addAttribute("adminVO", vo);
-		//
-		List<GolfFieldDto> golfFieldDto = golfFieldDao.searchSimple();
-		log.debug("DTO = {}", golfFieldDto);
-		model.addAttribute("golfFieldDto", golfFieldDto);
-		//
 		return "admin/list";
 	}
 	
@@ -65,21 +53,9 @@ public class AdminController {
 		return "admin/insert";
 	}
 	
-//	@PostMapping("/insert")
-//	public String insert(@ModelAttribute GolfManagerDto golfManagerDto) {
-//		adminDao.insert(golfManagerDto);
-//		return "redirect:list";
-//	}
-	
 	@PostMapping("/insert")
-	public String insert(
-			@ModelAttribute AdminVO adminVO,
-			Model model
-			) {
-		List<GolfFieldDto> golfFieldDto = golfFieldDao.searchSimple();
-		log.debug("DTO = {}", golfFieldDto);
-		model.addAttribute("golfFieldDto", golfFieldDto);
-		adminDao.insertManager(adminVO);
+	public String insert(@ModelAttribute GolfManagerDto golfManagerDto) {
+		adminDao.insert(golfManagerDto);
 		return "redirect:list";
 	}
 	

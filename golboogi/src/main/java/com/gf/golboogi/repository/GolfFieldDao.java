@@ -26,7 +26,13 @@ public interface GolfFieldDao {
 	List<GolfFieldDto> selectCheap();
 	List<GolfFieldDto> list(String type, String keyword, int page, int size);
 	int count(String type, String keyword);
+	List<GolfFieldDto> listAll(String type, int page, int size);
+	int countAll();
 	
 	// 골프장 정보 입력 페이지(=골프장 등록) @이기주
 	void insert(GolfFieldDto golfFieldDto);
+	
+	// 골프장 이름으로 검색 @이기주
+	List<GolfFieldDto> searchSimple();
+	
 }

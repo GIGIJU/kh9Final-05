@@ -18,17 +18,14 @@
 
 	<select id="list" parameterType="BookingComplexSearchVO" resultType="TeeTimeListVO">
 		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/> 
-		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
-		(
-		select * from golf_course C inner join 
-		(
-		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
-		left outer join (select * from booking where tee_time_d= to_date(#{teeTimeD},'YYYY-MM-DD')) B 
-		on T.tee_time_no = B.tee_time_no where B.booking_date is null
-		) B on B.course_no = C.course_no
-		) B on B.field_no = G.field_no
+		select G.field_no, G.field_name, G.field_greenfee, C.course_name, T.tee_time_t, T.part_time, T.tee_time_no,B.booking_people from
+    golf_field G
+        inner join golf_course C on G.field_no = C.field_no
+        inner join tee_time T on C.course_no = T.course_no
+        left outer join (select * from booking where tee_time_d= to_date('2022-07-30','YYYY-MM-DD')) B 
+        on T.tee_time_no = B.tee_time_no
 		<where>
-	 			 and tee_time_t is not null 
+	 			 and B.booking_people is null
 	 			 and G.field_no = #{fieldNo}
 				<if test="partTime > 0">
 					and part_time = #{partTime}
@@ -46,16 +43,13 @@
 	</select>
 	
 	<select id="list2" parameterType="Map" resultType="TeeTimeListVO">
-		select G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, B.tee_time_no from golf_field G left outer join
-		(
-		select * from golf_course C inner join 
-		(
-		select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
-		left outer join (select * from booking where tee_time_d= to_date(#{teeTimeD},'YYYY-MM-DD')) B 
-		on T.tee_time_no = B.tee_time_no where B.booking_date is null
-		) B on B.course_no = C.course_no
-		) B on B.field_no = G.field_no
-	 			 where tee_time_t is not null 
+		select G.field_no, G.field_name, G.field_greenfee, C.course_name, T.tee_time_t, T.part_time, T.tee_time_no,B.booking_people from
+    golf_field G
+        inner join golf_course C on G.field_no = C.field_no
+        inner join tee_time T on C.course_no = T.course_no
+        left outer join (select * from booking where tee_time_d= to_date('2022-07-30','YYYY-MM-DD')) B 
+        on T.tee_time_no = B.tee_time_no
+	 			 where B.booking_people is null
 	 			 and G.field_no = #{fieldNo}
 		order by field_no, tee_time_t
 	</select>

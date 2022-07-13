@@ -1,6 +1,7 @@
 package com.gf.golboogi.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,13 +27,27 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 	
 	@Transactional
 	@Override
-	public void insert(GolfFieldDto golfFieldDto, MultipartFile fieldProfile) throws IllegalStateException, IOException {
+	public void insert(GolfFieldDto golfFieldDto, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException {
 		golfFieldDao.insert(golfFieldDto);
-		
 		if(!fieldProfile.isEmpty()) {
-			int attachmentNo = attachmentDao.save(fieldProfile);
-			fieldProfileDao.insert(golfFieldDto.getFieldNo(), attachmentNo);
+			
+			for(MultipartFile list : fieldProfile) {
+				int attachmentNo = attachmentDao.save(list);
+				fieldProfileDao.insert(golfFieldDto.getFieldNo(), attachmentNo);
+			}
+			
 		}
 	}
+	
+//	@Transactional
+//	@Override
+//	public void insert(GolfFieldDto golfFieldDto, MultipartFile fieldProfile) throws IllegalStateException, IOException {
+//		golfFieldDao.insert(golfFieldDto);
+//		
+//		if(!fieldProfile.isEmpty()) {
+//			int attachmentNo = attachmentDao.save(fieldProfile);
+//			fieldProfileDao.insert(golfFieldDto.getFieldNo(), attachmentNo);
+//		}
+//	}
 
 }

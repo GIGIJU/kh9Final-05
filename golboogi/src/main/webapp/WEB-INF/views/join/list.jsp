@@ -24,10 +24,10 @@ $(function() {
 /* 모달창 */
 .modal {
 	position: fixed;
-	top: 0;
-	left: 0;
+	top: 20%;
+	left: 5%;
 	width: 90%;
-	height: 50%;
+	height: 57%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -133,6 +133,7 @@ textarea {
 				 		<th>인당그린피</th>
 				 		<th>등록일</th>
 				 		<th>등록자</th>
+				 		<th>조인현황</th>
 				 	</tr>
 			 	</thead>
 			 	<tbody>
@@ -148,6 +149,10 @@ textarea {
 				 		<fmt:parseDate var="teeTimeD"  value="${joinListVO.joinTime}" pattern="yyyy-MM-dd"/>
 					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
 				 		<td>${joinListVO.memberNick}</td>
+				 		<c:choose>
+				 			<c:when test="${joinListVO.joinStatus==0}"><td>모집중</td></c:when>
+				 			<c:otherwise><td>마감</td></c:otherwise>
+				 		</c:choose>
 				 	</tr>
 			 		<tr style="display: none; text-align: left; background-color: #F2FFED;">
 			 			<td colspan="4">
@@ -155,7 +160,7 @@ textarea {
 							 * ${joinListVO.joinInfo}<br>
 							 
 						</td>
-			 			<td colspan="3" style="text-align: right;">
+			 			<td colspan="4" style="text-align: right;">
 			 				<c:forEach var="i" begin="1" end="${4-joinListVO.joinPeople}">
 			 					<img src="${root}/images/join_o.png" style="height: 40px; width: 40px; border-radius: 70%;">
 			 				</c:forEach>
@@ -163,7 +168,16 @@ textarea {
 			 					<img src="${root}/images/join_x.png" style="height: 40px; width: 40px; border-radius: 70%;">
 			 				</c:forEach>
 						</td>
-						<td><button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">신청하기</button></td>
+						<td style="text-align: center;">
+						<c:choose>
+							<c:when test="${joinListVO.memberId != memberId}">
+								<button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">신청하기</button>							
+							</c:when>
+							<c:otherwise>
+								<button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">수정하기</button>
+							</c:otherwise>
+						</c:choose>
+						 </td>
 			 		</tr>
 			 	</c:forEach>
 			 	</tbody>
@@ -237,24 +251,25 @@ textarea {
 <div class="modal" style="display: none;">
 	<div class="modal-content">
 	<div class="row">
-		<div class="col-8 text-left">
-			<h5 style="font-weight: bold;">조인 신청</h5>			
+		<div class="col-8 text-left" style="padding-left: 0px;">
+			<span style="font-weight: bold; color: black;">조인 신청</span>			
 		</div>
 		<div class="col-4 text-right">
 			<button class="btn-cancel" @click="hiddenModal"><i class="fa-solid fa-xmark"></i></button>
 		</div>
 	</div>
 		<div class="row mt-2">
-			<span style="color: black; font-size: 11px;">인원 수 : </span> 
-			<select v-model="joinApplyPeople">
-			<%-- <c:forEach var="i" begin="1" end="2"> --%>
-				<option>1</option>
-				<option>2</option>
-				<option>3</option>
+			<span style="color: black; font-size: 11px; margin-right: 3px;">인원 수 : </span> 
+			<select v-model="joinApplyPeople">			
+				<option v-for="num in joinPeople">{{num}}</option>
 			</select>
 		</div>
 		<div class="row mt-2">
 			<textarea placeholder="나와 동반자를 표현하는 글을 작성해보세요" v-model="joinApplyInfo"></textarea>
+		</div>
+		<div class="row" style="font-size: 9px; text-align: left;">
+			<span><i class="fa-solid fa-circle-exclamation"></i> 신청 후 조인수락이되면, 방장님과 회원님간의 핸드폰번호가 서로 공개됩니다.</span>
+			<span><i class="fa-solid fa-circle-exclamation"></i> 조인서비스는 자유 공간입니다.이용 중 발생하는 사고에 대해 어떠한 법적 책임도 지지 않습니다.</span>
 		</div>
 		<div class="row mt-4">
 			<div class="col text-center">
@@ -317,7 +332,7 @@ textarea {
 				})
 				.then(resp=>{
 					//완성 시
-					window.alert("신청이 완료되었습니다.");
+					window.alert("신청이 완료되었습니다.\n승인을 기다려주세요.");
 					$(".modal").hide();
 				});
 			},

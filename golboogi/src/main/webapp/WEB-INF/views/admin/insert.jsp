@@ -2,16 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-<section class="hero-wrap-custom" style="background-color:black;">
-	<div class="container">
-		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 250px;">
-			<div class="col-md-9 ftco-animate pb-5 text-center">
-			</div>
-		</div>
-	</div>
-</section>
+<jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
 
 <div class="container-fluid" id="app">
 	<!-- jumbotron -->
@@ -54,11 +45,12 @@
 		<div class="row mt-3">
 			<div class="col col-md-3 offset-md-3">
 				<label class="form-label">골프장 번호</label>
-				<input type="number" class="form-control rounded" name="fieldNo" v-bind:class="numClassObject"
-					v-model="golfManager.golfManagerNum" v-on:input="golfManager.golfManagerNum = $event.target.value"
-					v-on:blur="numValidation">
-				<div class="valid-feedback">골프장 번호가 정확합니다.</div>
-				<div class="invalid-feedback">골프장 번호를 정확히 입력해주세요.</div>
+				<select name="fieldNo">
+					<c:forEach var="golfFieldDto" items="${golfFieldDto }">
+						<option selected>골프장 선택</option>
+						<option value="${golfFieldDto.fieldNo}">${golfFieldDto.fieldName }</option>
+					</c:forEach>
+				</select>
 			</div>
 		</div>
 
@@ -100,13 +92,13 @@
 					get pwCheckValid() {
 						return this.golfManagerPw == this.golfManagerPwCheck;
 					},
-					get numValid() {
-						const regex = /^(\d){1,}$/;
-						return regex.test(this.golfManagerNum);
-					},
+// 					get numValid() {
+// 						const regex = /^(\d){1,}$/;
+// 						return regex.test(this.golfManagerNum);
+// 					},
 					
 					get allValid(){
-	                    return this.idValid && this.pwValid && this.pwCheckValid && this.numValid;
+	                    return this.idValid && this.pwValid && this.pwCheckValid /*&& this.numValid*/;
 	                },
 
 				},
@@ -123,10 +115,10 @@
 					'is-valid': false,
 					'is-invalid': false,
 				},
-				numClassObject: {
-					'is-valid': false,
-					'is-invalid': false,
-				},
+// 				numClassObject: {
+// 					'is-valid': false,
+// 					'is-invalid': false,
+// 				},
 				
 			};
 		},
@@ -149,10 +141,10 @@
 				this.pwCheckClassObject["is-valid"] = this.golfManager.pwCheckValid
 				this.pwCheckClassObject["is-invalid"] = !this.golfManager.pwCheckValid;
 			},
-			numValidation() {
-				this.numClassObject["is-valid"] = this.golfManager.numValid;
-				this.numClassObject["is-invalid"] = !this.golfManager.numValid;
-			},
+// 			numValidation() {
+// 				this.numClassObject["is-valid"] = this.golfManager.numValid;
+// 				this.numClassObject["is-invalid"] = !this.golfManager.numValid;
+// 			},
 			sendForm(e){
                 if(this.golfManager.allValid == false){
                     e.preventDefault();
@@ -167,4 +159,4 @@
 
 
 
-<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>

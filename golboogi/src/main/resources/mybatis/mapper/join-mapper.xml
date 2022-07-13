@@ -29,7 +29,7 @@
 		select * from(
 				select rownum rn, TMP.* from (
 					select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,
-				join_time,member_nick,join_info,join_status,course_name from 
+				join_time,member_nick,join_info,join_status,course_name,member_id from 
 		    join J 
 		        inner join member M on M.member_id = J.member_id
 		        inner join booking B on J.booking_no = B.booking_no
@@ -39,7 +39,7 @@
 		       	<if test="type != null and keyword != null">
 					<![CDATA[ where instr(${type}, #{keyword}) > 0 	]]>
 				</if>
-				) TMP
+				order by join_no desc) TMP
 		)where rn between #{begin} and #{end}
 	</select>
 	
@@ -71,6 +71,16 @@
 	<update id="addJoinPeople" parameterType="Map">
 		update join set join_people = join_people-#{joinApplyPeople} where join_no=#{joinNo}
 	</update>
+	
+	
+	<select id="sequence" resultType="int">
+		select join_seq.nextval from dual
+	</select>
+	
+	<insert id="insert" parameterType="JoinDto">
+		insert into join(join_no,booking_no,member_id,join_info,join_people)
+		values(#{joinNo},#{bookingNo},#{memberId},#{joinInfo},#{joinPeople})
+	</insert>
 </mapper> 
 
 

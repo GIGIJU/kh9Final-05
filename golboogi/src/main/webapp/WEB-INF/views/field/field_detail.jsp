@@ -4,16 +4,16 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+
 <head>
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
 
 <!-- css 파일 추가 -->
 <link rel="stylesheet" href="${root}/css/master.css">
 
 <!-- Link Swiper's CSS -->
-<link rel="stylesheet"
-	href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+	
 <style>
 html, body {
 	position: relative;
@@ -54,17 +54,22 @@ body {
 }
 
 .swiper-slide img {
-	display: block;
-	width: 100%;
-	height: 100%;
+	display: inline-block;
+	width: 100%;  
+ 	height: 100%; 
+ 	max-height: 873px; 
+	max-width: 700px;
 	object-fit: cover;
 }
+.golf_field_info > ul li{
+	font: 2em;
+}
+
 </style>
 </head>
+
 <body>
-
 	<!-- END nav -->
-
 	<section class="hero-wrap hero-wrap-2"
 		style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
@@ -74,8 +79,8 @@ body {
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<h1 class="mb-0 bread">골프장</h1>
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="index.html"></i></a></span> <span>골프장
-							정보 여기에 다 모였다</i>
+						<span class="mr-2"><a href="index.html"></a></span> <span>골프장
+							정보 여기에 다 모였다
 						</span>
 					</p>
 				</div>
@@ -92,17 +97,23 @@ body {
 				<div class="swiper-button-prev"></div>
 				<div class="swiper mySwiper round_swiper">
 					<div class="swiper-wrapper">
-						<div class="swiper-slide">Slide 1</div>
-						<div class="swiper-slide">Slide 2</div>
-						<div class="swiper-slide">Slide 3</div>
-						<!-- <div class="swiper-slide">Slide 4</div>
-                        <div class="swiper-slide">Slide 5</div>
-                        <div class="swiper-slide">Slide 6</div>
-                        <div class="swiper-slide">Slide 7</div>
-                        <div class="swiper-slide">Slide 8</div> -->
+						<c:choose>
+							<c:when test="${empty list}">
+								<div class="swiper-slide">
+									<img src="${root}${profileUrl}">
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="list" items="${list}">
+									<div class="swiper-slide">
+										<img src="${root}${profileUrl}${list.attachmentNo}">
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
-
-					<!-- <div class="swiper-pagination"></div> -->
+					
+<!-- 					<div class="swiper-pagination"></div> -->
 				</div>
 
 				<!-- Swiper JS -->
@@ -124,7 +135,7 @@ body {
                 });
                 </script>
 			</div>
-
+			
 			<h1>
 				골프장 정보
 				<h1>
@@ -137,7 +148,7 @@ body {
 						<div class="golf_field_info_content">
 							<div class="golf_field_score">
 								<div class="golf_field_score_content">
-									<h1>내장객 평균 별점</h1>
+									<h1>골프장 평점</h1>
 									<c:if test="${rating == null}">
 										<p>x</p>
 									</c:if>
