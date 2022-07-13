@@ -1,4 +1,4 @@
-.place_container{background: #fff; padding: 50px 0;}
+.place_container{background: rgba(0, 0, 0, 0.01); padding: 50px 0;}
 .place_content{margin: auto 10%;}
 .place_photo_tit{position: relative; text-align: center; font-weight: bold;}
 .place_photo_tit::after{display: block; position: absolute; left: calc(50%); bottom: -10px; transform: translateX(-16px); content: ""; width: 34px; height: 4px; background: #000;}
