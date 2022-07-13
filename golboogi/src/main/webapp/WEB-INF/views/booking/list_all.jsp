@@ -44,7 +44,6 @@
 											<div class="icon">
 												<i class="fa-solid fa-location-dot"></i>
 											</div>
-
 											<select class="form-control" v-model="area" v-bind:name="checkFieldArea">
 												<option value="">지역선택</option>
 												<option value="경기">경기</option>
@@ -112,14 +111,28 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</form>
 	</section>
 
-
+	
 	<section class="ftco-section">
-		<div class="container">
+		<div class="container">	
+			<div class="row mb-3">
+				<div class="col text-right">
+				<form action="list_all" method="get">
+					<input type="hidden" name="p" value="1">
+					<input type="hidden" name="s" value="9">
+					<select name="type"style="height: 30px; width:80px; font-size: 12px;">
+						<option selected>정렬</option>
+						<option value="field_greenfee"<c:if test="${type == 'field_greenfee'}">selected</c:if>>저렴한순</option>
+						<option value="field_no"<c:if test="${type == 'field_no'}">selected</c:if>>최신순</option>
+						<option value="field_prepay"<c:if test="${type == 'field_prepay'}">selected</c:if>>선결제</option>
+					</select>
+					<button class="btn">검색</button>
+				</form>
+				</div>
+			</div>
 			<div class="row">
 				<c:forEach var="golfFieldDto" items="${list}">
 					<div class="col-md-4 ftco-animate">
@@ -145,20 +158,20 @@
 						</div>
 					</div>
 				</c:forEach>
-				</div>
+			</div>
 		</div>
 	</section>
 	
 	
 			<!-- 페이지네이션 -->
-			<div class="row mt-5 mb-5">
+			<div class="row mb-5">
 				<div class="col text-center">
 					<div class="block-27">
 						<ul>
 							<c:if test="${p > 1}">
 								<c:choose>
-									<c:when test="${search}">
-										<li><a href="list_all?p=1&s=${s}&type=${type}&keyword=${keyword}" class="link">&laquo;</a></li>
+									<c:when test="${range}">
+										<li><a href="list_all?p=1&s=${s}&type=${type}" class="link">&laquo;</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=1&s=${s}" class="link">&laquo;</a></li>
@@ -167,8 +180,8 @@
 							</c:if>
 							<c:if test="${startBlock > 1}">
 								<c:choose>
-									<c:when test="${search}">
-										<li><a href="list_all?p=${startBlock-1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&lt;</a></li>
+									<c:when test="${range}">
+										<li><a href="list_all?p=${startBlock-1}&s=${s}&type=${type}" class="link">&lt;</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${startBlock-1}&s=${s}" class="link">&lt;</a></li>
@@ -177,8 +190,8 @@
 							</c:if>
 							<c:forEach var="i" begin="${startBlock}" end="${endBlock}" step="1">
 								<c:choose>
-									<c:when test="${search}">
-										<li><a href="list_all?p=${i}&s=${s}&type=${type}&keyword=${keyword}" class="link">${i}</a></li>
+									<c:when test="${range}">
+										<li><a href="list_all?p=${i}&s=${s}&type=${type}" class="link">${i}</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${i}&s=${s}" class="link">${i}</a></li>
@@ -188,8 +201,8 @@
 							<!-- 다음 버튼 영역 -->
 							<c:if test="${endBlock < lastPage}">
 								<c:choose>
-									<c:when test="${search}">
-										<li><a href="list_all?p=${endBlock+1}&s=${s}&type=${type}&keyword=${keyword}" class="link">&gt;</a></li>
+									<c:when test="${range}">
+										<li><a href="list_all?p=${endBlock+1}&s=${s}&type=${type}" class="link">&gt;</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${endBlock+1}&s=${s}" class="link">&gt;</a></li>
@@ -198,8 +211,8 @@
 							</c:if>
 							<c:if test="${p < lastPage}">
 								<c:choose>
-									<c:when test="${search}">
-										<li><a href="list_all?p=${lastPage}&s=${s}&type=${type}&keyword=${keyword}" class="link">&raquo;</a></li>
+									<c:when test="${range}">
+										<li><a href="list_all?p=${lastPage}&s=${s}&type=${type}" class="link">&raquo;</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${lastPage}&s=${s}" class="link">&raquo;</a></li>

@@ -22,7 +22,7 @@
 			<h5 style="font-weight: bold;">예약이 완료되었습니다</h5>
 			<img src="https://image.smartscore.kr/pc4/img_illust_03.svg">
 			<br><br>
-			<a href="#" class="btn">내 예약 현황 보기</a>
+			<a href="my_booking" class="btn">내 예약 현황 보기</a>
 	</div>
 </div>
  

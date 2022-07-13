@@ -38,7 +38,21 @@
 	<select id="check" parameterType="Map" resultType="BookingDto">
 		select * from booking where tee_time_no=#{teeTimeNo} and tee_time_d=#{teeTimeD} and booking_status='예약완료'
 	</select>	
+
+	<select id="myBookingList" parameterType="String" resultType="MyBookingListVO">
+		select member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
+		booking_price,booking_status,booking_drop_able,booking_no,field_prepay from
+    booking B 
+        inner join tee_time T on B.tee_time_no = T.tee_time_no
+        inner join golf_course C on T.course_no = C.course_no
+        inner join golf_field G on G.field_no = C.field_no where member_id= #{memberId}
+        order by booking_no desc
+	</select>
 	
+	<update id="cancel" parameterType="int">
+		update booking set booking_status='예약취소',booking_people=null where booking_no = #{bookingNo} 
+	</update>
+									
 	<select id="reservation" parameterType="String" resultType="BookingDto">
 		select * from booking where member_id = #{memberId}
 		order by booking_no desc

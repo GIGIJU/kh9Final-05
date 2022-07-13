@@ -65,9 +65,9 @@
 			(
 			select * from golf_course C inner join 
 			(
-			select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date from tee_time T 
+			select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date,B.booking_people from tee_time T 
 			left outer join (select * from booking where tee_time_d= to_date(#{teeTimeD},'YYYY-MM-DD')) B 
-			on T.tee_time_no = B.tee_time_no where B.booking_date is null
+			on T.tee_time_no = B.tee_time_no where booking_people is null
 			) B on B.course_no = C.course_no 
 			) B on B.field_no = G.field_no 
 	 		<where>
@@ -115,6 +115,29 @@
 		<![CDATA[select * from (select * from golf_field where field_greenfee <= 150000 order by field_greenfee) where rownum <=3]]>
 	</select>
 	
+	<!-- 골프부킹 전체리스트 -->
+	<select id="listAll" resultType="GolfFieldDto" parameterType="Map">
+	 select * from(
+		select rownum rn, TMP.* from (
+            select * from golf_field 
+	        <if test ="type != null">
+	        	<if test="type == 'field_prepay'">
+					order by field_prepay desc
+	        	</if>
+	        	<if test="type == 'field_greenfee'">
+					order by field_greenfee
+	        	</if>
+	        	<if test="type == 'field_no'">
+	        		order by field_no
+	        	</if>
+			</if>
+			) TMP
+		)where rn between #{begin} and #{end}	
+    </select> 
+    
+    <select id="countAll" resultType="int">
+      select count(*) from golf_field
+   </select>
 	
 	<!-- 골프장 정보 입력을 위한 시퀀스 조회 @이기주 -->
 	<select id="sequence" resultType="int">
@@ -144,13 +167,7 @@
 	<select id="searchSimple" resultType="GolfFieldDto">
 		select field_no, field_name from golf_field
 	</select>
-	
-	
-	
-	
-	
-	
-	
+
 </mapper> 
 
 
