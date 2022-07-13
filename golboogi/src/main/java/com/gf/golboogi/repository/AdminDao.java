@@ -24,6 +24,8 @@ public interface AdminDao {
 
 	GolfManagerDto login(String golfManagerId, String golfManagerPw);
 
+	void insertManager(AdminVO adminVO);
+
  
 
 

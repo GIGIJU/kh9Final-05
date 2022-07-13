@@ -93,6 +93,11 @@
 		order by review_no desc
 	</select>
 	
+	<select id="ratingView" resultType="double" parameterType="String">
+		select avg(review_rating) from review
+		where 
+			field_name = #{fieldName}
+	</select>
 </mapper> 
 
 

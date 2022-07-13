@@ -2207,7 +2207,7 @@ textarea.form-control {
       -o-transition: none;
       transition: none; } }
   .btn:hover {
-    color: #212529;
+    color: #bdc3c7;
     text-decoration: none; }
   .btn:focus, .btn.focus {
     outline: 0;

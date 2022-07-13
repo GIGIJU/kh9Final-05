@@ -57,8 +57,6 @@
 	        <input type="number" name="fieldGreenfee"   class="form-input input-round" autocomplete="off" style="padding: 10px 14px 10px 14px;">
 	    </div>
 	    
-	    
-	    
 	    <div class="row">
 	        <label>개장일</label><br>
 	        <input type="date" name="fieldOpenday"   class="form-input input-round" autocomplete="off" style="padding: 10px 14px 10px 14px;">
@@ -83,7 +81,7 @@
 	    <div class="row">
 	        <button type="submit" class="btn btn-primary fill join_btn" style="display: block; margin: 30px auto; padding: 10px 14px 10px 14px; width: 50%; border-radius: 7px; color: #fff; text-decoration: none; text-align: center; border: 1px solid #23aed2;  background: #23aed2;">회원가입</button>
 	    </div>
-	</div>
+	    </div>
 </form>
 
 

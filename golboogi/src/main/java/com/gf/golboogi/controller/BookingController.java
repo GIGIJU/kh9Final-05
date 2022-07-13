@@ -25,6 +25,7 @@ import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
+import com.gf.golboogi.vo.MyBookingListVO;
 
 @Controller
 @RequestMapping("/booking")
@@ -53,18 +54,17 @@ public class BookingController {
 	@GetMapping("/list_all")
 	public String listAll(
 			@RequestParam(required = false) String type,
-			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "9") int s,
 			Model model) {
 		
-			List<GolfFieldDto> list = golfFieldDao.list(type, keyword, p, s);
+			List<GolfFieldDto> list = golfFieldDao.listAll(type, p, s);
 			model.addAttribute("list", list);
 			
-			boolean search = type != null && keyword != null;
-			model.addAttribute("search", search);
+			boolean range = type != null;
+			model.addAttribute("range", range);
 			 
-			int count = golfFieldDao.count(type, keyword);
+			int count = golfFieldDao.countAll();
 			int lastPage = (count + s - 1) / s;
 			
 			int blockSize = 10;//블록 크기
@@ -77,7 +77,6 @@ public class BookingController {
 			model.addAttribute("p", p);
 			model.addAttribute("s", s);
 			model.addAttribute("type", type);
-			model.addAttribute("keyword", keyword);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
 			model.addAttribute("lastPage", lastPage);			
@@ -92,7 +91,7 @@ public class BookingController {
 		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeList",teetimeList);
 		
-		return "booking/detail2";
+		return "booking/detail";
 	}
 	
 	@GetMapping("/test")
@@ -167,6 +166,19 @@ public class BookingController {
 		return "booking/reservation_success";
 	}
 	
+	@GetMapping("/cancel/{bookingNo}")
+	public String cancelBooking(@PathVariable int bookingNo){
+		bookingDao.cancel(bookingNo);
+		
+		return "redirect:/booking/my_booking";
+	}
 	
-	
+	@GetMapping("/my_booking")
+	public String myBooking(Model model,HttpSession session) {
+		String memberId = (String) session.getAttribute("login");
+		List<MyBookingListVO> list = bookingDao.myBookingList(memberId);
+		model.addAttribute("list",list);
+		
+		return "booking/my_booking";
+	}
 }

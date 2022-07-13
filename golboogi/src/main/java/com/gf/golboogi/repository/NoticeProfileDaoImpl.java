@@ -1,14 +1,11 @@
 package com.gf.golboogi.repository;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
-import com.gf.golboogi.entity.AttachmentDto;
 
 @Repository
 public class NoticeProfileDaoImpl implements NoticeProfileDao{
@@ -34,11 +31,5 @@ public class NoticeProfileDaoImpl implements NoticeProfileDao{
 		}
 	}
 
-	@Override
-	public List<AttachmentDto> readList() {
-		List<AttachmentDto> attachList = sqlSession.selectList("noticeProfile.profileList");
-		return attachList;
-	}
-	
 	
 }
