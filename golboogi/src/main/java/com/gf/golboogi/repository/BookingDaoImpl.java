@@ -45,15 +45,18 @@ public class BookingDaoImpl implements BookingDao{
 		if(count<1) {
 			//에러페이지
 		}
+	}
 
 	// 회원 예약 정보 가져오기
 	@Override
 	public List<BookingDto> info(String memberId) {
 		return sqlSession.selectList("booking.reservation",memberId);
-
 	}
-	
-	
-	
+
+	//예약 단일 조회
+	@Override
+	public BookingDto info(int bookingNo) {
+		return sqlSession.selectOne("booking.info",bookingNo);
+	}
 	
 }

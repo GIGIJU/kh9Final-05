@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gf.golboogi.entity.JoinDto;
 import com.gf.golboogi.repository.JoinDao;
 import com.gf.golboogi.vo.JoinListVO;
+import com.gf.golboogi.vo.MyJoinListVO;
 
 @Controller
 @RequestMapping("/join")
@@ -66,8 +68,36 @@ public class JoinController {
 		String memberId = (String) session.getAttribute("login");
 		joinDto.setMemberId(memberId);
 		
-		System.out.println("joinDto====="+joinDto);
 		joinDao.insert(joinDto);
 		return "redirect:/join/list";
 	}
+	
+	@GetMapping("/my_join")
+	public String myJoin(HttpSession session, Model model) {
+		String memberId = (String) session.getAttribute("login");
+		List<MyJoinListVO> list = joinDao.myJoinList(memberId);
+		
+		model.addAttribute("list", list);
+		return "join/my_join";
+	}
+	
+	//조인 신청 승인
+	@GetMapping("/apply_approve/joinApplyNo/{joinApplyNo}/joinApplyPeople/{joinApplyPeople}")
+	public String joinApplyApprove(@PathVariable int joinApplyNo,@PathVariable int joinApplyPeople) {
+		int joinNo = joinDao.getjoinNo(joinApplyNo);
+		
+		joinDao.addjoinPeople(joinApplyPeople,joinNo);
+		joinDao.joinApplyApprove(joinApplyNo);
+		
+		return "redirect:/join/my_join";
+	}
+	
+	//조인 신청 거절
+	@GetMapping("/apply_refuse/{joinApplyNo}")
+	public String joinApplyRefuse(@PathVariable int joinApplyNo) {
+		joinDao.joinApplyRefuse(joinApplyNo);
+		return "redirect:/join/my_join";
+	}
+	
+	
 }

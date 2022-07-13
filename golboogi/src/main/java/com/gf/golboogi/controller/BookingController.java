@@ -94,12 +94,6 @@ public class BookingController {
 		return "booking/detail";
 	}
 	
-	@GetMapping("/test")
-	public String test(Model model) {
-		model.addAttribute("list",golfFieldDao.teeTimeDayList());
-		return "booking/search_list";
-	}
-	
 	
 	@GetMapping("/reservation")
 	public String reservation(
@@ -166,9 +160,13 @@ public class BookingController {
 		return "booking/reservation_success";
 	}
 	
-	@GetMapping("/cancel/{bookingNo}")
-	public String cancelBooking(@PathVariable int bookingNo){
+	@GetMapping("/cancel")
+	public String cancelBooking(@RequestParam int bookingNo,@RequestParam String fieldName){
 		bookingDao.cancel(bookingNo);
+		
+		BookingDto bookingDto = bookingDao.info(bookingNo);
+		int commission = bookingDto.getBookingPrice()/10;
+		golfFieldDao.minusCommission(fieldName,commission);
 		
 		return "redirect:/booking/my_booking";
 	}

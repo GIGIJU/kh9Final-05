@@ -10,6 +10,7 @@ public interface BookingDao {
 	BookingDto checkBooking(int teeTimeNo, String teeTimeD);
 	List<MyBookingListVO> myBookingList(String memberId);
 	void cancel(int bookingNo);
+	BookingDto info(int bookingNo);
 
 	//회원 예약 정보 불러오기
 	List<BookingDto> info(String memberId);

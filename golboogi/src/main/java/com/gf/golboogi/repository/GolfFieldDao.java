@@ -7,7 +7,6 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
-import com.gf.golboogi.vo.GolfFieldBookingVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
@@ -19,7 +18,6 @@ public interface GolfFieldDao {
 	List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO);
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
-	List<GolfFieldBookingVO> teeTimeDayList();
 	void addCommission(int fieldNo, int commission);
 	List<BookingSearchListVO> selectRank();
 	List<GolfFieldDto> selectPrepay();
@@ -28,6 +26,7 @@ public interface GolfFieldDao {
 	int count(String type, String keyword);
 	List<GolfFieldDto> listAll(String type, int page, int size);
 	int countAll();
+	void minusCommission(String fieldName, int commission);
 	
 	// 골프장 정보 입력 페이지(=골프장 등록) @이기주
 	void insert(GolfFieldDto golfFieldDto);
