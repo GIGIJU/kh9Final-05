@@ -31,6 +31,7 @@ import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.MemberProfileDao;
 import com.gf.golboogi.service.MailService;
 import com.gf.golboogi.service.MemberService;
+import com.gf.golboogi.vo.MemberProfileVO;
 
 
 @Controller
@@ -153,7 +154,7 @@ public class MemberController {
 		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
 		int attachmentNo = memberProfileDao.info(memberId);
 		if(attachmentNo == 0) {
-			model.addAttribute("profileUrl", "/image/user.png");
+			model.addAttribute("profileUrl", "/images/user.png");
 		}
 		else {
 			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
@@ -347,6 +348,7 @@ public class MemberController {
 		return "member/changeInfo";
 	}
 	
+	//내예약 
 	@GetMapping("/myreservation")
 	public String myreservation(HttpSession session,Model model) {
 		String memberId = (String)session.getAttribute("login");
@@ -356,7 +358,15 @@ public class MemberController {
 	}
 	
 	@GetMapping("/memberProfile")
-	public String memberProfile() {
+	public String memberProfile(HttpSession session,Model model) {
+		String memberId = (String) session.getAttribute("login");
+		int attachmentNo = memberProfileDao.info(memberId);
+		if(attachmentNo == 0) {
+			model.addAttribute("profileUrl", "/images/user.png");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+		}
 		return "member/memberProfile";
 	}
 	
