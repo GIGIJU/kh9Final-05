@@ -35,6 +35,7 @@
    		<form action="memberProfile" method="post" enctype="multipart/form-data">
 	       	<!-- 프로필 이미지 -->
 			<div class="mt-3" align="center">
+				<span>바꿀 프로필</span>
 				<input type="file" name="memberProfile" class="form-control">
 			</div>
 			<br><br><br>
