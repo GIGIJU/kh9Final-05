@@ -20,4 +20,7 @@ public class MyBookingListVO {
 	private String bookingStatus;
 	private Date bookingDropAble;
 	private int fieldPrepay;
+	private int fieldCartfee;
+	private int fieldCaddiefee;
+	private Date bookingDate;
 }

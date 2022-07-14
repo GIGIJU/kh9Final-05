@@ -109,14 +109,21 @@ textarea {
 			<div class="text-center"><h2 class="mb-5" style="font-size: 25px; font-weight: bold;">나의 예약 내역</h2></div>		
 				<ul class="comment-list">
 					<c:forEach var="myBookingListVO" items="${list}">
-						<a href="#">
+						<a href="mybooking_detail/${myBookingListVO.bookingNo}">
 						<li class="comment mb-4">	
 							<div class="row">
 								<div class="col-md-5 text-left ml-4">
 									<span class="b12" style="font-weight: bold; font-size: 15px;">${myBookingListVO.fieldName}</span><br>
 								</div>
 								<div class="col-md-6 ml-3 text-right">
-									<span style="font-size:13px; color: red;">${myBookingListVO.bookingStatus}</span>
+								<c:choose>
+									<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
+										<span style="color: #27ae60; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									</c:when>
+									<c:otherwise>
+										<span style="color: #e74c3c; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									</c:otherwise>
+								</c:choose>
 								</div>
 							</div>
 							<hr>

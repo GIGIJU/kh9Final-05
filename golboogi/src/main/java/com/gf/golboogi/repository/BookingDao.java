@@ -14,4 +14,6 @@ public interface BookingDao {
 
 	//회원 예약 정보 불러오기
 	List<BookingDto> info(String memberId);
+	//예약 현황 상세 정보
+	MyBookingListVO myBookingInfo(int bookingNo);
 }

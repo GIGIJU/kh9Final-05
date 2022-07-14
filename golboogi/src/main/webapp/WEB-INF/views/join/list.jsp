@@ -140,7 +140,7 @@ textarea {
 			 	<c:forEach var="joinListVO" items="${list}">
 				 	<tr class="show-detail">
 				 		<fmt:parseDate var="teeTimeD"  value="${joinListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
-					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
+					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd(E)"/></td>
 				 		<td>${joinListVO.teeTimeT}</td>
 				 		<td>${joinListVO.fieldArea}</td>
 				 		<td>${joinListVO.fieldName}</td>

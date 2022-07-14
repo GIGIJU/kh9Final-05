@@ -72,14 +72,15 @@ public class JoinController {
 		return "redirect:/join/list";
 	}
 	
-	@GetMapping("/my_join")
+	@GetMapping("/myjoin")
 	public String myJoin(HttpSession session, Model model) {
 		String memberId = (String) session.getAttribute("login");
 		List<MyJoinListVO> list = joinDao.myJoinList(memberId);
 		
 		model.addAttribute("list", list);
-		return "join/my_join";
+		return "join/myjoin";
 	}
+
 	
 	//조인 신청 승인
 	@GetMapping("/apply_approve/joinApplyNo/{joinApplyNo}/joinApplyPeople/{joinApplyPeople}")

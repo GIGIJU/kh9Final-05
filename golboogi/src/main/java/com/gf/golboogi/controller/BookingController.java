@@ -26,6 +26,7 @@ import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 import com.gf.golboogi.vo.MyBookingListVO;
+import com.gf.golboogi.vo.MyJoinListVO;
 
 @Controller
 @RequestMapping("/booking")
@@ -168,15 +169,27 @@ public class BookingController {
 		int commission = bookingDto.getBookingPrice()/10;
 		golfFieldDao.minusCommission(fieldName,commission);
 		
-		return "redirect:/booking/my_booking";
+		return "redirect:/booking/mybooking";
 	}
 	
-	@GetMapping("/my_booking")
+	@GetMapping("/mybooking")
 	public String myBooking(Model model,HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
 		List<MyBookingListVO> list = bookingDao.myBookingList(memberId);
 		model.addAttribute("list",list);
 		
-		return "booking/my_booking";
+		return "booking/mybooking";
+	}
+	
+	@GetMapping("/mybooking_detail/{bookingNo}")
+	public String myBookingDetail(@PathVariable int bookingNo, Model model) {
+		MyBookingListVO myBookingListVO = bookingDao.myBookingInfo(bookingNo);
+		MemberDto memberDto = memberDao.info(myBookingListVO.getMemberId());
+		BookingDto bookingDto = bookingDao.info(bookingNo);
+		
+		model.addAttribute("myBookingListVO", myBookingListVO);
+		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("bookingDto", bookingDto);
+		return "booking/mybooking_detail";
 	}
 }
