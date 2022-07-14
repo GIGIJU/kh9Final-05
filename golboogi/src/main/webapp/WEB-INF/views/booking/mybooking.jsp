@@ -109,14 +109,21 @@ textarea {
 			<div class="text-center"><h2 class="mb-5" style="font-size: 25px; font-weight: bold;">나의 예약 내역</h2></div>		
 				<ul class="comment-list">
 					<c:forEach var="myBookingListVO" items="${list}">
-						<a href="#">
+						<a href="mybooking_detail/${myBookingListVO.bookingNo}">
 						<li class="comment mb-4">	
 							<div class="row">
 								<div class="col-md-5 text-left ml-4">
 									<span class="b12" style="font-weight: bold; font-size: 15px;">${myBookingListVO.fieldName}</span><br>
 								</div>
 								<div class="col-md-6 ml-3 text-right">
-									<span style="font-size:13px; color: red;">${myBookingListVO.bookingStatus}</span>
+								<c:choose>
+									<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
+										<span style="color: #27ae60; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									</c:when>
+									<c:otherwise>
+										<span style="color: #e74c3c; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									</c:otherwise>
+								</c:choose>
 								</div>
 							</div>
 							<hr>
@@ -138,7 +145,7 @@ textarea {
 								<c:if test="${myBookingListVO.bookingStatus != '예약취소'}">
 								<div class="col-md-4 ml-5 text-right">
 										<button class="btn mb-2" @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
-										<button class="btn" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo})">예약취소</button>
+										<button class="btn" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo},'${myBookingListVO.fieldName}')">예약취소</button>
 										<button class="btn" v-else style="background-color: gray; cursor: default;" disabled>취소불가</button><br><br>
 										<c:if test="${myBookingListVO.fieldPrepay==0}"><span class="prepay mr-2">현장결제</span></c:if>
 										<span class="b12" style="font-size: 14px;"><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</span>
@@ -220,9 +227,9 @@ textarea {
         	hiddenModal(){
         		$(".modal").hide();
         	},
-        	cancelBooking(bookingNo){
-        		if(confirm("정말로 예약 취소 하시겠습니까?")){
-	        		window.location.href="${root}/booking/cancel/"+bookingNo;
+        	cancelBooking(bookingNo,fieldName){
+         		if(confirm("정말로 예약 취소 하시겠습니까?")){
+	        		window.location.href="${root}/booking/cancel?bookingNo="+bookingNo+"&fieldName="+fieldName;
         		}
         	},
         	bookingDrop(Date){

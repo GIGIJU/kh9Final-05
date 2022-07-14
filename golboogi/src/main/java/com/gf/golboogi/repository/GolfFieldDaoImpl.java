@@ -12,7 +12,6 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
-import com.gf.golboogi.vo.GolfFieldBookingVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
@@ -100,12 +99,6 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		else {
 			return list;
 		}
-	}
-
-	//날짜별 예약가능 골프장 목록 (계층형)
-//	@Override
-	public List<GolfFieldBookingVO> teeTimeDayList() {
-		return sqlSession.selectList("teetime.treeSearch");
 	}
 	
 	//날짜별 예약가능 골프장 목록 (계층형X)
@@ -199,6 +192,19 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	@Override
 	public List<GolfFieldDto> searchSimple() {
 		return sqlSession.selectList("golfField.searchSimple");
+	}
+
+	//예약 취소 시 수수료 빼기
+	@Override
+	public void minusCommission(String fieldName, int commission) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("fieldName", fieldName);
+		param.put("commission", commission);
+		
+		int count = sqlSession.update("golfField.minusCommission",param);
+		if(count<0) {
+			System.err.println("에러페이지");
+		}
 	}
 
 }

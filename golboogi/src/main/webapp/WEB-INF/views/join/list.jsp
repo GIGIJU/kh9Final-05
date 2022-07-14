@@ -140,11 +140,14 @@ textarea {
 			 	<c:forEach var="joinListVO" items="${list}">
 				 	<tr class="show-detail">
 				 		<fmt:parseDate var="teeTimeD"  value="${joinListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
-					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
+					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd(E)"/></td>
 				 		<td>${joinListVO.teeTimeT}</td>
 				 		<td>${joinListVO.fieldArea}</td>
 				 		<td>${joinListVO.fieldName}</td>
-				 		<td>${joinListVO.joinPeople}명</td>
+				 		<c:choose>
+				 			<c:when test="${joinListVO.joinPeople==0}"><td>-</td></c:when>
+				 			<c:otherwise><td>${joinListVO.joinPeople}명</td></c:otherwise>
+				 		</c:choose>
 				 		<td><fmt:formatNumber value="${joinListVO.bookingPrice}" />원</td>
 				 		<fmt:parseDate var="teeTimeD"  value="${joinListVO.joinTime}" pattern="yyyy-MM-dd"/>
 					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
@@ -169,14 +172,9 @@ textarea {
 			 				</c:forEach>
 						</td>
 						<td style="text-align: center;">
-						<c:choose>
-							<c:when test="${joinListVO.memberId != memberId}">
+							<c:if test="${joinListVO.memberId != memberId && joinListVO.joinStatus==0}">
 								<button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">신청하기</button>							
-							</c:when>
-							<c:otherwise>
-								<button class="btn" style="padding: 2px 2px 2px 2px; font-size: 10px;" @click="showModal(${joinListVO.joinNo},${joinListVO.joinPeople})">수정하기</button>
-							</c:otherwise>
-						</c:choose>
+							</c:if>
 						 </td>
 			 		</tr>
 			 	</c:forEach>
