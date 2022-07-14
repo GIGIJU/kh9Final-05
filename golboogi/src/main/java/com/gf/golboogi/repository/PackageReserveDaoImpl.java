@@ -12,9 +12,9 @@ public class PackageReserveDaoImpl implements PackageReserveDao{
 	
 	@Override
 	public void reserve(PackageReserveDto packageReserveDto) {
-		int sequence = sqlSession.selectOne("packageReserve.sequence");
-		packageReserveDto.setPackageBookingNo(sequence);
-		sqlSession.insert("packageReserve.insert", packageReserveDto);
+		int packageBookingNo = sqlSession.selectOne("packageReserve.sequence");
+		packageReserveDto.setPackageBookingNo(packageBookingNo);
+		sqlSession.insert("packageReserve.reserve", packageReserveDto);
 	}
 
 	@Override

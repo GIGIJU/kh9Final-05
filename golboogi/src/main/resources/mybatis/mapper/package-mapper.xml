@@ -91,10 +91,6 @@
 	</resultMap>
 	
 	
-	
-	
-	
-	
 	 <!-- 패키지 지역별 검색-->
 <!-- 			<select id="searchLocal" resultMap="localListResultMap"> -->
 <!-- 				A.field_no -->
@@ -160,16 +156,16 @@
 			on F.field_no = P.field_no
           <where>
           and P.package_no is not null
-          <if test="stayLocal !=null">
+          <if test="stayLocal !='' and null">
           	AND S.stay_local = #{stayLocal}
           </if>
-          <if test="packageDepart !=null">
+          <if test="packageDepart !='' and null">
           AND P.package_depart = #{packageDepart}
           </if>
           <if test="stayPrice> 0">
           	<![CDATA[
           AND S.stay_price <= #{stayPrice}
-          	]]>
+           	]]> 
           </if>
           </where>
 <!--        		<choose> -->

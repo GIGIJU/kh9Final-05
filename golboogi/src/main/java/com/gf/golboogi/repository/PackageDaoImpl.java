@@ -49,8 +49,9 @@ public class PackageDaoImpl implements PackageDao {
 	}
 
 	@Override
-	public List<PackageVO> list(String stayPrice, String stayLocal, Date packageDepart) {
+	public List<PackageVO> list(String stayPrice, String stayLocal, String packageDepart) {
 		Map<String, Object> param = new HashMap<>();
+		
 		param.put("stayPrice",stayPrice);
 		param.put("stayLocal",stayLocal);
 		param.put("packageDepart",packageDepart);

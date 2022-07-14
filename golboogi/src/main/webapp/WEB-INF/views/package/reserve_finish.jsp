@@ -175,7 +175,7 @@
       </div>
       </div>
             <div class="row justify-content-center mt-3 mb-3">
-         <a href="/ " class="btn" style="width:50%;font-size: large ">예약내역 확인하기</a>
+         <a href="${root}/package/reserve_list" class="btn" style="width:50%;font-size: large ">예약내역 확인하기</a>
          </div>
             <div class="row justify-content-center mt-2mb-3">
          <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>

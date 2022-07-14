@@ -16,7 +16,7 @@ public interface PackageDao {
 	
 	List<PackageVO> list();
 	PackageVO one(int packageNo);
-	List<PackageVO> list(String stayPrice, String stayLocal, Date packageDepart);
+	List<PackageVO> list(String stayPrice, String stayLocal, String packageDepart);
 	
 	
 }
