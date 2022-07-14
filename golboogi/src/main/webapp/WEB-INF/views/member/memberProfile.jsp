@@ -11,7 +11,7 @@
 					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span class="mr-2"><a href="${root}/member/memberProfile">MemberProfile <i class="fa fa-chevron-right"></i></a></span>
 				</p>
-				<p class="mb-0" style="font-size: 17px">MemberProfile</p>
+				<p class="mb-0" style="font-size: 17px">프로필 변경</p>
 			</div>
 		</div>
 	</div>
@@ -27,8 +27,11 @@
         <div class="mt-3 col-12">
             <h2 id="memberProfile">프로필 변경</h2>
         </div>
-        <br>
-	        
+        <br><br>
+        <div class="mt-3" align="center">
+        	<img src="${pageContext.request.contextPath}${profileUrl}" width="300px;" class="img img-circle img-shadow">
+        </div>
+	    <br>    
    		<form action="memberProfile" method="post" enctype="multipart/form-data">
 	       	<!-- 프로필 이미지 -->
 			<div class="mt-3" align="center">

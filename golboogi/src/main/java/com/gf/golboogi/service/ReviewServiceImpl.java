@@ -37,6 +37,7 @@ public class ReviewServiceImpl implements ReviewService{
 
 	@Override
 	public void changeProfile(int reviewNo, MultipartFile reviewProfile) throws IllegalStateException, IOException {
+		
 		int findNo = reviewProfileDao.read(reviewNo);
 		if(findNo == 0) {
 			int attachmentNo = attachmentDao.save(reviewProfile);
@@ -45,5 +46,6 @@ public class ReviewServiceImpl implements ReviewService{
 			attachmentDao.update(reviewNo,reviewProfile);
 		}
 	}
+		
 
 }

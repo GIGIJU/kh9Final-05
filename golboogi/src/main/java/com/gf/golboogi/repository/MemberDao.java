@@ -1,6 +1,7 @@
 package com.gf.golboogi.repository;
 
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.vo.MemberProfileVO;
 
 public interface MemberDao {
 
@@ -25,6 +26,5 @@ public interface MemberDao {
 	MemberDto selectNick(String memberNick);
 
 	MemberDto selectPhone(String memberPhone);
-
 
 }

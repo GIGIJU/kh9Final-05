@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.vo.MemberProfileVO;
 
 @Repository
 public class MemberDaoImpl implements MemberDao{
@@ -113,5 +114,5 @@ public class MemberDaoImpl implements MemberDao{
 	public MemberDto selectPhone(String memberPhone) {
 		return sqlSession.selectOne("member.selectPhone",memberPhone);
 	}
-	
+
 }

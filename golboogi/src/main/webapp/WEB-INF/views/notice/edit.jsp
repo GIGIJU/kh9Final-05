@@ -28,7 +28,7 @@
 		<form method="post">
 			<div class="mt-3">
 			<h3><label>Notice Head : </label></h3>
-				<select name="noticeHead" class="form-control">
+				<select name="noticeProfileListVO" class="form-control">
 					<c:if test="${noticeDto.noticeHead != null}">
 						<option value=""  <c:if test="${noticeDto.noticeHead == null}">selected</c:if>>선택</option>
 						<option  <c:if test="${noticeDto.noticeHead == '이벤트'}">selected</c:if>>이벤트</option>
