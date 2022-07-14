@@ -27,12 +27,11 @@ public class StayController {
 	@Autowired
 	private StayDao stayDao;
 	
-//	@Autowired
-//	private StayService stayService;
+	@Autowired
+	private StayService stayService;
 	
 	@Autowired
 	private PackageDao packageDao;
-	
 	
 	@Autowired
 	private GolfFieldDao golfFieldDao;
@@ -73,12 +72,13 @@ public class StayController {
 	
 	@PostMapping("/insert")
 	public String insert(
-			@ModelAttribute StayDto stayDto
+			@ModelAttribute StayDto stayDto,
+			@RequestParam MultipartFile stayProfile
 			) throws IllegalStateException, IOException {
-		stayDao.insert(stayDto);
 		
-//		model.addAttribute("stayDto", stayDto);
-		return "stay/list";
+		stayService.insert(stayDto, stayProfile);
+		
+		return "redirect:/stay/list";
 		
 	}
 	

@@ -16,4 +16,8 @@ public class JoinListVO {
 	private int bookingPrice;
 	private String joinTime;
 	private String memberNick;
+	private String joinInfo;
+	private int joinStatus;
+	private String courseName;
+	private String memberId;
 }

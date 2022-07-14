@@ -121,8 +121,11 @@
 
 	<section class="ftco-section">
 		<div class="container">
-			<div class="row">
-				<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">인기골프장</h4></div>
+			<div class="row mb-3">
+				<div class="col-md-6 text-left"><h4 style="font-weight: bold;">인기골프장</h4></div>
+				<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
+				<a href="list_all" style="font-size: 12px; color: gray;">더보기 ></a>
+				</div>
 			</div>
 			<div class="row">
 				<c:forEach var="golfFieldDto" items="${rank}">
@@ -141,7 +144,7 @@
 										<c:if test="${golfFieldDto.fieldPrepay==1}"> <span class="prepay" style="font-size: 8px;">선결제</span></c:if>
 									</div>
 								</div>
-								<h3><a href="#">${golfFieldDto.fieldName}</a></h3>
+								<h3>${golfFieldDto.fieldName}</h3>
 								<p class="location">
 									<span class="fa fa-map-marker"> ${golfFieldDto.fieldArea}</span>
 								</p>
@@ -150,8 +153,11 @@
 					</div>
 				</c:forEach>
 				</div>
-				<div class="row mt-3">
-					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">선결제골프장</h4></div>
+				<div class="row mb-3">
+					<div class="col-md-6 text-left"><h4 style="font-weight: bold;">선결제 골프장</h4></div>
+					<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
+					<a href="list_all?type=feild_prepay" style="font-size: 12px; color: gray;">더보기 ></a>
+					</div>
 				</div>
 					<div class="row">
 					<c:forEach var="golfFieldDto" items="${prepay}">
@@ -179,8 +185,11 @@
 					</div>
 				</c:forEach>
 			</div>
-				<div class="row mt-3">
-					<div class="col-md-4 mb-3"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
+				<div class="row mb-3">
+					<div class="col-md-6 text-left"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
+					<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
+					<a href="list_all?type=feild_greenfee" style="font-size: 12px; color: gray;">더보기 ></a>
+					</div>
 				</div>
 					<div class="row">
 					<c:forEach var="golfFieldDto" items="${cheap}">

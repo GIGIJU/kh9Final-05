@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.repository.PackageDao;
 import com.gf.golboogi.repository.PackageReserveDao;
 import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
@@ -52,6 +53,10 @@ public class PayController {
 	@Autowired
 	private PaymentDao paymentDao;
 	
+	
+	@Autowired
+	private PackageDao packageDao;
+	
 	@Autowired
 	private PackageReserveDao packageReserveDao;
 	
@@ -59,16 +64,17 @@ public class PayController {
 //	private PaymentService paymentService;
 	
     @GetMapping("package/package_purchase")
-    public void pay1Get() {
-        
+		public String pay1Get() {
+			return"package/package_purchase";
+
     }
 	
 	@PostMapping("package/package_purchase")
 	public String pay1Purchase(
-				//@RequestParam int no, @RequestParam int quantity
+				@RequestParam int packageBookingNo, //@RequestParam int quantity
 				@ModelAttribute PurchaseVO purchaseVO, HttpSession session
 			) throws URISyntaxException {
-		
+		PackageReserveDto packageOne = packageReserveDao.one(packageBookingNo);
 		PackageReserveDto packageReserveDto = packageReserveDao.one(purchaseVO.getNo());
 		//상품이 없다면 결제가 진행되지 않도록 처리
 				if(packageReserveDto == null) {
@@ -132,6 +138,8 @@ public class PayController {
 		PaymentDto paymentDto = PaymentDto.builder()
 														.paymentNo(paymentNo)
 														.paymentTid(responseVO.getTid())
+														.paymentTotal(responseVO.getAmount().getTotal())
+														.paymentTime(responseVO.getCreated_at())
 														.paymentName(responseVO.getItem_name())
 														.paymentTotal(responseVO.getAmount().getTotal())
 													.build();
@@ -139,11 +147,11 @@ public class PayController {
 		
 		//purchaseList에 들어있는 상품 번호와 상품 수량을 토대로 상세 정보를 등록
 		for(PurchaseVO purchaseVO : purchaseList) {
-			StayDto stayDto = stayDao.one(purchaseVO.getNo());
+		 PackageReserveDto packageReserveDto = packageReserveDao.one(purchaseVO.getNo());
 			PaymentDetailDto paymentDetailDto = PaymentDetailDto.builder()
 																	.paymentNo(paymentNo)
-																	.paymentDetailName(stayDto.getStayName())
-																	.paymentDetailPrice(stayDto.getStayPrice())
+																	.paymentDetailName(packageReserveDto.getMemberId())
+																	.paymentDetailPrice(packageReserveDto.getPackageTotalPrice())
 																	.paymentDetailQuantity(purchaseVO.getQuantity())
 																.build();
 			paymentDao.insertPaymentDetail(paymentDetailDto);

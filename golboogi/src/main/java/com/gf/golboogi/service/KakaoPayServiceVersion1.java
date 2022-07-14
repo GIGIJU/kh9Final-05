@@ -60,9 +60,9 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 
 //		String prefix = ServletUriComponentsBuilder
 //													.fromCurrentContextPath()
-//													.path("/payment")
+//													.path("/pay")
 //													.toUriString();
-		String prefix = "http://localhost:8080/golboogi/payment";
+		String prefix = "http://localhost:8080/golboogi/pay";
 		body.add("approval_url", prefix+"/approve");
 		body.add("cancel_url", prefix+"/cancel");
 		body.add("fail_url", prefix+"/fail");
@@ -75,9 +75,9 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 				template.postForObject(uri, entity, KakaoPayReadyResponseVO.class);
 		
 		//테스트용 로그
-		log.debug("tid = {}", responseVO.getTid());
-		log.debug("partner_order_id = {}", requestVO.getPartner_order_id());
-		log.debug("partner_user_id = {}", requestVO.getPartner_user_id());
+//		log.debug("tid = {}", responseVO.getTid());
+//		log.debug("partner_order_id = {}", requestVO.getPartner_order_id());
+//		log.debug("partner_user_id = {}", requestVO.getPartner_user_id());
 		
 		return responseVO;
 	}

@@ -3,6 +3,7 @@ package com.gf.golboogi.controller;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.Format;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -14,14 +15,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.CertDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.AttachmentDao;
+import com.gf.golboogi.repository.BookingDao;
 import com.gf.golboogi.repository.CertDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.MemberProfileDao;
@@ -50,6 +54,9 @@ public class MemberController {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private BookingDao bookingDao;
 	
 	@GetMapping("/join")
 	public String join() {
@@ -91,7 +98,11 @@ public class MemberController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(
+			@RequestHeader(value="Referer", defaultValue = "/") String referer,
+			Model model
+			) {
+		model.addAttribute("referer", referer);
 		return "member/login";
 	}
 	
@@ -99,6 +110,7 @@ public class MemberController {
 	public String login(
 			@RequestParam String memberId,
 			@RequestParam String memberPw,
+			@RequestParam String referer,
 			HttpSession session) {
 		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
@@ -111,7 +123,7 @@ public class MemberController {
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
 			session.setAttribute("auth", memberDto.getMemberGrade());
-			return "redirect:/";
+			return "redirect:" + referer;
 		}
 		
 	}
@@ -333,5 +345,26 @@ public class MemberController {
 	@GetMapping("/changeInfo")
 	public String changeInfo() {
 		return "member/changeInfo";
+	}
+	
+	@GetMapping("/myreservation")
+	public String myreservation(HttpSession session,Model model) {
+		String memberId = (String)session.getAttribute("login");
+		List<BookingDto> list = bookingDao.info(memberId);
+		model.addAttribute("list",list);
+		return "member/myreservation";
+	}
+	
+	@GetMapping("/memberProfile")
+	public String memberProfile() {
+		return "member/memberProfile";
+	}
+	
+	@PostMapping("/memberProfile")
+	public String memberProfile(HttpSession session,
+			@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
+		String memberId = (String)session.getAttribute("login");
+		memberService.changeProfile(memberId, memberProfile);
+		return "redirect:mypage";
 	}
 }

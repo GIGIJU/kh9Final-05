@@ -1,11 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set var="check1" value="${reviewDto.reviewNo}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-<section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('${root}/images/bg_1.jpg');"></section>
-<br><br>
+<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
+	<div class="container">
+		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
+			<div class="col-md-9 ftco-animate pb-5 text-center">
+				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span>
+					<span class="mr-2"><a href="${root}/review/detail/${reviewDto.reviewNo}">detail <i class="fa fa-chevron-right"></i></a></span>
+				</p>
+				<p class="mb-0" style="font-size: 17px">${reviewDto.reviewNo}번 후기 게시글</p>
+			</div>
+		</div>
+	</div>
+</section>	
+<br><br><br><br>
 <style>
 	.table{
 		border: 1px solid black;
@@ -30,6 +44,9 @@
 	} 
 	#check{
 		display: none;
+	}
+	#move{
+		text-align:center;
 	}
 	
 </style>
@@ -56,7 +73,7 @@
 						</c:choose>
 					</th>
 					<th>장성일 : ${reviewDto.reviewTime}</th>
-					<th colspan="2" align="center">조회수/추천 : ${reviewDto.reviewReadcount}/추천</th>
+					<th colspan="2" id="move">(조회수,추천) : ${reviewDto.reviewReadcount}/추천</th>
 				</tr>
 				<tr>
 					<th>개인평점 : ${reviewDto.reviewRating}</th>
@@ -68,8 +85,17 @@
 			</thead>
 			<tbody>
 				<tr height="250">
-					<td valign="top" colspan="5" align="left">
-						${reviewDto.reviewContent}
+					<td valign="top" colspan="5" align="center">
+						<c:if test="${attachmentNo != 0}">
+							<br>
+							<div class="mt-3">
+								<img src="${pageContext.request.contextPath}${profileUrl}" id="reviewImage">
+							</div>
+							<br><br>
+						</c:if>
+						<div class="mt-3" align="left">
+							${reviewDto.reviewContent}
+						</div>
 					</td>
 				</tr>
 				<tr>
@@ -143,8 +169,14 @@
 <!-- otherlist -->
 <div class="container">
 	<div class="mt-3">
-		<h3>[${reviewDto.fieldName}] 후기 목록</h3>
+		<h3>[${reviewDto.fieldName}]</h3>
 	</div>
+	
+	<!-- 골프장별 평점 -->
+	<div class="mt-3">
+		<h3>평점 : <fmt:formatNumber value="${rating}" pattern="#.#"></fmt:formatNumber></h3>
+	</div>
+	
 	<div class="mt-3">
 		<table class="table table table-bordered">
 			<thead>
@@ -323,7 +355,6 @@ const app = Vue.createApp({
         		this.loadReply();
         	});
         },
-       
     },
     //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
     watch:{

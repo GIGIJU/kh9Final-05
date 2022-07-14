@@ -22,4 +22,7 @@ public interface ReviewDao {
 
 	List<ReviewDto> otherview(String fieldName);
 
+	Double ratingView(String fieldName);
+
+
 }

@@ -14,4 +14,5 @@ public class TeeTimeListVO {
 	private String teeTimeT;
 	private int partTime;
 	private int teeTimeNo;
+	private int bookingPeople;
 }

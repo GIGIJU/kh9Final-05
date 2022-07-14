@@ -1,0 +1,53 @@
+/*포토리뷰 영역*/
+*{margin: 0; padding: 0;}
+.photo_review_container{margin: auto 10%;}
+.photo_review_container ul{margin-top: 30px; padding: 0; list-style: none;}
+.photo_review_container .review_content{display: flex;}
+.review_content .review_user_photo{margin-right: 30px;}
+.review_content .review_user_photo span{display: inline-block; width: 80px; height: 80px; background: pink; border-radius: 50%;}
+.photo_review_container .review_user_comment{line-height: 24px;}
+.photo_review_container .review_user_comment .user_review_rating a{color: #FF5A03; font-weight: bold; font-size: 0.9em; text-decoration: none;}
+.photo_review_container .review_user_comment .user_review_rating a span{margin-left: 10px; color: #ccc; font-weight: 100; font-size: 0.8em; }
+.photo_review_container .review_content .review_user_comment_name_con .user_review_name span{color: #3297B7; font-weight: bold; letter-spacing: 2.0px;}
+.photo_review_container .review_user_comment .review_user_comment_name_con{display: flex;}
+.photo_review_container .review_user_comment .review_user_comment_name_con .user_review_con{margin-left: 15px;}
+.photo_review_container .review_user_comment .review_user_comment_name_con .user_review_con p{color: #7C7C7C;}
+.photo_review_container .review_user_comment .user_review_time span{font-size: 0.95em; color: #7C7C7C;}
+.photo_review_container .review_user_comment_time_read_count{display: flex;}
+.photo_review_container .review_user_comment_time_read_count div:nth-child(2){margin-left: 5px;}
+.photo_review_container .review_user_comment_time_read_count div:nth-child(3){margin-left: 5px; color: #7c7c7c; font-size: 0.95em;}
+
+/*xeicon에서 임시로 가져온 */
+.photo_review_container .review_user_comment_time_read_count .user_review_read_icon{display: list-item;}
+
+/*회원가입 영역*/
+.join_form_container{margin: 30px 0; line-height: 35px;}
+.join_form_container input[type="text"]{padding: 10px 110px 10px 14px; }
+.join_form_container input[type="tel"]{padding: 10px 110px 10px 14px; }
+.join_form_container input[type="number"]{padding: 10px 14px 10px 14px;}
+.join_form_container input[type="date"]{padding: 10px 14px 10px 14px;}
+.join_form_container input[type="file"]{padding: 14px 14px 11px 14px; }
+.join_form_container input{width: 100%; height: 51px; border: 1px solid #dadada;}
+.join_form_container input:focus{outline: none; border: 1px solid #23aed2;}
+.join_form_container .address_search{display: flex;}
+.join_form_container .address_search .address_search_btn{display: flex; justify-content: center; align-items: center; border-radius: 7px; margin-left: 10px; color: #fff; text-decoration: none; text-align: center;  border: 1px solid #23aed2; background: #23aed2;}
+.join_form_container select{padding: 10px 14px 10px 14px; width: 100%; height: 51px; border: 1px solid #dadada;}
+.join_form_container select:focus{outline: none; border: 1px solid #23aed2;}
+.join_form_container .join_btn{display: block; margin: 30px auto; padding: 10px 14px 10px 14px; width: 50%; border-radius: 7px; color: #fff; text-decoration: none; text-align: center; border: 1px solid #23aed2;  background: #23aed2;}
+
+
+/*숙소정보등록*/
+.stay_info_sign_up_container{margin: 30px 0; line-height: 35px;}
+.stay_info_sign_up_container{margin: 30px 0; line-height: 35px;}
+.stay_info_sign_up_container input[type="text"]{padding: 10px 110px 10px 14px; }
+.stay_info_sign_up_container input[type="tel"]{padding: 10px 110px 10px 14px; }
+.stay_info_sign_up_container input[type="number"]{padding: 10px 14px 10px 14px;}
+.stay_info_sign_up_container input[type="date"]{padding: 10px 14px 10px 14px;}
+.stay_info_sign_up_container input[type="file"]{padding: 14px 14px 11px 14px; }
+.stay_info_sign_up_container input{width: 100%; height: 51px; border: 1px solid #dadada;}
+.stay_info_sign_up_container input:focus{outline: none; border: 1px solid #23aed2;}
+.stay_info_sign_up_container .address_search{display: flex;}
+.stay_info_sign_up_container .address_search .address_search_btn{display: flex; justify-content: center; align-items: center; width: 20%; border-radius: 7px; margin-left: 10px; color: #fff; text-decoration: none; text-align: center;  border: 1px solid #23aed2; background: #23aed2;}
+.stay_info_sign_up_container select{padding: 10px 14px 10px 14px; width: 100%; height: 51px; border: 1px solid #dadada;}
+.stay_info_sign_up_container select:focus{outline: none; border: 1px solid #23aed2;}
+.stay_info_sign_up_container .stay_btn{display: block; margin: 30px auto; padding: 10px 14px 10px 14px; width: 50%; border-radius: 7px; color: #fff; text-decoration: none; text-align: center; border: 1px solid #23aed2;  background: #23aed2;}

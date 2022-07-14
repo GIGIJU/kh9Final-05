@@ -1,6 +1,9 @@
 package com.gf.golboogi.repository;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,17 @@ public class PackageDaoImpl implements PackageDao {
 	public PackageVO one(int packageNo) {
 		return sqlSession.selectOne("package.one",packageNo);
 	}
+
+	@Override
+	public List<PackageVO> list(String stayPrice, String stayLocal, Date packageDepart) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("stayPrice",stayPrice);
+		param.put("stayLocal",stayLocal);
+		param.put("packageDepart",packageDepart);
+		
+		return sqlSession.selectList("package.list", param);
+	}
+
 
 
 	

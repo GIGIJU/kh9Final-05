@@ -38,4 +38,5 @@
 	<select id="one" parameterType="String" resultType="Integer">
 		select attachment_no from member_profile where member_id = #{memberId}
 	</select>
+	
 </mapper> 

@@ -1,0 +1,48 @@
+.place_container{background: rgba(0, 0, 0, 0.01); padding: 50px 0;}
+.place_content{margin: auto 10%;}
+.place_photo_tit{position: relative; text-align: center; font-weight: bold;}
+.place_photo_tit::after{display: block; position: absolute; left: calc(50%); bottom: -10px; transform: translateX(-16px); content: ""; width: 34px; height: 4px; background: #000;}
+
+/*swiper css*/
+.place_container .swiper-wrapper{margin-top: 30px;}
+.place_swiper_container{position: relative; height: 500px;}
+.place_swiper_container .swiper-button-next{position: absolute; top: 50%; right: -40px;}
+.place_swiper_container .swiper-button-next::after{font-size: 20px; font-weight: bold; color: #000;}
+.place_swiper_container .swiper-button-prev{position: absolute; top: 50%; left: -40px;}
+.place_swiper_container .swiper-button-prev::after{font-size: 20px; font-weight: bold; color: #000;}
+
+.place_swiper_container  .round_swiper{width: 100%; height: 100%;}
+/*골프장 평균 스코어*/
+.golf_field_info_content{display: flex; justify-content: space-between; align-items: center; margin-top: 50px;}
+.golf_field_info_content .golf_field_score{display: flex; flex-direction: column; align-items: center; justify-content: center; width: 300px; height: 300px; border-radius: 100%; background: #fff; box-shadow: 0 0 20px 0 rgb(0 0 0 / 5%); text-align: center; word-break: break-all; position: relative;}
+.golf_field_info_content .golf_field_info{width: 60%;}
+.golf_field_info_content .golf_field_score h1{font-size: 1.3em;}
+.golf_field_info_content .golf_field_score p{font-size: 2.3em; color: #23aed2; font-weight: bold; letter-spacing: 3.6px; line-height: 0;}
+.golf_field_info_content .golf_field_score span{color: #7f7f7f;}
+
+@media screen and (max-width: 890px){
+    .golf_field_info_content .golf_field_score{width: 200px; height: 200px;}
+}
+
+@media screen and (max-width: 615px){
+    .golf_field_info_content .golf_field_score{width: 150px; height: 150px;
+    }
+    .golf_field_info_content .golf_field_score h1{font-size: 0.8em;}
+    .golf_field_info_content .golf_field_score p{font-size: 2em;}
+    .golf_field_info_content .golf_field_score span{font-size: 0.75em;}
+}
+
+@media screen and (max-width: 437px){
+    .golf_field_info_content .golf_field_score{width: 130px; height: 130px;}
+}
+
+@media screen and (max-width: 375px){
+    .golf_field_info_content .golf_field_score{width: 120px; height: 120px;}
+   
+}
+
+/*라운드 후기 버튼 영역*/
+.place_round_btn_container{margin-top: 50px; text-align: center;}
+.place_round_btn_container a{padding: 10px 24px; text-decoration: none; display: inline-block; cursor: pointer;}
+.place_round_btn_container a:first-child{color: #000; background: #fff; border: 2px solid #000; margin-left: 5px;}
+.place_round_btn_container a:last-child{color: #fff; background: #000; border: 2px solid #000; margin-left: 5px;}

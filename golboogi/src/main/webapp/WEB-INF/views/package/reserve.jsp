@@ -149,6 +149,12 @@
     cursor: pointer;
 }
 
+
+    <!-- 셀렉 박스 눌렀을시 placehoder 설정 -->
+        select option[value=""][disabled] {
+	        display: none;
+        }
+
 </style>
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
@@ -220,31 +226,31 @@
             <div class="item-cont">
             <h6  > 1일차  </h6>
             <div class="select-box" >
-						<select  style="width:100%">
-						    <option value="" >골프장 선택 </option>
+						<select  style="width:100%" required>
+						    <option value="" disabled selected >골프장 선택 </option>
       					<option >${packageVo.fieldDto.fieldName}</option>
       					</select>
-      						<select  style="width:100%">
-						    <option value="" >희망타임 선택 </option>
-      					<option >새벽</option>
-      					<option >오전</option>
-      					<option >오후</option>
-      					<option >야간</option> 					
+      						<select  style="width:100%" required>
+						    <option value="" disabled selected>희망타임 선택 </option>
+      					<option value="1" >새벽</option>
+      					<option value="2">오전</option>
+      					<option value="3">오후</option>
+      					<option value="4">야간</option> 					
       					</select>
           </div>
                  <br>
             <h6 > 2일차  </h6>
             <div class="select-box" >
-						<select  style="width:100%">
-						    <option value="" >골프장 선택 </option>
+						<select  style="width:100%"  required>
+						    <option value=""  disabled selected >골프장 선택 </option>
       					<option >${packageVo.fieldDto.fieldName}</option>
       					</select>
       						<select  style="width:100%">
-						    <option value="" >희망타임 선택 </option>
-      					 <option >새벽</option>
-      					<option >오전</option>
-      					<option >오후</option>
-      					<option >야간</option>
+						    <option value=""  disabled selected >희망타임 선택 </option>
+      					 <option value="1"  >새벽</option>
+      					<option value="2" >오전</option>
+      					<option value="3" >오후</option>
+      					<option value="4" >야간</option>
       					</select>
           </div>
             

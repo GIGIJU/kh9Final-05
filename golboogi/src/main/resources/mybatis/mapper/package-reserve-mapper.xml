@@ -32,10 +32,10 @@
 	
 		<insert id="reserve" parameterType="PackageReserveDto">
 		insert into package_reserve(
-		package_booking_no, booking_no, package_no, member_id, package_total_price, package_status
+		package_booking_no,  package_no, member_id, package_total_price, package_status
 		)
 		values(
-		#{packageBookingNo}, #{bookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, #{packageStatus}
+		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, #{packageStatus}
 		)
 	</insert>										
 	

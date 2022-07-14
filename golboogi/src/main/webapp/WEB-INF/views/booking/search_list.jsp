@@ -23,15 +23,15 @@
 					teeTimeD : "${param.teeTimeD}"
 			};
 			if("${param.fieldArea}") {
-				data.fieldArea = "${param.fieldArea}";
+			 	data.fieldArea = "${param.fieldArea}";
 			}
-			if("${param.PartTime}") {
-				data.PartTime = parseInt("${param.PartTime}");
+			if("${param.partTime}") {
+				data.PartTime = parseInt("${param.partTime}");
 			}
 			if("${param.fieldGreenfee}") {
 				data.fieldGreenfee = parseInt("${param.fieldGreenfee}");
 			}
-			
+			console.log("data="+data);
 			$.ajax({
 				url:"${root}/rest/booking",
 				type:"post",
@@ -136,7 +136,7 @@ p {
 										</div>
 										<p>
 											<input type="hidden" name="fieldNo" value="${teetimeVO.fieldNo}">
-											<a class="reply">${teetimeVO.count}개 예약 가능시간 보기</a>
+											<a class="reply" style="cursor: pointer; background-color: black;">${teetimeVO.count}개 예약 가능시간 보기</a>
 										</p>
 									</div>
 									<div class="comment-body">
@@ -167,11 +167,15 @@ p {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script>
-        const app = Vue.createApp({
+         const app = Vue.createApp({
             data(){
                 return {
                 	teeTimeD:"${param.teeTimeD}",
                     maxDate:"",
+                    partTime:"${param.partTime}",
+                    fieldArea:"${param.fieldArea}",
+                    fieldGreenfee:"${param.fieldGreenfee}",
+                    
                 };
             },
             computed:{
@@ -199,8 +203,17 @@ p {
                     minDate: '+1D',
                     maxDate: '+60D',
                     onSelect:(dateText)=>{
-                    	location.href="http://localhost:8080/booking/search?teeTimeD="+dateText;
-                    			//if(!${param.partTime} == "") +"&partTime="+${param.partTime};
+                    	let url = "http://localhost:8080/booking/search?teeTimeD="+dateText;
+               			if(this.partTime != "") {
+               				url += "&partTime="+this.partTime;
+               			}
+               			if(this.fieldArea != ""){
+               				url += "&fieldArea="+this.fieldArea;
+               			}
+               			if(this.fieldGreenfee != ""){
+               				url += "&fieldGreenfee="+this.fieldGreenfee;
+               			}
+                    	location.href= url;
                     },
                 });
                 $("#datepicker").datepicker(); 
@@ -208,6 +221,6 @@ p {
             	this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
             }
         });
-        app.mount("#app");
+        app.mount("#app"); 
     </script>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
