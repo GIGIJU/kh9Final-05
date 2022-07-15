@@ -63,6 +63,24 @@
 		where member_id = #{memberId}
 	</update>
 	
+	<insert id="insertManager" parameterType="AdminVO">
+		insert into golf_manager(golf_manager_id, field_no, golf_manager_pw) 
+		values(#{golfManagerId}, #{fieldNo}, #{golfManagerPw})
+	</insert>
+	
+<!-- 	관리자 페이지 -> 골프장 정보 입력 -->
+	<insert id="fieldInsert" parameterType="GolfFieldDto">
+		insert into golf_field(
+		field_no, field_name, field_info, field_post, field_basic_address, field_detail_address, 
+		field_phone, field_caddiefee, field_cartfee, field_greenfee, 
+		field_openday, field_prepay,field_area
+		)
+		values (
+		#{fieldNo}, #{fieldName}, #{fieldInfo},#{fieldPost},#{fieldBasicAddress},#{fieldDetailAddress},
+		#{fieldPhone}, #{fieldCaddiefee}, #{fieldCartfee}, #{fieldGreenfee}, 
+		to_date(#{fieldOpenday},'YYYY-MM-DD'), #{fieldPrepay},#{fieldArea}
+		)
+	</insert>
 	
 	
 </mapper> 

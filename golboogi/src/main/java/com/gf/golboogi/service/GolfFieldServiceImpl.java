@@ -38,6 +38,20 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 			
 		}
 	}
+
+//	@Override
+//	public void fieldInsert(GolfFieldDto golfFieldDto, List<MultipartFile> fieldProfile)
+//			throws IllegalStateException, IOException {
+//		golfFieldDao.fieldInsert(golfFieldDto);
+//		if(!fieldProfile.isEmpty()) {
+//			
+//			for(MultipartFile list : fieldProfile) {
+//				int attachmentNo = attachmentDao.save(list);
+//				fieldProfileDao.insert(golfFieldDto.getFieldNo(), attachmentNo);
+//			}
+//			
+//		}
+//	}
 	
 //	@Transactional
 //	@Override
