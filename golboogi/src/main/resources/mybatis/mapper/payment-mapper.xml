@@ -36,11 +36,11 @@
 	
 	<insert id="insert" parameterType="PaymentDto">
 		insert into payment(
-			payment_no, booking_no, package_no,  payment_tid, payment_total, payment_name, 
+			payment_no, payment_tid, payment_total, payment_name, 
 			payment_time, payment_status
 		)
 		values(
-			#{paymentNo}, #{bookingNo}, #{packageNo},#{paymentTid}, #{paymentTotal}, #{paymentName}, 
+			#{paymentNo},#{paymentTid}, #{paymentTotal}, #{paymentName}, 
 			sysdate, '승인'
 		)	
 	</insert>

@@ -167,8 +167,6 @@
     <div class="row justify-content-center">
         <div class="text-center mt-5 md-3">
     <h3  style="font-weight: bold; color: #23aed2 ">선결제를 진행하시겠습니까? </h3>
-    <h1>${packageReserveDto.packageBookingNo}</h1>
-    <h1>${packageVo.packageNo}</h1>
 </div>
 </div>
       
@@ -177,7 +175,7 @@
 <%--       <input type="hidden" name="packageNo" value="${packager.packageDto.packageNo}"> --%>
 	<input type="hidden" name="packageNo" value="${param.packageNo}">
       <input type="hidden" name="totalAmount="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
-     <input type="number" name="quantity" value="1" min="1" required>
+     <input type="hidden" name="quantity" value="1" min="1" required>
       <div class="row justify-content-center mt-5 mb-5">
       <input type="submit" value="선결제하기" >
       </div>

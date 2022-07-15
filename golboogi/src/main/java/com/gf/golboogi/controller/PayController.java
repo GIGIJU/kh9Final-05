@@ -31,6 +31,7 @@ import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.entity.PackageReserveDto;
 import com.gf.golboogi.entity.PaymentDetailDto;
 import com.gf.golboogi.service.KakaoPayService;
+import com.gf.golboogi.service.PaymentService;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
 import com.gf.golboogi.vo.KakaoPayApproveResponseVO;
 import com.gf.golboogi.vo.KakaoPayCancelRequestVO;
@@ -68,6 +69,9 @@ public class PayController {
 	
 	@Autowired
 	private PackageReserveDao packageReserveDao;
+	
+	@Autowired
+	private PaymentService paymentService;
 	
 
 	
@@ -139,14 +143,18 @@ public class PayController {
 		public String paySuccess(@RequestParam String pg_token, HttpSession session) throws URISyntaxException {
 			//세션에 추가된 정보를 받고 세션에서 삭제한다(tid, partner_order_id, partner_user_id)
 			// -> 취소 , 실패 , 성공 모두다 삭제하도록 처리
+			System.out.println("pg_token >>>" + pg_token);
 			KakaoPayApproveRequestVO requestVO = 
 										(KakaoPayApproveRequestVO) session.getAttribute("pay");
 			session.removeAttribute("pay");
+			System.out.println("requestVO >>>" + requestVO);
 
-			PurchaseVO purchase = (PurchaseVO) session.getAttribute("purchase");
+			PurchaseVO purchaseVO = (PurchaseVO) session.getAttribute("purchase");
 			session.removeAttribute("purchase");
-
+			System.out.println("purchaseVO >>>" + purchaseVO);
+  
 			int paymentNo = (int) session.getAttribute("paymentNo");
+			System.out.println("paymentNo >>>" + paymentNo);
 			session.removeAttribute("paymentNo");
 			
 			
@@ -155,26 +163,16 @@ public class PayController {
 			requestVO.setPg_token(pg_token);
 			KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
 			
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1111");
+			
+			System.out.println("responseVO >>>" + responseVO);
 		
-		//결제 승인까지 완료된 현 시점에서 결제 정보들을 DB에 저장해야 한다
-		//- PaymentDto : KakaoPayApproveResponseVO에 있는 정보로 등록이 가능
-		//- PaymentDetailDto : 추가 정보가 없다면 등록이 불가능하다
-		PaymentDto paymentDto = PaymentDto.builder()
-														.paymentNo(paymentNo)
-														.bookingNo(0)
-														.packageNo(1)
-														.paymentTid(responseVO.getTid())
-														.paymentTotal(responseVO.getAmount().getTotal())
-														.paymentTime(responseVO.getCreated_at())
-														.paymentName(responseVO.getItem_name())
-														.paymentTotal(responseVO.getAmount().getTotal())
-											
-													.build();
-		paymentDao.insertPayment(paymentDto);
+			paymentService.insert(paymentNo, responseVO, purchaseVO);
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
 		
 
-		return "redirect:/pay/finish";
-		//return "redirect:finish";
+		//return "redirect:/pay/finish";
+		return "redirect:finish";
 	}
 	
 	@GetMapping("/pay/payment")

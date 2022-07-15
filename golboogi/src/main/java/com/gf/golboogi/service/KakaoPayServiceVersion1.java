@@ -112,8 +112,25 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 
 	@Override
 	public KakaoPayCancelResponseVO cancel(KakaoPayCancelRequestVO requestVO) throws URISyntaxException {
-		// TODO Auto-generated method stub
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", authorization);
+		headers.add("Content-type", contentType);
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("cid", cid);
+		body.add("tid", requestVO.getTid());
+		body.add("cancel_amount", String.valueOf(requestVO.getCancel_amount()));
+		body.add("cancel_tax_free_amount", "0");
+		
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
+		
+		URI uri = new URI(urlPrefix + "/cancel");
+		
+		KakaoPayCancelResponseVO responseVO = 
+				template.postForObject(uri, entity, KakaoPayCancelResponseVO.class);
+		log.debug("responseVO = {}", responseVO);
+		
+		return responseVO;
 	}
 
 
