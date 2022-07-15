@@ -12,7 +12,6 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
 
-import io.swagger.models.Model;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

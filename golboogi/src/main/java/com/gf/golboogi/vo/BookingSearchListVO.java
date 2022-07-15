@@ -13,5 +13,6 @@ public class BookingSearchListVO {
 	private String fieldArea;
 	private int fieldGreenfee;
 	private int fieldPrepay;
+	private int attachmentNo;
 	private int count;
 }

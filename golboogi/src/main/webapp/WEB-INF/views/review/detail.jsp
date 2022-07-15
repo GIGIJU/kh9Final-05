@@ -52,13 +52,10 @@
 </style>
 <div class="container" id="app">
 	<div class="mt-3">
-		<h1>${reviewDto.reviewNo}번 후기글</h1>
-	</div>
-	<div class="mt-3">
 		<table class="table table table-bordered">
 			<thead>
 				<tr>
-					<th colspan="5">게시글 명 :${reviewDto.reviewTitle}</th>
+					<th colspan="5">게시글 명 : ${reviewDto.reviewTitle}</th>
 				</tr>
 				<tr >
 					<th>골프장명 : ${reviewDto.fieldName}</th>
@@ -73,7 +70,7 @@
 						</c:choose>
 					</th>
 					<th>장성일 : ${reviewDto.reviewTime}</th>
-					<th colspan="2" id="move">(조회수,추천) : ${reviewDto.reviewReadcount}/추천</th>
+					<th colspan="2" id="move">조회수 : ${reviewDto.reviewReadcount}</th>
 				</tr>
 				<tr>
 					<th>개인평점 : ${reviewDto.reviewRating}</th>
@@ -104,7 +101,8 @@
 					<a href="${root}/review/list" class="btn btn-success btn-sm">목록</a>&nbsp;
 					
 					<c:if test="${reviewDto.reviewWriter == memberId}">
-						<a href="${root}/review/edit/${reviewDto.reviewNo}" class="btn btn-success btn-sm">수정</a> &nbsp;
+						<a href="${root}/review/reviewProfile/${reviewDto.reviewNo}" class="btn btn-success btn-sm">사진수정</a>&nbsp;
+						<a href="${root}/review/edit/${reviewDto.reviewNo}" class="btn btn-success btn-sm">글 수정</a> &nbsp;
 						<a href="${root}/review/delete/${reviewDto.reviewNo}" class="btn btn-danger btn-sm">삭제</a>&nbsp;
 					</c:if>
 				</td>

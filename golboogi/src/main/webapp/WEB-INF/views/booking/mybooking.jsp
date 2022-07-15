@@ -63,6 +63,7 @@ textarea {
     text-align: left;
     font-size: 11px;
     color: black;
+    resize: none;
  }
  
  .btn-create {
@@ -87,6 +88,9 @@ textarea {
     background-color: white;
     color: gray;
 }
+.showbtn{
+	display: inline-block!important; 
+}
 </style>
 <div id="app">
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -109,22 +113,30 @@ textarea {
 			<div class="text-center"><h2 class="mb-5" style="font-size: 25px; font-weight: bold;">나의 예약 내역</h2></div>		
 				<ul class="comment-list">
 					<c:forEach var="myBookingListVO" items="${list}">
-						<a href="#">
 						<li class="comment mb-4">	
 							<div class="row">
 								<div class="col-md-5 text-left ml-4">
 									<span class="b12" style="font-weight: bold; font-size: 15px;">${myBookingListVO.fieldName}</span><br>
 								</div>
 								<div class="col-md-6 ml-3 text-right">
-									<span style="font-size:13px; color: red;">${myBookingListVO.bookingStatus}</span>
+								<c:choose>
+									<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
+										<span style="color: #27ae60; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									</c:when>
+									<c:otherwise>
+										<span style="color: #e74c3c; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									</c:otherwise>
+								</c:choose>
 								</div>
 							</div>
 							<hr>
 							<div class="row mt-3">
 								<div class="col-md-3 text-center">
+									<a href="mybooking_detail/${myBookingListVO.bookingNo}">
 									<img src="${root}/images/golf-dummy.jpg" style="height: 120px; width: 120px; 
 									<c:if test="${myBookingListVO.bookingStatus == '예약취소'}"> opacity: 0.4;
 									</c:if>	">
+									</a>
 								</div>
 								<div class="col-md-4">
 									<fmt:parseDate var="teeDate"  value="${myBookingListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
@@ -135,18 +147,20 @@ textarea {
 									<span class="b12">홀정보 : ${myBookingListVO.courseHole}</span>
 								</div>
 
-								<c:if test="${myBookingListVO.bookingStatus != '예약취소'}">
+							<c:if test="${myBookingListVO.bookingStatus != '예약취소'}"> 
 								<div class="col-md-4 ml-5 text-right">
-										<button class="btn mb-2" @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
-										<button class="btn" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo})">예약취소</button>
-										<button class="btn" v-else style="background-color: gray; cursor: default;" disabled>취소불가</button><br><br>
+										<button class="btn mb-2" :class="{'showbtn':!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')}" style="display: none;" @click="locationReview(${myBookingListVO.fieldNo})" v-if="!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')">리뷰작성</button>
+										<button class="btn mb-2" v-else @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
+										
+										<button class="btn" style="display: none;" :class="{'showbtn':bookingDrop('${myBookingListVO.bookingDropAble}')}" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo},'${myBookingListVO.fieldName}')">예약취소</button>
+										<button class="btn" v-else style="background-color: gray; cursor: default;" disabled>취소불가</button><br><br> 
 										<c:if test="${myBookingListVO.fieldPrepay==0}"><span class="prepay mr-2">현장결제</span></c:if>
 										<span class="b12" style="font-size: 14px;"><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</span>
 								</div>
-								</c:if>	
+							 </c:if>
 							</div>
 						</li>
-					</a>
+					
 					</c:forEach>
 				</ul>
 			</div>
@@ -220,13 +234,24 @@ textarea {
         	hiddenModal(){
         		$(".modal").hide();
         	},
-        	cancelBooking(bookingNo){
-        		if(confirm("정말로 예약 취소 하시겠습니까?")){
-	        		window.location.href="${root}/booking/cancel/"+bookingNo;
+        	cancelBooking(bookingNo,fieldName){
+         		if(confirm("정말로 예약 취소 하시겠습니까?")){
+	        		window.location.href="${root}/booking/cancel?bookingNo="+bookingNo+"&fieldName="+fieldName;
         		}
         	},
-        	bookingDrop(Date){
-        		return moment(Date) > moment();
+        	bookingDrop(date){
+        		return moment(date) > moment();
+        	},
+        	showJoin(date,time){
+        		teetime = moment(date).add(time,'hour').format('YYYY-MM-DD hh:mm');
+        		now = moment().format('YYYY-MM-DD hh:mm');
+        		console.log(teetime);
+        		console.log(now);
+        		console.log(moment(teetime) > moment(now));
+        		return moment(teetime) > moment(now);
+        	},
+        	locationReview(fieldNo){
+        		window.location.href="${root}/review/write?fieldNo="+fieldNo;
         	}
         },
         //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다

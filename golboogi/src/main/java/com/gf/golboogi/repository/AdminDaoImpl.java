@@ -16,9 +16,6 @@ import com.gf.golboogi.vo.AdminVO;
 public class AdminDaoImpl implements AdminDao{
 
 	@Autowired
-	private GolfFieldDao golfFieldDao;
-	
-	@Autowired
 	private SqlSession sqlSession;
 	
 	@Autowired

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.ReviewDto;
+import com.gf.golboogi.vo.ReviewProfileVO;
 
 @Repository
 public class ReviewDaoImpl implements ReviewDao{
@@ -17,7 +18,7 @@ public class ReviewDaoImpl implements ReviewDao{
 	private SqlSession sqlSession;
 
 	@Override
-	public List<ReviewDto> list(String keyword, int page, int size) {
+	public List<ReviewProfileVO> list(String keyword, int page, int size) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("keyword", keyword);
 		

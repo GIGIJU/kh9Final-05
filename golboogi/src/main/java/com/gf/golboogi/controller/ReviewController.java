@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gf.golboogi.entity.AttachmentDto;
 import com.gf.golboogi.entity.ReviewDto;
 import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.AttachmentDao;
+import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.repository.ReviewProfileDao;
 import com.gf.golboogi.service.ReviewService;
+import com.gf.golboogi.vo.ReviewProfileVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,6 +42,9 @@ public class ReviewController {
 	@Autowired
 	private ReviewProfileDao reviewProfileDao;
 	
+	@Autowired
+	private AttachmentDao attachmentDao;
+	
 	
 	@GetMapping("/list")
 	public String list(
@@ -46,8 +53,7 @@ public class ReviewController {
 			@RequestParam(required = false, defaultValue = "10") int s,
 			Model model
 			) {
-		
-		List<ReviewDto> list = reviewDao.list(keyword, p, s);
+		List<ReviewProfileVO> list = reviewDao.list(keyword, p, s);
 		model.addAttribute("list", list);
 		
 		boolean search = keyword != null;
@@ -138,16 +144,46 @@ public class ReviewController {
 	public String edit(@PathVariable int reviewNo, Model model) {
 		ReviewDto reviewDto = reviewDao.info(reviewNo);
 		model.addAttribute("reviewDto", reviewDto);
+		
 		return "review/edit";
 	}
 	
 	@PostMapping("/edit/{reviewNo}")
 	public String edit(
-			@ModelAttribute ReviewDto reviewDto,
+			@PathVariable int reviewNo,
+			@ModelAttribute ReviewDto reviewDto
+			) {
+		boolean success = reviewNo != 0;
+		if(success) {
+			reviewDto.setReviewNo(reviewNo);
+			reviewDao.edit(reviewDto);
+			return "redirect:/review/detail/{reviewNo}";
+		}else {
+			throw new CannotFindException();
+		}
+		
+	}
+	
+	@GetMapping("/reviewProfile/{reviewNo}")
+	public String reviewProfile(
+			@PathVariable int reviewNo,
+			Model model) {
+		int attachmentNo = reviewProfileDao.read(reviewNo);
+		AttachmentDto attachmentDto = attachmentDao.info(attachmentNo);
+		if(attachmentNo == 0) {
+			model.addAttribute("attachmentNo",attachmentNo);
+		}
+		else {
+			model.addAttribute("attachmentDto", attachmentDto);
+		}
+		return "review/reviewProfile";
+	}
+	
+	@PostMapping("/reviewProfile/{reviewNo}")
+	public String reviewProfile(
 			@PathVariable int reviewNo,
 			@RequestParam MultipartFile reviewProfile
-			//RedirectAttributes attr
-			) throws IllegalStateException, IOException {
+			)throws IllegalStateException, IOException {
 		boolean success = reviewNo != 0;
 		if(success) {
 			reviewService.changeProfile(reviewNo, reviewProfile);
@@ -155,7 +191,6 @@ public class ReviewController {
 		}else {
 			throw new CannotFindException();
 		}
-		
 	}
 	
 	@GetMapping("/delete/{reviewNo}")

@@ -4,70 +4,80 @@
 
 <jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
 
-<div class="container-fluid" id="app">
-	<!-- jumbotron -->
-	<div class="p-4 mt-4 text-light bg-dark col-md-6 offset-md-3 rounded">
-		<h1 style="color:white">골프장 관리자 아이디 생성</h1>
-	</div>
-	<form v-on:submit="sendForm($event)" action="insert" method="post" autocomplete="off" class="form-check" >
-
-		<div class="row mt-3">
-			<div class="col col-md-3 offset-md-3">
-				<label class="form-label">아이디</label>
-				<input type="text" class="form-control rounded" name="golfManagerId" v-bind:class="idClassObject"
-					v-model="golfManager.golfManagerId" v-on:blur="idValidation">
-				<div class="valid-feedback">멋진 아이디네요!</div>
-				<div class="invalid-feedback">아이디는 영문 소문자로 시작하며 숫자와 혼합된 8~20자로 작성하세요</div>
-			</div>
+<body id="app" class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    
+                                    <div class="card-header bg-success" style=" color:white;"><h3 class="text-center font-weight-light my-4">골프장 관리자 생성</h3></div>
+                                    
+                                    <div class="card-body">
+                                        
+                                        <form v-on:submit="sendForm($event)" action="insert" method="post" autocomplete="off" class="form-check">
+                                            
+                                            <div class="form-floating mb-5">
+                                                <input class="form-control" id="inputId" type="text" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리"
+                                                name="golfManagerId" v-bind:class="idClassObject" v-model="golfManager.golfManagerId" v-on:blur="idValidation"
+                                                 />
+                                                <label for="inputId">골프장 관리자 아이디</label>
+                                                <div class="valid-feedback">멋진 아이디네요!</div>
+												<div class="invalid-feedback">아이디는 영문 소문자로 시작하며 숫자와 혼합된 8~20자로 작성하세요</div>
+                                            </div>
+                                            
+                                            <div class="row mb-5">
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputPassword" type="password" placeholder="영문 소문자와 숫자가 혼합된 8자리" 
+                                                        name="golfManagerPw" v-bind:class="pwClassObject" v-model="golfManager.golfManagerPw" v-on:blur="pwValidation"/>
+                                                        <label for="inputPassword">비밀번호</label>
+                                                        <div class="valid-feedback">안전한 비밀번호입니다</div>
+														<div class="invalid-feedback">비밀번호는 영문 소문자,숫자 반드시 1개 이상 포함되어야 합니다</div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <div class="form-floating mb-3 mb-md-0">
+                                                        <input class="form-control" id="inputPasswordConfirm" type="password" placeholder="영문 소문자와 숫자가 혼합된 8자리" 
+                                                        v-bind:class="pwCheckClassObject" v-model="golfManager.golfManagerPwCheck" v-on:blur="pwCheckValidation"/>
+                                                        <label for="inputPasswordConfirm">비밀번호 확인</label>
+                                                        <div class="valid-feedback">비밀번호가 일치합니다</div>
+														<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>	
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-floating mb-5">
+                                            	<select name="fieldNo" class="form-select" size="3" aria-label="size 3 select example" style="height:400px;">
+                                            		<c:forEach var="golfFieldDto" items="${golfFieldDto}">
+                                            			<option value="${golfFieldDto.fieldNo}">${golfFieldDto.fieldName}</option>
+                                            		</c:forEach>
+                                            	</select>
+                                            </div>
+                                            
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid">
+                                                	<input type="submit" class="btn btn-primary" value="관리자 등록">
+                                                </div>
+                                            </div>
+                                            
+                                        </form>
+                                        
+                                    </div>
+                                    <div class="card-footer text-center py-3">
+                                        <div class="small"><a href="${root}/field/insert">골프장 생성하기</a></div>
+                                        <div class="small">※골프장을 먼저 생성해야 계정을 등록할 수 있습니다.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
 		</div>
-
-		<div class="row mt-3">
-			<div class="col col-md-3 offset-md-3">
-				<label class="form-label">비밀번호</label>
-				<input type="password" class="form-control rounded" name="golfManagerPw" v-bind:class="pwClassObject"
-					v-model="golfManager.golfManagerPw" v-on:blur="pwValidation">
-				<div class="valid-feedback">안전한 비밀번호입니다</div>
-				<div class="invalid-feedback">비밀번호는 영문 소문자,숫자 반드시 1개 이상 포함되어야 합니다</div>
-			</div>
-		</div>
-
-		<div class="row mt-3">
-			<div class="col col-md-3 offset-md-3">
-				<label class="form-label">비밀번호 확인</label>
-				<input type="password" class="form-control rounded" 
-					v-bind:class="pwCheckClassObject" v-model="golfManager.golfManagerPwCheck"
-					v-on:blur="pwCheckValidation">
-				<div class="valid-feedback">비밀번호가 일치합니다</div>
-				<div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
-			</div>
-		</div>
-
-		<div class="row mt-3">
-			<div class="col col-md-3 offset-md-3">
-				<label class="form-label">골프장 번호</label>
-				<select name="fieldNo">
-					<c:forEach var="golfFieldDto" items="${golfFieldDto }">
-						<option selected>골프장 선택</option>
-						<option value="${golfFieldDto.fieldNo}">${golfFieldDto.fieldName }</option>
-					</c:forEach>
-				</select>
-			</div>
-		</div>
-
-		<br>
-		<div class="row mt-3">
-			<div class="col col-md-2 offset-md-3">
-				<button type="submit" class="btn btn-primary">아이디 생성</button>
-			</div>
-			<div class="col col-md-2 ml-4">
-				<a href="${root}/admin/list" class="btn btn-secondary">돌아가기</a>
-			</div>
-		</div>
-		<br>
-
-	</form>
-
-</div>
+</body>
 
 <script src="https://unpkg.com/vue@next"></script>
 <script>
@@ -80,7 +90,7 @@
 					golfManagerId: "",
 					golfManagerPw: "",
 					golfManagerPwCheck: "",
-					golfManagerNum: "",
+// 					golfManagerNum: "",
 					get idValid() {
 						const regex = /^[a-z][a-z0-9]{7,19}$/;
 						return regex.test(this.golfManagerId);

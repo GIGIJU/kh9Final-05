@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class MyBookingListVO {
 	private String memberId;
 	private String bookingNo;
+	private int fieldNo;
 	private String fieldName;
 	private String teeTimeD;
 	private String teeTimeT;
@@ -20,4 +21,7 @@ public class MyBookingListVO {
 	private String bookingStatus;
 	private Date bookingDropAble;
 	private int fieldPrepay;
+	private int fieldCartfee;
+	private int fieldCaddiefee;
+	private Date bookingDate;
 }

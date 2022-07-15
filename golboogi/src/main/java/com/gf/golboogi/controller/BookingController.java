@@ -19,13 +19,16 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.repository.BookingDao;
+import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
+import com.gf.golboogi.vo.FieldProfileVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 import com.gf.golboogi.vo.MyBookingListVO;
+import com.gf.golboogi.vo.MyJoinListVO;
 
 @Controller
 @RequestMapping("/booking")
@@ -37,6 +40,9 @@ public class BookingController {
 	private BookingDao bookingDao;
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private FieldProfileDao fieldProfileDao;
+	
 	
 	
 	@GetMapping("/list")
@@ -53,12 +59,13 @@ public class BookingController {
 	
 	@GetMapping("/list_all")
 	public String listAll(
+			@RequestParam(required = false) String fieldArea,
 			@RequestParam(required = false) String type,
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "9") int s,
 			Model model) {
 		
-			List<GolfFieldDto> list = golfFieldDao.listAll(type, p, s);
+			List<BookingSearchListVO> list = golfFieldDao.listAll(fieldArea,type, p, s);
 			model.addAttribute("list", list);
 			
 			boolean range = type != null;
@@ -87,17 +94,21 @@ public class BookingController {
 	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 		List<TeeTimeListVO> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
+		model.addAttribute("golfFieldDto",golfFieldDto); //골프장 정보
+		model.addAttribute("teetimeList",teetimeList); //예약 정보
 		
-		model.addAttribute("golfFieldDto",golfFieldDto);
-		model.addAttribute("teetimeList",teetimeList);
+
+		//골프장 이미지 다운로드 주소 추가 
+		List<FieldProfileVO> list = fieldProfileDao.multiInfo(fieldNo);
+		model.addAttribute("list", list);
+		if(list == null) {
+			model.addAttribute("profileUrl", "/images/golf-dummy.jpg");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=");
+		}
 		
 		return "booking/detail";
-	}
-	
-	@GetMapping("/test")
-	public String test(Model model) {
-		model.addAttribute("list",golfFieldDao.teeTimeDayList());
-		return "booking/search_list";
 	}
 	
 	
@@ -166,19 +177,45 @@ public class BookingController {
 		return "booking/reservation_success";
 	}
 	
-	@GetMapping("/cancel/{bookingNo}")
-	public String cancelBooking(@PathVariable int bookingNo){
+	@GetMapping("/cancel")
+	public String cancelBooking(@RequestParam int bookingNo,@RequestParam String fieldName){
 		bookingDao.cancel(bookingNo);
 		
-		return "redirect:/booking/my_booking";
+		BookingDto bookingDto = bookingDao.info(bookingNo);
+		int commission = bookingDto.getBookingPrice()/10;
+		golfFieldDao.minusCommission(fieldName,commission);
+		
+		return "redirect:/booking/mybooking";
 	}
 	
-	@GetMapping("/my_booking")
+	@GetMapping("/mybooking")
 	public String myBooking(Model model,HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
 		List<MyBookingListVO> list = bookingDao.myBookingList(memberId);
 		model.addAttribute("list",list);
 		
-		return "booking/my_booking";
+		return "booking/mybooking";
+	}
+	
+	@GetMapping("/mybooking_detail/{bookingNo}")
+	public String myBookingDetail(@PathVariable int bookingNo, Model model) {
+		MyBookingListVO myBookingListVO = bookingDao.myBookingInfo(bookingNo);
+		MemberDto memberDto = memberDao.info(myBookingListVO.getMemberId());
+		BookingDto bookingDto = bookingDao.info(bookingNo);
+		
+		model.addAttribute("myBookingListVO", myBookingListVO);
+		model.addAttribute("memberDto", memberDto);
+		model.addAttribute("bookingDto", bookingDto);
+		
+		//골프장 이미지 다운로드 주소 추가 
+		List<FieldProfileVO> list = fieldProfileDao.multiInfo(myBookingListVO.getFieldNo());
+		model.addAttribute("list", list);
+		if(list == null) {
+			model.addAttribute("profileUrl", "/images/golf-dummy.jpg");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=");
+		}
+		return "booking/mybooking_detail";
 	}
 }

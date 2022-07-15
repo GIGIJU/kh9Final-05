@@ -6,15 +6,31 @@
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <style>
 p{
-	font-size: 11px;	
+	font-size: 12px;	
+	color: black;	
 }
 span{
-	font-size: 11px;
-	color: black;
+	font-size: 12px;
 }
 .btn{
 	color: white;
     background-color: black;
+}
+h6{
+	color: black;
+	font-weight: bold;
+}
+.tagcloud {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 8px 12px;
+    margin-bottom: 7px;
+    margin-right: 4px;
+    color: #000000;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    width: 200px;
+    text-align: center;
 }
 /* 모달창 */
 .modal {
@@ -22,7 +38,7 @@ span{
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 90%;
+	height: 70%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -37,12 +53,11 @@ span{
 
 .modal-content {
 	background-color: white;
-	padding: 30px 50px;
+	padding: 30px;
 	text-align: center;
 	position: relative;
 	border-radius: 5px;
 	width: 36em;
-	height: 80%;
 	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
 		rgba(0, 0, 0, 0.23);
 	max-height: 100%;
@@ -59,6 +74,7 @@ textarea {
     border: none;
     resize: none;
     font-size: 9px;
+    resize: none;
  }
  
  .btn-create {
@@ -83,16 +99,15 @@ textarea {
     background-color: white;
     color: gray;
 }
-</style>
+</style>    
+    
 <div id="app">
-<fmt:parseDate var="teeTimeD"  value="${param.teeTimeD}" pattern="yyyy-MM-dd"/>
-<fmt:formatDate value="${teeTimeD}" var="teeDate" pattern="yyyy-MM-dd"/>
  <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>booking <i class="fa fa-chevron-right"></i></span></p>
-       <h2 class="mb-0 bread" style="color: white;">예약하기</h2>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>my booking <i class="fa fa-chevron-right"></i></span></p>
+       <p class="mb-0" style="font-size: 17px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
  </div>
@@ -100,149 +115,156 @@ textarea {
 
 <div class="container-fluid mt-5 mb-5" v-if="!isNoTeeTime">
 	<div class="col-md-6 offset-md-3">
-		<h4 style="font-weight: bold;">티타임 정보</h4>
+		<h4 style="font-weight: bold;">예약 상세내역</h4>
 		<hr>
 		<div class="row mb-3">
 			<div class="col-md-4">
-				<img src="${root}/images/bg_1.jpg" width="200" height="190" style="border-radius: 100%;">
+			<c:choose>
+				<c:when test="${empty list}">
+					<div class="swiper-slide">
+						<img src="${root}${profileUrl}" width="200" height="190" style="border-radius: 100%;">
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="list" items="${list}">
+						<div class="swiper-slide">
+							<img src="${root}${profileUrl}${list.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
+						</div>
+					</c:forEach>
+					<div class="swiper-button-next" style="color: #b8e994;"></div>
+					<div class="swiper-button-prev" style="color: #b8e994;"></div>
+				</c:otherwise>
+			</c:choose>
 			</div>
 			<div class="col-md-7 mt-4 ml-3">
 				<div>
-					<h4>${golfFieldDto.fieldName}</h4>
+					<h4>${myBookingListVO.fieldName}</h4>
 				</div>				
 				<div class="row mt-5">
 					<div class="col">
 						<p>일자</p>
-						<span>${param.teeTimeD}</span>
+						<fmt:parseDate var="teeDate"  value="${myBookingListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
+						<fmt:formatDate value="${teeDate}" var="teeTimeD" pattern="yyyy-MM-dd"/>
+						<span>${teeTimeD}</span>
 					</div>
 					<div class="col">
 						<p>시간</p>
-						<span>${teetimeVO.teeTimeT}</span>
+						<span>${myBookingListVO.teeTimeT}</span>
 					</div>
 					<div class="col">
 						<p>코스</p>
-						<span>${teetimeVO.courseName}</span>
+						<span>${myBookingListVO.courseName}</span>
 					</div>
 					<div class="col">
-						<p>지역</p>
-						<span>${golfFieldDto.fieldArea}</span>
+						<p>홀정보</p>
+						<span>${myBookingListVO.courseHole}</span>
 					</div>
+					
 				</div>
 			</div>
 		</div>
 		<hr>
 		
 		<div class="row mt-4">
-			<div class="col-md-4 mt-2"> 
-				<h5><i class="fa-solid fa-book-open"></i> 내장조건</h5>
+			<div class="col-md-3 mt-2 text-center"> 
+				<h6>예약자 정보</h6>
 			</div>
-			<div class="col-md-7">
-				<span>취소가능기한</span>
-				<p style="color: red;" v-if="isDropAble">취소불가</p>
-				<p style="color: red;" v-else>{{dropAble}}</p>
-				<span>내장인원</span>
-				<p>${golfFieldDto.fieldPeople}인 필수</p>
-			</div>			
-		</div>		
-		<hr>
-		<div class="row mt-4">
-			<div class="col-md-4 mt-2"> 
-				<h5><i class="fa-solid fa-golf-ball-tee"></i> 부대비용</h5>
-			</div>
-			<div class="col-md-7">
-				<span>카트피 (현장결제)</span>
-				<p><fmt:formatNumber value="${golfFieldDto.fieldCartfee}" />원</p>
-				<span>캐디피 (현장결제)</span>
-				<p><fmt:formatNumber value="${golfFieldDto.fieldCaddiefee}" />원</p>
-			</div>			
-		</div>		
-		<hr>
-		<div class="row mt-4">
-			<div class="col-md-4 mt-2"> 
-				<h5><i class="fa-solid fa-sack-dollar"></i> 요금정보</h5>
-			</div>
-			<div class="col-md-7">
-				<span>그린피 [1인당]</span>				
-				
-				<c:choose>
-					<c:when test="${teetimeVO.partTime == 1}x">
-						 <p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee-20000}" />원</p>					
-						<span>${golfFieldDto.fieldPeople}인 필수</span> 
-						<p><fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-20000)*4}" />원</p>
-					</c:when>
-					<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
-						 <p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee-10000}" />원</p>					
-						<span>${golfFieldDto.fieldPeople}인 필수</span> 
-						<p><fmt:formatNumber value="${(golfFieldDto.fieldGreenfee-10000)*4}" />원</p>
-					</c:when>
-					<c:otherwise>
-						<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee}" />원</p>					
-						<span>${golfFieldDto.fieldPeople}인 필수</span> 
-						<p><fmt:formatNumber value="${golfFieldDto.fieldGreenfee*4}" />원</p>
-					</c:otherwise>
-				</c:choose>
-			
-			</div>			
-		</div>		
-		<hr>
-		<div class="row mt-4">
-			<div class="col-md-4 mt-2"> 
-				<h5><i class="fa-solid fa-check"></i>  동의</h5>
-			</div>
-			<div class="col-md-7">
-			<div class="row mb-1">
-				<div class="col-md-6">
-					<span>* 계약 규정 및 동의</span>
+			<div class="col-md-9 mt-2">
+				<div class="row">
+					<div class="col-md-2">
+						<p>예약자명</p>
+						<p>연락처</p>
+						<p>예약인원</p>
+					</div>
+					<div class="col-md-3">
+						<p>${memberDto.memberName}</p>
+						<p>${memberDto.memberPhone}</p>
+						<p>4명</p>
+					</div>
+					<div class="col-md-2">
+						<p>예약한날짜</p>
+						<p>예약상태</p>
+						<p>취소가능날짜</p>
+					</div>
+					<div class="col-md-3">
+						<p>${myBookingListVO.bookingDate}</p>
+						<c:choose>
+							<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
+								<p style="color: #2ecc71;">${myBookingListVO.bookingStatus}</p>
+								<p>${myBookingListVO.bookingDropAble}</p>
+							</c:when>
+							<c:otherwise>
+								<p style="color: #e74c3c;">${myBookingListVO.bookingStatus}</p>
+								<p>-</p>
+							</c:otherwise>
+						</c:choose>
+					</div>
 				</div>
-				<div class="col-md-5">
-					<input type="checkbox" class="ml-3" v-model="isAgreeAll" @change="agreeAll">
-				</div>
+			</div>			
+		</div>		
+		<hr>
+		<div class="row mt-4">
+			<div class="col-md-3 mt-2 text-center"> 
+				<h6>요금 정보</h6>
 			</div>
-				<hr>
+			<div class="col-md-9 mt-2">
+				<div class="row">
+					<div class="col-md-2">
+						<p>그린피 [1인]</p>
+						<p>4인 합계</p>
+						<p>요금조건</p>
+					</div>
+					<div class="col-md-3">
+						<p><fmt:formatNumber value="${myBookingListVO.bookingPrice/4}" />원</p>
+						<p><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</p>
+						<p><c:choose>
+							<c:when test="${myBookingListVO.fieldPrepay==0}">현장결제</c:when>
+							<c:otherwise>선결제(결제완료)</c:otherwise>
+						</c:choose></p>
+					</div>
+					<div class="col-md-2">
+						<p>카트피</p>
+						<p>캐디피</p>
+					</div>
+					<div class="col-md-3">
+						<p><fmt:formatNumber value="${myBookingListVO.fieldCartfee}" />원 (현장결제)</p>
+						<p><fmt:formatNumber value="${myBookingListVO.fieldCaddiefee}" />원 (현장결제)</p>
+					</div>
+				</div>
+			</div>			
+		</div>		
+		<hr>	
+		<div class="row mt-4">
+			<div class="col-md-3 mt-2 text-center"> 
+				<h6>동의 내역</h6>
+			</div>
+			<div class="col-md-9">
 				<div class="row mb-1">
 					<div class="col-md-6">
 						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="showModal1"> 골북이 부킹 계약 </button>						
-					</div>
-					<div class="col-md-5">
-						<input type="checkbox" class="ml-3" v-model="agree1">
 					</div>
 				</div>
 				<div class="row mb-1">
 					<div class="col-md-6">
 						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="showModal2"> 골프장 예약/위약 규정 </button>
 					</div>
-					<div class="col-md-5">
-						<input type="checkbox" class="ml-3" v-model="agree2">
-					</div>
 				</div>
 				<div class="row">
 					<div class="col-md-6">
 						<i class="fa-solid fa-table-list"></i><button class="btn-create" @click="showModal3"> 골프장 이용 유의사항 </button>
 					</div>
-					<div class="col-md-5">
-						<input type="checkbox" class="ml-3" v-model="agree3">
-					</div>
 				</div>
 			</div>			
-		</div>		
+		</div>	
 		<hr>
-		<form action="paymentInfo" method="get" v-on:submit="sendForm">
-			<div class="col-md-4 offset-md-4 mt-5">
-					<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
-					<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
+		<c:if test="${myBookingListVO.bookingStatus == '예약완료'}">
+			<div class="col-md-6 offset-md-3 text-center">
+				<a class="tagcloud" href="#" @click="cancelBooking" v-if="bookingDrop()">예약취소</a>	
 			</div>
-					<button class="btn" style="width: 100%;">결제정보</button>
-		</form>
-		</div>
-</div>
-<div class="container-fluid mt-5 mb-5" style="text-align: center;" v-else>
-	<div class="col-md-4 offset-md-4">
-	<img src="https://image.smartscore.kr/pc4/img_illust_03.svg" style="white: 300px; height: 300px;">
-		<h5 style="font-weight: bold;">티타임 정보가 없습니다</h5>
+		</c:if>
 	</div>
-</div>	
-	
-	
+</div>
+
 <!-- 약관동의 모달창 1 -->
 	
 <div class="modal modal1" style="display: none;">
@@ -283,11 +305,6 @@ textarea {
 	10. 골프장별 공지사항은 골프장 안내 문자 및 홈페이지, 등을 참고하여 주시기 바랍니다.
 				</textarea>
 			</div>
-			<div class="row mt-2">
-			<div class="col text-center">
-				<button class="btn" style="width: 50%" @click="clickAgree1">동의</button>
-			</div>
-		</div>
 		</div>
 	</div>
 <!-- 약관동의 모달창 2 -->
@@ -325,11 +342,6 @@ textarea {
 	· 기상 악화 등의 사유로 인한, 18홀 미 종료 시 : 골프장 정상 요금 기준 홀별 정산(세금 별도 책정)
 				</textarea>
 			</div>
-			<div class="row mt-2">
-			<div class="col text-center">
-				<button class="btn" style="width: 50%" @click="clickAgree2">동의</button>
-			</div>
-			</div>
 		</div>
 	</div>
 <!-- 약관동의 모달창 3 -->
@@ -359,13 +371,9 @@ textarea {
 	7. 그린피는 골프장 사정에 따라 변경 될 수 있습니다.
 			</textarea>
 			</div>
-			<div class="row mt-2">
-			<div class="col text-center">
-				<button class="btn" style="width: 50%" @click="clickAgree3">동의</button>
-			</div>
-			</div>
 		</div>
-	</div>
+	</div>	
+</div>
 
 </div>
  	<script src="http://unpkg.com/vue@next"></script>
@@ -375,58 +383,16 @@ textarea {
         const app = Vue.createApp({
             data(){
                 return {
-                	teeTimeD:"${teeDate}",
-                	dropAble:"",
-                	maxDate:"",
-                	agree1:false,//첫 번째 이용약관 동의여부
-                    agree2:false,//두 번째 이용약관 동의여부
-                    agree3:false,//세 번째 이용약관 동의여부
+                	bookingDrop:"",
                 };
             },
             computed:{
-            	isAgreeAll(){
-                    return this.agree1 && this.agree2 && this.agree3;
-                },
-                isDropAble(){
-                	return moment(this.dropAble) <= moment();
-                },
-                isNoTeeTime(){
-                	return moment(this.teeTimeD) <= moment() || moment(this.teeTimeD) > moment(this.maxDate);
-                }
-            },
-            methods:{
-            	agreeAll(){
-            		if(!this.isAgreeAll){
-            			this.agree1 = true;
-            			this.agree2 = true;
-            			this.agree3 = true;
-            		}else{
-            			this.agree1 = false;
-            			this.agree2 = false;
-            			this.agree3 = false;
-            		}
+            	bookingDrop(){
+            		console.log(${myBookingListVO.teeTimeD} > moment());
+            		return moment(${myBookingListVO.teeTimeD}) > moment();
             	},
-            	sendForm(e){
-                    if(!this.isAgreeAll){
-                        alert("약관에 모두 동의해주세요");
-                        e.preventDefault();
-                    }
-                    else if(this.isDropAble){
-                    	alert("선택하신 타임은 취소가능 기한이 경과하여 \n예약 후 취소가 불가능 합니다.");
-                    }
-                },              
-                clickAgree1(){
-                	this.agree1 = true;
-                	$(".modal1").hide();               	
-                },
-                clickAgree2(){
-                	this.agree2 = true;
-                	$(".modal2").hide();                	
-                },
-                clickAgree3(){
-                	this.agree3 = true;
-                	$(".modal3").hide();               	
-                },
+            },
+            methods:{              
                 showModal1(){
                 	$(".modal1").show();
                 },
@@ -445,15 +411,18 @@ textarea {
                 hiddenModal3(){
                 	$(".modal3").hide();
                 },
-               
+            	cancelBooking(){
+             		if(confirm("정말로 예약 취소 하시겠습니까?")){
+             			console.log("${root}/booking/cancel?bookingNo=${myBookingListVO.bookingNo}&fieldName=${myBookingListVO.fieldName}");
+    	        		window.location.href="${root}/booking/cancel?bookingNo=${myBookingListVO.bookingNo}&fieldName=${myBookingListVO.fieldName}";
+            		}
+            	},
+
             },
             watch:{
 
             },
             mounted(){
-				let teeTimeD = moment(this.teeTimeD);
-				this.dropAble = teeTimeD.subtract("7","d").format('YYYY-MM-DD');
-				this.maxDate = moment().add("60","d").format('YYYY-MM-DD');
 				
             },   	 
         });
