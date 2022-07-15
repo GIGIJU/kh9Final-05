@@ -183,12 +183,13 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 	
-	// 골프장 이름으로 번호 검색 @이기주
-//	@Override
-//	public int searchNo(String fieldName) {
-//		return sqlSession.selectOne("golfField.searchNo", fieldName);
-//	}
-
+	// 골프장 정보 입력 @이기주 >> 이게 진짜
+	@Override
+	public void fieldInsert(GolfFieldDto golfFieldDto) {
+		int fieldSequence = sqlSession.selectOne("golfField.sequence");
+	}
+		
+	// 골프장 번호 단순 검색 @이기주
 	@Override
 	public List<GolfFieldDto> searchSimple() {
 		return sqlSession.selectList("golfField.searchSimple");
@@ -206,5 +207,7 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 			System.err.println("에러페이지");
 		}
 	}
+	
+	
 
 }
