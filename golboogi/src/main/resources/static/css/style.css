@@ -8362,7 +8362,7 @@ a {
   color: #f15d30; }
   a:hover, a:focus {
     text-decoration: none;
-    color: #f15d30;
+    color: #cce77c;
     outline: none !important; }
 
 h1, h2, h3, h4, h5,
@@ -8910,7 +8910,7 @@ h1, h2, h3, h4, h5,
     left: 20px;
     margin-top: -8px;
     padding: 4px 10px;
-    background: #f15d30; }
+    background: #cce77c; }
     .project-destination .text h3:after, .project-destination .text h3:before {
       position: absolute;
       top: 0;
@@ -8921,20 +8921,20 @@ h1, h2, h3, h4, h5,
       height: 0;
       border-style: solid;
       border-width: 0 0 8px 8px;
-      border-color: transparent transparent #c7390d transparent; }
+      border-color: transparent transparent #cce77c transparent; }
     .project-destination .text h3:before {
       width: 0;
       right: -8px;
       height: 0;
       border-style: solid;
       border-width: 8px 0 0 8px;
-      border-color: transparent transparent transparent #c7390d; }
+      border-color: transparent transparent transparent #cce77c; }
   .project-destination .text span {
     position: absolute;
     bottom: 20px;
     right: -5px;
     display: inline-block;
-    background: #f15d30;
+    background: #cce77c;
     padding: 4px 5px 4px 15px;
     border-radius: 20px 0 0 20px;
     color: #fff;

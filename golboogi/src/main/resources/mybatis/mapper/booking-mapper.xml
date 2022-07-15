@@ -56,7 +56,8 @@
 	<select id="reservation" parameterType="String" resultType="BookingDto">
 		select * from booking where member_id = #{memberId}
 		order by booking_no desc
-	</select>								
+	</select>
+								
 </mapper> 
 
 

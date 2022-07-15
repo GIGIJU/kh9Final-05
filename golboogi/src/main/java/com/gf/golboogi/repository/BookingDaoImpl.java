@@ -45,6 +45,7 @@ public class BookingDaoImpl implements BookingDao{
 		if(count<1) {
 			//에러페이지
 		}
+	}
 
 	// 회원 예약 정보 가져오기
 	@Override
