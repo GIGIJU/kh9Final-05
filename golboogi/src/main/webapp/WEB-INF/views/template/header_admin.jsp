@@ -16,11 +16,15 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="${root}/css_manager/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+        
+        <!-- 다음 주소 검색 API -->
+        <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     </head>
     
     <body class="sb-nav-fixed">
+    
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="${root}/">
             		<img src="/images/golboogi-logo.png" width="160" height="50">
@@ -28,27 +32,6 @@
             
             <!-- Sidebar Toggle / 햄버거 메뉴 -->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            
-            <!-- Navbar Search / 검색 메뉴 -->
-<!--             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0"> -->
-<!--                 <div class="input-group"> -->
-<!--                     <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" /> -->
-<!--                     <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button> -->
-<!--                 </div> -->
-<!--             </form> -->
-            
-            <!-- Navbar / 사람 아이콘 드랍다운 메뉴 -->
-<!--             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4"> -->
-<!--                 <li class="nav-item dropdown"> -->
-<!--                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a> -->
-<!--                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown"> -->
-<!--                         <li><a class="dropdown-item" href="#!">Settings</a></li> -->
-<!--                         <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
-<!--                         <li><hr class="dropdown-divider" /></li> -->
-<!--                         <li><a class="dropdown-item" href="#!">Logout</a></li> -->
-<!--                     </ul> -->
-<!--                 </li> -->
-<!--             </ul> -->
         </nav>
         
         <!-- 사이드바 레이아웃 -->
@@ -67,7 +50,7 @@
                                 골프장관리자목록
                             </a>
                             <div class="sb-sidenav-menu-heading">정보등록</div>
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="${root}/admin/field_insert">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-golf-ball-tee"></i></div>
                                 골프장 등록
                             </a>

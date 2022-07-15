@@ -39,7 +39,8 @@
 		       	<if test="type != null and keyword != null">
 					<![CDATA[ where instr(${type}, #{keyword}) > 0 	]]>
 				</if>
-				order by join_no desc) TMP
+				order by join_no desc
+				) TMP
 		)where rn between #{begin} and #{end}
 	</select>
 	
@@ -69,7 +70,7 @@
 	</insert>
 	
 	<update id="addJoinPeople" parameterType="Map">
-		update join set join_people = join_people-#{joinApplyPeople} where join_no=#{joinNo}
+		update join set join_people = (join_people-#{joinApplyPeople}) where join_no=#{joinNo}
 	</update>
 	
 	
@@ -81,6 +82,84 @@
 		insert into join(join_no,booking_no,member_id,join_info,join_people)
 		values(#{joinNo},#{bookingNo},#{memberId},#{joinInfo},#{joinPeople})
 	</insert>
+	
+	<select id="myJoin" resultType="JoinListVO" parameterType="String">
+		select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,
+			join_time,member_nick,join_info,join_status,course_name,member_id from 
+	    join J 
+	        inner join member M on M.member_id = J.member_id
+	        inner join booking B on J.booking_no = B.booking_no
+	        inner join tee_time T on B.tee_time_no = T.tee_time_no
+	        inner join golf_course C on T.course_no = C.course_no
+	        inner join golf_field G on G.field_no = C.field_no
+	        where member_id =#{memberId}
+			order by join_no desc
+	</select>
+	
+		<resultMap type="MyJoinListVO" id="joinMap">
+		<!-- 객체에 대한 매핑 설정 : association -자료형은 변수에 맞게 자동 변환되며 불가능할 경우 -->
+		<association property="joinListVO" javaType="JoinListVO">
+			<result column="join_no" property="joinNo" />
+			<result column="tee_time_t" property="teeTimeT" />
+			<result column="field_area" property="fieldArea" />
+			<result column="field_name" property="fieldName" />
+			<result column="join_people" property="joinPeople" />
+			<result column="booking_price" property="bookingPrice" />
+			<result column="join_time" property="joinTime" />
+			<result column="member_nick" property="memberNick" />
+			<result column="join_info" property="joinInfo" />
+			<result column="join_status" property="joinStatus" />
+			<result column="course_name" property="courseName" />
+			<result column="member_id" property="memberId" />
+		</association>
+		<!-- 컬렉션(List<paymentDetailDto>)에 대한 매핑 설정 : collection -컬렉션 자료형을 두 가지로 
+			설정해야 한다 -javaType : 컬렉션의 자료형 -ofType : 내용물의 자료형(Generic type) -내부에는 객체처럼 
+			result를 이용하여 매핑을 수행한다 -(반드시)해당 컬렉션을 채우기 위해 필요한 select 구문의 id를 지정해야 한다(select,columnx) -->
+		<collection property="joinApplyList" javaType="List" ofType="JoinApplyDto" select="treeSearchSubquery" column="join_no">
+			<result column="join_apply_no" property="joinApplyNo" />
+			<result column="join_no" property="joinNo" />
+			<result column="member_id" property="memberId" />
+			<result column="join_apply_people" property="joinApplyPeople" />
+			<result column="join_apply_info" property="joinApplyInfo" />
+			<result column="join_apply_status" property="joinApplyStatus" />
+		</collection>
+	</resultMap>
+	
+	<select id="myJoinTreeSearch" resultMap="joinMap" parameterType="String">
+		select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,
+			join_time,member_nick,join_info,join_status,course_name,member_id from 
+	    join J 
+	        inner join member M on M.member_id = J.member_id
+	        inner join booking B on J.booking_no = B.booking_no
+	        inner join tee_time T on B.tee_time_no = T.tee_time_no
+	        inner join golf_course C on T.course_no = C.course_no
+	        inner join golf_field G on G.field_no = C.field_no
+	        where member_id =#{memberId}
+			order by join_no desc 
+	</select>
+	<select id="treeSearchSubquery" resultType="JoinApplyDto" parameterType="int">
+		select * from join_apply where join_no=#{joinNo}
+	</select>
+	
+	<select id="getJoinNo" parameterType="int" resultType="int">
+		select join_no from join_apply where join_apply_no= #{joinApplyNo}
+	</select>
+	
+	<update id="joinApplyApprove" parameterType="int">
+		update join_apply set join_apply_status = 1 where join_apply_no=#{joinApplyNo}
+	</update>
+	
+	<update id="joinApplyRefuse" parameterType="int">
+		update join_apply set join_apply_status = 2 where join_apply_no=#{joinApplyNo}
+	</update>
+	
+	<select id="getJoinPeople" parameterType="int" resultType="int">
+		select join_people from join where join_no = #{joinNo} 
+	</select>
+
+	<update id="closeJoin" parameterType="int">
+		update join set join_status = 1 where join_no= #{joinNo}
+	</update> 
 </mapper> 
 
 

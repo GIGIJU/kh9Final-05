@@ -4,6 +4,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
 
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.repository.StayDao;
@@ -13,6 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest
+@ActiveProfiles("local")
+@TestPropertySource(locations = "classpath:./application-local.properties")
 public class StayTest {
 	
 	@Autowired

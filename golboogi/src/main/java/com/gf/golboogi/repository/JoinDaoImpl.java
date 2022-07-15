@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.gf.golboogi.entity.JoinApplyDto;
 import com.gf.golboogi.entity.JoinDto;
 import com.gf.golboogi.vo.JoinListVO;
+import com.gf.golboogi.vo.MyJoinListVO;
 
 @Repository
 public class JoinDaoImpl implements JoinDao{
@@ -43,6 +44,12 @@ public class JoinDaoImpl implements JoinDao{
 		
 	}
 
+	//조인신청 번호로 조인 번호 가져오기
+	@Override
+	public int getjoinNo(int joinApplyNo) {
+		return sqlSession.selectOne("join.getJoinNo",joinApplyNo);
+	}
+	
 	//조인 승인 시 인원 추가
 	@Override
 	public int addjoinPeople(int joinApplyPeople, int joinNo) {
@@ -50,7 +57,11 @@ public class JoinDaoImpl implements JoinDao{
 		param.put("joinApplyPeople", joinApplyPeople);
 		param.put("joinNo", joinNo);
 		
-		return sqlSession.update("join.addJoinPeople",param);
+		int count = sqlSession.update("join.addJoinPeople",param);
+		if(count<1) {
+			System.err.println("에러페이지");
+		}
+		return count;
 	}
 
 	//페이지네이션을 위한 count
@@ -70,7 +81,33 @@ public class JoinDaoImpl implements JoinDao{
 		joinDto.setJoinNo(joinNo);
 		
 		sqlSession.insert("join.insert",joinDto);
-		
 	}
+
+	//나의 조인 등록 list
+	@Override
+	public List<MyJoinListVO> myJoinList(String memberId) {
+		return sqlSession.selectList("join.myJoinTreeSearch",memberId);
+	}
+
+	//조인 신청 승인
+	@Override
+	public void joinApplyApprove(int joinApplyNo) {
+		sqlSession.update("join.joinApplyApprove",joinApplyNo);
+		
+		int joinNo = sqlSession.selectOne("join.getJoinNo",joinApplyNo);
+		int joinPeople = sqlSession.selectOne("join.getJoinPeople",joinNo);
+		if(joinPeople==0) {
+			sqlSession.update("join.closeJoin",joinNo);
+		}
+	}
+
+	//조인 신청 거절
+	@Override
+	public void joinApplyRefuse(int joinApplyNo) {
+		sqlSession.update("join.joinApplyRefuse",joinApplyNo);		
+	}
+
+	
+	
 
 }

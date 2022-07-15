@@ -92,6 +92,10 @@
 		update golf_field set field_commission = (field_commission + #{commission}) where field_no = #{fieldNo}
 	</update>
 	
+	<update id="minusCommission" parameterType="Map">
+		update golf_field set field_commission = (field_commission - #{commission}) where field_name = #{fieldName}
+	</update>
+	
 	
 	<select id="ranking" resultType="BookingSearchListVO">
 		<![CDATA[
@@ -116,10 +120,19 @@
 	</select>
 	
 	<!-- 골프부킹 전체리스트 -->
-	<select id="listAll" resultType="GolfFieldDto" parameterType="Map">
+	<select id="listAll" resultType="BookingSearchListVO" parameterType="Map">
 	 select * from(
 		select rownum rn, TMP.* from (
-            select * from golf_field 
+            select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,A.attachment_no from golf_field F
+				left outer join
+				(select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
+				left outer join 
+				        golf_profile A on F.field_no = A.field_no
+				        group by f.field_no
+				) A on F.field_no = A.field_no
+			<if test="fieldArea != null">
+				where field_area=#{fieldArea}
+			</if>	
 	        <if test ="type != null">
 	        	<if test="type == 'field_prepay'">
 					order by field_prepay desc
@@ -128,7 +141,7 @@
 					order by field_greenfee
 	        	</if>
 	        	<if test="type == 'field_no'">
-	        		order by field_no
+	        		order by field_no desc
 	        	</if>
 			</if>
 			) TMP

@@ -25,7 +25,9 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/member/reset")
 		.excludePathPatterns("/memberr/reset_success")
 		.excludePathPatterns("/notice/list")
+		.excludePathPatterns("/notice/write")
 		.excludePathPatterns("/notice/detail/**")
+		.excludePathPatterns("/notice/edit/**")
 		.excludePathPatterns("/review/list")
 		.excludePathPatterns("/review/detail/**");
 	}

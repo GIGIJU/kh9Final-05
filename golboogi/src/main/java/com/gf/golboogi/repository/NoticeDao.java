@@ -3,13 +3,13 @@ package com.gf.golboogi.repository;
 import java.util.List;
 
 import com.gf.golboogi.entity.NoticeDto;
+import com.gf.golboogi.vo.NoticeProfileListVO;
 
 public interface NoticeDao {
 
-	List<NoticeDto> list(String keyword, int page, int size);
+	List<NoticeProfileListVO> list(String keyword, int page, int size);
 
 	int count(String keyword);
-
 
 	NoticeDto read(int noticeNo);
 

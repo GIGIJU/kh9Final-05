@@ -3,10 +3,11 @@ package com.gf.golboogi.repository;
 import java.util.List;
 
 import com.gf.golboogi.entity.ReviewDto;
+import com.gf.golboogi.vo.ReviewProfileVO;
 
 public interface ReviewDao {
 
-	List<ReviewDto> list(String keyword, int page, int size);
+	List<ReviewProfileVO> list(String keyword, int page, int size);
 
 	int count(String keyword);
 

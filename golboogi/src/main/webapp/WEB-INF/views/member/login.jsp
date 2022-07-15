@@ -19,13 +19,16 @@
 		</div>
 	</section>	
 <div class="container col-12" id="app">
+	<br><br>
 	<div class="mt-3" style="text-align:center;">
-		<h2 id="login">로그인</h2>
+		<h3 id="login" style="font-weight: bold;">로그인</h3>
+		<p>Welcome! 골북이에 오신 것을 환영합니다.</p>
 	</div>
 
 	<div
 		class="col-lg-4 offset-lg-4 col-md-6 offset-md-3 col-sm-10 offset-sm-1">
 		<form v-on:submit="sendForm($event)" action="login" method="post">
+		<input type="hidden" name="referer" value="${referer}">
 			<div class="mt-3">
 				<label>아이디</label> <input type="text" class="form-control"
 					name="memberId" v-model="memberId" placeholder="영문 소문자,숫자 8자 이상">
@@ -37,23 +40,26 @@
 					placeholder="영문 소/대, 숫자, 특수문자 8자 이상"> <span v-if="PwPass"></span>
 				<span v-if="PwFalse">잘못된 작성입니다.</span>
 			</div>
-			<div class="form-group form-check mt-3">
+			<div class="row mt-3">
+			<div class="col-md-4">
+			<div class="form-group form-check">
 				<label>  
 					<input type="checkbox" class="form-check-input" v-model="showPassword">
 					비밀번호 확인
 				</label>
 			</div>
-			<div class="mt-3 " align="center">
+			</div>
+			<div class="col-md-8 mt-1" align="right" style="font-size: 13px;">
 				 <a href="${root}/member/find_id">아이디 찾기</a> &nbsp; <span>/</span> &nbsp; <a href="${root}/member/find_pw">비밀번호 찾기</a>
 			</div>
-				<br>
-			<div class="mt-3 d-grid" align="center">
+			</div>
+			<div class="d-grid" align="center">
 				<button type="submit" class="btn btn-success btn-lg btn-block" v-bind:click="isLogin">로그인</button>
 			</div>
-			<br><br>
+			<br>
 			<% if(request.getParameter("error") != null) { %>
 				<div class="mt-3" align="center">
-					<h3 style="color:red;">입력한 정보와 일치하는 데이터가 없습니다</h3>
+					<h5 style="color:red;">입력한 정보와 일치하는 데이터가 없습니다</h5>
 				</div>
 			<% } %>
 		</form>

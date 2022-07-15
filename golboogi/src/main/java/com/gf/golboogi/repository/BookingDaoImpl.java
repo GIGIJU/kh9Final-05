@@ -51,10 +51,18 @@ public class BookingDaoImpl implements BookingDao{
 	@Override
 	public List<BookingDto> info(String memberId) {
 		return sqlSession.selectList("booking.reservation",memberId);
-
 	}
-	
-	
-	
+
+	//예약 단일 조회
+	@Override
+	public BookingDto info(int bookingNo) {
+		return sqlSession.selectOne("booking.info",bookingNo);
+	}
+
+	//예약 상세 정보
+	@Override
+	public MyBookingListVO myBookingInfo(int bookingNo) {
+		return sqlSession.selectOne("booking.myBookingInfo",bookingNo);
+	}
 	
 }

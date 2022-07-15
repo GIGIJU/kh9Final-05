@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="isAdmin" value="${adminId != null}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -27,7 +29,7 @@
 	<div align="center" class="mt-3">
 		<h1>News & Notice</h1>
 	</div>
-	<c:if test="${golfManagerDto.golfManagerId != null}">
+	<c:if test="${isAdmin && auth == 1}">
 		<div align="right" class="mt-3">
 			<a href="${root}/notice/edit/${noticeDto.noticeNo}" class="btn btn-success btn-lg">수정</a>
 		</div>

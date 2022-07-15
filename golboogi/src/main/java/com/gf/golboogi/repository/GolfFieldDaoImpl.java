@@ -12,7 +12,6 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.TeetimeDto;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
-import com.gf.golboogi.vo.GolfFieldBookingVO;
 import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 
@@ -101,12 +100,6 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 			return list;
 		}
 	}
-
-	//날짜별 예약가능 골프장 목록 (계층형)
-//	@Override
-	public List<GolfFieldBookingVO> teeTimeDayList() {
-		return sqlSession.selectList("teetime.treeSearch");
-	}
 	
 	//날짜별 예약가능 골프장 목록 (계층형X)
 //	@Override
@@ -164,9 +157,11 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	
 	//골프 부킹 전체 리스트
 	@Override
-	public List<GolfFieldDto> listAll(String type, int page, int size) {
+	public List<BookingSearchListVO> listAll(String fieldArea, String type, int page, int size) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("type", type);
+		param.put("fieldArea", fieldArea);
+		
 		
 		int end = page * size;
 		int begin = end - (size - 1);
@@ -189,15 +184,31 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 	
-	// 골프장 이름으로 번호 검색 @이기주
-//	@Override
-//	public int searchNo(String fieldName) {
-//		return sqlSession.selectOne("golfField.searchNo", fieldName);
-//	}
-
+	// 골프장 정보 입력 @이기주 >> 이게 진짜
+	@Override
+	public void fieldInsert(GolfFieldDto golfFieldDto) {
+		int fieldSequence = sqlSession.selectOne("golfField.sequence");
+	}
+		
+	// 골프장 번호 단순 검색 @이기주
 	@Override
 	public List<GolfFieldDto> searchSimple() {
 		return sqlSession.selectList("golfField.searchSimple");
 	}
+
+	//예약 취소 시 수수료 빼기
+	@Override
+	public void minusCommission(String fieldName, int commission) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("fieldName", fieldName);
+		param.put("commission", commission);
+		
+		int count = sqlSession.update("golfField.minusCommission",param);
+		if(count<0) {
+			System.err.println("에러페이지");
+		}
+	}
+	
+	
 
 }

@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,7 @@ import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.MemberProfileDao;
 import com.gf.golboogi.service.MailService;
 import com.gf.golboogi.service.MemberService;
+import com.gf.golboogi.vo.MemberProfileVO;
 
 
 @Controller
@@ -97,7 +99,11 @@ public class MemberController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(
+			@RequestHeader(value="Referer", defaultValue = "/") String referer,
+			Model model
+			) {
+		model.addAttribute("referer", referer);
 		return "member/login";
 	}
 	
@@ -105,6 +111,7 @@ public class MemberController {
 	public String login(
 			@RequestParam String memberId,
 			@RequestParam String memberPw,
+			@RequestParam String referer,
 			HttpSession session) {
 		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
@@ -117,7 +124,7 @@ public class MemberController {
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
 			session.setAttribute("auth", memberDto.getMemberGrade());
-			return "redirect:/";
+			return "redirect:" + referer;
 		}
 		
 	}
@@ -147,7 +154,7 @@ public class MemberController {
 		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
 		int attachmentNo = memberProfileDao.info(memberId);
 		if(attachmentNo == 0) {
-			model.addAttribute("profileUrl", "/image/user.png");
+			model.addAttribute("profileUrl", "/images/user.png");
 		}
 		else {
 			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
@@ -341,6 +348,7 @@ public class MemberController {
 		return "member/changeInfo";
 	}
 	
+	//내예약 
 	@GetMapping("/myreservation")
 	public String myreservation(HttpSession session,Model model) {
 		String memberId = (String)session.getAttribute("login");
@@ -350,7 +358,15 @@ public class MemberController {
 	}
 	
 	@GetMapping("/memberProfile")
-	public String memberProfile() {
+	public String memberProfile(HttpSession session,Model model) {
+		String memberId = (String) session.getAttribute("login");
+		int attachmentNo = memberProfileDao.info(memberId);
+		if(attachmentNo == 0) {
+			model.addAttribute("profileUrl", "/images/user.png");
+		}
+		else {
+			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+		}
 		return "member/memberProfile";
 	}
 	
