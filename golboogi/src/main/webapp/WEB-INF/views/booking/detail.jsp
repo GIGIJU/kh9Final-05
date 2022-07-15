@@ -3,6 +3,25 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<!-- Swiper JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper(".swiper", {
+    	loop: true,
+    	cssMode: true,
+        navigation: {
+        nextEl: ".swiper-button-next",
+        prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+        el: ".swiper-pagination",
+        },
+        effect : 'slide',
+    });
+</script>
 <style>
 span {
 	font-size: 12px;
@@ -59,8 +78,28 @@ p {
 				<span style="font-weight: bold; font-size: 30px;">${golfFieldDto.fieldName}</span>&nbsp;
 				<c:if test="${golfFieldDto.fieldPrepay == 1}"><span class="prepay">선결제</span></c:if>
 			</div>
+			<!-- 골프장 이미지 -->
 			<div class="col-md-6 offset-md-3 text-center">
-				<img src="${root}/images/bg_5.jpg" style="width: 300px; height: 300px; border-radius: 70%;">
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						<c:choose>
+							<c:when test="${empty list}">
+								<div class="swiper-slide">
+									<img src="${root}${profileUrl}" style="width: 300px; height: 300px; border-radius: 70%;">
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="list" items="${list}">
+									<div class="swiper-slide">
+										<img src="${root}${profileUrl}${list.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
+									</div>
+								</c:forEach>
+								<div class="swiper-button-next" style="color: #b8e994;"></div>
+								<div class="swiper-button-prev" style="color: #b8e994;"></div>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
 			</div>
 		</div>
 		<div class="row mt-5" v-if="!isNoTeeTime">
@@ -200,6 +239,7 @@ p {
                     },
                 });
                 $("#datepicker").datepicker(); 
+
             }, 
         });
         app.mount("#app");

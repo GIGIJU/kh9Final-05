@@ -74,6 +74,7 @@ textarea {
     border: none;
     resize: none;
     font-size: 9px;
+    resize: none;
  }
  
  .btn-create {
@@ -101,8 +102,6 @@ textarea {
 </style>    
     
 <div id="app">
-<fmt:parseDate var="teeTimeD"  value="${param.teeTimeD}" pattern="yyyy-MM-dd"/>
-<fmt:formatDate value="${teeTimeD}" var="teeDate" pattern="yyyy-MM-dd"/>
  <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
@@ -120,7 +119,22 @@ textarea {
 		<hr>
 		<div class="row mb-3">
 			<div class="col-md-4">
-				<img src="${root}/images/bg_1.jpg" width="200" height="190" style="border-radius: 100%;">
+			<c:choose>
+				<c:when test="${empty list}">
+					<div class="swiper-slide">
+						<img src="${root}${profileUrl}" width="200" height="190" style="border-radius: 100%;">
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="list" items="${list}">
+						<div class="swiper-slide">
+							<img src="${root}${profileUrl}${list.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
+						</div>
+					</c:forEach>
+					<div class="swiper-button-next" style="color: #b8e994;"></div>
+					<div class="swiper-button-prev" style="color: #b8e994;"></div>
+				</c:otherwise>
+			</c:choose>
 			</div>
 			<div class="col-md-7 mt-4 ml-3">
 				<div>
@@ -245,7 +259,7 @@ textarea {
 		<hr>
 		<c:if test="${myBookingListVO.bookingStatus == '예약완료'}">
 			<div class="col-md-6 offset-md-3 text-center">
-				<a class="tagcloud" href="#" @click="cancelBooking">예약취소</a>	
+				<a class="tagcloud" href="#" @click="cancelBooking" v-if="bookingDrop()">예약취소</a>	
 			</div>
 		</c:if>
 	</div>
@@ -369,11 +383,14 @@ textarea {
         const app = Vue.createApp({
             data(){
                 return {
-                	
+                	bookingDrop:"",
                 };
             },
             computed:{
-
+            	bookingDrop(){
+            		console.log(${myBookingListVO.teeTimeD} > moment());
+            		return moment(${myBookingListVO.teeTimeD}) > moment();
+            	},
             },
             methods:{              
                 showModal1(){
@@ -400,6 +417,7 @@ textarea {
     	        		window.location.href="${root}/booking/cancel?bookingNo=${myBookingListVO.bookingNo}&fieldName=${myBookingListVO.fieldName}";
             		}
             	},
+
             },
             watch:{
 

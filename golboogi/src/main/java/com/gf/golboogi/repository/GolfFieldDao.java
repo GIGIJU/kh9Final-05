@@ -24,7 +24,7 @@ public interface GolfFieldDao {
 	List<GolfFieldDto> selectCheap();
 	List<GolfFieldDto> list(String type, String keyword, int page, int size);
 	int count(String type, String keyword);
-	List<GolfFieldDto> listAll(String type, int page, int size);
+	List<BookingSearchListVO> listAll(String fieldArea, String type, int page, int size);
 	int countAll();
 	void minusCommission(String fieldName, int commission);
 	

@@ -41,7 +41,7 @@
 
 	<select id="myBookingList" parameterType="String" resultType="MyBookingListVO">
 		select member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
-		booking_price,booking_status,booking_drop_able,booking_no,field_prepay from
+		booking_price,booking_status,booking_drop_able,booking_no,field_prepay,G.field_no from
     booking B 
         inner join tee_time T on B.tee_time_no = T.tee_time_no
         inner join golf_course C on T.course_no = C.course_no
@@ -52,7 +52,7 @@
 	<select id="myBookingInfo" parameterType="int" resultType="MyBookingListVO">
 		select member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
 		booking_price,booking_status,booking_drop_able,booking_no,field_prepay,
-		field_cartfee,field_caddiefee,booking_date from
+		field_cartfee,field_caddiefee,booking_date,G.field_no from
     booking B 
         inner join tee_time T on B.tee_time_no = T.tee_time_no
         inner join golf_course C on T.course_no = C.course_no

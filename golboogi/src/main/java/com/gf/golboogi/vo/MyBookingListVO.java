@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class MyBookingListVO {
 	private String memberId;
 	private String bookingNo;
+	private int fieldNo;
 	private String fieldName;
 	private String teeTimeD;
 	private String teeTimeT;
