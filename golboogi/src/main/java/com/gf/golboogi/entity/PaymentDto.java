@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class PaymentDto {
 	private int  paymentNo;
 	private int  bookingNo;
-	private int  packageBookingNo;
+	private int  packageNo;
 	private String paymentTid;
 	private int paymentTotal;
 	private Date paymentTime;

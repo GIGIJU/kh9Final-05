@@ -156,10 +156,10 @@
 			on F.field_no = P.field_no
           <where>
           and P.package_no is not null
-          <if test="stayLocal !='' and null">
+          <if test="stayLocal !='' and stayLocal!=null">
           	AND S.stay_local = #{stayLocal}
           </if>
-          <if test="packageDepart !='' and null">
+          <if test="packageDepart !='' and stayLocal!=null">
           AND P.package_depart = #{packageDepart}
           </if>
           <if test="stayPrice> 0">

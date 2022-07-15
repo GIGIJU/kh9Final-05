@@ -58,11 +58,11 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 		body.add("total_amount", String.valueOf(requestVO.getTotal_amount()));
 		body.add("tax_free_amount", "0");//무조건 0원
 
-//		String prefix = ServletUriComponentsBuilder
-//													.fromCurrentContextPath()
-//													.path("/pay")
-//													.toUriString();
-		String prefix = "http://localhost:8080/golboogi/pay";
+		String prefix = ServletUriComponentsBuilder
+													.fromCurrentContextPath()
+													.path("/pay")
+													.toUriString();
+		//String prefix = "http://localhost:8080/golboogi/pay";
 		body.add("approval_url", prefix+"/approve");
 		body.add("cancel_url", prefix+"/cancel");
 		body.add("fail_url", prefix+"/fail");

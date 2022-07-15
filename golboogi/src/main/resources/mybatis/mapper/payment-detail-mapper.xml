@@ -56,7 +56,19 @@
 		select * from payment_detail where payment_detail_no = #{paymentDetailNo}
 	</select>
 	
+	<select id="calculateCancelAmount" resultType="int" parameterType="int">
+		select 
+		    sum(payment_detail_price * payment_detail_quantity) "total"
+		from payment_detail
+		where 
+			payment_no = #{paymentNo} and payment_detail_status = '승인'
+	</select>
 	
+	<update id="cancelAll" parameterType="int">
+		update payment_detail 
+		set payment_detail_status = '취소'
+		where payment_no = #{paymentNo}
+	</update>
 </mapper> 
 
 

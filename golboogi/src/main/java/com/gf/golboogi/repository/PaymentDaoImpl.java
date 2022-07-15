@@ -52,15 +52,44 @@ public class PaymentDaoImpl implements PaymentDao {
 	}
 
 	@Override
-	public boolean cancelDetail(int paymentDetailNo) {
-		return sqlSession.update("paymentDetail.cancel", paymentDetailNo) > 0;
+	@Transactional
+	public boolean cancelDetail(PaymentDetailDto paymentDetailDto) {
+		int count = sqlSession.update("paymentDetail.cancel", paymentDetailDto.getPaymentDetailNo());
+		if(count > 0) {
+			sqlSession.update("payment.refresh", paymentDetailDto.getPaymentNo());
+		}
+		return count > 0;
 	}
-
+	
 	@Override
 	public PaymentDetailDto findDetail(int paymentDetailNo) {
 		return sqlSession.selectOne("paymentDetail.one", paymentDetailNo);
 	}
-
-
+	
+	@Override
+	public int calculateCancelAmountByJava(int paymentNo) {
+		int total = 0;
+		
+		List<PaymentDetailDto> list = sqlSession.selectList("paymentDetail.list", paymentNo);
+		for(PaymentDetailDto paymentDetailDto : list) {
+			if(paymentDetailDto.getPaymentDetailStatus().equals("승인")) {
+				total += paymentDetailDto.getPaymentTotal();//수량 * 가격
+			}
+		}
+		
+		return total;
+	}
+	
+	@Override
+	public int calculateCancelAmountByOracle(int paymentNo) {
+		return sqlSession.selectOne("paymentDetail.calculateCancelAmount", paymentNo);
+	}
+	
+	@Override
+	@Transactional
+	public void cancelAll(int paymentNo) {
+		sqlSession.update("payment.cancelAll", paymentNo);
+		sqlSession.update("paymentDetail.cancelAll", paymentNo);
+	}
 
 }

@@ -300,6 +300,16 @@
         <button  class="btn btn-success p-3">예약하기</button>
       </div>
       </form>
+      
+          <!--선결제 페이지 이동 버튼 -->
+    <form method="post" action="package_purchase">
+      <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}">
+      <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
+      <input type="hidden" name="quantity" value="1" min="1" required>
+      <div class="row justify-content-center mt-5 mb-5">
+        <a href="${root}/package/package_purchase?packageNo=${packageVo.packageDto.packageNo}" style="color:white" class="btn" >선결제하기</a>
+      </div>
+      </form>
 
     </div>
     </section>
