@@ -158,9 +158,11 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	
 	//골프 부킹 전체 리스트
 	@Override
-	public List<GolfFieldDto> listAll(String type, int page, int size) {
+	public List<BookingSearchListVO> listAll(String fieldArea, String type, int page, int size) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("type", type);
+		param.put("fieldArea", fieldArea);
+		
 		
 		int end = page * size;
 		int begin = end - (size - 1);

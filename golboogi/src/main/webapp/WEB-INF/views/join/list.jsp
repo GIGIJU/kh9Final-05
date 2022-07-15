@@ -60,6 +60,7 @@ textarea {
     text-align: left;
     font-size: 11px;
     color: black;
+    resize: none;
  }
  
  .btn-create {
@@ -101,7 +102,8 @@ textarea {
 </section>	
 <div class="container-fluid">
 	<div class="col-6 offset-3 mt-5">
-	<div class="row mt-4">
+	<br>
+	<div class="row mt-5">
 		<div class="col-md-6 text-left">
 			<h4>조인게시판</h4>
 		</div>
@@ -243,6 +245,7 @@ textarea {
 				</div>
 			</div>
 	</div>
+	<br>
 </div>
 
 <!-- 조인신청 창 -->
