@@ -3,6 +3,7 @@ package com.gf.golboogi.controller;
 
 
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,18 +19,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gf.golboogi.repository.BookingDao;
+import com.gf.golboogi.repository.MemberDao;
+import com.gf.golboogi.repository.PackageDao;
+import com.gf.golboogi.repository.PackageReserveDao;
 import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.entity.PaymentDto;
 import com.gf.golboogi.entity.StayDto;
+import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.entity.PackageReserveDto;
 import com.gf.golboogi.entity.PaymentDetailDto;
 import com.gf.golboogi.service.KakaoPayService;
+import com.gf.golboogi.service.PaymentService;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
 import com.gf.golboogi.vo.KakaoPayApproveResponseVO;
 import com.gf.golboogi.vo.KakaoPayCancelRequestVO;
 import com.gf.golboogi.vo.KakaoPayCancelResponseVO;
 import com.gf.golboogi.vo.KakaoPayReadyRequestVO;
 import com.gf.golboogi.vo.KakaoPayReadyResponseVO;
+import com.gf.golboogi.vo.PackageVO;
 import com.gf.golboogi.vo.PurchaseVO;
 
 import lombok.extern.log4j.Log4j2;
@@ -37,6 +46,9 @@ import lombok.extern.log4j.Log4j2;
 @Controller
 public class PayController {
 
+//	@Autowired
+//	private PackageVO packageVo;
+	
 	@Autowired
 	private StayDao stayDao;
 	
@@ -45,35 +57,63 @@ public class PayController {
 	
 	@Autowired
 	private PaymentDao paymentDao;
+
+	@Autowired
+	private MemberDao memberDao;
 	
 	@Autowired
-//	private PaymentService paymentService;
+	private BookingDao bookingDao;
+	
+	@Autowired
+	private PackageDao packageDao;
+	
+	@Autowired
+	private PackageReserveDao packageReserveDao;
+	
+	@Autowired
+	private PaymentService paymentService;
+	
+
 	
     @GetMapping("package/package_purchase")
-    public void pay1Get() {
-        
+		public String pay1Get(@RequestParam int packageNo, Model model,MemberDto memberDto, HttpSession session ) {
+    	PackageVO packageVo = packageDao.one(packageNo);	
+    	   
+    	    String memberId = (String) session.getAttribute("login");
+    	    memberDto = memberDao.info(memberId); 
+    	    
+    	    //예약자 이름. 이메일. 번호 가져오기 
+    		String memberName = memberDto.getMemberName();
+    		String memberEmail = memberDto.getMemberEmail();
+    		String memberPhone = memberDto.getMemberPhone();   	    
+    	    
+    	    model.addAttribute("memberDto", memberDto );
+    	    model.addAttribute("packageVo", packageVo);
+			return"package/package_purchase";
+
     }
+
 	
-	@PostMapping("/package_purchase")
+	@PostMapping("package/package_purchase")
 	public String pay1Purchase(
-				//@RequestParam int no, @RequestParam int quantity
+			@RequestParam int packageNo, //@RequestParam int quantity
 				@ModelAttribute PurchaseVO purchaseVO, HttpSession session
 			) throws URISyntaxException {
 		
-		StayDto stayDto = stayDao.one(purchaseVO.getNo());
+		PackageVO packageVo = packageDao.one(packageNo);
 		//상품이 없다면 결제가 진행되지 않도록 처리
-				if(stayDto == null) {
+				if(packageVo == null) {
 					return "redirect:package_purchase";
 				}
 				
 		//결제 준비(ready) 요청을 진행
-		int totalAmount = stayDto.getStayPrice() * purchaseVO.getQuantity();
+		int totalAmount= (packageVo.getStayDto().getStayPrice())*4 + (packageVo.getFieldDto().getFieldGreenfee())*4;
 		int paymentNo = paymentDao.sequence();
 		KakaoPayReadyRequestVO requestVO = 
 									KakaoPayReadyRequestVO.builder()
 												.partner_order_id(String.valueOf(paymentNo))
 												.partner_user_id(session.getId())
-												.item_name(stayDto.getStayName())
+												.item_name("골부기예약결제")
 												.quantity(purchaseVO.getQuantity())
 												.total_amount(totalAmount)
 											.build();
@@ -99,48 +139,39 @@ public class PayController {
 	
 	
 	//승인/취소/실패 : 카카오 API에 신청한 URL로 처리
-	@GetMapping("/pay/approve")
-	public String paySuccess(@RequestParam String pg_token, HttpSession session) throws URISyntaxException {
-		//세션에 추가된 정보를 받고 세션에서 삭제한다(tid, partner_order_id, partner_user_id)
-		// -> 취소 , 실패 , 성공 모두다 삭제하도록 처리
-		KakaoPayApproveRequestVO requestVO = 
-									(KakaoPayApproveRequestVO) session.getAttribute("pay");
-		session.removeAttribute("pay");
+		@GetMapping("/pay/approve")
+		public String paySuccess(@RequestParam String pg_token, HttpSession session) throws URISyntaxException {
+			//세션에 추가된 정보를 받고 세션에서 삭제한다(tid, partner_order_id, partner_user_id)
+			// -> 취소 , 실패 , 성공 모두다 삭제하도록 처리
+			System.out.println("pg_token >>>" + pg_token);
+			KakaoPayApproveRequestVO requestVO = 
+										(KakaoPayApproveRequestVO) session.getAttribute("pay");
+			session.removeAttribute("pay");
+			System.out.println("requestVO >>>" + requestVO);
+
+			PurchaseVO purchaseVO = (PurchaseVO) session.getAttribute("purchase");
+			session.removeAttribute("purchase");
+			System.out.println("purchaseVO >>>" + purchaseVO);
+  
+			int paymentNo = (int) session.getAttribute("paymentNo");
+			System.out.println("paymentNo >>>" + paymentNo);
+			session.removeAttribute("paymentNo");
+			
+			
+
+			//주어진 정보를 토대로 승인(approve) 요청을 보낸다
+			requestVO.setPg_token(pg_token);
+			KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
+			
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1111");
+			
+			System.out.println("responseVO >>>" + responseVO);
 		
-		List<PurchaseVO> purchaseList = (List<PurchaseVO>) session.getAttribute("purchase");
-		session.removeAttribute("purchase");
+			paymentService.insert(paymentNo, responseVO, purchaseVO);
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
 		
-		int paymentNo = (int) session.getAttribute("paymentNo");
-		session.removeAttribute("paymentNo");
-		
-		//주어진 정보를 토대로 승인(approve) 요청을 보낸다
-		requestVO.setPg_token(pg_token);
-		KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
-		
-		//결제 승인까지 완료된 현 시점에서 결제 정보들을 DB에 저장해야 한다
-		//- PaymentDto : KakaoPayApproveResponseVO에 있는 정보로 등록이 가능
-		//- PaymentDetailDto : 추가 정보가 없다면 등록이 불가능하다
-		PaymentDto paymentDto = PaymentDto.builder()
-														.paymentNo(paymentNo)
-														.paymentTid(responseVO.getTid())
-														.paymentName(responseVO.getItem_name())
-														.paymentTotal(responseVO.getAmount().getTotal())
-													.build();
-		paymentDao.insertPayment(paymentDto);
-		
-		//purchaseList에 들어있는 상품 번호와 상품 수량을 토대로 상세 정보를 등록
-		for(PurchaseVO purchaseVO : purchaseList) {
-			StayDto stayDto = stayDao.one(purchaseVO.getNo());
-			PaymentDetailDto paymentDetailDto = PaymentDetailDto.builder()
-																	.paymentNo(paymentNo)
-																	.paymentDetailName(stayDto.getStayName())
-																	.paymentDetailPrice(stayDto.getStayPrice())
-																	.paymentDetailQuantity(purchaseVO.getQuantity())
-																.build();
-			paymentDao.insertPaymentDetail(paymentDetailDto);
-		}
-		
-//		return "redirect:/pay/finish";
+
+		//return "redirect:/pay/finish";
 		return "redirect:finish";
 	}
 	
@@ -196,10 +227,11 @@ public class PayController {
 		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
 
 		//DB 처리
-		paymentDao.cancelDetail(paymentDetailNo);
+		paymentDao.cancelAll(paymentDetailNo);
 
 		return "redirect:more?paymentNo="+paymentDetailDto.getPaymentNo();
 	}
+
 
 	
 	

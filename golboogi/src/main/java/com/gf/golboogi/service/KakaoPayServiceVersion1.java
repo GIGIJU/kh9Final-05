@@ -58,11 +58,11 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 		body.add("total_amount", String.valueOf(requestVO.getTotal_amount()));
 		body.add("tax_free_amount", "0");//무조건 0원
 
-//		String prefix = ServletUriComponentsBuilder
-//													.fromCurrentContextPath()
-//													.path("/payment")
-//													.toUriString();
-		String prefix = "http://localhost:8080/golboogi/payment";
+		String prefix = ServletUriComponentsBuilder
+													.fromCurrentContextPath()
+													.path("/pay")
+													.toUriString();
+		//String prefix = "http://localhost:8080/golboogi/pay";
 		body.add("approval_url", prefix+"/approve");
 		body.add("cancel_url", prefix+"/cancel");
 		body.add("fail_url", prefix+"/fail");
@@ -75,9 +75,9 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 				template.postForObject(uri, entity, KakaoPayReadyResponseVO.class);
 		
 		//테스트용 로그
-		log.debug("tid = {}", responseVO.getTid());
-		log.debug("partner_order_id = {}", requestVO.getPartner_order_id());
-		log.debug("partner_user_id = {}", requestVO.getPartner_user_id());
+//		log.debug("tid = {}", responseVO.getTid());
+//		log.debug("partner_order_id = {}", requestVO.getPartner_order_id());
+//		log.debug("partner_user_id = {}", requestVO.getPartner_user_id());
 		
 		return responseVO;
 	}
@@ -112,8 +112,25 @@ public class KakaoPayServiceVersion1  implements KakaoPayService{
 
 	@Override
 	public KakaoPayCancelResponseVO cancel(KakaoPayCancelRequestVO requestVO) throws URISyntaxException {
-		// TODO Auto-generated method stub
-		return null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Authorization", authorization);
+		headers.add("Content-type", contentType);
+		
+		MultiValueMap<String, String> body = new LinkedMultiValueMap<String, String>();
+		body.add("cid", cid);
+		body.add("tid", requestVO.getTid());
+		body.add("cancel_amount", String.valueOf(requestVO.getCancel_amount()));
+		body.add("cancel_tax_free_amount", "0");
+		
+		HttpEntity<MultiValueMap<String, String>> entity = new HttpEntity<>(body, headers);
+		
+		URI uri = new URI(urlPrefix + "/cancel");
+		
+		KakaoPayCancelResponseVO responseVO = 
+				template.postForObject(uri, entity, KakaoPayCancelResponseVO.class);
+		log.debug("responseVO = {}", responseVO);
+		
+		return responseVO;
 	}
 
 
