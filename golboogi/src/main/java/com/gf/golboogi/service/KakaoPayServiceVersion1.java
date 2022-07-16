@@ -25,7 +25,7 @@ import com.gf.golboogi.vo.KakaoPayReadyResponseVO;
 
 import lombok.extern.slf4j.Slf4j;
 
-@PropertySource("application.properties")
+@PropertySource("classpath:application.properties")
 @Slf4j
 @Service
 public class KakaoPayServiceVersion1  implements KakaoPayService{
