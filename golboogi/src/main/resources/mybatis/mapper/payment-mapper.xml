@@ -28,7 +28,7 @@
 
 	<!-- 시퀀스 번호 확인 -->
 	<select id="sequence" resultType="int">
-		select payment_seq.nextval from
+		select payment_no_seq.nextval from
 		dual
 	</select>
 	
@@ -36,11 +36,11 @@
 	
 	<insert id="insert" parameterType="PaymentDto">
 		insert into payment(
-			payment_no, booking_no, package_no,  payment_tid, payment_total, payment_name, 
+			payment_no, payment_tid, payment_total, payment_name, 
 			payment_time, payment_status
 		)
 		values(
-			#{paymentNo}, #{bookingNo}, #{packageNo},#{paymentTid}, #{paymentTotal}, #{paymentName}, 
+			#{paymentNo},#{paymentTid}, #{paymentTotal}, #{paymentName}, 
 			sysdate, '승인'
 		)	
 	</insert>
@@ -53,11 +53,34 @@
 		select * from payment where payment_no = #{paymentNo}
 	</select>
 	
+	<update id="cancel" parameterType="int">
+		update payment set payment_status = '취소' where payment_no = #{paymentNo}
+	</update>
+	
+	<update id="refresh" parameterType="int">
+		update payment set payment_status = (
+		    select 
+		        case
+		            when "all" = "success" then '승인'
+		            when "all" = "cancel" then '취소'
+		            else '부분취소'
+		        end
+		    from (
+		        select
+		            (select count(*) from payment_detail where payment_no = #{paymentNo}) "all",
+		            (select count(*) from payment_detail where payment_no = #{paymentNo} and payment_detail_status = '승인') "success",
+		            (select count(*) from payment_detail where payment_no = #{paymentNo} and payment_detail_status = '취소') "cancel"
+		        from dual
+		    )
+		) where payment_no = #{paymentNo}
+	</update>
+	
+		<update id="cancelAll" parameterType="int">
+		update payment set payment_status = '취소' where payment_no = #{paymentNo}
+	</update>
+	
 		<!-- 골프예약번호가 null 일때 패키지상품이고, 패키지예약번호가 null 일때 골프예약이다. -->
-<!-- 	<select id="sequence" resultType="int"> -->
-<!-- 		select payment_seq.nextval from -->
-<!-- 		dual -->
-<!-- 	</select> -->
+
 	
 </mapper> 
 

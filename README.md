@@ -1,5 +1,11 @@
 # KH9 Final Project - 05 조 
 
+### 얼마 안남았습니다 다들 힘냅시다!
+
+
+![bb9452f477ed7e7cce802461406f1177_a](https://user-images.githubusercontent.com/63634220/179349999-2ae896a3-b9dd-4f00-b20a-339d0379cbea.gif)
+
+
 ![MainImgGolf](https://images.unsplash.com/photo-1584837140804-599306fb37f9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=500&q=80)
 * * *
 

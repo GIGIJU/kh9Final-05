@@ -73,7 +73,7 @@
 	}
 </style>
 
-
+<div id="app">
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
@@ -92,20 +92,20 @@
   <div class="row">
    <div class="col-md-12">
     <div class="search-wrap-1 ftco-animate fadeInUp ftco-animated">
-     <form action="#" class="search-property-1">
+     <form action="list" class="search-property-1">
       <div class="row no-gutters">
        <div class="col-lg d-flex">
         <div class="form-group p-4 border-0">
          <label for="#">지역</label>
          <div class="form-field">
             <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                 <select name="" id="" class="form-control">
+                 <select name="stayLocal" id="" class="form-control">
                     <option value="">전체</option>
-			        <option value="">경기도</option>
-			        <option value="">강원도</option>
-			        <option value="">전라도</option>
-			        <option value="">경상도</option>
-			        <option value="">제주도</option>
+			        <option value="경기도">경기도</option>
+			        <option value="강원도">강원도</option>
+			        <option value="전라도">전라도</option>
+			        <option value="경상도">경상도</option>
+			        <option value="제주도">제주도</option>
 		      </select>
          </div>
        </div>
@@ -115,7 +115,7 @@
        <label for="#">체크인</label>
        <div class="form-field">
          <div class="icon"><span class="fa fa-calendar"></span></div>
-         <input type="text" class="form-control checkin_date" placeholder="Check In">
+         <input type="text" name="packageDepart"  class="form-control checkin_date" placeholder="Check In">
        </div>
      </div>
    </div>
@@ -134,11 +134,11 @@
    <div class="form-field">
      <div class="select-wrap">
       <div class="icon"><span class="fa fa-chevron-down"></span></div>
-      <select name="" id="" class="form-control">
+      <select name="stayPrice" id="" class="form-control">
         <option value="">전체</option>
-        <option value="">알뜰</option>
-        <option value="">일반</option>
-        <option value="">프리미엄</option>
+        <option value="100000" id="알뜰">알뜰</option>
+        <option value="300000" id="일반">일반</option>
+        <option value="600000" id="프리미엄">프리미엄</option>
       </select>
     </div>
   </div>
@@ -202,7 +202,35 @@
   </div>
 </div>
 </div>
+</div>
 </section>
 
-
+<!-- vue js도 lazy loading을 사용한다 -->
+    <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //div[id=app]을 제어할 수 있는 Vue instance를 생성
+        const app = Vue.createApp({
+            //data : 화면을 구현하는데 필요한 데이터를 작성한다.
+            data(){
+                return {
+     
+                };
+            },
+            //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
+            // - 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
+            computed:{
+				},
+            },
+            //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
+            methods:{
+                
+            },
+            //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
+            watch:{
+            	
+            }
+        });
+        app.mount("#app");
+    </script>
+    
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

@@ -180,7 +180,7 @@
             <div class="row justify-content-center mt-2mb-3">
          <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
       </div>
-       <a href="${root}/pay/payment">아임 서포트 결제 모듈 테스트 해보기</a>
+
 </div>
 </div>
 </div>

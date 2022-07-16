@@ -17,7 +17,14 @@ public interface PaymentDao {
 	
 	int insertPaymentDetail(PaymentDetailDto paymentDetailDto);
 	
-	boolean cancelDetail(int paymentDetailNo);
+	boolean cancelDetail(PaymentDetailDto paymentDetailDto);
 	PaymentDetailDto findDetail(int paymentDetailNo);
+	
+	int calculateCancelAmountByJava(int paymentNo);
+	int calculateCancelAmountByOracle(int paymentNo);
+	
+	void cancelAll(int paymentNo);
+	
+
 	
 }
