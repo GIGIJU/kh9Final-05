@@ -126,7 +126,14 @@ p {
 							<c:forEach var="teetimeVO" items="${list}" varStatus="status">
 								<li class="comment mb-4">
 									<div class="vcard bio">
-										<img src="${root}/images/golf-dummy.jpg" style="height: 70px; width: 70px;">
+									<c:choose>
+										<c:when test="${teetimeVO.attachmentNo == 0}">
+											<img src="${root}/images/golf-dummy.jpg" style="height: 70px; width: 70px;">
+										</c:when>
+										<c:otherwise>
+											<img src="${root}/attachment/download?attachmentNo=${teetimeVO.attachmentNo}" style="height: 70px; width: 70px;">
+										</c:otherwise>
+									</c:choose>
 									</div>
 									<div class="comment-body">
 										<h3>${teetimeVO.fieldName}</h3>

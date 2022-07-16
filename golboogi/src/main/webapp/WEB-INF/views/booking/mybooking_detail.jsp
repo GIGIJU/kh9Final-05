@@ -171,22 +171,22 @@ textarea {
 			</div>
 			<div class="col-md-9 mt-2">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-3" style="font-weight: lighter;">
 						<p>예약자명</p>
 						<p>연락처</p>
 						<p>예약인원</p>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" style="font-weight: 500;">
 						<p>${memberDto.memberName}</p>
 						<p>${memberDto.memberPhone}</p>
 						<p>4명</p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-3" style="font-weight: lighter;">
 						<p>예약한날짜</p>
 						<p>예약상태</p>
 						<p>취소가능날짜</p>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" style="font-weight: 500;">
 						<p>${myBookingListVO.bookingDate}</p>
 						<c:choose>
 							<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
@@ -209,12 +209,12 @@ textarea {
 			</div>
 			<div class="col-md-9 mt-2">
 				<div class="row">
-					<div class="col-md-2">
+					<div class="col-md-3" style="font-weight: lighter;">
 						<p>그린피 [1인]</p>
 						<p>4인 합계</p>
 						<p>요금조건</p>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-3" style="font-weight: 500;">
 						<p><fmt:formatNumber value="${myBookingListVO.bookingPrice/4}" />원</p>
 						<p><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</p>
 						<p><c:choose>
@@ -222,11 +222,11 @@ textarea {
 							<c:otherwise>선결제(결제완료)</c:otherwise>
 						</c:choose></p>
 					</div>
-					<div class="col-md-2">
+					<div class="col-md-2" style="font-weight: lighter;">
 						<p>카트피</p>
 						<p>캐디피</p>
 					</div>
-					<div class="col-md-3">
+					<div class="col-md-4" style="font-weight: 500;">
 						<p><fmt:formatNumber value="${myBookingListVO.fieldCartfee}" />원 (현장결제)</p>
 						<p><fmt:formatNumber value="${myBookingListVO.fieldCaddiefee}" />원 (현장결제)</p>
 					</div>
@@ -259,7 +259,7 @@ textarea {
 		<hr>
 		<c:if test="${myBookingListVO.bookingStatus == '예약완료'}">
 			<div class="col-md-6 offset-md-3 text-center">
-				<a class="tagcloud" href="#" @click="cancelBooking" v-if="bookingDrop()">예약취소</a>	
+				<button class="tagcloud" @click="cancelBooking()" v-if="bookingDrop()">예약취소</button>	
 			</div>
 		</c:if>
 	</div>
@@ -375,7 +375,6 @@ textarea {
 	</div>	
 </div>
 
-</div>
  	<script src="http://unpkg.com/vue@next"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
@@ -411,7 +410,7 @@ textarea {
                 hiddenModal3(){
                 	$(".modal3").hide();
                 },
-            	cancelBooking(){
+                cancelBooking(){
              		if(confirm("정말로 예약 취소 하시겠습니까?")){
              			console.log("${root}/booking/cancel?bookingNo=${myBookingListVO.bookingNo}&fieldName=${myBookingListVO.fieldName}");
     	        		window.location.href="${root}/booking/cancel?bookingNo=${myBookingListVO.bookingNo}&fieldName=${myBookingListVO.fieldName}";

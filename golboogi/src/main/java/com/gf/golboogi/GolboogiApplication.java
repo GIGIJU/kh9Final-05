@@ -2,6 +2,7 @@ package com.gf.golboogi;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
@@ -12,6 +13,9 @@ public class GolboogiApplication extends SpringBootServletInitializer {
 		SpringApplication.run(GolboogiApplication.class, args);
 	}
 	
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+		return builder.sources(GolboogiApplication.class);
+	}
 	
-
 }
