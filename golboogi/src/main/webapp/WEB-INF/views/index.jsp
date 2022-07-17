@@ -22,7 +22,7 @@
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
 						<span class="subheading">Provide Places</span>
-						<h2 class="mb-4">Select Your Destination</h2>
+						<h2 class="mb-4">골프부킹, 국내 최대 부킹서비스</h2>
 					</div>
 				</div>
 			</div>
@@ -32,50 +32,45 @@
 						<div class="carousel-destination owl-carousel ftco-animate">
 							<div class="item">
 								<div class="project-destination">
-									<a href="#" class="img" style="background-image: url(images/main_Yongin.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=경기" class="img" style="background-image: url(images/main_Yongin.jpeg);">
 										<div class="text">
 											<h3>경기</h3>
-											<span>8 Tours</span>
 										</div>
 									</a>
 								</div>
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="#" class="img" style="background-image: url(images/main_Ansung.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=강원" class="img" style="background-image: url(images/main_Ansung.jpeg);">
 										<div class="text">
 											<h3>강원</h3>
-											<span>2 Tours</span>
 										</div>
 									</a>
 								</div>
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="#" class="img" style="background-image: url(images/main_Icheon.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=경상도" class="img" style="background-image: url(images/main_Icheon.jpeg);">
 										<div class="text">
 											<h3>경상도</h3>
-											<span>5 Tours</span>
 										</div>
 									</a>
 								</div>
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="#" class="img" style="background-image: url(images/main_Incheon.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=전라도" class="img" style="background-image: url(images/main_Incheon.jpeg);">
 										<div class="text">
 											<h3>전라도</h3>
-											<span>5 Tours</span>
 										</div>
 									</a>
 								</div>
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="#" class="img" style="background-image: url(images/main_pocheon.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=제주도" class="img" style="background-image: url(images/main_pocheon.jpeg);">
 										<div class="text">
 											<h3>제주도</h3>
-											<span>7 Tours</span>
 										</div>
 									</a>
 								</div>
@@ -90,8 +85,8 @@
 			<div class="container">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
-						<span class="subheading">Destination</span>
-						<h2 class="mb-4">Tour Destination</h2>
+						<span class="subheading">Tour Destination</span>
+						<h2 class="mb-4">골프 투어, 나만을 위한 1:1 맞춤 서비스</h2>
 					</div>
 				</div>
 				<div class="row">
@@ -101,11 +96,9 @@
 								<span class="price">₩ 325,000won/person</span>
 							</a>
 							<div class="text p-4">
-								<span class="days">2 Days Tour</span>
 								<h3><a href="#">Jeju</a></h3>
 								<p class="location"><span class="fa fa-map-marker"></span> Jeju, Korea</p>
 								<ul>
-									<li><span class="flaticon-mountains"></span>Near Beach</li>
 								</ul>
 							</div>
 						</div>
@@ -116,11 +109,9 @@
 								<span class="price">₩ 364,000/person</span>
 							</a>
 							<div class="text p-4">
-								<span class="days">10 Days Tour</span>
 								<h3><a href="#">Gyeongnam</a></h3>
 								<p class="location"><span class="fa fa-map-marker"></span> Gyeongnam, Korea</p>
 								<ul>
-									<li><span class="flaticon-sun-umbrella"></span>Near Mountain</li>
 								</ul>
 							</div>
 						</div>
@@ -131,11 +122,9 @@
 								<span class="price">₩ 335,000/person</span>
 							</a>
 							<div class="text p-4">
-								<span class="days">7 Days Tour</span>
 								<h3><a href="#">Gangwon</a></h3>
 								<p class="location"><span class="fa fa-map-marker"></span> Gangwon, Korea</p>
 								<ul>
-									<li><span class="flaticon-sun-umbrella"></span>Near Beach</li>
 								</ul>
 							</div>
 						</div>
@@ -147,11 +136,9 @@
 								<span class="price">₩ 325,000/person</span>
 							</a>
 							<div class="text p-4">
-								<span class="days">8 Days Tour</span>
 								<h3><a href="#">Jeonnam</a></h3>
 								<p class="location"><span class="fa fa-map-marker"></span> Jeonnam, Korea</p>
 								<ul>
-									<li><span class="flaticon-sun-umbrella"></span>Near Mountain</li>
 								</ul>
 							</div>
 						</div>
@@ -162,11 +149,9 @@
 								<span class="price">₩ 330,000/person</span>
 							</a>
 							<div class="text p-4">
-								<span class="days">10 Days Tour</span>
 								<h3><a href="#">Chungnam</a></h3>
 								<p class="location"><span class="fa fa-map-marker"></span> Chungnam, Korea</p>
 								<ul>
-									<li><span class="flaticon-sun-umbrella"></span>Near Mountain</li>
 								</ul>
 							</div>
 						</div>
@@ -177,11 +162,9 @@
 								<span class="price">₩ 425,000/person</span>
 							</a>
 							<div class="text p-4">
-								<span class="days">7 Days Tour</span>
 								<h3><a href="#">Gyeonggi</a></h3>
 								<p class="location"><span class="fa fa-map-marker"></span> Gyeonggi, Korea</p>
 								<ul>
-									<li><span class="flaticon-sun-umbrella"></span>Near River</li>
 								</ul>
 							</div>
 						</div>
@@ -211,9 +194,9 @@
 							<div class="col-md-6 pl-md-5 py-5">
 								<div class="row justify-content-start pb-3">
 									<div class="col-md-12 heading-section ftco-animate">
-										<span class="subheading">About Us</span>
-										<h2 class="mb-4">Make Your Golf Memorable and Joy With Us</h2>
-										<p><a href="#" class="btn btn-primary">Book Your Tee-time</a></p>
+										<span class="subheading">Join</span>
+										<h2 class="mb-4">조인, 믿을 수 있는 동반자를 찾는 방법</h2>
+										<p><a href="${root}/join/list" class="btn btn-primary">Find Your Join-partner</a></p>
 									</div>
 								</div>
 							</div>
@@ -227,8 +210,8 @@
 			<div class="container">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
-						<span class="subheading">Our Blog</span>
-						<h2 class="mb-4">Recent Post</h2>
+						<span class="subheading">Our Review</span>
+						<h2 class="mb-4">최근 게시글</h2>
 					</div>
 				</div>
 				<div class="row d-flex">

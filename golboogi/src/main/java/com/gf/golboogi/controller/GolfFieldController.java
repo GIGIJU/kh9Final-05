@@ -42,39 +42,20 @@ public class GolfFieldController {
 	@GetMapping("/golf_field")
 	public String golfField(
 			@RequestParam(required = false) String type,
-			@RequestParam(required = false) int keyword,
+			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int s,
 			Model model) {
 			String area=null;
-			if (keyword != 0) {
-				
-				switch(keyword) {
-					case 1: area="경기";
-					break;
-					
-					case 2: area="강원";
-					break;
-		
-					case 3: area="전라도";
-					break;
-					
-					case 4: area="경상도";
-					break;
-					
-					case 5: area="제주도";
-					break;
-				}
-			}
 			
-			List<GolfFieldDto> list = golfFieldDao.list(type, area, p, s);
+			List<GolfFieldDto> list = golfFieldDao.list(type, keyword, p, s);
 			
 			model.addAttribute("list", list);
 			
-			boolean search = type != null && area != null;
+			boolean search = type != null && keyword != null;
 			model.addAttribute("search", search);
 			 
-			int count = golfFieldDao.count(type, area);
+			int count = golfFieldDao.count(type, keyword);
 			int lastPage = (count + s - 1) / s;
 			
 			int blockSize = 10;//블록 크기
