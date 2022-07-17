@@ -31,7 +31,6 @@ import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.MemberProfileDao;
 import com.gf.golboogi.service.MailService;
 import com.gf.golboogi.service.MemberService;
-import com.gf.golboogi.vo.MemberProfileVO;
 
 
 @Controller

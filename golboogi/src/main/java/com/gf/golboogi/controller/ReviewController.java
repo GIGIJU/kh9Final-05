@@ -20,15 +20,11 @@ import com.gf.golboogi.entity.AttachmentDto;
 import com.gf.golboogi.entity.ReviewDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.AttachmentDao;
-import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.repository.ReviewProfileDao;
 import com.gf.golboogi.service.ReviewService;
 import com.gf.golboogi.vo.ReviewProfileVO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/review")
 public class ReviewController {

@@ -26,9 +26,7 @@ import com.gf.golboogi.service.AdminInsertService;
 import com.gf.golboogi.service.GolfFieldService;
 import com.gf.golboogi.vo.AdminVO;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
@@ -50,7 +48,6 @@ public class AdminController {
 			model.addAttribute("adminVO", vo);
 			//
 			List<GolfFieldDto> golfFieldDto = golfFieldDao.searchSimple();
-			log.debug("DTO = {}", golfFieldDto);
 			model.addAttribute("golfFieldDto", golfFieldDto);
 			//
 			return "admin/list";
