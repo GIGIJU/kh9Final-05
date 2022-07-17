@@ -14,15 +14,15 @@ textarea{
 						<div class="col-lg-7">
 							<div class="card shadow-lg border-0 rounded-lg mt-5">
                                     
-<!-- 								<div class="card-header bg-success" style=" color:white;"><h3 class="text-center font-weight-light my-4">골프장 정보 입력</h3></div> -->
+								<div class="card-header bg-success" style=" color:white;"><h3 class="text-center font-weight-light my-4">골프장 정보 입력</h3></div>
                                     
                                     <div class="card-body">
                                         
                                         <form action="field_insert" method="post" enctype="multipart/form-data" class="form-check">
                                             
                                             <div class="page"><!-- 페이지1 -->
-                                            <div class="form-floating mb-5 card-header bg-success">
-                                            	<h3 class="text-center font-weight-light my-4" style=" color:white;"> 골프장 정보 입력 (1/2)</h3>
+                                            <div class="form-floating mb-5">
+                                            	<h3 class="text-center font-weight-light my-4"> 골프장 정보 입력 (1/2)</h3>
                                             </div>
                                          
                                             
@@ -51,6 +51,7 @@ textarea{
 		                                                    <div class="form-floating mb-3 mb-md-0">
 		                                                        <input class="form-control" id="fieldPost" type="text" name="fieldPost" maxlength="6" />
 		                                                        <label for="fieldPost">우편번호</label>
+<!-- 		                                                        <button class="btn btn-primary">검색</button> -->
 		                                                    </div>
 		                                                </div>
 		                                                <div class="col-md-4">
@@ -106,60 +107,24 @@ textarea{
                                             		<option value="경상도">경상도</option>
                                             		<option value="제주도">제주도</option>
                                             	</select>
-                                                <label for="fieldArea">골프장지역</label>
+                                                <label for="fieldPrepay">골프장지역</label>
                                             </div>
                                             
-                                            <div class="mt-4 mb-5">
+                                            <div class="mt-4 mb-5" id=fieldProfile>
                                             	<div>골프장 이미지 첨부</div>
-                                            	<input name="fieldProfile" class="form-control" type="file" accept=".png, .jpg, .gif" multiple/>
+                                            	<input name="fieldProfile" id="fieldProfile" class="form-control" type="file" accept=".png, .jpg, .gif" multiple/>
                                             </div>
-                                            
-                                            <!-- page button (1/2) -->
-                                            <div class="row mt-5">
-                                            	<div class="col-md-6">
-		                                            <button type="button" class="btn btn-prev btn-success">이전</button>
-                                            	</div>
-                                            	<div class="col-md-6" >
-		               								<button type="button" class="btn btn-next btn-success" style="float: right;">다음</button>
-                                            	</div>
-                                            </div>
-	                                            
                                             </div><!-- 페이지1 -->
-                                            
-                                            <div class="page"><!-- 페이지2 -->
-	                                            <div class="form-floating mb-5 card-header bg-success">
-	                                            	<h3 class="text-center font-weight-light my-4" style=" color:white;"> 코스 정보 입력 (2/2)</h3>
-	                                            </div>
-	                                            
-	                                            <div class="form-floating mb-5">
-	                                            	<input name="courseName" id="courseName" class="form-control" type="text"/>
-	                                                <label for="courseName">코스 이름</label>
-	                                            </div>
-	                                            
-	                                            <div class="form-floating mb-5">
-	                                            	<select name="courseHole" class="form-select" multiple style="height: 80px">
-	                                            		<option value="9홀">9홀</option>
-	                                            		<option value="18홀">18홀</option>
-	                                            	</select>
-	                                                <label for="courseHole">골프장지역</label>
-	                                            </div>
-	                                            
-	                                            <div class="mt-4 mb-0">
-	                                                <div class="d-grid">
-	                                                	<input type="submit" class="btn btn-primary" value="골프장 정보 등록">
-	                                                </div>
-	                                            </div>
-	                                            
-	                                            <!-- page button (2/2) -->
-	                                            <div class="row mt-5">
-	                                            	<div class="col-md-6">
-			                                            <button type="button" class="btn btn-prev btn-success">이전</button>
-	                                            	</div>
-	                                            	<div class="col-md-6" >
-			               								<button type="button" class="btn btn-next btn-success" style="float: right;" disabled>다음</button>
-	                                            	</div>
-	                                            </div>
+                                            <div class="mt-4 mb-0">
+                                                <div class="d-grid">
+                                                	<input type="submit" class="btn btn-primary" value="골프장 정보 등록">
+                                                </div>
                                             </div>
+                                            
+                                            <button type="button" class="btn btn-prev">이전</button>
+               								<button type="button" class="btn btn-next">다음</button>
+                                            
+                                            
                                             
                                             
                                         </form>

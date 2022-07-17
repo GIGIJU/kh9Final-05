@@ -27,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-               		<c:forEach var="adminVO" items="${adminVO}">
+                		<c:forEach var="adminVO" items="${adminVO}">
                     <tr>
 						<td>${adminVO.golfManagerId}</td>
 						<td>${adminVO.fieldName}</td>
