@@ -8,12 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.repository.GolfManagerDao;
 import com.gf.golboogi.vo.GolfManagerVO;
 
@@ -21,40 +20,76 @@ import com.gf.golboogi.vo.GolfManagerVO;
 @RequestMapping("/manager")
 public class GolfManagerController {
 	
-	@Autowired GolfManagerDao golfManagerDao;
+	@Autowired 
+	private GolfManagerDao golfManagerDao;
 	
-	@GetMapping("/stat/{adminId}")
+	@Autowired
+	private AdminDao adminDao;
+	
+	@GetMapping("/stat")
 	public String stat(
-			Model model,
-			@PathVariable String adminId) {
+			//@PathVariable String adminId,
+			HttpSession session,
+			Model model
+			) {
+		//String golfManagerId = adminId;
+		String loginId = (String)session.getAttribute("adminLogin");
+		String checkId = adminDao.golfManagerCheck(loginId);
 		
-		String golfManagerId = adminId;
+		boolean idCheck = loginId != checkId;
+		if(idCheck) {
 //		System.out.println("id = " + golfManagerId);
-		List<GolfManagerVO> vo = golfManagerDao.list(golfManagerId);
-		model.addAttribute("golfManagerVO", vo);
+			List<GolfManagerVO> vo = golfManagerDao.list(loginId);
+			model.addAttribute("golfManagerVO", vo);
 //		System.out.println("model = " + model);
-		return "/manager/stat";
+			return "/manager/stat";
+		}else {
+			throw new CannotFindException();
+		}
+		
 	}
 	
-	@GetMapping("/tables/{adminId}")
+	@GetMapping("/tables")
 	public String tables(
 			Model model,
-			@PathVariable String adminId
+			HttpSession session
+			//@PathVariable String adminId
 			) {
-		String golfManagerId = adminId;
-		List<GolfManagerVO> vo = golfManagerDao.list(golfManagerId);
-		model.addAttribute("golfManagerVO", vo);
-		
-		return "/manager/tables";
+		//String golfManagerId = adminId;
+		String loginId = (String)session.getAttribute("adminLogin");
+		String checkId = adminDao.golfManagerCheck(loginId);
+		boolean idCheck = loginId != checkId;
+		if(idCheck) {
+			//List<GolfManagerVO> vo = golfManagerDao.list(golfManagerId);
+			List<GolfManagerVO> vo = golfManagerDao.list(loginId);
+			model.addAttribute("golfManagerVO", vo);
+			return "/manager/tables";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 	
-	@GetMapping("/charts/{adminId}")
-	public String charts() {
-		return "/manager/charts";
+	@GetMapping("/charts")
+	public String charts(HttpSession session) {
+		String loginId = (String)session.getAttribute("adminLogin");
+		String checkId = adminDao.golfManagerCheck(loginId);
+		boolean idCheck = loginId != checkId;
+		if(idCheck) {
+			return "/manager/charts";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 	
-	@GetMapping("/payment/{adminId}")
-	public String payment() {
-		return "/manager/payment";
+	@GetMapping("/payment")
+	public String payment(HttpSession session) {
+		String loginId = (String)session.getAttribute("adminLogin");
+		String checkId = adminDao.golfManagerCheck(loginId);
+		boolean idCheck = loginId != checkId;
+		if(idCheck) {
+			return "/manager/payment";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 }

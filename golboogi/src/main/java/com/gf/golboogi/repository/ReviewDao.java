@@ -25,5 +25,7 @@ public interface ReviewDao {
 
 	Double ratingView(String fieldName);
 
+	String writerCheck(String memberId);
+
 
 }

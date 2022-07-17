@@ -99,6 +99,9 @@
 			field_name = #{fieldName}
 	</select>
 	
+	<select id="reviewWriter" parameterType="String" resultType="String">
+		select review_writer from review where review_writer = #{memberId}
+	</select>
 </mapper> 
 
 

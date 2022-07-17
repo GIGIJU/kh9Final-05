@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="isAdmin" value="${adminId != null}"></c:set>
 <c:set var="check1" value="${reviewDto.reviewNo}"></c:set>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
@@ -99,6 +101,10 @@
 				<td class="right" colspan="5" align="right">
 					<a href="${root}/review/write" class="btn btn-success btn-sm">글쓰기</a>&nbsp;
 					<a href="${root}/review/list" class="btn btn-success btn-sm">목록</a>&nbsp;
+					
+					<c:if test="${isAdmin && auth == 0}">
+						<a href="${root}/review/delete/${reviewDto.reviewNo}" class="btn btn-danger btn-sm">관리자 삭제</a>&nbsp;
+					</c:if>
 					
 					<c:if test="${reviewDto.reviewWriter == memberId}">
 						<a href="${root}/review/reviewProfile/${reviewDto.reviewNo}" class="btn btn-success btn-sm">사진수정</a>&nbsp;

@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<c:set var="adminId" value="${adminLogin}"></c:set>
+<c:set var="isAdmin" value="${adminId == null}"></c:set>
 <!DOCTYPE html>
 <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-color: black;">
   <div class="container">
@@ -25,7 +27,9 @@
             <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
             <li><a href="#" class="py-2 d-block">Club solution</a></li>
             <li><a href="#" class="py-2 d-block">Contact</a></li>
-            <li><a href="${root}/admin/login" class="py-2 d-block">관리자 로그인</a></li>
+            <c:if test="${isAdmin}">
+	            <li><a href="${root}/admin/login" class="py-2 d-block">관리자 로그인</a></li>
+            </c:if>
           </ul>
         </div>
       </div>

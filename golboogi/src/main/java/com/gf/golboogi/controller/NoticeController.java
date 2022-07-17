@@ -3,6 +3,8 @@ package com.gf.golboogi.controller;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,9 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.gf.golboogi.entity.AttachmentDto;
+import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.NoticeDto;
 import com.gf.golboogi.error.CannotFindException;
+import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.repository.NoticeDao;
 import com.gf.golboogi.repository.NoticeProfileDao;
 import com.gf.golboogi.service.NoticeService;
@@ -34,6 +37,9 @@ public class NoticeController {
 	
 	@Autowired
 	private NoticeProfileDao noticeProfileDao;
+	
+	@Autowired
+	private AdminDao adminDao;
 	
 	
 	@GetMapping("/list")
@@ -71,8 +77,14 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/write")
-	public String write() {
-		return "notice/write";
+	public String write(HttpSession session) {
+		String golfManagerId = (String)session.getAttribute("adminLogin");
+		boolean success = adminDao.MyCheck(golfManagerId);
+		if(success) {
+			return "notice/write";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 	
 	@PostMapping("/write")
@@ -107,10 +119,16 @@ public class NoticeController {
 	
 	
 	@GetMapping("/edit/{noticeNo}")
-	public String edit(@PathVariable int noticeNo, Model model) {
-		NoticeDto noticeDto = noticeDao.info(noticeNo);
-		model.addAttribute("noticeDto", noticeDto);
-		return "notice/edit";
+	public String edit(@PathVariable int noticeNo, Model model,HttpSession session) {
+		String golfManagerId = (String)session.getAttribute("adminLogin");
+		boolean success = adminDao.MyCheck(golfManagerId);
+		if(success) {
+			NoticeDto noticeDto = noticeDao.info(noticeNo);
+			model.addAttribute("noticeDto", noticeDto);
+			return "notice/edit";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 	
 	@PostMapping("/edit/{noticeNo}")
@@ -130,12 +148,13 @@ public class NoticeController {
 	}
 	
 	@GetMapping("/delete/{noticeNo}")
-	public String delete(@PathVariable int noticeNo) {
-		boolean success = noticeDao.delete(noticeNo);
+	public String delete(@PathVariable int noticeNo,HttpSession session) {
+		String golfManagerId = (String)session.getAttribute("adminLogin");
+		boolean success = adminDao.MyCheck(golfManagerId);
 		if(success) {
+			noticeDao.delete(noticeNo);
 			return "redirect:/notice/list";
-		}
-		else {
+		}else {
 			throw new CannotFindException();
 		}
 	}

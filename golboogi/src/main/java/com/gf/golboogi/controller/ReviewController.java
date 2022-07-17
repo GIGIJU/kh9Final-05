@@ -20,15 +20,11 @@ import com.gf.golboogi.entity.AttachmentDto;
 import com.gf.golboogi.entity.ReviewDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.AttachmentDao;
-import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.repository.ReviewProfileDao;
 import com.gf.golboogi.service.ReviewService;
 import com.gf.golboogi.vo.ReviewProfileVO;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Controller
 @RequestMapping("/review")
 public class ReviewController {
@@ -44,7 +40,6 @@ public class ReviewController {
 	
 	@Autowired
 	private AttachmentDao attachmentDao;
-	
 	
 	@GetMapping("/list")
 	public String list(
@@ -141,11 +136,18 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/edit/{reviewNo}")
-	public String edit(@PathVariable int reviewNo, Model model) {
-		ReviewDto reviewDto = reviewDao.info(reviewNo);
-		model.addAttribute("reviewDto", reviewDto);
+	public String edit(@PathVariable int reviewNo, Model model,HttpSession session) {
+		String memberId = (String)session.getAttribute("login");
+		String reviewWriter = reviewDao.writerCheck(memberId);
+		boolean MyCheck = reviewWriter == memberId;
+		if(MyCheck) {
+			ReviewDto reviewDto = reviewDao.info(reviewNo);
+			model.addAttribute("reviewDto", reviewDto);
+			return "review/edit";
+		}else {
+			throw new CannotFindException();
+		}
 		
-		return "review/edit";
 	}
 	
 	@PostMapping("/edit/{reviewNo}")
@@ -194,12 +196,14 @@ public class ReviewController {
 	}
 	
 	@GetMapping("/delete/{reviewNo}")
-	public String delete(@PathVariable int reviewNo) {
-		boolean success = reviewDao.delete(reviewNo);
-		if(success) {
+	public String delete(@PathVariable int reviewNo,HttpSession session) {
+		String memberId = (String)session.getAttribute("login");
+		String reviewWriter = reviewDao.writerCheck(memberId);
+		boolean deleteCheck = memberId == reviewWriter;
+		if(deleteCheck) {
+			reviewDao.delete(reviewNo);
 			return "redirect:/review/list";
-		}
-		else {
+		}else {
 			throw new CannotFindException();
 		}
 	}
