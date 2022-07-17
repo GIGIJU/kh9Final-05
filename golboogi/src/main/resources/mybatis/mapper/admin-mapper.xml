@@ -63,8 +63,13 @@
 		where member_id = #{memberId}
 	</update>
 	
+	<select id="myCheck" parameterType="String" resultType="GolfManagerDto">
+		select * from golf_manager where golf_manager_id = #{golfManagerId}
+	</select>
 	
-	
+	<select id="managerCheck" parameterType="String" resultType="String">
+		select golf_manager_id from golf_manager where golf_manager_id = #{golfManagerId}
+	</select>
 </mapper> 
 
 

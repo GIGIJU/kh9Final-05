@@ -39,4 +39,8 @@
 		select attachment_no from member_profile where member_id = #{memberId}
 	</select>
 	
+	<!-- 본인아이디 확인 -->
+	<select id="checkId" parameterType="String" resultType="String">
+		select member_id from member_profile where member_id = #{memberId}
+	</select>
 </mapper> 

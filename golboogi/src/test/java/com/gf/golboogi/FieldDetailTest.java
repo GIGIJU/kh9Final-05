@@ -23,7 +23,7 @@ public class FieldDetailTest {
 	@Autowired private GolfFieldDao golfFieldDao;
 	@Autowired private FieldProfileDao fieldProfileDao;
 	
-	@Test
+//	@Test
 	public void test() {
 		GolfFieldDto dto = GolfFieldDto.builder()
 								.fieldNo(999)

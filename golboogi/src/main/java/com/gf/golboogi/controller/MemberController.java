@@ -130,16 +130,23 @@ public class MemberController {
 	}
 
 	@GetMapping("blacklist")
-	public String blacklist() {
-		return "member/blacklist";
-		// 블랙리스트임을 알려주는 페이지 구현중 / 이기주
+	public String blacklist(HttpSession session) {
+		String memberId = (String)session.getAttribute("login");
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		boolean blackCheck = findDto.getMemberGrade() == 1;
+		if(MyCheck && blackCheck) {
+			return "member/blacklist";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("login");
-		session.removeAttribute("auth");
-		return "redirect:/";
+			session.removeAttribute("login");
+			session.removeAttribute("auth");
+			return "redirect:/";
 	}
 	
 	@GetMapping("/mypage")
@@ -166,21 +173,28 @@ public class MemberController {
 	@GetMapping("/edit")
 	public String edit(HttpSession session, Model model) {
 		String memberId = (String) session.getAttribute("login");
-		MemberDto memberDto = memberDao.info(memberId);
-		model.addAttribute("memberDto", memberDto);
-		return "member/edit";
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
+			MemberDto memberDto = memberDao.info(memberId);
+			model.addAttribute("memberDto", memberDto);
+			return "member/edit";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 	
 	@PostMapping("/edit")
 	public String edit(HttpSession session,@ModelAttribute MemberDto memberDto) {
 		String memberId = (String) session.getAttribute("login");
-		memberDto.setMemberId(memberId);
-		boolean success = memberDao.changeInformation(memberDto);
-		if(success) {
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
+			memberDto.setMemberId(memberId);
+			memberDao.changeInformation(memberDto);
 			return "redirect:mypage";
-		}
-		else {
-			return "redirect:edit?error";
+		}else {
+			throw new CannotFindException();
 		}
 	}
 	
@@ -195,11 +209,13 @@ public class MemberController {
 			@RequestParam String changePw,
 			HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
-		boolean isSuccess = memberDao.ChangePassword(memberId,memberPw,changePw);
-		if(isSuccess) {
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
+			memberDao.ChangePassword(memberId,memberPw,changePw);
 			return "redirect:mypage";
 		}else {
-			return "redirect:password?error";
+			throw new CannotFindException();
 		}
 	}
 	
@@ -218,12 +234,13 @@ public class MemberController {
 			@RequestParam String memberPw
 			) {
 		String memberId = (String) session.getAttribute("login");
-		boolean success = memberDao.exit(memberId,memberPw);
-		if(success) {
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
 			session.removeAttribute("login");
 			return "redirect:exit_success";
 		}else {
-			return "redirect:exit?error";
+			throw new CannotFindException();
 		}
 	}
 	
@@ -374,7 +391,13 @@ public class MemberController {
 	public String memberProfile(HttpSession session,
 			@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
 		String memberId = (String)session.getAttribute("login");
-		memberService.changeProfile(memberId, memberProfile);
-		return "redirect:mypage";
+		String checkId = memberProfileDao.MyCheck(memberId);
+		boolean MyCheck = memberId == checkId;
+		if(MyCheck) {
+			memberService.changeProfile(memberId, memberProfile);
+			return "redirect:mypage";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 }

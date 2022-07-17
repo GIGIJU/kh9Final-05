@@ -25,7 +25,7 @@ class GolboogiApplicationTests {
 	@Autowired
 	private SqlSession sqlSession;
 
-	@Test
+//	@Test
 	void contextLoads() {
 		BookingComplexSearchVO searchVO = BookingComplexSearchVO.builder()
 								//.partTime(2)

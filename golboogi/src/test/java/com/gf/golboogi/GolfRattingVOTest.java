@@ -20,6 +20,6 @@ public class GolfRattingVOTest {
 	public void test() {
 		String fieldName = "보성cc";
 		Double rating = reviewDao.ratingView(fieldName);
-		log.info("rating = {}", rating);
+		log.debug("rating = {}", rating);
 	}
 }

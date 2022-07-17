@@ -6,4 +6,6 @@ public interface MemberProfileDao {
 	//단일 검색
 	int info(String memberId);
 
+	String MyCheck(String memberId);
+
 }

@@ -81,4 +81,21 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.insert("admin.insertManager", adminVO);
 	}
 
+	@Override
+	public boolean MyCheck(String golfManagerId) {
+		GolfManagerDto findDto = sqlSession.selectOne("admin.myCheck",golfManagerId);
+		boolean adminCheck = findDto.getGolfManagerGrade() == 0;
+		if(adminCheck) {
+			return true;
+		}else {
+			return false;
+		}
+		
+	}
+
+	@Override
+	public String golfManagerCheck(String adminId) {
+		return sqlSession.selectOne("admin.managerCheck",adminId);
+	}
+
 }

@@ -26,6 +26,11 @@ public interface AdminDao {
 
 	void insertManager(AdminVO adminVO);
 
+	//관리자 로그인 아이디가 본인인지 확인
+	boolean MyCheck(String golfManagerId);
+
+	String golfManagerCheck(String adminId);
+
  
 
 
