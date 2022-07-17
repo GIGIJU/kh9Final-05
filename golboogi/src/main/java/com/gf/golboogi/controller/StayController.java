@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.error.CannotFindException;
@@ -64,22 +65,22 @@ public class StayController {
 		}
 	}
 	
-	//숙소 등록 @이기주
-	@GetMapping("/insert")
-	public String insert() {
-		return "stay/insert";
-	}
-	
-	@PostMapping("/insert")
-	public String insert(
-			@ModelAttribute StayDto stayDto,
-			@RequestParam MultipartFile stayProfile
-			) throws IllegalStateException, IOException {
-		
-		stayService.insert(stayDto, stayProfile);
-		
-		return "redirect:/stay/list";
-		
-	}
+	//숙소 등록 @이기주 ---> adminController로 이동
+//	@GetMapping("/insert")
+//	public String insert() {
+//		return "stay/insert";
+//	}
+//	
+//	@PostMapping("/insert")
+//	public String insert(
+//			@ModelAttribute StayDto stayDto,
+//			@RequestParam List<MultipartFile> stayProfile
+//			) throws IllegalStateException, IOException {
+//		
+//		stayService.insert(stayDto, stayProfile);
+//		
+//		return "redirect:stay_list";
+//		
+//	}
 	
 }

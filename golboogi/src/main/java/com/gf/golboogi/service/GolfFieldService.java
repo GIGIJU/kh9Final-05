@@ -16,4 +16,5 @@ public interface GolfFieldService {
 	List<GolfFieldVO> selectFieldList();
 
 
+
 }

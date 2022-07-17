@@ -78,25 +78,40 @@
          <li class="nav-item"><a href="${root}/review/list" class="nav-link">리뷰게시판</a></li>
          <li class="nav-item"><a href="${root}/notice/list" class="nav-link">공지사항</a></li>
          <li class="nav-item"><a href="${root}/field/golf_field" class="nav-link">골프장</a></li>
-         <c:choose>
-         	<c:when test="${isLogin}">
-	         	 <li class="nav-item"><a href="${root}/member/mypage" class="nav-link">마이페이지</a></li>
-	         	 <li class="nav-item"><a href="${root}/member/logout" class="nav-link">로그아웃</a></li>
-         	</c:when>
-         	<c:when test="${isAdmin && auth == 0}">
-	         	 <li class="nav-item"><a href="${root}/admin/list" class="nav-link">골프장 관리자 목록</a></li>
-	         	 <li class="nav-item"><a href="${root}/admin/member_list" class="nav-link">일반회원 목록</a></li>
-	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
-         	</c:when>
-         	<c:when test="${isAdmin && auth == 1}">
-	         	 <li class="nav-item"><a href="${root}/manager/stat" class="nav-link">관리자 페이지</a></li>
-	         	 <li class="nav-item"><a href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
-         	</c:when>
-         	<c:otherwise>
-	         	<li class="nav-item"><a href="${root}/member/login" class="nav-link">로그인</a></li>
-	         	<li class="nav-item"><a href="${root}/member/join" class="nav-link">회원가입</a></li>
-         	</c:otherwise>
-         </c:choose>
+		
+                <!-- Navbar / 사람 아이콘 드랍다운 메뉴 -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+	                    <c:choose>
+				         	<c:when test="${isLogin}">
+					         	 <li><a class="dropdown-item" href="${root}/member/mypage" class="nav-link">회원정보</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/booking/mybooking" class="nav-link">나의예약내역</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/join/myjoin" class="nav-link">조인등록내역</a></li>
+	                       			<li><hr class="dropdown-divider" /></li>
+					         	 <li><a class="dropdown-item" href="${root}/member/logout" class="nav-link">로그아웃</a></li>
+				         	</c:when>
+				         	<c:when test="${isAdmin && auth == 0}">
+					         	 <li><a class="dropdown-item" href="${root}/admin/list" class="nav-link">골프장 관리자 목록</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/admin/member_list" class="nav-link">일반회원 목록</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/admin/field_list" class="nav-link">골프장 정보</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/admin/stay_list" class="nav-link">숙소 정보</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/admin/package_list" class="nav-link">패키지 정보</a></li>
+	                      			<li><hr class="dropdown-divider" /></li>
+					         	 <li><a class="dropdown-item" href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
+				         	</c:when>
+				         	<c:when test="${isAdmin && auth == 1}">
+					         	 <li><a class="dropdown-item" href="${root}/manager/stat/${adminId}" class="nav-link">관리자 페이지</a></li>
+	                       			<li><hr class="dropdown-divider" /></li>
+					         	 <li><a class="dropdown-item" href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
+				         	</c:when>
+				         	<c:otherwise>
+					         	<li><a class="dropdown-item" href="${root}/member/login" class="nav-link">로그인</a></li>
+					         	<li><a class="dropdown-item" href="${root}/member/join" class="nav-link">회원가입</a></li>
+				         	</c:otherwise>
+				         </c:choose>
+                    </ul>
+                </li>
        </ul>
      </div>
    </div>

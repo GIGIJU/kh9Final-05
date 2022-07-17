@@ -188,6 +188,14 @@
 	    left outer join golf_manager "M"
 	    on F.field_no = M.field_no
 	</select>
+	
+	<select id="fieldDetail" parameterType="int" resultType="golfFieldVO">
+		select *
+		from golf_field "F"
+		left outer join golf_course "C"
+		on F.field_no = C.field_no
+		where F.field_no = #{fieldNo}
+	</select>
 		
 
 </mapper> 

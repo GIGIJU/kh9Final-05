@@ -19,9 +19,12 @@ import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.service.GolfFieldService;
+import com.gf.golboogi.service.StayService;
 import com.gf.golboogi.vo.AdminVO;
 import com.gf.golboogi.vo.GolfFieldVO;
 
@@ -37,6 +40,12 @@ public class AdminController {
 	private GolfFieldDao golfFieldDao;
 	@Autowired
 	private GolfFieldService golfFieldService;
+	@Autowired
+	private StayService stayService;
+	@Autowired
+	private StayDao stayDao;
+	
+	
 	
 	@GetMapping("/list")
 	public String list(Model model) {
@@ -168,6 +177,34 @@ public class AdminController {
 		
 		return "admin/field_list";
 	}
+	
+	//숙소 등록 @이기주
+	@GetMapping("/stay_insert")
+	public String insert() {
+		return "admin/stay_insert";
+	}
+	
+	@PostMapping("/stay_insert")
+	public String insert(
+			@ModelAttribute StayDto stayDto,
+			@RequestParam List<MultipartFile> stayProfile
+			) throws IllegalStateException, IOException {
+		
+		stayService.insert(stayDto, stayProfile);
+		
+		return "redirect:/stay_insert";
+		
+	}
+	
+	@GetMapping("/stay_list")
+	public String stayList(Model model) {
+		List<StayDto> stayDto = stayDao.list();
+		model.addAttribute("stayDto", stayDto);
+		log.debug("stayDto = {}", stayDto);
+		
+		return "admin/stay_list";
+	}
+	
 
 	
 	

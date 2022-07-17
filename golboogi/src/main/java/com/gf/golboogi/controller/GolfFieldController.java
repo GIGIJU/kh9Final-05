@@ -67,25 +67,6 @@ public class GolfFieldController {
 			return "field/golf_field";
 	}
 
-//	@GetMapping("/detail/{fieldNo}")
-//	public String detail(@PathVariable int fieldNo, Model model) {
-//		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
-//		model.addAttribute("info", info);
-//		
-//		//프로필 이미지의 다운로드 주소를 추가
-//		// - member_profile 에서 아이디를 이용하여 단일조회를 수행
-//		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
-//		int attachmentNo = fieldProfileDao.info(info.getFieldNo());
-//		if(attachmentNo == 0) {
-//			model.addAttribute("profileUrl", "http://via.placeholder/873x500");
-//		}
-//		else {
-//			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
-//		}
-//		
-//		return "field/field_detail";
-//	}
-
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
@@ -104,23 +85,6 @@ public class GolfFieldController {
 		return "field/field_detail";
 	}
 	
-//	// 골프장 정보 입력 @이기주
-//	@GetMapping("/insert")
-//	public String insert() {
-//		return "field/insert";
-//	}
-//	
-//	
-//	@PostMapping("/insert")
-//	public String insert(
-//			@ModelAttribute GolfFieldDto golfFieldDto,
-//			@RequestParam List<MultipartFile> fieldProfile
-//			) throws IllegalStateException, IOException {
-//		
-//		golfFieldService.insert(golfFieldDto, fieldProfile);
-//		
-//		return "redirect:/field/golf_field";
-//	}
 	
 	
 	

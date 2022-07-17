@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class GolfFieldVO {
+	//골프장 정보
 	private int fieldNo;
 	private String fieldName;
 	private String fieldPost;
@@ -23,6 +24,12 @@ public class GolfFieldVO {
 	private int fieldCommission;
 	private String fieldArea;
 
+	//골프장 관리자 정보
 	private String golfManagerId;
 	private int golfManagerGrade;
+	
+	//골프장 코스 정보
+	private int courseNo;
+	private String courseName;
+	private String courseHole;
 }
