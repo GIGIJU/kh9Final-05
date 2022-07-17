@@ -86,6 +86,7 @@ textarea {
     color: gray;
 }
 </style>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <div id="app">
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 	<div class="container">

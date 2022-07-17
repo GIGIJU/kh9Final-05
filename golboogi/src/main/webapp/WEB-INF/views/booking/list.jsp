@@ -47,9 +47,9 @@
 
 											<select class="form-control" v-model="area" v-bind:name="checkFieldArea">
 												<option value="">지역선택</option>
-												<option value="경기">경기</option>
-												<option value="강원">강원</option>
-												<option value="전라">전라도</option>
+												<option value="경기도">경기도</option>
+												<option value="강원도">강원도</option>
+												<option value="전라도">전라도</option>
 												<option value="경상도">경상도</option>
 												<option value="제주도">제주도</option>
 											</select>

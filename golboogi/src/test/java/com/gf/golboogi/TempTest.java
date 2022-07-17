@@ -8,6 +8,6 @@ import org.springframework.context.annotation.PropertySource;
 public class TempTest {
 	@Test
 	public void test() {
-		System.out.println("test exec");
+		System.err.println("test exec");
 	}
 }

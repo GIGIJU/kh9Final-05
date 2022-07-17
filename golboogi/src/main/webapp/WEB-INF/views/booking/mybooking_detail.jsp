@@ -11,6 +11,8 @@ p{
 }
 span{
 	font-size: 12px;
+	color: black;
+	font-weight: 500;
 }
 .btn{
 	color: white;
@@ -38,7 +40,7 @@ h6{
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 70%;
+	height: 75%;
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -189,13 +191,14 @@ textarea {
 					<div class="col-md-3" style="font-weight: 500;">
 						<p>${myBookingListVO.bookingDate}</p>
 						<c:choose>
-							<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
-								<p style="color: #2ecc71;">${myBookingListVO.bookingStatus}</p>
-								<p>${myBookingListVO.bookingDropAble}</p>
-							</c:when>
-							<c:otherwise>
+							<c:when test="${myBookingListVO.bookingStatus == '예약취소'}">
 								<p style="color: #e74c3c;">${myBookingListVO.bookingStatus}</p>
 								<p>-</p>
+							</c:when>
+							<c:otherwise>
+								<p style="color: #2ecc71;">${myBookingListVO.bookingStatus}</p>
+								<p style="color: red;" v-if="isBookingDrop">${myBookingListVO.bookingDropAble}</p>
+								<p style="color: red;" v-else>취소불가</p>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -259,7 +262,7 @@ textarea {
 		<hr>
 		<c:if test="${myBookingListVO.bookingStatus == '예약완료'}">
 			<div class="col-md-6 offset-md-3 text-center">
-				<button class="tagcloud" @click="cancelBooking()" v-if="bookingDrop()">예약취소</button>	
+				<button class="tagcloud" @click="cancelBooking()" v-if="isBookingDrop">예약취소</button>	
 			</div>
 		</c:if>
 	</div>
@@ -382,14 +385,14 @@ textarea {
         const app = Vue.createApp({
             data(){
                 return {
-                	bookingDrop:"",
+                	bookingDrop:"${myBookingListVO.bookingDropAble}",
                 };
             },
             computed:{
-            	bookingDrop(){
-            		console.log(${myBookingListVO.teeTimeD} > moment());
-            		return moment(${myBookingListVO.teeTimeD}) > moment();
-            	},
+             	isBookingDrop(){
+            		console.log(moment(this.bookingDrop) > moment());
+            		return moment(this.bookingDrop) > moment();
+            	}, 
             },
             methods:{              
                 showModal1(){

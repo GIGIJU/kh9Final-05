@@ -73,6 +73,11 @@ public class ReviewDaoImpl implements ReviewDao{
 	public Double ratingView(String fieldName) {
 		return sqlSession.selectOne("review.ratingView", fieldName);
 	}
+
+	@Override
+	public List<ReviewProfileVO> selectOneFiled(String fieldName) {
+		return sqlSession.selectList("review.oneFiledList", fieldName);
+	}
 	
 	
 }

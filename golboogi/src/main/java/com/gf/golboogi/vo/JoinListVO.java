@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class JoinListVO {
 	private int joinNo;
-	private Date teeTimeD;
+	private String teeTimeD;
 	private String teeTimeT;
 	private String fieldArea;
 	private String fieldName;

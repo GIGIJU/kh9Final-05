@@ -42,12 +42,13 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		param.put("teeTimeD", teeTimeD);
 		param.put("fieldNo", fieldNo);
 		
-		return sqlSession.selectList("teetime.list2",param);
+		return sqlSession.selectList("teetime.list",param);
 	}
 	
 	//한 골프장의 티타임 리스트 출력
 	@Override
 	public List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO) {
+		System.out.println("searchVO"+searchVO);
 		return sqlSession.selectList("teetime.list",searchVO);
 	}
 
@@ -208,6 +209,12 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		if(count<0) {
 			System.err.println("에러페이지");
 		}
+	}
+
+	//상세보기 + 이미지
+	@Override
+	public GolfFieldDto oneProfile(int fieldNo) {
+		return sqlSession.selectOne("golfField.oneProfile",fieldNo);
 	}
 	
 	

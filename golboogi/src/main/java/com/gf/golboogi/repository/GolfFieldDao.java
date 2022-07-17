@@ -13,6 +13,7 @@ import com.gf.golboogi.vo.Teetime1VO;
 public interface GolfFieldDao {
 	List<GolfFieldDto> selectList();
 	GolfFieldDto selectOne(int fieldNo);
+	GolfFieldDto oneProfile(int fieldNo);
 	void teetimeInsert(int courseNo);
 	List<TeeTimeListVO> selectTeetimeList(int fieldNo,String teeTimeD);
 	List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO);

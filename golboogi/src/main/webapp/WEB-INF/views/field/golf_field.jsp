@@ -30,7 +30,7 @@
 				<c:forEach var="golfFieldDto" items="${list}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a href="/field/detail/${golfFieldDto.fieldNo}" class="img"
+							<a href="${root}/field/detail/${golfFieldDto.fieldNo}" class="img"
 								style="background-image: url(${root}/images/golf-dummy.jpg);">
 							</a>
 							<div class="text p-2">

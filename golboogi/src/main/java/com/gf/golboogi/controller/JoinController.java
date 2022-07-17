@@ -90,14 +90,14 @@ public class JoinController {
 		joinDao.addjoinPeople(joinApplyPeople,joinNo);
 		joinDao.joinApplyApprove(joinApplyNo);
 		
-		return "redirect:/join/my_join";
+		return "redirect:/join/myjoin";
 	}
 	
 	//조인 신청 거절
 	@GetMapping("/apply_refuse/{joinApplyNo}")
 	public String joinApplyRefuse(@PathVariable int joinApplyNo) {
 		joinDao.joinApplyRefuse(joinApplyNo);
-		return "redirect:/join/my_join";
+		return "redirect:/join/myjoin";
 	}
 	
 	

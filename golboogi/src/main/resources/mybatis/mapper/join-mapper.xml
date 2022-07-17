@@ -100,6 +100,7 @@
 		<!-- 객체에 대한 매핑 설정 : association -자료형은 변수에 맞게 자동 변환되며 불가능할 경우 -->
 		<association property="joinListVO" javaType="JoinListVO">
 			<result column="join_no" property="joinNo" />
+			<result column="tee_time_d" property="teeTimeD" />
 			<result column="tee_time_t" property="teeTimeT" />
 			<result column="field_area" property="fieldArea" />
 			<result column="field_name" property="fieldName" />

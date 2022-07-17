@@ -126,6 +126,7 @@ p {
 							<c:forEach var="teetimeVO" items="${list}" varStatus="status">
 								<li class="comment mb-4">
 									<div class="vcard bio">
+									<a href="${root}/booking/detail?fieldNo=${teetimeVO.fieldNo}&teeTimeD=${param.teeTimeD}">
 									<c:choose>
 										<c:when test="${teetimeVO.attachmentNo == 0}">
 											<img src="${root}/images/golf-dummy.jpg" style="height: 70px; width: 70px;">
@@ -134,6 +135,7 @@ p {
 											<img src="${root}/attachment/download?attachmentNo=${teetimeVO.attachmentNo}" style="height: 70px; width: 70px;">
 										</c:otherwise>
 									</c:choose>
+									</a>
 									</div>
 									<div class="comment-body">
 										<h3>${teetimeVO.fieldName}</h3>

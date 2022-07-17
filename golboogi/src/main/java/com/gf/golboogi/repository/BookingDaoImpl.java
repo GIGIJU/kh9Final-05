@@ -21,6 +21,11 @@ public class BookingDaoImpl implements BookingDao{
 	public void reservation(BookingDto bookingDto) {
 		int bookingSequence = sqlSession.selectOne("booking.sequence");
 		bookingDto.setBookingNo(bookingSequence);
+		
+		//예약 취소 변경
+		int teeTimeNo = bookingDto.getTeeTimeNo();
+		sqlSession.update("booking.updateBookingPeople",teeTimeNo);
+		//예약
 		sqlSession.insert("booking.insert",bookingDto);
 	}
 
@@ -29,7 +34,7 @@ public class BookingDaoImpl implements BookingDao{
 		Map<String, Object> param = new HashMap<>();
 		param.put("teeTimeNo", teeTimeNo);
 		param.put("teeTimeD", teeTimeD);
-
+		
 		BookingDto bookingDto = sqlSession.selectOne("booking.check",param);
 		return bookingDto;
 	}

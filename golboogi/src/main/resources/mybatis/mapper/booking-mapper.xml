@@ -70,7 +70,11 @@
 	
 	<select id="info" parameterType="int" resultType="BookingDto">
 		select * from booking where booking_no = #{bookingNo}
-	</select>							
+	</select>		
+	
+	<update id="updateBookingPeople" parameterType="int">
+		update booking set booking_people=4 where tee_time_no =#{teeTimeNo}
+	</update>					
 </mapper> 
 
 
