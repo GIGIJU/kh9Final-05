@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-    <%
-    String name = (String)request.getAttribute("name");
-    String email = (String)request.getAttribute("email");
-    String phone = (String)request.getAttribute("phone");
-    String address = (String)request.getAttribute("address");
-    int totalPrice = (int)request.getAttribute("totalPrice");    
-%>
+<%--    
+//     String name = (String)request.getAttribute("name");
+//     String email = (String)request.getAttribute("email");
+//     String phone = (String)request.getAttribute("phone");
+//     String address = (String)request.getAttribute("address");
+//     int totalPrice = (int)request.getAttribute("totalPrice");    
+--%>
 
 <!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
+<!-- test -->
 <script>
     $(function(){
         var IMP = window.IMP; // 생략가능
@@ -22,12 +22,17 @@
             pay_method : 'card',
             merchant_uid : 'payment_' + new Date().getTime(),
             name : 'Golboogi 결제',
-            amount : <%=totalPrice%>,
-            buyer_email : '<%=email%>',
-            buyer_name : '<%=name%>',
-            buyer_tel : '<%=phone%>',
-            buyer_addr : '<%=address%>',
-            buyer_postcode : '123-456',
+<%--             amount : <%=totalPrice%>, --%>
+<%--             buyer_email : '<%=email%>', --%>
+<%--             buyer_name : '<%=name%>', --%>
+<%--             buyer_tel : '<%=phone%>', --%>
+<%--             buyer_addr : '<%=address%>', --%>
+            amount : 100000,
+            buyer_email : 'buyer@naver.com',
+            buyer_name : '구매자',
+            buyer_tel : '01044445555',
+            buyer_addr : '서울 양천구 신월동',
+            buyer_postcode : '123-456'
 <%--             m_redirect_url: '<%=request.getContextPath()%>/pay/finish' --%>
         }, function(rsp) {
             if ( rsp.success ) {
@@ -80,6 +85,12 @@
      </div>
    </div>
  </div>
+</section>
+
+<section>
+	<div class="container">
+		<h1> 결제 진행 중 </h1>
+	</div>
 </section>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

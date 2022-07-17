@@ -146,7 +146,6 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		
 		return sqlSession.selectList("golfField.list", param);
 	}
-
 	@Override
 	public int count(String type, String keyword) {
 		Map<String, Object> param = new HashMap<>();
@@ -158,9 +157,11 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	
 	//골프 부킹 전체 리스트
 	@Override
-	public List<GolfFieldDto> listAll(String type, int page, int size) {
+	public List<BookingSearchListVO> listAll(String fieldArea, String type, int page, int size) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("type", type);
+		param.put("fieldArea", fieldArea);
+		
 		
 		int end = page * size;
 		int begin = end - (size - 1);
@@ -183,12 +184,13 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 	
-	// 골프장 이름으로 번호 검색 @이기주
-//	@Override
-//	public int searchNo(String fieldName) {
-//		return sqlSession.selectOne("golfField.searchNo", fieldName);
-//	}
-
+	// 골프장 정보 입력 @이기주 >> 이게 진짜
+	@Override
+	public void fieldInsert(GolfFieldDto golfFieldDto) {
+		int fieldSequence = sqlSession.selectOne("golfField.sequence");
+	}
+		
+	// 골프장 번호 단순 검색 @이기주
 	@Override
 	public List<GolfFieldDto> searchSimple() {
 		return sqlSession.selectList("golfField.searchSimple");
@@ -206,5 +208,7 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 			System.err.println("에러페이지");
 		}
 	}
+	
+	
 
 }

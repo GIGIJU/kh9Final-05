@@ -1,5 +1,6 @@
 package com.gf.golboogi.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -12,13 +13,17 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.service.AdminInsertService;
+import com.gf.golboogi.service.GolfFieldService;
 import com.gf.golboogi.vo.AdminVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,6 +36,10 @@ public class AdminController {
 	private AdminDao adminDao;
 	@Autowired
 	private GolfFieldDao golfFieldDao;
+	@Autowired
+	private GolfFieldService golfFieldService;
+	@Autowired
+	private AdminInsertService adminInsertService;
 	
 	@GetMapping("/list")
 	public String list(Model model,HttpSession session) {
@@ -86,20 +95,10 @@ public class AdminController {
 		}
 	}
 	
-//	@PostMapping("/insert")
-//	public String insert(@ModelAttribute GolfManagerDto golfManagerDto) {
-//		adminDao.insert(golfManagerDto);
-//		return "redirect:list";
-//	}
-	
 	@PostMapping("/insert")
 	public String insert(
-			@ModelAttribute AdminVO adminVO,
-			Model model
+			@ModelAttribute AdminVO adminVO
 			) {
-		List<GolfFieldDto> golfFieldDto = golfFieldDao.searchSimple();
-		log.debug("DTO = {}", golfFieldDto);
-		model.addAttribute("golfFieldDto", golfFieldDto);
 		adminDao.insertManager(adminVO);
 		return "redirect:list";
 	}
@@ -182,6 +181,34 @@ public class AdminController {
 			return "redirect:/";
 	}
 	
+	@GetMapping("/field_insert")
+	public String fieldInsert() {
+		return "admin/field_insert";
+	}
+	
+	@PostMapping("/field_insert")
+	public String fieldInsert(
+			@ModelAttribute GolfFieldDto golfFieldDto,
+			@ModelAttribute GolfCourseDto golfCourseDto,
+			@RequestParam List<MultipartFile> fieldProfile
+			) throws IllegalStateException, IOException {
+		
+		adminInsertService.fieldInsert(golfFieldDto, fieldProfile);
+		
+		return "redirect:/field/golf_field";
+	}
+	
+//	@PostMapping("/field_insert")
+//	public String fieldInsert(
+//			@ModelAttribute GolfFieldDto golfFieldDto,
+//			@ModelAttribute GolfCourseDto golfCourseDto,
+//			@RequestParam List<MultipartFile> fieldProfile
+//			) throws IllegalStateException, IOException {
+//		
+//		adminInsertService.fieldInsert(golfFieldDto, fieldProfile, golfCourseDto);
+//		
+//		return "redirect:/field/golf_field";
+//	}
 	
 	
 	

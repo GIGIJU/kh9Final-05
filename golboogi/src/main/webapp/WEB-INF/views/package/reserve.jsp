@@ -149,6 +149,12 @@
     cursor: pointer;
 }
 
+
+    <!-- 셀렉 박스 눌렀을시 placehoder 설정 -->
+        select option[value=""][disabled] {
+	        display: none;
+        }
+
 </style>
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
@@ -206,7 +212,7 @@
             </div>
                       <div class="item-cont">
             <h6  >휴대폰 * </h6>
-               <input type="text" value="${memberDto.memberName}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
+               <input type="text" value="${memberDto.memberPhone}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
                <div class="field-button-box"></div>
             </div>
         </div>
@@ -220,31 +226,31 @@
             <div class="item-cont">
             <h6  > 1일차  </h6>
             <div class="select-box" >
-						<select  style="width:100%">
-						    <option value="" >골프장 선택 </option>
+						<select  style="width:100%" required>
+						    <option value="" disabled selected >골프장 선택 </option>
       					<option >${packageVo.fieldDto.fieldName}</option>
       					</select>
-      						<select  style="width:100%">
-						    <option value="" >희망타임 선택 </option>
-      					<option >새벽</option>
-      					<option >오전</option>
-      					<option >오후</option>
-      					<option >야간</option> 					
+      						<select  style="width:100%" required>
+						    <option value="" disabled selected>희망타임 선택 </option>
+      					<option value="1" >새벽</option>
+      					<option value="2">오전</option>
+      					<option value="3">오후</option>
+      					<option value="4">야간</option> 					
       					</select>
           </div>
                  <br>
             <h6 > 2일차  </h6>
             <div class="select-box" >
-						<select  style="width:100%">
-						    <option value="" >골프장 선택 </option>
+						<select  style="width:100%"  required>
+						    <option value=""  disabled selected >골프장 선택 </option>
       					<option >${packageVo.fieldDto.fieldName}</option>
       					</select>
       						<select  style="width:100%">
-						    <option value="" >희망타임 선택 </option>
-      					 <option >새벽</option>
-      					<option >오전</option>
-      					<option >오후</option>
-      					<option >야간</option>
+						    <option value=""  disabled selected >희망타임 선택 </option>
+      					 <option value="1"  >새벽</option>
+      					<option value="2" >오전</option>
+      					<option value="3" >오후</option>
+      					<option value="4" >야간</option>
       					</select>
           </div>
             
@@ -259,8 +265,8 @@
               <div class="product-info-title" ><h2 >결제 정보</h2>
             </div>
               <div class="item-cont">
-                <h5 style="color:#fff; text-align: center; text-style:bold;">[숙박] 1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" />  </h5> 
-                <h5 style="color:#fff; text-align: center; text-style:bold;">[티업] 1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.fieldDto.fieldGreenfee}" />  </h5> 
+                <h5 style="color:#fff; text-align: center; text-style:bold;">[숙박]    1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" />  </h5> 
+                <h5 style="color:#fff; text-align: center; text-style:bold;">[티업]    1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.fieldDto.fieldGreenfee}" />  </h5> 
                 <h5 style="color:#fff; text-align: center; text-style:bold;">신청 인원 : 4인 1팀 </h5> 
                 <hr style="background-color :#fff">
                 <div >
@@ -291,8 +297,17 @@
       <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
       <input type="hidden" name="quantity" value="1" min="1" required>
       <div class="row justify-content-center mt-5 mb-5">
-        <input type="submit" value="예약하기" >
-        <!-- <button class="btn btn-success p-3">신청하기</button> -->
+        <button  class="btn btn-success p-3">예약하기</button>
+      </div>
+      </form>
+      
+          <!--선결제 페이지 이동 버튼 -->
+    <form method="post" action="package_purchase">
+      <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}">
+      <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
+      <input type="hidden" name="quantity" value="1" min="1" required>
+      <div class="row justify-content-center mt-5 mb-5">
+        <a href="${root}/package/package_purchase?packageNo=${packageVo.packageDto.packageNo}" style="color:white" class="btn" >선결제하기</a>
       </div>
       </form>
 

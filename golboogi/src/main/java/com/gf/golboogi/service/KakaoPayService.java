@@ -17,6 +17,6 @@ public interface KakaoPayService {
 	//결제승인
 	KakaoPayApproveResponseVO approve(KakaoPayApproveRequestVO requestVO) throws URISyntaxException;
 	KakaoPayOrderResponseVO order(KakaoPayOrderRequestVO requestVO) throws URISyntaxException;
-	KakaoPayCancelResponseVO cancel(KakaoPayCancelRequestVO requestVO) throws URISyntaxException;
-
+	KakaoPayCancelResponseVO cancel(KakaoPayCancelRequestVO requestVO) throws URISyntaxException;  
+	
 }

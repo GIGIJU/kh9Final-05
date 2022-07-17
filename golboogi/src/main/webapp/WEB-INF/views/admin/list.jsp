@@ -42,16 +42,6 @@
         
         <div class="card-footer">
             <a href="${root}/admin/insert"><i class="fa-solid fa-circle-plus"></i>관리자 생성</a>
-            
-            
-            <!-- 테스트 끝나고 지워야함 -->
-            <select>
-            	<c:forEach var="golfFieldDto" items="${golfFieldDto}">
-	            	<option>${golfFieldDto.fieldName }</option>
-	            </c:forEach>
-            </select>
-            <!-- 테스트 끝나고 지워야함 -->
-            
         </div>
         
     </div>

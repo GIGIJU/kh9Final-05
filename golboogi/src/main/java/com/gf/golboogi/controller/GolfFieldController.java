@@ -44,10 +44,12 @@ public class GolfFieldController {
 			@RequestParam(required = false) String type,
 			@RequestParam(required = false) String keyword,
 			@RequestParam(required = false, defaultValue = "1") int p,
-			@RequestParam(required = false, defaultValue = "10") int s,
+			@RequestParam(required = false, defaultValue = "15") int s,
 			Model model) {
-		
+			String area=null;
+			
 			List<GolfFieldDto> list = golfFieldDao.list(type, keyword, p, s);
+			
 			model.addAttribute("list", list);
 			
 			boolean search = type != null && keyword != null;
@@ -69,10 +71,10 @@ public class GolfFieldController {
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
-			model.addAttribute("lastPage", lastPage);			
+			model.addAttribute("lastPage", lastPage);	
+//			model.addAttribute("fieldArea",fieldArea);
 			return "field/golf_field";
 	}
-	
 
 //	@GetMapping("/detail/{fieldNo}")
 //	public String detail(@PathVariable int fieldNo, Model model) {
@@ -92,7 +94,7 @@ public class GolfFieldController {
 //		
 //		return "field/field_detail";
 //	}
-	
+
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
@@ -111,34 +113,24 @@ public class GolfFieldController {
 		return "field/field_detail";
 	}
 	
-	// 골프장 정보 입력 @이기주
-	@GetMapping("/insert")
-	public String insert() {
-		return "field/insert";
-	}
-	
-	
-	@PostMapping("/insert")
-	public String insert(
-			@ModelAttribute GolfFieldDto golfFieldDto,
-			@RequestParam List<MultipartFile> fieldProfile
-			) throws IllegalStateException, IOException {
-		
-		golfFieldService.insert(golfFieldDto, fieldProfile);
-		
-		return "redirect:/field/golf_field";
-	}
-	
+//	// 골프장 정보 입력 @이기주
+//	@GetMapping("/insert")
+//	public String insert() {
+//		return "field/insert";
+//	}
+//	
+//	
 //	@PostMapping("/insert")
 //	public String insert(
 //			@ModelAttribute GolfFieldDto golfFieldDto,
-//			@RequestParam MultipartFile fieldProfile
+//			@RequestParam List<MultipartFile> fieldProfile
 //			) throws IllegalStateException, IOException {
 //		
 //		golfFieldService.insert(golfFieldDto, fieldProfile);
 //		
 //		return "redirect:/field/golf_field";
 //	}
+	
 	
 	
 }

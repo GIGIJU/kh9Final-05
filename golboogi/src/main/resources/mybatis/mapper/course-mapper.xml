@@ -24,51 +24,23 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="paymentDetail">
+<mapper namespace="course">
+	
+	<!-- 골프장 정보 입력을 위한 시퀀스 조회 @이기주 -->
 	<select id="sequence" resultType="int">
-		select payment_detail_seq.nextval from dual
+		select golf_course_seq.nextval from dual
 	</select>
 	
-	<insert id="insert" parameterType="PaymentDetailDto">
-		insert into payment_detail(
-			payment_detail_no, payment_no, payment_detail_name, 
-			payment_detail_quantity, payment_detail_price, payment_detail_status
+	<!-- 골프장 정보 등록 @이기주 -->
+	<insert id="insert" parameterType="GolfCourseDto">
+		insert into golf_course(
+			course_no, field_no, course_name, course_hole
 		)
 		values(
-			#{paymentDetailNo}, #{paymentNo}, #{paymentDetailName},
-			#{paymentDetailQuantity}, #{paymentDetailPrice}, '승인'
-		)		
+			#{courseNo}, #{fieldNo}, #{courseName}, #{courseHole}
+		)
 	</insert>
 	
-	
-	<select id="list" resultType="PaymentDetailDto" parameterType="int">
-		select * from payment_detail where payment_no = #{paymentNo}
-	</select>
-	
-	<!-- 결제 상세 내역에 대한 취소 -->
-	<update id="cancel" parameterType="int">
-		update payment_detail
-			set payment_detail_status = '취소'
-			where payment_detail_no = #{paymentDetailNo}
-	</update>
-
-	<select id="one" resultType="PaymentDetailDto" parameterType="int">
-		select * from payment_detail where payment_detail_no = #{paymentDetailNo}
-	</select>
-	
-	<select id="calculateCancelAmount" resultType="int" parameterType="int">
-		select 
-		    sum(payment_detail_price * payment_detail_quantity) "total"
-		from payment_detail
-		where 
-			payment_no = #{paymentNo} and payment_detail_status = '승인'
-	</select>
-	
-	<update id="cancelAll" parameterType="int">
-		update payment_detail 
-		set payment_detail_status = '취소'
-		where payment_no = #{paymentNo}
-	</update>
 </mapper> 
 
 
