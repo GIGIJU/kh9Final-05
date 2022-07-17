@@ -15,6 +15,7 @@ public interface FieldProfileDao {
 	List<FieldProfileVO> multiInfo(int fieldNo);
 
 
+//	List<Integer> multiInfo(int fieldNo);
 
 
 }

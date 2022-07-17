@@ -47,6 +47,16 @@ public class FieldProfileDaoImpl implements FieldProfileDao {
 	}
 
 
+//	@Override
+//	public List<Integer> multiInfo(int fieldNo) {
+//		List<Integer> list = sqlSession.selectList("fieldProfile.multiInfo", fieldNo);
+//		if(list.isEmpty()) {
+//			return null;
+//		}else {
+//			return list;
+//		}
+//	}
+
 	
 	
 }
