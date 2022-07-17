@@ -1,208 +1,108 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
-<style>
-textarea{
-	resize: none;
-}
-</style>
-<body  class="bg-primary">
-	<div id="layoutAuthentication">
-		<div id="layoutAuthentication_content">
-			<main>
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-7">
-							<div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    
-								<div class="card-header bg-success" style=" color:white;"><h3 class="text-center font-weight-light my-4">골프장 정보 수정</h3></div>
-                                    
-                                    <div class="card-body">
-                                        
-                                        <form action="field_detail" method="post" enctype="multipart/form-data" class="form-check">
-                                            
-                                            <div class="page"><!-- 페이지1 -->
-                                            <div class="form-floating mb-5 card-header bg-success">
-                                            	<h3 class="text-center font-weight-light my-4" style=" color:white;"> 골프장 정보 수정 (1/2)</h3>
-                                            </div>
-                                         
-                                            
-                                            <div class="form-floating mb-5">
-                                                <input name="fieldName"  class="form-control" id="fieldName" type="text" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
-                                                <label for="fieldName">골프장 이름</label>
-                                            </div>
-                                            
-                                            <div class="form-floating mb-5">
-                                            	<textarea class="form-control" rows=5 style="height: 100%" name="fieldInfo" id="fieldInfo" placeholder="골프장 정보 소개글을 입력해주세요 (1000자 이내)" oninput="lengthCount();"></textarea>
- 												<div><span class="len">0</span> / 1000</div>				                                          
-                                            	<label for="fieldInfo">소개글</label>
-                                            </div>
-                                            
-                                            <div class="form-floating mb-5">
-                                                <input name="fieldPhone"  class="form-control" id="fieldPhone" type="tel" placeholder="'-' 제외" />
-                                                <label for="fieldPhone">골프장 대표전화( - 제외 )</label>
-                                            </div>
-                                            
-                                            <div class="row mb-5" id="address">
-                                            	<label for="address" class="mb-1">주소</label>
-                                            	<div class="form-floating mb-2">
-                                            	
-                                            		<div class="row">
-	                                            		<div class="col-md-4">
-		                                                    <div class="form-floating mb-3 mb-md-0">
-		                                                        <input class="form-control" id="fieldPost" type="text" name="fieldPost" maxlength="6" />
-		                                                        <label for="fieldPost">우편번호</label>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="col-md-4">
-		                                                    <div class="form-floating mt-2 mb-3 mb-md-0">
-		                                                        <a class="btn btn-primary" id="address-find-btn">검색</a>
-		                                                    </div>
-		                                                </div>
-                                            		</div>
-                                            		
-                                            	</div>
-                                            	<div class="form-floating mb-2">
-                                            		<input name="fieldBasicAddress"  class="form-control" id="fieldBasicAddress" type="tel"  />
-                                                	<label for="fieldBasicAddress">기본 주소</label>
-                                            	</div>
-                                            	<div class="form-floating mb-2">
-	                                            	<input name="fieldDetailAddress"  class="form-control" id="fieldDetailAddress" type="tel" />
-	                                                <label for="fieldDetailAddress">상세 주소</label>
-                                            	</div>
-                                            </div>
-                                            
-                                            
-                                            <div class="form-floating mb-5">
-                                            	<input name="fieldCaddiefee" id="fieldCaddiefee" class="form-control" type="number" min="0"/>
-                                                <label for="fieldCaddiefee">캐디피</label>
-                                            </div>
-                                            <div class="form-floating mb-5">
-                                            	<input name="fieldCartfee" id="fieldCartfee" class="form-control" type="number" min="0"/>
-                                                <label for="fieldCartfee">카트피</label>
-                                            </div>
-                                            <div class="form-floating mb-5">
-                                            	<input name="fieldGreenfee" id="fieldGreenfee" class="form-control" type="number" min="0"/>
-                                                <label for="fieldGreenfee">그린피</label>
-                                            </div>
-                                            
-                                            <div class="form-floating mb-5">
-                                            	<input name="fieldOpenday" id="fieldOpenday" class="form-control" type="date" value="today"/>
-                                                <label for="fieldOpenday">개장일</label>
-                                            </div>
-                                            
-                                            <div class="form-floating mb-5">
-                                            	<select name="fieldPrepay" class="form-select" >
-                                            		<option value="1" selected>Y</option>
-                                            		<option value="0">N</option>
-                                            	</select>
-                                                <label for="fieldPrepay">선결제여부</label>
-                                            </div>
-                                            
-                                            <div class="form-floating mb-5">
-                                            	<select name="fieldArea" class="form-select" multiple style="height: 170px">
-                                            		<option value="경기도">경기도</option>
-                                            		<option value="강원도">강원도</option>
-                                            		<option value="전라도">전라도</option>
-                                            		<option value="경상도">경상도</option>
-                                            		<option value="제주도">제주도</option>
-                                            	</select>
-                                                <label for="fieldArea">골프장지역</label>
-                                            </div>
-                                            
-                                            <div class="mt-4 mb-5">
-                                            	<div>골프장 이미지 첨부</div>
-                                            	<input name="fieldProfile" class="form-control" type="file" accept=".png, .jpg, .gif" multiple/>
-                                            </div>
-                                            
-                                            <!-- page button (1/2) -->
-                                            <div class="row mt-5">
-                                            	<div class="col-md-6">
-		                                            <button type="button" class="btn btn-prev btn-success">이전</button>
-                                            	</div>
-                                            	<div class="col-md-6" >
-		               								<button type="button" class="btn btn-next btn-success" style="float: right;">다음</button>
-                                            	</div>
-                                            </div>
-	                                            
-                                            </div><!-- 페이지1 -->
-                                            
-                                            <div class="page"><!-- 페이지2 -->
-	                                            <div class="form-floating mb-5 card-header bg-success">
-	                                            	<h3 class="text-center font-weight-light my-4" style=" color:white;"> 골프장 정보 입력 (2/2)</h3>
-	                                            </div>
-	                                            
-	                                            <div class="form-floating mb-5">
-	                                            	<input name="courseName" id="courseName" class="form-control" type="text"/>
-	                                                <label for="courseName">코스 이름</label>
-	                                            </div>
-	                                            
-	                                            <div class="form-floating mb-5">
-	                                            	<select name="courseHole" class="form-select" multiple style="height: 80px">
-	                                            		<option value="9홀">9홀</option>
-	                                            		<option value="18홀">18홀</option>
-	                                            	</select>
-	                                                <label for="courseHole">골프장지역</label>
-	                                            </div>
-	                                            
-	                                            <div class="mt-4 mb-0">
-	                                                <div class="d-grid">
-	                                                	<input type="submit" class="btn btn-primary" value="골프장 정보 등록">
-	                                                </div>
-	                                            </div>
-	                                            
-	                                            <!-- page button (2/2) -->
-	                                            <div class="row mt-5">
-	                                            	<div class="col-md-6">
-			                                            <button type="button" class="btn btn-prev btn-success">이전</button>
-	                                            	</div>
-	                                            	<div class="col-md-6" >
-			               								<button type="button" class="btn btn-next btn-success" style="float: right;" disabled>다음</button>
-	                                            	</div>
-	                                            </div>
-                                            </div>
-                                            
-                                            
-                                        </form>
-                                        
-                                    </div>
-                                    
-                                    <div class="card-footer text-center py-3">
-                                    <!-- 카드 푸터  -->
-                                    </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</main>
-		</div>
-	</div>
-</body>
- 
-<!-- 골프장 입력 멀티 페이지 -->
-<script type="text/javascript">
-	$(function(){
-		var index = 0;
 
-		//처음 페이지를 제외하고 모두 숨김 처리
-		move(index);
+<div class="container-fluid px-4">
+    <h1 class="mt-4">${list.fieldName} 상세정보</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">회원관리메뉴</li>
+<%--         <li class="breadcrumb-item active"><a href="${root}/admin/member_list">일반회원목록</a></li> --%>
+        <li class="breadcrumb-item active">${list.fieldName} 상세정보</li>
+    </ol>
 
-		//다음 버튼을 누르면 다음 페이지가 나오도록 구현
-		$(".btn-next").not(":last").click(function(){
-			move(++index);
-		});
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fa-solid fa-person"></i>
+            ${list.fieldName}님의 상세정보 페이지 입니다.
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered table-condensed table-hover" style="width: 500px;"> 
+				<tr>
+					<th >골프장명</th>
+					<td>${list.fieldName}</td>
+				</tr>
+				<tr>
+					<th >골프장 주소1</th>
+					<td>${list.fieldPost}</td>
+				</tr>
+				<tr>
+					<th >골프장 주소2</th>
+					<td>${list.fieldBasicAddress}</td>
+				</tr>
+				<tr>
+					<th >골프장 주소3</th>
+					<td>${list.fieldDetailAddress}</td>
+				</tr>
+				<tr>
+					<th >골프장 정보</th>
+					<td>${list.fieldInfo}</td>
+				</tr>
+				<tr>
+					<th >골프장 번호</th>
+					<td>${list.fieldPhone}</td>
+				</tr>
+				
+				<tr>
+					<th >캐디피</th>
+					<td>${list.fieldCaddiefee}</td>
+				</tr>
+				<tr>
+					<th >카트피</th>
+					<td>${list.fieldCartfee}</td>
+				</tr>
+				<tr>
+					<th >그린피</th>
+					<td>${list.fieldGreenfee}</td>
+				</tr>
+				<tr>
+					<th >개장일</th>
+					<td>${list.fieldOpenday}</td>
+				</tr>
+				<tr>
+					<th >사람</th>
+					<td>${list.fieldPeople}</td>
+				</tr>
+				<tr>
+					<th >선결제 여부</th>
+					<c:if test="${list.fieldPrepay == 0}">
+						<td>N</td>
+					</c:if>
+					<c:otherwise>
+						<td>Y</td>
+					</c:otherwise>
+				</tr>
+				<tr>
+					<th >수수료</th>
+					<td>${list.fieldCommission}</td>
+				</tr>
+				<tr>
+					<th >지역</th>
+					<td>${list.fieldArea}</td>
+				</tr>
+				
+				<tr>
+					<th >골프장 관리자 아이디</th>
+					<td>${list.golfManagerId}</td>
+				</tr>
+				<c:forEach var="list" items="${list}">
+					<tr>
+						<th >코스 이름</th>
+						<td>${list.courseName}</td>
+					</tr>
+					<tr>
+						<th >홀 정보</th>
+						<td>${list.courseHole}</td>
+					</tr>
+				</c:forEach>
+				
+				
+				
+			</table>
+        </div>
+    </div>
+</div>
 
-		//이전 버튼을 누르면 이전 페이지가 나오도록 구현
-		$(".btn-prev").not(":first").click(function(){
-			move(--index);
-		});
-
-		function move(index){
-			$(".page").hide();
-			$(".page").eq(index).show();
-			var percent = (index+1) * 100 / 4;
-			$(".percent").css("width", percent+"%");
-		}
-	});
-</script>
 
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>

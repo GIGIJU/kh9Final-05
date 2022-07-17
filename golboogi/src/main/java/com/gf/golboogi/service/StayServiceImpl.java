@@ -1,6 +1,7 @@
 package com.gf.golboogi.service;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.repository.AttachmentDao;
-import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.repository.StayProfileDao;
-import com.gf.golboogi.vo.KakaoPayReadyRequestVO;
 
 @Service
 public class StayServiceImpl implements StayService {
@@ -30,15 +29,21 @@ public class StayServiceImpl implements StayService {
 	@Autowired
 	SqlSession sqlSession;
 
+	@Transactional
 	@Override
-	public void insert(StayDto stayDto, MultipartFile stayProfile) throws IllegalStateException, IOException {
+	public void insert(StayDto stayDto, List<MultipartFile> stayProfile) throws IllegalStateException, IOException {
 		int sequence = sqlSession.selectOne("stay.sequence");
 		stayDto.setStayNo(sequence);
+		
 		sqlSession.insert("stay.insert", stayDto);
 		
 		if(!stayProfile.isEmpty()) {
-			int attachmentNo = attachmentDao.save(stayProfile);
-			stayProfileDao.insert(stayDto.getStayNo(), attachmentNo);
+			
+			for(MultipartFile list : stayProfile) {
+				int attachmentNo = attachmentDao.save(list);
+				stayProfileDao.insert(sequence, attachmentNo);
+			}
+			
 		}
 	}
 	

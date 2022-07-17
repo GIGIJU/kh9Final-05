@@ -4,7 +4,6 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <section class="hero-wrap-custom" style="background-color:black;">
-    background-image: url('${root}/images/bg_1.jpg');
     <div class="container">
         <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 250px;">
             <div class="col-md-9 ftco-animate pb-5 text-center">
