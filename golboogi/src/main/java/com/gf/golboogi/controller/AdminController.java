@@ -21,9 +21,9 @@ import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.repository.GolfFieldDao;
-import com.gf.golboogi.service.AdminInsertService;
 import com.gf.golboogi.service.GolfFieldService;
 import com.gf.golboogi.vo.AdminVO;
+import com.gf.golboogi.vo.GolfFieldVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,8 +37,6 @@ public class AdminController {
 	private GolfFieldDao golfFieldDao;
 	@Autowired
 	private GolfFieldService golfFieldService;
-	@Autowired
-	private AdminInsertService adminInsertService;
 	
 	@GetMapping("/list")
 	public String list(Model model) {
@@ -157,22 +155,20 @@ public class AdminController {
 			@RequestParam List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException {
 		
-		adminInsertService.fieldInsert(golfFieldDto, fieldProfile);
+		golfFieldService.insert(golfFieldDto, golfCourseDto, fieldProfile);
 		
-		return "redirect:/field/golf_field";
+		return "redirect:/field_list";
 	}
 	
-//	@PostMapping("/field_insert")
-//	public String fieldInsert(
-//			@ModelAttribute GolfFieldDto golfFieldDto,
-//			@ModelAttribute GolfCourseDto golfCourseDto,
-//			@RequestParam List<MultipartFile> fieldProfile
-//			) throws IllegalStateException, IOException {
-//		
-//		adminInsertService.fieldInsert(golfFieldDto, fieldProfile, golfCourseDto);
-//		
-//		return "redirect:/field/golf_field";
-//	}
+	@GetMapping("/field_list")
+	public String fieldList(Model model) {
+		List<GolfFieldVO> golfFieldVO = golfFieldService.selectFieldList();
+		model.addAttribute("golfFieldVO", golfFieldVO);
+		log.debug("golfFieldVO = {}", golfFieldVO);
+		
+		return "admin/field_list";
+	}
+
 	
 	
 	
