@@ -16,7 +16,7 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new MemberLoginInterceptor())
 		// 회원 로그인이 필요한 부분
 		.addPathPatterns("/member/**")
-		.addPathPatterns("/admin/**")
+//		.addPathPatterns("/admin/**")
 		.addPathPatterns("/review/**")
 		// 회원 로그인이 필요하지 않음 부분
 		.excludePathPatterns("/admin/member_list")
@@ -41,6 +41,7 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new AdminLoginInterceptor())
 		// 관리자 로그인 필요한 부분
 		.addPathPatterns("/admin/**")
+		.addPathPatterns("/admin/field_insert")
 		.addPathPatterns("/member/login")
 		.addPathPatterns("/member/join")
 		.addPathPatterns("/notice/delete/{noticeNo}")
