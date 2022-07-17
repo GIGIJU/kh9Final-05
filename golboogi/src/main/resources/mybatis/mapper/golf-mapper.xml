@@ -30,8 +30,8 @@
 	 select * from(
 		select rownum rn, TMP.* from (
             select * from golf_field 
-          <if test ="type != null and keyword !=null">
-          <![CDATA[where instr(${type}, #{keyword}) > 0]]>
+          <if test ="type != null and area !=null">
+          <![CDATA[where instr(${type}, #{area}) > 0]]>
           </if>
 			) TMP
 		)where rn between #{begin} and #{end}	
@@ -180,6 +180,7 @@
 	<select id="searchSimple" resultType="GolfFieldDto">
 		select field_no, field_name from golf_field
 	</select>
+		
 
 </mapper> 
 

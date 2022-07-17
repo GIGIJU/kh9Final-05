@@ -1,6 +1,5 @@
 package com.gf.golboogi;
 
-import org.apache.ibatis.session.SqlSession;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,9 +17,6 @@ import lombok.extern.slf4j.Slf4j;
 @ActiveProfiles("local")
 @TestPropertySource(locations = "classpath:./application-local.properties")
 public class StayTest {
-	
-	@Autowired
-	private SqlSession sqlSession;
 	
 	@Autowired
 	private StayService stayService;

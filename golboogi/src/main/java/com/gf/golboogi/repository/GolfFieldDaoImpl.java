@@ -146,7 +146,6 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		
 		return sqlSession.selectList("golfField.list", param);
 	}
-
 	@Override
 	public int count(String type, String keyword) {
 		Map<String, Object> param = new HashMap<>();

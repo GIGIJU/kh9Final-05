@@ -46,8 +46,10 @@ public class GolfFieldController {
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int s,
 			Model model) {
-		
+			String area=null;
+			
 			List<GolfFieldDto> list = golfFieldDao.list(type, keyword, p, s);
+			
 			model.addAttribute("list", list);
 			
 			boolean search = type != null && keyword != null;
@@ -69,10 +71,30 @@ public class GolfFieldController {
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
-			model.addAttribute("lastPage", lastPage);			
+			model.addAttribute("lastPage", lastPage);	
+//			model.addAttribute("fieldArea",fieldArea);
 			return "field/golf_field";
 	}
-	
+
+//	@GetMapping("/detail/{fieldNo}")
+//	public String detail(@PathVariable int fieldNo, Model model) {
+//		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
+//		model.addAttribute("info", info);
+//		
+//		//프로필 이미지의 다운로드 주소를 추가
+//		// - member_profile 에서 아이디를 이용하여 단일조회를 수행
+//		// - http://localhost:8080/home/attachment/download?attachmentNo=OOO
+//		int attachmentNo = fieldProfileDao.info(info.getFieldNo());
+//		if(attachmentNo == 0) {
+//			model.addAttribute("profileUrl", "http://via.placeholder/873x500");
+//		}
+//		else {
+//			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=" + attachmentNo);
+//		}
+//		
+//		return "field/field_detail";
+//	}
+
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
