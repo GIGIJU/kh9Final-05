@@ -146,7 +146,7 @@ textarea {
 					 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd(E)"/></td>
 				 		<td>${joinListVO.teeTimeT}</td>
 				 		<td>${joinListVO.fieldArea}</td>
-				 		<td>${joinListVO.fieldName}</td>
+				 		<td><a href="${root}/field/detail/${joinListVO.fieldNo}">${joinListVO.fieldName}</a></td>
 				 		<c:choose>
 				 			<c:when test="${joinListVO.joinPeople==0}"><td>-</td></c:when>
 				 			<c:otherwise><td>${joinListVO.joinPeople}명</td></c:otherwise>

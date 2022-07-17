@@ -27,8 +27,8 @@
 <mapper namespace="join">
 	<select id="list" resultType="JoinListVO" parameterType="Map">
 		select * from(
-				select rownum rn, TMP.* from (
-					select join_no,tee_time_d,tee_time_t,field_area,field_name,join_people,booking_price/4 as booking_price,
+			select rownum rn, TMP.* from (
+				select join_no,tee_time_d,tee_time_t,field_area,field_name,G.field_no,join_people,booking_price/4 as booking_price,
 				join_time,member_nick,join_info,join_status,course_name,member_id from 
 		    join J 
 		        inner join member M on M.member_id = J.member_id
@@ -116,13 +116,17 @@
 		<!-- 컬렉션(List<paymentDetailDto>)에 대한 매핑 설정 : collection -컬렉션 자료형을 두 가지로 
 			설정해야 한다 -javaType : 컬렉션의 자료형 -ofType : 내용물의 자료형(Generic type) -내부에는 객체처럼 
 			result를 이용하여 매핑을 수행한다 -(반드시)해당 컬렉션을 채우기 위해 필요한 select 구문의 id를 지정해야 한다(select,columnx) -->
-		<collection property="joinApplyList" javaType="List" ofType="JoinApplyDto" select="treeSearchSubquery" column="join_no">
+		<collection property="joinApplyList" javaType="List" ofType="JoinApplyListVO" select="treeSearchSubquery" column="join_no">
 			<result column="join_apply_no" property="joinApplyNo" />
 			<result column="join_no" property="joinNo" />
 			<result column="member_id" property="memberId" />
 			<result column="join_apply_people" property="joinApplyPeople" />
 			<result column="join_apply_info" property="joinApplyInfo" />
 			<result column="join_apply_status" property="joinApplyStatus" />
+			<result column="member_profile" property="memberProfile" />
+			<result column="member_nick" property="memberNick" />
+			<result column="member_phone" property="memberPhone" />
+			<result column="member_gender" property="memberGender" />
 		</collection>
 	</resultMap>
 	
@@ -138,8 +142,12 @@
 	        where member_id =#{memberId}
 			order by join_no desc 
 	</select>
-	<select id="treeSearchSubquery" resultType="JoinApplyDto" parameterType="int">
-		select * from join_apply where join_no=#{joinNo}
+	<select id="treeSearchSubquery" resultType="JoinApplyListVO" parameterType="int">
+		 select J.join_apply_no,J.join_no,J.member_id,J.join_apply_people,J.join_apply_info,J.join_apply_status
+            ,P.attachment_no as member_profile, M.member_nick, M.member_phone,M.member_gender 
+            from join_apply J
+            inner join member_profile P on P.member_id =J.member_id
+            inner join member M on M.member_id = J.member_id where join_no=#{joinNo}
 	</select>
 	
 	<select id="getJoinNo" parameterType="int" resultType="int">
@@ -161,6 +169,22 @@
 	<update id="closeJoin" parameterType="int">
 		update join set join_status = 1 where join_no= #{joinNo}
 	</update> 
+	
+	<select id="myJoinApplyList" parameterType="String" resultType="MyJoinApplyListVO">
+		select  J.join_no,tee_time_d,tee_time_t,field_name,course_name, J.member_id as join_writer, join_info, J.join_time, J.join_status, 
+				M.member_nick, M.member_phone as join_writer_phone,booking_price/4 as booking_price, A.join_apply_people, A.join_apply_info,
+                A.join_apply_status,W.member_id as join_apply_writer,W.member_phone as join_apply_writer_phone from 
+	    join J 
+	        inner join member M on M.member_id = J.member_id
+	        inner join booking B on J.booking_no = B.booking_no
+	        inner join tee_time T on B.tee_time_no = T.tee_time_no
+	        inner join golf_course C on T.course_no = C.course_no
+	        inner join golf_field G on G.field_no = C.field_no
+            inner join join_apply A on J.join_no = A.join_no
+            inner join member W on W.member_id = A.member_id
+            where W.member_id = #{memberId}
+	</select>
+	
 </mapper> 
 
 

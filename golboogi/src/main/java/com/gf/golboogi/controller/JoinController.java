@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gf.golboogi.entity.JoinDto;
 import com.gf.golboogi.repository.JoinDao;
 import com.gf.golboogi.vo.JoinListVO;
+import com.gf.golboogi.vo.MyJoinApplyListVO;
 import com.gf.golboogi.vo.MyJoinListVO;
 
 @Controller
@@ -75,9 +76,12 @@ public class JoinController {
 	@GetMapping("/myjoin")
 	public String myJoin(HttpSession session, Model model) {
 		String memberId = (String) session.getAttribute("login");
-		List<MyJoinListVO> list = joinDao.myJoinList(memberId);
+		List<MyJoinListVO> joinList = joinDao.myJoinList(memberId);
+		List<MyJoinApplyListVO> joinApplyList = joinDao.myJoinApplyList(memberId);
+		System.out.println(joinApplyList);
 		
-		model.addAttribute("list", list);
+		model.addAttribute("joinList", joinList);
+		model.addAttribute("joinApplyList", joinApplyList);
 		return "join/myjoin";
 	}
 

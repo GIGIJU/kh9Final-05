@@ -57,12 +57,18 @@
 		 		<th>필요인원</th>
 		 		<th>인당그린피</th>
 		 		<th>등록일</th>
-		 		<th>등록자</th>
 		 		<th>조인현황</th>
+		 		<th>수정/삭제</th>
 		 	</tr>
 	 	</thead>
 	 	<tbody>
-			<c:forEach var="MyJoinListVO" items="${list}">
+	 	 	<c:if test="${joinList.isEmpty()}">
+	 	 	<tr><td colspan="9">
+	 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
+	 	 	<br><span style="font-size: 15px;">조인 등록 내역이 없습니다.</span>
+	 	 	</td></tr>
+ 			</c:if>
+			<c:forEach var="MyJoinListVO" items="${joinList}">
 			<tr>
 		 		<fmt:parseDate var="teeTimeD"  value="${MyJoinListVO.joinListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
 			 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
@@ -73,28 +79,37 @@
 		 		<td><fmt:formatNumber value="${MyJoinListVO.joinListVO.bookingPrice}" />원</td>
 		 		<fmt:parseDate var="joinDate"  value="${MyJoinListVO.joinListVO.joinTime}" pattern="yyyy-MM-dd"/>
 			 	<td><fmt:formatDate value="${joinDate}" pattern="MM/dd"/></td>
-		 		<td>${MyJoinListVO.joinListVO.memberNick}</td>
 		 		<c:choose>
 		 			<c:when test="${MyJoinListVO.joinListVO.joinStatus==0}"><td>모집중</td></c:when>
 		 			<c:otherwise><td>마감</td></c:otherwise>
 		 		</c:choose>
+		 		<td>
+		 		<span style="cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></span>
+		 		<span @click="joinDelete(${MyJoinListVO.joinListVO.joinNo})" style="cursor: pointer;">&nbsp;<i class="fa-solid fa-trash"></i></span>
+		 		</td>
 		 	</tr>
-			<c:forEach var="JoinApplyDto" items="${MyJoinListVO.joinApplyList}">
+			<c:forEach var="JoinApplyListVO" items="${MyJoinListVO.joinApplyList}">
 			<tr>
+				<td colspan="1"><i class="fa-solid fa-arrow-turn-up" style="transform: rotateZ(90deg);"></i></td>
+				<td colspan="1"><img src="/attachment/download?attachmentNo=${JoinApplyListVO.memberProfile}" style="width: 50px; height: 50px; border-radius: 100%;"></td>
 				<td colspan="6" style="text-align: left;">
-					▷ 신청현황 : ${JoinApplyDto.joinApplyInfo}	<br>
-					▷ 신청인원수 : ${JoinApplyDto.joinApplyPeople}명
-					<c:if test="">
-					▷ 신청인원수 : ${JoinApplyDto.joinApplyPeople}명
-					</c:if>
+					<ul style="margin-bottom: 0;">
+						<li>신청자 : ${JoinApplyListVO.memberNick}</li>
+						<li>신청내용 : ${JoinApplyListVO.joinApplyInfo}</li>
+						<li>신청인원수 : ${JoinApplyListVO.joinApplyPeople}명</li>
+						<c:if test="${JoinApplyListVO.joinApplyStatus==1}">
+							<li>전화번호 : ${JoinApplyListVO.memberPhone}</li>
+							<li>성별 : ${JoinApplyListVO.memberGender}</li>
+						</c:if>
+					</ul>
 				</td>
-				<td colspan="3" style="text-align: right;">
+				<td colspan="2" style="text-align: right;">
 				<c:choose>
-					<c:when test="${JoinApplyDto.joinApplyStatus==0}">
-						<a href="apply_approve/joinApplyNo/${JoinApplyDto.joinApplyNo}/joinApplyPeople/${JoinApplyDto.joinApplyPeople}" class="tagcloud">승인</a>
-						<a href="apply_refuse/${JoinApplyDto.joinApplyNo}" class="tagcloud">거절</a>
+					<c:when test="${JoinApplyListVO.joinApplyStatus==0}">
+						<a href="apply_approve/joinApplyNo/${JoinApplyListVO.joinApplyNo}/joinApplyPeople/${JoinApplyListVO.joinApplyPeople}" class="tagcloud">승인</a>
+						<a href="apply_refuse/${JoinApplyListVO.joinApplyNo}" class="tagcloud">거절</a>
 					</c:when>
-					<c:when test="${JoinApplyDto.joinApplyStatus==1}"><div class="tagcloud" style="color: #686de0;">승인완료</div></c:when>
+					<c:when test="${JoinApplyListVO.joinApplyStatus==1}"><div class="tagcloud" style="color: #686de0;">승인완료</div></c:when>
 					<c:otherwise><div class="tagcloud" style="color: #eb4d4b;">거절완료</div></c:otherwise>
 				</c:choose>
 				</td>
@@ -117,55 +132,51 @@
 	 		<tr>
 		 		<th>날짜</th>
 		 		<th>타임</th>
-		 		<th>지역</th>
 		 		<th>골프장</th>
-		 		<th>필요인원</th>
+		 		<th>내용</th>
 		 		<th>인당그린피</th>
-		 		<th>등록일</th>
 		 		<th>등록자</th>
 		 		<th>조인현황</th>
 		 	</tr>
 	 	</thead>
 	 	<tbody>
-			<c:forEach var="MyJoinListVO" items="${list}">
+	 		<c:if test="${joinApplyList.isEmpty()}">
+		 	 	<tr><td colspan="9">
+		 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
+		 	 	<br><span style="font-size: 15px;">조인 신청 내역이 없습니다.</span>
+		 	 	</td></tr>
+	 		</c:if>
+		<c:forEach var="MyJoinApplyListVO" items="${joinApplyList}">
 			<tr>
-		 		<fmt:parseDate var="teeTimeD"  value="${MyJoinListVO.joinListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
-			 	<td><fmt:formatDate value="${teeTimeD}" pattern="MM/dd"/></td>
-		 		<td>${MyJoinListVO.joinListVO.teeTimeT}</td>
-		 		<td>${MyJoinListVO.joinListVO.fieldArea}</td>
-		 		<td>${MyJoinListVO.joinListVO.fieldName}</td>
-		 		<td>${MyJoinListVO.joinListVO.joinPeople}명</td>
-		 		<td><fmt:formatNumber value="${MyJoinListVO.joinListVO.bookingPrice}" />원</td>
-		 		<fmt:parseDate var="joinDate"  value="${MyJoinListVO.joinListVO.joinTime}" pattern="yyyy-MM-dd"/>
-			 	<td><fmt:formatDate value="${joinDate}" pattern="MM/dd"/></td>
-		 		<td>${MyJoinListVO.joinListVO.memberNick}</td>
-		 		<c:choose>
-		 			<c:when test="${MyJoinListVO.joinListVO.joinStatus==0}"><td>모집중</td></c:when>
+		 		<td>${MyJoinApplyListVO.teeTimeD}</td>
+		 		<td>${MyJoinApplyListVO.teeTimeT}</td>
+		 		<td>${MyJoinApplyListVO.fieldName}</td>
+		 		<td>${MyJoinApplyListVO.joinInfo}</td>
+		 		<td><fmt:formatNumber value="${MyJoinApplyListVO.bookingPrice}"/></td>
+		 		<td>${MyJoinApplyListVO.memberNick}</td>
+ 				<c:choose>
+		 			<c:when test="${joinListVO.joinStatus==0}"><td>모집중</td></c:when>
 		 			<c:otherwise><td>마감</td></c:otherwise>
 		 		</c:choose>
 		 	</tr>
-			<c:forEach var="JoinApplyDto" items="${MyJoinListVO.joinApplyList}">
-			<tr>
-				<td colspan="6" style="text-align: left;">
-					▷ 신청현황 : ${JoinApplyDto.joinApplyInfo}	<br>
-					▷ 신청인원수 : ${JoinApplyDto.joinApplyPeople}명
-					<c:if test="">
-					▷ 신청인원수 : ${JoinApplyDto.joinApplyPeople}명
-					</c:if>
-				</td>
-				<td colspan="3" style="text-align: right;">
-				<c:choose>
-					<c:when test="${JoinApplyDto.joinApplyStatus==0}">
-						<a href="apply_approve/joinApplyNo/${JoinApplyDto.joinApplyNo}/joinApplyPeople/${JoinApplyDto.joinApplyPeople}" class="tagcloud">승인</a>
-						<a href="apply_refuse/${JoinApplyDto.joinApplyNo}" class="tagcloud">거절</a>
+		 	<tr>
+		 		<td><i class="fa-solid fa-arrow-turn-up" style="transform: rotateZ(90deg);"></i></td>
+				<td colspan="4" class="text-left">
+		 			${MyJoinApplyListVO.joinApplyInfo}(신청인원 ${MyJoinApplyListVO.joinApplyPeople}명)
+		 		</td>
+				<td><c:if test="${MyJoinApplyListVO.joinApplyStatus==1}"><span style="font-weight: 500;">방장연락처<br>
+				 ${MyJoinApplyListVO.joinWriterPhone}</span></c:if></td>
+		 		<td>
+		 		<c:choose>
+					<c:when test="${MyJoinApplyListVO.joinApplyStatus==0}">
+						<div class="tagcloud" style="color: black;">승인대기</div>
 					</c:when>
-					<c:when test="${JoinApplyDto.joinApplyStatus==1}"><div class="tagcloud" style="color: #686de0;">승인완료</div></c:when>
-					<c:otherwise><div class="tagcloud" style="color: #eb4d4b;">거절완료</div></c:otherwise>
+					<c:when test="${MyJoinApplyListVO.joinApplyStatus==1}"><div class="tagcloud" style="color: #686de0;">승인됨</div></c:when>
+					<c:otherwise><div class="tagcloud" style="color: #eb4d4b;">거절됨</div></c:otherwise>
 				</c:choose>
 				</td>
-			</tr>
-			</c:forEach>
-	</c:forEach> 
+		 	</tr>
+		</c:forEach> 
 	</tbody>
 	</table>
 	</div>

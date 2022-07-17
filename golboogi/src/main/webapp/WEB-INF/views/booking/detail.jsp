@@ -190,33 +190,31 @@ p {
 			<div class="row mt-4" v-show="showGolfInfo">
 				<h1>골프장 정보</h1>
 			</div>
-			<div class="row mt-4" v-show="showReview">
+			<div class="row mt-4 mb-5" v-show="showReview">
 	<!-- 테이블 -->
-	<div class="photo_review_container mt-3" >
+	<div class="photo_review_container mt-3 " >
+	<h4>${golfFieldDto.fieldName} 라운드 후기</h4>
 		<c:forEach var="ReviewProfileVO" items="${reviewList}">
 				<ul>
 					<li>
 						<div class="review_content">
 							<c:choose>
 								<c:when test="${ReviewProfileVO.attachmentNo == 0}">
-									<div class="review_user_photo" align="center"><img src="${root}/images/user.png" width="70px;" height="70px;" style="border-radius: 50%;"></div>
+									<div class="review_user_photo" align="center"><img src="${root}/images/user.png" style="width: 50px; height: 50px; border-radius: 50%;"></div>
 								</c:when>
 								<c:otherwise>
-									<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" width="50px;" height="50px;"></div>
+									<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" style="width: 50px; height: 50px;"></div>
 								</c:otherwise>
 							</c:choose>
 							<div class="review_user_comment">
-								<div class="user_review_rating"><a href="#">${ReviewProfileVO.reviewRating}</a>&nbsp;&nbsp;<span><a href="${root}/review/detail/${ReviewProfileVO.reviewNo}">자세히보기</a></span></div>
+								<div class="user_review_rating"><a href="#">${ReviewProfileVO.reviewRating}</a>&nbsp;&nbsp;<span><a href="${root}/review/detail/${ReviewProfileVO.reviewNo}">
+								<i class="fa-solid fa-magnifying-glass"></i></a></span></div>
 								<div class="review_user_comment_name_con">
-									<div class="user_review_name"><span>${ReviewProfileVO.memberName}</span></div>
-									<div class="user_review_con">${ReviewProfileVO.reviewTitle}</div>
+									<div class="user_review_name"><span>${ReviewProfileVO.memberNick}</span></div>
+									<div class="user_review_con" style="font-size: 14px; color: black;">${ReviewProfileVO.reviewContent}</div>
 								</div>
 								<div class="review_user_comment_time_read_count">
-									<div class="user_review_time"><span>${ReviewProfileVO.reviewTime}</span></div>
-									<!-- 임시로 xeicon 눈 -->
-									<div class="user_review_read_icon"><span class="xi-eye-o"></span></div>
-									<!-- <a href="https://www.flaticon.com/kr/free-icons/" title="눈 아이콘"></a> -->
-									<div class="user_review_read">${ReviewProfileVO.reviewReadcount}</div>
+									<div class="user_review_time" style="font-size: 12px;"><span>${ReviewProfileVO.reviewTime}</span></div>
 								</div>
 							</div>
 						</div>

@@ -13,6 +13,7 @@ public class JoinListVO {
 	private String teeTimeD;
 	private String teeTimeT;
 	private String fieldArea;
+	private int fieldNo;
 	private String fieldName;
 	private int joinPeople;
 	private int bookingPrice;

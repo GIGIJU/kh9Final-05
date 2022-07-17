@@ -10,7 +10,9 @@ import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.JoinApplyDto;
 import com.gf.golboogi.entity.JoinDto;
+import com.gf.golboogi.vo.JoinApplyListVO;
 import com.gf.golboogi.vo.JoinListVO;
+import com.gf.golboogi.vo.MyJoinApplyListVO;
 import com.gf.golboogi.vo.MyJoinListVO;
 
 @Repository
@@ -105,6 +107,12 @@ public class JoinDaoImpl implements JoinDao{
 	@Override
 	public void joinApplyRefuse(int joinApplyNo) {
 		sqlSession.update("join.joinApplyRefuse",joinApplyNo);		
+	}
+
+	//나의 조인 신청 리스트
+	@Override
+	public List<MyJoinApplyListVO> myJoinApplyList(String memberId) {
+		return sqlSession.selectList("join.myJoinApplyList",memberId);
 	}
 
 	

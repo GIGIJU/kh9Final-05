@@ -29,7 +29,13 @@
 	<select id="list" resultType="GolfFieldDto" parameterType="Map">
 	 select * from(
 		select rownum rn, TMP.* from (
-            select * from golf_field 
+            select * from golf_field F
+            left outer join
+				(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				left outer join 
+				        golf_profile A on F.field_no = A.field_no
+				        group by f.field_no
+				) A on F.field_no = A.field_no
           <if test ="type != null and keyword !=null">
           <![CDATA[where instr(${type}, #{keyword}) > 0]]>
           </if>
