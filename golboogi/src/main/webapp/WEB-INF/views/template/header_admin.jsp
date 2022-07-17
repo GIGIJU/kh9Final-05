@@ -50,9 +50,13 @@
                                 골프장관리자목록
                             </a>
                             <div class="sb-sidenav-menu-heading">정보등록</div>
-                            <a class="nav-link" href="${root}/admin/field_insert">
+<%--                             <a class="nav-link" href="${root}/admin/field_insert"> --%>
+<!--                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-golf-ball-tee"></i></div> -->
+<!--                                 골프장 등록 -->
+<!--                             </a> -->
+                            <a class="nav-link" href="${root}/admin/field_list">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-golf-ball-tee"></i></div>
-                                골프장 등록
+                                골프장 목록
                             </a>
                             
                         </div>
