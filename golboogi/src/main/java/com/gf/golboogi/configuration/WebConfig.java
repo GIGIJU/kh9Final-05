@@ -23,6 +23,7 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/admin/list")
 		.excludePathPatterns("/admin/login")
 		.excludePathPatterns("/admin/logout")
+		.excludePathPatterns("/admin/field_insert")
 		.excludePathPatterns("/member/login")
 		.excludePathPatterns("/member/join")
 		.excludePathPatterns("/member/join_success")
@@ -41,8 +42,6 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new AdminLoginInterceptor())
 		// 관리자 로그인 필요한 부분
 		.addPathPatterns("/admin/**")
-		.addPathPatterns("/member/login")
-		.addPathPatterns("/member/join")
 		.addPathPatterns("/notice/delete/{noticeNo}")
 		.addPathPatterns("/manager/stat/**")
 		.addPathPatterns("/manager/charts/**")

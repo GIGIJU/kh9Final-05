@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<c:set var="memberId" value="${login}"></c:set>
+<c:set var="isLogin" value="${memberId != null}"></c:set>
 <c:set var="adminId" value="${adminLogin}"></c:set>
 <c:set var="isAdmin" value="${adminId == null}"></c:set>
 <!DOCTYPE html>
@@ -27,7 +29,7 @@
             <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
             <li><a href="#" class="py-2 d-block">Club solution</a></li>
             <li><a href="#" class="py-2 d-block">Contact</a></li>
-            <c:if test="${isAdmin}">
+            <c:if test="${!isLogin && isAdmin}">
 	            <li><a href="${root}/admin/login" class="py-2 d-block">관리자 로그인</a></li>
             </c:if>
           </ul>
