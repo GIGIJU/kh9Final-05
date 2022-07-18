@@ -38,6 +38,9 @@
 				) A on F.field_no = A.field_no
           <if test ="type != null and keyword !=null">
           <![CDATA[where instr(${type}, #{keyword}) > 0]]>
+            select * from golf_field 
+          <if test ="type != null and area !=null">
+          <![CDATA[where instr(${type}, #{area}) > 0]]>
           </if>
 			) TMP
 		)where rn between #{begin} and #{end}	
@@ -209,7 +212,7 @@
 	</insert>
 	
 	<!-- 골프장 이름으로 번호 검색 @이기주 -->
-	<select id="searchNo">
+	<select id="searchNoByName" parameterType="String" resultType="int">
 		select field_no from golf_field where field_name = #{fieldName}
 	</select>
 	
@@ -217,9 +220,25 @@
 	<select id="searchSimple" resultType="GolfFieldDto">
 		select field_no, field_name from golf_field
 	</select>
+	
+	<!-- 관리자 골프장 조회 (골프장 정보 + 골프장 관리자 정보) -->
+	<select id="fieldList" resultType="GolfFieldVO">
+		select * 
+		from golf_field "F"
+	    left outer join golf_manager "M"
+	    on F.field_no = M.field_no
+	</select>
+	
+	<select id="fieldDetail" parameterType="int" resultType="golfFieldVO">
+		select *
+		from golf_field "F"
+		left outer join golf_course "C"
+		on F.field_no = C.field_no
+		where F.field_no = #{fieldNo}
+	</select>
+		
 
 </mapper> 
-
 
 
 

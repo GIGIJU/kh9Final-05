@@ -155,8 +155,8 @@
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package<i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">package</h1>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
+					<p class="mb-0" style="font-size: 17px">투어, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
  </div>
@@ -168,8 +168,12 @@
         <div class="text-center mt-5 md-3">
     <h3  style="font-weight: bold; color: #23aed2 ">선결제를 진행하시겠습니까? </h3>
 </div>
+
 </div>
-      
+    <div class="row justify-content-center mt-5">
+                 <h1  style="font-weight: bold;  color: #afc666 " >⛳ . . . 🐢</h1>
+      </div>
+
     <!--선결제 버튼 -->
     <form action="package_purchase" method="POST" >
 <%--       <input type="hidden" name="packageNo" value="${packager.packageDto.packageNo}"> --%>
@@ -177,7 +181,8 @@
       <input type="hidden" name="totalAmount="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
      <input type="hidden" name="quantity" value="1" min="1" required>
       <div class="row justify-content-center mt-5 mb-5">
-      <input type="submit" value="선결제하기" >
+      <input type="button" value="아니오(예약페이지로)" onclick="history.back();" class="btn" style="width:20%;  font-size: 17px;" />
+      <input type="submit" value="네"  class="btn btn-success ml-3" style="width:20%;  font-size: 17px;" >
       </div>
       </form>
       

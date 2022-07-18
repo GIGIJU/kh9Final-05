@@ -27,5 +27,8 @@ public interface ReviewDao {
 
 	List<ReviewProfileVO> selectOneFiled(String fieldName);
 
+	String writerCheck(String memberId);
+
+
 
 }

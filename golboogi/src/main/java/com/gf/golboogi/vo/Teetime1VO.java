@@ -1,6 +1,5 @@
 package com.gf.golboogi.vo;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

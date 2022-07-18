@@ -24,7 +24,7 @@ public class KakaoPayReadyTest {
 	@Autowired
 	private KakaoPayService kakaoPayService;
 	
-	@Test
+//	@Test
 	public void test() throws URISyntaxException {
 		KakaoPayReadyResponseVO responseVO = 
 						kakaoPayService.ready(

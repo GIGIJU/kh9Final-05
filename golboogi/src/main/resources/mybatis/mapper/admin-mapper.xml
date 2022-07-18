@@ -63,6 +63,10 @@
 		where member_id = #{memberId}
 	</update>
 	
+	<select id="myCheck" parameterType="String" resultType="GolfManagerDto">
+		select * from golf_manager where golf_manager_id = #{golfManagerId}
+	</select>
+	
 	<insert id="insertManager" parameterType="AdminVO">
 		insert into golf_manager(golf_manager_id, field_no, golf_manager_pw) 
 		values(#{golfManagerId}, #{fieldNo}, #{golfManagerPw})
@@ -82,7 +86,9 @@
 		)
 	</insert>
 	
-	
+	<select id="managerCheck" parameterType="String" resultType="String">
+		select golf_manager_id from golf_manager where golf_manager_id = #{golfManagerId}
+	</select>
 </mapper> 
 
 

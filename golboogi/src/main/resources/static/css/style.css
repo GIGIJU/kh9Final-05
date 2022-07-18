@@ -2190,7 +2190,7 @@ textarea.form-control {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  background-color: black;
+  background-color: #cce77c;
   border: 1px solid transparent;
   padding: 0.375rem 0.75rem;
   font-size: 0.7rem;
@@ -2279,8 +2279,8 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #fff;
-  background-color: #23aed2;
-  border-color: #23aed2; }
+  background-color: #cce77c;
+  border-color: #cce77c; }
   .btn-success:hover {
     color: #fff;
     background-color: #218838;
@@ -8358,10 +8358,10 @@ a {
   -webkit-transition: .3s all ease;
   -o-transition: .3s all ease;
   transition: .3s all ease;
-  color: #f15d30; }
+  color: black; }
   a:hover, a:focus {
     text-decoration: none;
-    color: #f15d30;
+    color: #cce77c;
     outline: none !important; }
 
 h1, h2, h3, h4, h5,
@@ -8603,7 +8603,7 @@ h1, h2, h3, h4, h5,
   position: relative; }
   .slider-text .subheading {
     font-size: 30px;
-    color: #f15d30;
+    color: #cce77c;
     font-family: "Arizonia", cursive; }
   .slider-text h1 {
     font-size: 55px;
@@ -8760,7 +8760,7 @@ h1, h2, h3, h4, h5,
     font-weight: 700;
     font-size: 14px;
     color: rgba(0, 0, 0, 0.8);
-    color: #f15d30;
+    color: black;
     text-transform: uppercase; }
   .search-property-1 .form-group .form-field {
     position: relative;
@@ -8791,7 +8791,7 @@ h1, h2, h3, h4, h5,
       font-size: 16px;
       font-weight: 700;
       text-transform: uppercase;
-      background: #f15d30 !important;
+      background: #cce77c !important;
       border: none !important;
       color: #fff !important;
       -webkit-border-radius: 0;
@@ -8838,8 +8838,8 @@ h1, h2, h3, h4, h5,
   .btn:hover, .btn:active, .btn:focus {
     outline: none; }
   .btn.btn-primary {
-    background: #23aed2 !important;
-    border: 1px solid #23aed2 !important;
+    background: #cce77c !important;
+    border: 1px solid #cce77c !important;
     color: #fff !important; }
     .btn.btn-primary:hover {
       border: 1px solid #f15d30;
@@ -8909,7 +8909,7 @@ h1, h2, h3, h4, h5,
     left: 20px;
     margin-top: -8px;
     padding: 4px 10px;
-    background: #f15d30; }
+    background: #cce77c; }
     .project-destination .text h3:after, .project-destination .text h3:before {
       position: absolute;
       top: 0;
@@ -8920,20 +8920,20 @@ h1, h2, h3, h4, h5,
       height: 0;
       border-style: solid;
       border-width: 0 0 8px 8px;
-      border-color: transparent transparent #c7390d transparent; }
+      border-color: transparent transparent #cce77c transparent; }
     .project-destination .text h3:before {
       width: 0;
       right: -8px;
       height: 0;
       border-style: solid;
       border-width: 8px 0 0 8px;
-      border-color: transparent transparent transparent #c7390d; }
+      border-color: transparent transparent transparent #cce77c; }
   .project-destination .text span {
     position: absolute;
     bottom: 20px;
     right: -5px;
     display: inline-block;
-    background: #f15d30;
+    background: #cce77c;
     padding: 4px 5px 4px 15px;
     border-radius: 20px 0 0 20px;
     color: #fff;
@@ -8970,7 +8970,7 @@ h1, h2, h3, h4, h5,
       top: -8px;
       left: 20px;
       display: inline-block;
-      background: #f15d30;
+      background: #cce77c;
       color: #fff;
       padding: 8px;
       font-size: 16px;
@@ -8990,14 +8990,14 @@ h1, h2, h3, h4, h5,
         height: 0;
         border-style: solid;
         border-width: 0 0 8px 8px;
-        border-color: transparent transparent #c7390d transparent; }
+        border-color: transparent transparent #cce77c transparent; }
       .project-wrap .img .price:before {
         width: 0;
         right: -8px;
         height: 0;
         border-style: solid;
         border-width: 8px 0 0 8px;
-        border-color: transparent transparent transparent #c7390d; }
+        border-color: transparent transparent transparent #cce77c; }
   .project-wrap.hotel .img {
     height: 320px; }
   .project-wrap .text {
@@ -9014,7 +9014,7 @@ h1, h2, h3, h4, h5,
       font-size: 13px; }
     .project-wrap .text .days {
       font-size: 12px;
-      color: #f15d30;
+      color: black;
       text-transform: uppercase;
       font-weight: 700; }
     .project-wrap .text h3 {
@@ -9294,10 +9294,10 @@ textarea.form-control {
     width: 40px;
     display: block;
     float: left;
-    color: #f15d30;
+    color: #cce77c;
     border-radius: 50%;
     position: relative;
-    background: #f15d30; }
+    background: #cce77c; }
     .ftco-footer-social li a span {
       position: absolute;
       font-size: 18px;
@@ -9387,7 +9387,7 @@ textarea.form-control {
   font-size: 30px;
   display: block;
   margin-bottom: 5px;
-  color: #f15d30;
+  color: #cce77c;
   font-family: "Arizonia", cursive; }
 
 .heading-section h2 {
@@ -9686,7 +9686,7 @@ textarea.form-control {
     top: -7px;
     left: 20px;
     padding: 5px 15px;
-    background: #f15d30; }
+    background: #cce77c; }
     .blog-entry .topp:after, .blog-entry .topp:before {
       position: absolute;
       top: 0;
@@ -9697,14 +9697,14 @@ textarea.form-control {
       height: 0;
       border-style: solid;
       border-width: 0 0 7px 7px;
-      border-color: transparent transparent #c7390d transparent; }
+      border-color: transparent transparent #cce77c transparent; }
     .blog-entry .topp:before {
       width: 0;
       right: -7px;
       height: 0;
       border-style: solid;
       border-width: 7px 0 0 7px;
-      border-color: transparent transparent transparent #c7390d; }
+      border-color: transparent transparent transparent #cce77c; }
   .blog-entry .one {
     width: 55px; }
   .blog-entry .two {
@@ -9736,7 +9736,7 @@ textarea.form-control {
     width: 40px;
     font-size: 18px;
     padding-top: 2px;
-    color: #f15d30 !important; }
+    color: #cce77c !important; }
 
 .block-27 ul {
   padding: 0;

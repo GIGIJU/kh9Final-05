@@ -155,8 +155,8 @@
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package<i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">package</h1>
+       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
+					<p class="mb-0" style="font-size: 17px">투어, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
  </div>
@@ -181,16 +181,7 @@
          <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
       </div>
       
-    <!--선결제 페이지 이동 버튼 -->
-<!--     <form method="post" action="package_purchase"> -->
-<%--       <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}"> --%>
-<%--       <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}"> --%>
-<!--       <input type="hidden" name="quantity" value="1" min="1" required> -->
-<!--       <div class="row justify-content-center mt-5 mb-5"> -->
-        <a href="${root}/package/package_purchase?packageBookingNo=${packageVo.packageDto.packageNo}" style="color:white" class="btn" >선결제하기</a>
-<!--       </div> -->
-<!--       </form> -->
-      
+          
 </div>
 </div>
 </div>

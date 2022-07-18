@@ -6,9 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @Configuration//설정파일임을 명시. 어떠한 클래스보다 빨리 실행됨(프로젝트 준비단계)
 //등록된 properties 중에서 원하는 접두사로 가져오는 기능(해당 변수에 setter 메소드가 필요)
 @ConfigurationProperties(prefix = "custom.database")

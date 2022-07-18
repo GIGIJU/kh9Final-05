@@ -103,8 +103,11 @@
 		select * from review left outer join member_profile 
 		on(review.review_writer = member_profile.member_id) left outer join member on (review.review_writer = member.member_id)
 		where field_name=#{fieldName}
+	</select>	
+
+	<select id="reviewWriter" parameterType="String" resultType="String">
+		select review_writer from review where review_writer = #{memberId}
 	</select>
-	
 </mapper> 
 
 

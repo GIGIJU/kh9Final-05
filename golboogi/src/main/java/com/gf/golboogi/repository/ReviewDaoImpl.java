@@ -75,9 +75,15 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override
+
 	public List<ReviewProfileVO> selectOneFiled(String fieldName) {
 		return sqlSession.selectList("review.oneFiledList", fieldName);
 	}
+
+	public String writerCheck(String memberId) {
+		return sqlSession.selectOne("review.reviewWriter",memberId);
+	}
+
 	
 	
 }

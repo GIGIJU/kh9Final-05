@@ -47,7 +47,7 @@
 									<a href="#">${golfFieldDto.fieldName}</a>
 								</h3>
 								<p class="location">
-									<span class="fa fa-map-marker"></span>지역
+									<span class="fa fa-map-marker">${golfFieldDto.fieldArea}</span>
 								</p>
 							</div>
 						</div>
