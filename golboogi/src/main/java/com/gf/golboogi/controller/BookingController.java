@@ -22,6 +22,7 @@ import com.gf.golboogi.repository.BookingDao;
 import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
+import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
 import com.gf.golboogi.vo.FieldProfileVO;
@@ -29,6 +30,7 @@ import com.gf.golboogi.vo.TeeTimeListVO;
 import com.gf.golboogi.vo.Teetime1VO;
 import com.gf.golboogi.vo.MyBookingListVO;
 import com.gf.golboogi.vo.MyJoinListVO;
+import com.gf.golboogi.vo.ReviewProfileVO;
 
 @Controller
 @RequestMapping("/booking")
@@ -42,6 +44,8 @@ public class BookingController {
 	private MemberDao memberDao;
 	@Autowired
 	private FieldProfileDao fieldProfileDao;
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	
 	
@@ -94,13 +98,17 @@ public class BookingController {
 	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 		List<TeeTimeListVO> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
+		System.err.println(teetimeList);
+		List<ReviewProfileVO> reviewList = reviewDao.selectOneFiled(golfFieldDto.getFieldName());
 		model.addAttribute("golfFieldDto",golfFieldDto); //골프장 정보
 		model.addAttribute("teetimeList",teetimeList); //예약 정보
+		model.addAttribute("reviewList",reviewList); //예약 정보
 		
 
 		//골프장 이미지 다운로드 주소 추가 
 		List<FieldProfileVO> list = fieldProfileDao.multiInfo(fieldNo);
 		model.addAttribute("list", list);
+		System.err.println("사진정보!"+list);
 		if(list == null) {
 			model.addAttribute("profileUrl", "/images/golf-dummy.jpg");
 		}
@@ -121,7 +129,7 @@ public class BookingController {
 		}
 		
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
-		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
+		GolfFieldDto golfFieldDto = golfFieldDao.oneProfile(teetimeVO.getFieldNo());
 		
 		model.addAttribute("teeTimeD",teeTimeD);
 		model.addAttribute("golfFieldDto",golfFieldDto);
@@ -129,8 +137,8 @@ public class BookingController {
 		return "booking/reservation";
 	}
 	
-	@GetMapping("/teetime")
-	public String teetime(@RequestParam int courseNo){
+	@GetMapping("/teetime/{courseNo}")
+	public String teetime(@PathVariable int courseNo){
 		golfFieldDao.teetimeInsert(courseNo);
 		return "redirect:/";
 	}
@@ -149,7 +157,7 @@ public class BookingController {
 		}
 		
 		Teetime1VO teetimeVO = golfFieldDao.selectCourse(teeTimeNo);
-		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(teetimeVO.getFieldNo());
+		GolfFieldDto golfFieldDto = golfFieldDao.oneProfile(teetimeVO.getFieldNo());
 		
 		model.addAttribute("golfFieldDto",golfFieldDto);
 		model.addAttribute("teetimeVO",teetimeVO);
@@ -164,8 +172,10 @@ public class BookingController {
 		bookingDto.setMemberId(memberId);
 		bookingDto.setBookingName(memberName);
 		
+		//예약
 		bookingDao.reservation(bookingDto);
 		
+		//수수료 추가
 		int commission = bookingDto.getBookingPrice()/10;
 		golfFieldDao.addCommission(fieldNo,commission);
 		

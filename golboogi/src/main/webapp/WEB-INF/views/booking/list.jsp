@@ -47,9 +47,9 @@
 
 											<select class="form-control" v-model="area" v-bind:name="checkFieldArea">
 												<option value="">지역선택</option>
-												<option value="경기">경기</option>
-												<option value="강원">강원</option>
-												<option value="전라">전라도</option>
+												<option value="경기도">경기도</option>
+												<option value="강원도">강원도</option>
+												<option value="전라도">전라도</option>
 												<option value="경상도">경상도</option>
 												<option value="제주도">제주도</option>
 											</select>
@@ -130,9 +130,18 @@
 				<c:forEach var="golfFieldDto" items="${rank}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
-								style="background-image: url(${root}/images/golf-dummy.jpg);">
-							</a>
+						<c:choose>
+							<c:when test="${golfFieldDto.attachmentNo != 0}">
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/attachment/download?attachmentNo=${golfFieldDto.attachmentNo});">
+								</a>	
+							</c:when>
+							<c:otherwise>
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/images/golf-dummy.jpg);">
+								</a>							
+							</c:otherwise>
+						</c:choose>
 							<div class="text p-2">
 								<span class="days">
 								<div class="row">
@@ -162,9 +171,18 @@
 					<c:forEach var="golfFieldDto" items="${prepay}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
-								style="background-image: url(${root}/images/golf-dummy.jpg);">
-							</a>
+						<c:choose>
+							<c:when test="${golfFieldDto.attachmentNo != 0}">
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/attachment/download?attachmentNo=${golfFieldDto.attachmentNo});">
+								</a>	
+							</c:when>
+							<c:otherwise>
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/images/golf-dummy.jpg);">
+								</a>							
+							</c:otherwise>
+						</c:choose>
 							<div class="text p-2">
 								<span class="days">
 								<div class="row">
@@ -194,9 +212,18 @@
 					<c:forEach var="golfFieldDto" items="${cheap}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
-								style="background-image: url(${root}/images/golf-dummy.jpg);">
-							</a>
+						<c:choose>
+							<c:when test="${golfFieldDto.attachmentNo != 0}">
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/attachment/download?attachmentNo=${golfFieldDto.attachmentNo});">
+								</a>	
+							</c:when>
+							<c:otherwise>
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/images/golf-dummy.jpg);">
+								</a>							
+							</c:otherwise>
+						</c:choose>
 							<div class="text p-2">
 								<span class="days">
 								<div class="row">

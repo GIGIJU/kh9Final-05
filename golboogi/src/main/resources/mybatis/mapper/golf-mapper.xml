@@ -29,6 +29,15 @@
 	<select id="list" resultType="GolfFieldDto" parameterType="Map">
 	 select * from(
 		select rownum rn, TMP.* from (
+            select * from golf_field F
+            left outer join
+				(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				left outer join 
+				        golf_profile A on F.field_no = A.field_no
+				        group by f.field_no
+				) A on F.field_no = A.field_no
+          <if test ="type != null and keyword !=null">
+          <![CDATA[where instr(${type}, #{keyword}) > 0]]>
             select * from golf_field 
           <if test ="type != null and area !=null">
           <![CDATA[where instr(${type}, #{area}) > 0]]>
@@ -46,10 +55,19 @@
       </if>
    </select>
 	
+	<!-- 상세 조회 -->
 	<select id="one" resultType="GolfFieldDto" parameterType="int">
 		select * from golf_field where field_no = #{fieldNo}
 	</select>
 	
+	<!-- 상세+이미지 조회 -->	
+	<select id="oneProfile" resultType="GolfFieldDto" parameterType="int">
+		select * from golf_field F inner join(         
+                select F.field_no,min(A.attachment_no) as attachment_no from golf_field F
+		left outer join 
+		        golf_profile A on F.field_no = A.field_no
+		        group by f.field_no) A on  F.field_no = A.field_no where F.field_no= #{fieldNo}
+	</select>
 	
 	<select id="seleteCourse" resultType="GolfCourseDto" parameterType="int">
 		select * from golf_course where course_no=#{courseNo}
@@ -57,8 +75,9 @@
 	
 	<select id="search" resultType="BookingSearchListVO" parameterType="Map">
 		<bind name="fieldAreaExist" value="fieldArea != null and !fieldArea.equals('')"/> 
-		select F.field_no, F.field_name, F.field_area, F.field_greenfee,F.field_prepay, B.count from golf_field F inner join(
-		select field_no, count(*) as count from(
+        	select F.field_no, F.field_name, F.field_area, F.field_greenfee,F.field_prepay, A.count,A.attachment_no from golf_field F inner join(              
+                     select F.field_no,F.count,A.attachment_no from 
+                     (select field_no, count(*) as count from(
 			select 
 			G.field_no, G.field_name, G.field_greenfee, B.course_name, B.tee_time_t, B.part_time, 
 			B.tee_time_no,G.field_area from golf_field G left outer join
@@ -67,7 +86,7 @@
 			(
 			select T.tee_time_no,T.course_no,T.tee_time_t,T.part_time,B.booking_date,B.booking_people from tee_time T 
 			left outer join (select * from booking where tee_time_d= to_date(#{teeTimeD},'YYYY-MM-DD')) B 
-			on T.tee_time_no = B.tee_time_no where booking_people is null
+			on T.tee_time_no = B.tee_time_no where booking_people is null         
 			) B on B.course_no = C.course_no 
 			) B on B.field_no = G.field_no 
 	 		<where>
@@ -84,8 +103,10 @@
 				]]>
 				</if>
 			</where> 
- 		) group by field_no having count(*) > 0
-        ) B on B.field_no = F.field_no
+	 		) group by field_no having count(*) > 0) F left outer join(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+					left outer join 
+	        golf_profile A on F.field_no = A.field_no
+	        group by f.field_no) A  on F.field_no = A.field_no) A on F.field_no = A.field_no
 	</select>
 	
 	<update id="commissionUpdate" parameterType="Map">
@@ -99,7 +120,12 @@
 	
 	<select id="ranking" resultType="BookingSearchListVO">
 		<![CDATA[
-		select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay, C.count from golf_field F 
+		select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,attachment_no,C.count from golf_field F 
+			left outer join (select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				left outer join 
+				        golf_profile A on F.field_no = A.field_no
+				        group by f.field_no
+				) A on F.field_no = A.field_no
 			inner join 
 			(select field_name, count(*) as count from
 			(select * from 
@@ -111,12 +137,26 @@
 		]]>
 	</select>
 	
-	<select id="prepay" resultType="GolfFieldDto">
-		<![CDATA[select * from golf_field where field_prepay = 1 and rownum <=3]]>
+	<select id="prepay" resultType="BookingSearchListVO">
+		<![CDATA[select * from golf_field F
+				left outer join (select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				left outer join 
+				        golf_profile A on F.field_no = A.field_no
+				        group by f.field_no
+				) A on F.field_no = A.field_no
+		 where field_prepay = 1 and rownum <=3]]>
 	</select>
 	
-	<select id="cheap" resultType="GolfFieldDto">
-		<![CDATA[select * from (select * from golf_field where field_greenfee <= 150000 order by field_greenfee) where rownum <=3]]>
+	<select id="cheap" resultType="BookingSearchListVO">
+		<![CDATA[select * from         
+				(
+				select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,attachment_no from golf_field F
+					left outer join (select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+					left outer join 
+				        golf_profile A on F.field_no = A.field_no
+				        group by f.field_no
+				) A on F.field_no = A.field_no order by field_greenfee 
+                ) where rownum <=3]]>
 	</select>
 	
 	<!-- 골프부킹 전체리스트 -->
@@ -125,7 +165,7 @@
 		select rownum rn, TMP.* from (
             select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,A.attachment_no from golf_field F
 				left outer join
-				(select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
+				(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
 				left outer join 
 				        golf_profile A on F.field_no = A.field_no
 				        group by f.field_no

@@ -111,11 +111,18 @@ textarea {
 		<div class="row mt-5 mb-5">
 			<div class="col-md-6 offset-md-3">
 			<div class="text-center"><h2 class="mb-5" style="font-size: 25px; font-weight: bold;">나의 예약 내역</h2></div>		
+			<c:if test="${list.isEmpty()}">
+	 	 	<div class="col-md-6 offset-md-3 text-center">
+	 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
+	 	 	<br><span style="font-size: 17px;">예약 내역이 없습니다.</span>
+	 	 	</div>
+
+ 			</c:if>
 				<ul class="comment-list">
 					<c:forEach var="myBookingListVO" items="${list}">
 						<li class="comment mb-4">	
 							<div class="row">
-								<div class="col-md-5 text-left ml-4">
+								<div class="col-md-5 text-left ml-3">
 									<span class="b12" style="font-weight: bold; font-size: 15px;">${myBookingListVO.fieldName}</span><br>
 								</div>
 								<div class="col-md-6 ml-3 text-right">
@@ -149,7 +156,7 @@ textarea {
 
 							<c:if test="${myBookingListVO.bookingStatus != '예약취소'}"> 
 								<div class="col-md-4 ml-5 text-right">
-										<button class="btn mb-2" :class="{'showbtn':!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')}" style="display: none;" @click="locationReview(${myBookingListVO.fieldNo})" v-if="!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')">리뷰작성</button>
+										<button class="btn mb-2" :class="{'showbtn':!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')}" style="display: none;" @click="locationReview('${myBookingListVO.fieldName}')" v-if="!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')">리뷰작성</button>
 										<button class="btn mb-2" v-else @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
 										
 										<button class="btn" style="display: none;" :class="{'showbtn':bookingDrop('${myBookingListVO.bookingDropAble}')}" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo},'${myBookingListVO.fieldName}')">예약취소</button>
@@ -250,8 +257,8 @@ textarea {
         		console.log(moment(teetime) > moment(now));
         		return moment(teetime) > moment(now);
         	},
-        	locationReview(fieldNo){
-        		window.location.href="${root}/review/write?fieldNo="+fieldNo;
+        	locationReview(fieldName){
+        		window.location.href="${root}/review/write/"+fieldName;
         	}
         },
         //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다

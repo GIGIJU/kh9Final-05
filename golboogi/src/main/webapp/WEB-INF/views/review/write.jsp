@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 	<div class="container">
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
@@ -16,35 +17,23 @@
 	</div>
 </section>	
 <br><br><br><br>
-<div class="container">
-	<div class="mt-3">
-		<h2>후기 작성</h2>
+<div class="container" id="app">
+<div class="col-md-6 offset-md-3">
+	<div class="row">
+		<h4>라운드 후기 작성</h4>
 	</div>
-	<div class="mt-3" id="app">
 		<form v-on:submit="sendForm($event)" method="post" enctype="multipart/form-data">
-			<div class="mt-3">
+			<div class="row mt-2">
 				<input type="hidden" name="reviewWriter" value="${memberId}">
 			</div>
-			<br><br>
-			<c:choose>
-				<c:when test="${fieldName == null}">
-					<div class="mt-3">
-						<input type="text" class="form-control" v-model="review.fieldName" name="fieldName" placeholder="골프장명" required>
-					</div>
-					<br><br>
-				</c:when>
-				<c:otherwise>
-					<div class="mt-3">
-						<input type="text" class="form-control" v-model="review.fieldName" name="fieldName" value="${fieldName}" placeholder="골프장명">
-					</div>
-					<br><br>
-				</c:otherwise>
-			</c:choose>
-			<div class="mt-3">
+				<div class="row mt-2">
+					<input type="hidden" name="fieldName" value="${fieldName}">
+					<h5>골프장 : ${fieldName}</h5>
+				</div>
+			<div class="row mt-3">
 				<input type="text" class="form-control" v-model="review.reviewTitle" name="reviewTitle" placeholder="글제목">
 			</div>
-			<br><br>
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>개인 평점</span>
 				<select name="reviewRating" class="form-control" v-model="review.reviewRating">
 					<option value="">선택하세요</option>
@@ -61,9 +50,8 @@
 					<option>5</option>
 				</select>
 			</div>
-			<br><br>
 			
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>캐디 서비스</span>
 				<select name="reviewCaddie" class="form-control" v-model="review.reviewCaddie">
 					<option value="">선택하세요</option>
@@ -80,8 +68,7 @@
 					<option>5</option>
 				</select>
 			</div>
-			<br><br>
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>코스 평점</span>
 				<select name="reviewCos" class="form-control" v-model="review.reviewCos">
 					<option value="">선택하세요</option>
@@ -98,8 +85,7 @@
 					<option>5</option>
 				</select>
 			</div>
-			<br><br>
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>가격 만족도</span>
 				<select name="reviewPrice" class="form-control" v-model="review.reviewPrice">
 					<option value="">선택하세요</option>
@@ -116,8 +102,7 @@
 					<option>5</option>
 				</select>
 			</div>
-			<br><br>
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>시설 만족도</span>
 				<select name="reviewFacility" class="form-control" v-model="review.reviewFacility">
 					<option value="">선택하세요</option>
@@ -134,24 +119,20 @@
 					<option>5</option>
 				</select>
 			</div>
-			<br><br>
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>글작성</span>
 				<textarea rows="5" class="form-control" cols="60" name="reviewContent" v-model="review.reviewContent"></textarea>
 			</div>
-			<br><br>
-			<div class="mt-3">
+			<div class="row mt-3">
 				<span>사진업로드</span>
 				<input type="file" name="reviewProfile" class="form-control">
 			</div>
-			<br><hr><br>
-			<div class="mt-3">
+			<div class="row mt-3 mb-5">
 				<input type="submit" class="btn btn-success btn-lg btn-block" value="등록">
 			</div>
 			
 		</form>
 	</div>
-	<br><br><br><br>
 </div>
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

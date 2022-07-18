@@ -3,6 +3,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <style>
 span {
 	font-size: 11px;
@@ -50,8 +51,16 @@ label{
 				<div class="container">
 					<div class="row mb-3">
 						<div class="col-md-4">
-							<img src="${root}/images/bg_1.jpg" width="150" height="150"
-								style="border-radius: 100%;">
+							<c:choose>
+								<c:when test="${golfFieldDto.attachmentNo == 0}">
+									<img src="${root}/images/golf-dummy.jpg" width="150" height="150"
+												style="border-radius: 100%;">
+								</c:when>
+								<c:otherwise>
+									<img src="${root}/attachment/download?attachmentNo=${golfFieldDto.attachmentNo}" width="150" height="150"
+												style="border-radius: 100%;">
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div class="col-md-7 mt-4">
 							<div class="row">
