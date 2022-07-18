@@ -45,7 +45,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="${root}/admin/logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -58,20 +58,20 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">dashboard</div>
-                            <a class="nav-link" href="${root}/manager/stat/${adminId}">
+                            <a class="nav-link" href="${root}/manager/stat">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Overall stat.
                             </a>
                             <div class="sb-sidenav-menu-heading">statistics</div>
-                            <a class="nav-link" href="${root}/manager/charts/${adminId}">
+                            <a class="nav-link" href="${root}/manager/charts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 Charts
                             </a>
-                            <a class="nav-link" href="${root}/manager/tables/${adminId}">
+                            <a class="nav-link" href="${root}/manager/tables">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 Tables
                             </a>
-                            <a class="nav-link" href="${root}/manager/payment/${adminId}">
+                            <a class="nav-link" href="${root}/manager/payment">
                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
                                 Payment
                             </a>

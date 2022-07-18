@@ -6,7 +6,7 @@
 .review_content .review_user_photo{margin-right: 30px;}
 .review_content .review_user_photo span{display: inline-block; width: 80px; height: 80px; background: pink; border-radius: 50%;}
 .photo_review_container .review_user_comment{line-height: 24px;}
-.photo_review_container .review_user_comment .user_review_rating a{color: #black; font-weight: bold; font-size: 0.9em; text-decoration: none;}
+.photo_review_container .review_user_comment .user_review_rating a{color: black; font-weight: bold; font-size: 0.9em; text-decoration: none;}
 .photo_review_container .review_user_comment .user_review_rating a span{margin-left: 10px; color: #ccc; font-weight: 100; font-size: 0.8em; }
 .photo_review_container .review_content .review_user_comment_name_con .user_review_name span{color: #3297B7; font-weight: bold; letter-spacing: 2.0px;}
 .photo_review_container .review_user_comment .review_user_comment_name_con{display: flex;}

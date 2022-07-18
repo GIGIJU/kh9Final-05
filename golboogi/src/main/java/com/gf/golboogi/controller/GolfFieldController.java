@@ -1,20 +1,14 @@
 package com.gf.golboogi.controller;
 
-import java.io.IOException;
-
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.repository.FieldProfileDao;
@@ -22,10 +16,7 @@ import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.service.GolfFieldService;
 import com.gf.golboogi.vo.FieldProfileVO;
 
-import lombok.extern.slf4j.Slf4j;
 
-
-@Slf4j
 @Controller
 @RequestMapping("/field")
 public class GolfFieldController {
@@ -46,8 +37,10 @@ public class GolfFieldController {
 			@RequestParam(required = false, defaultValue = "1") int p,
 			@RequestParam(required = false, defaultValue = "15") int s,
 			Model model) {
-		
+			String area=null;
+			
 			List<GolfFieldDto> list = golfFieldDao.list(type, keyword, p, s);
+			
 			model.addAttribute("list", list);
 			
 			boolean search = type != null && keyword != null;
@@ -69,10 +62,11 @@ public class GolfFieldController {
 			model.addAttribute("keyword", keyword);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
-			model.addAttribute("lastPage", lastPage);			
+			model.addAttribute("lastPage", lastPage);	
+//			model.addAttribute("fieldArea",fieldArea);
 			return "field/golf_field";
 	}
-	
+
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
@@ -91,23 +85,6 @@ public class GolfFieldController {
 		return "field/field_detail";
 	}
 	
-//	// 골프장 정보 입력 @이기주
-//	@GetMapping("/insert")
-//	public String insert() {
-//		return "field/insert";
-//	}
-//	
-//	
-//	@PostMapping("/insert")
-//	public String insert(
-//			@ModelAttribute GolfFieldDto golfFieldDto,
-//			@RequestParam List<MultipartFile> fieldProfile
-//			) throws IllegalStateException, IOException {
-//		
-//		golfFieldService.insert(golfFieldDto, fieldProfile);
-//		
-//		return "redirect:/field/golf_field";
-//	}
 	
 	
 	

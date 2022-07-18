@@ -2,13 +2,9 @@ package com.gf.golboogi;
 
 import java.net.URISyntaxException;
 
-import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 
 import com.gf.golboogi.service.KakaoPayService;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
@@ -24,7 +20,7 @@ public class KakaoPayApproveTest {
 	@Autowired
 	private KakaoPayService kakaoPayService;
 	
-	@Test
+//	@Test
 	public void test() throws URISyntaxException {
 		KakaoPayApproveResponseVO responseVO = 
 					kakaoPayService.approve(

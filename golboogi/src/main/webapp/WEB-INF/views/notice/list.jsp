@@ -40,7 +40,7 @@
 	<!-- 광고?,사진? -->
 	
 	<br><br>
-	<c:if test="${isAdmin && auth == 1}">
+	<c:if test="${isAdmin && auth == 0}">
 		<div class="offset-10" align="right">
 			<a href="write" class="btn btn-success btn-lg btn-block">글쓰기</a>
 		</div>

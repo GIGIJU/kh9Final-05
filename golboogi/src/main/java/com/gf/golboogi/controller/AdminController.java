@@ -19,11 +19,14 @@ import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.repository.GolfFieldDao;
-import com.gf.golboogi.service.AdminInsertService;
+import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.service.GolfFieldService;
+import com.gf.golboogi.service.StayService;
 import com.gf.golboogi.vo.AdminVO;
+import com.gf.golboogi.vo.GolfFieldVO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -38,7 +41,11 @@ public class AdminController {
 	@Autowired
 	private GolfFieldService golfFieldService;
 	@Autowired
-	private AdminInsertService adminInsertService;
+	private StayService stayService;
+	@Autowired
+	private StayDao stayDao;
+	
+	
 	
 	@GetMapping("/list")
 	public String list(Model model) {
@@ -157,22 +164,48 @@ public class AdminController {
 			@RequestParam List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException {
 		
-		adminInsertService.fieldInsert(golfFieldDto, fieldProfile);
+		golfFieldService.insert(golfFieldDto, golfCourseDto, fieldProfile);
 		
-		return "redirect:/field/golf_field";
+		return "redirect:/field_list";
 	}
 	
-//	@PostMapping("/field_insert")
-//	public String fieldInsert(
-//			@ModelAttribute GolfFieldDto golfFieldDto,
-//			@ModelAttribute GolfCourseDto golfCourseDto,
-//			@RequestParam List<MultipartFile> fieldProfile
-//			) throws IllegalStateException, IOException {
-//		
-//		adminInsertService.fieldInsert(golfFieldDto, fieldProfile, golfCourseDto);
-//		
-//		return "redirect:/field/golf_field";
-//	}
+	@GetMapping("/field_list")
+	public String fieldList(Model model) {
+		List<GolfFieldVO> golfFieldVO = golfFieldService.selectFieldList();
+		model.addAttribute("golfFieldVO", golfFieldVO);
+		log.debug("golfFieldVO = {}", golfFieldVO);
+		
+		return "admin/field_list";
+	}
+	
+	//숙소 등록 @이기주
+	@GetMapping("/stay_insert")
+	public String insert() {
+		return "admin/stay_insert";
+	}
+	
+	@PostMapping("/stay_insert")
+	public String insert(
+			@ModelAttribute StayDto stayDto,
+			@RequestParam List<MultipartFile> stayProfile
+			) throws IllegalStateException, IOException {
+		
+		stayService.insert(stayDto, stayProfile);
+		
+		return "redirect:/stay_insert";
+		
+	}
+	
+	@GetMapping("/stay_list")
+	public String stayList(Model model) {
+		List<StayDto> stayDto = stayDao.list();
+		model.addAttribute("stayDto", stayDto);
+		log.debug("stayDto = {}", stayDto);
+		
+		return "admin/stay_list";
+	}
+	
+
 	
 	
 	

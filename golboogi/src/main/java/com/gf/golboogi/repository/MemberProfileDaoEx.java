@@ -31,4 +31,10 @@ public class MemberProfileDaoEx implements MemberProfileDao {
 		}
 	}
 
+	//본인 아이디 확인 
+	@Override
+	public String MyCheck(String memberId) {
+		return sqlSession.selectOne("memberProfile.checkId",memberId);
+	}
+
 }

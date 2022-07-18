@@ -86,7 +86,7 @@ public class BookingController {
 			model.addAttribute("type", type);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
-			model.addAttribute("lastPage", lastPage);			
+			model.addAttribute("lastPage", lastPage);
 			return "booking/list_all";
 	}
 	
