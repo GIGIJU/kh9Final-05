@@ -104,5 +104,18 @@ public class JoinController {
 		return "redirect:/join/myjoin";
 	}
 	
+	//조인 삭제
+	@GetMapping("/delete/{joinNo}")
+	public String joinDelete(@PathVariable int joinNo) {
+		joinDao.joinDelete(joinNo);
+		return "redirect:/join/myjoin";
+	}
+	
+	//신청 취소
+	@GetMapping("/applyCancel/{joinApplyNo}")
+	public String joinApplyCancel(@PathVariable int joinApplyNo) {
+		joinDao.joinApplyCancel(joinApplyNo);
+		return "redirect:/join/myjoin";
+	}
 	
 }

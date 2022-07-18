@@ -212,7 +212,7 @@ p {
                     minDate: '+1D',
                     maxDate: '+60D',
                     onSelect:(dateText)=>{
-                    	let url = "http://localhost:8080/booking/search?teeTimeD="+dateText;
+                    	let url = "${root}/booking/search?teeTimeD="+dateText;
                			if(this.partTime != "") {
                				url += "&partTime="+this.partTime;
                			}

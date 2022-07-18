@@ -19,4 +19,6 @@ public interface JoinDao {
 	void joinApplyApprove(int joinApplyNo);
 	void joinApplyRefuse(int joinApplyNo);
 	List<MyJoinApplyListVO> myJoinApplyList(String memberId);
+	void joinDelete(int joinNo);
+	void joinApplyCancel(int joinApplyNo);
 }

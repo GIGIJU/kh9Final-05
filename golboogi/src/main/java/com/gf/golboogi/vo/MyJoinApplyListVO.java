@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class MyJoinApplyListVO {
 	 private int joinNo;
+	 private int joinApplyNo;
 	 private Date teeTimeD;
 	 private String teeTimeT;
 	 private String fieldName;

@@ -169,9 +169,12 @@
 	<update id="closeJoin" parameterType="int">
 		update join set join_status = 1 where join_no= #{joinNo}
 	</update> 
+	<update id="applyUpdate" parameterType="int">
+		update join set join_status = 3 where join_no= #{joinNo} and join_status = 0
+	</update> 
 	
 	<select id="myJoinApplyList" parameterType="String" resultType="MyJoinApplyListVO">
-		select  J.join_no,tee_time_d,tee_time_t,field_name,course_name, J.member_id as join_writer, join_info, J.join_time, J.join_status, 
+		select  J.join_no,join_apply_no,tee_time_d,tee_time_t,field_name,course_name, J.member_id as join_writer, join_info, J.join_time, J.join_status, 
 				M.member_nick, M.member_phone as join_writer_phone,booking_price/4 as booking_price, A.join_apply_people, A.join_apply_info,
                 A.join_apply_status,W.member_id as join_apply_writer,W.member_phone as join_apply_writer_phone from 
 	    join J 
@@ -183,8 +186,16 @@
             inner join join_apply A on J.join_no = A.join_no
             inner join member W on W.member_id = A.member_id
             where W.member_id = #{memberId}
+            order by join_apply_no desc
 	</select>
 	
+	<delete id="joinDelete" parameterType="int">
+		delete join where join_no = #{joinNo}
+	</delete>
+	
+	<delete id="joinApplyCancel" parameterType="int">
+		delete join_apply where join_apply_no = #{joinApplyNo}
+	</delete>
 </mapper> 
 
 

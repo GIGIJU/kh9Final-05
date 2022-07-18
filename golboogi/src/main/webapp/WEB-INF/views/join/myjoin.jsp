@@ -19,6 +19,70 @@
 .place_round_btn_container button{padding: 5px 8px; text-decoration: none; display: inline-block; cursor: pointer; font-size: 13px;}
 .place_round_btn_container button:first-child{color: #000; background: #fff; border: 2px solid #000; margin-left: 5px;}
 .place_round_btn_container button:last-child{color: #fff; background: #000; border: 2px solid #000; margin-left: 5px;}
+/* 모달창 */
+.modal {
+	position: fixed;
+	top: 20%;
+	left: 5%;
+	width: 90%;
+	height: 57%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-overlay {
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+}
+
+.modal-content {
+	background-color: white;
+	padding: 30px 50px;
+	text-align: center;
+	position: relative;
+	border-radius: 5px;
+	width: 35em;
+	height: 80%;
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px
+		rgba(0, 0, 0, 0.23);
+	max-height: 100%;
+	overflow-y: auto;
+}
+
+textarea {
+    width: 100%;
+    height: 14em;
+    text-align: left;
+    font-size: 11px;
+    color: black;
+    resize: none;
+ }
+ 
+ .btn-create {
+    background: white;
+    border: none;
+    color: black;
+    font-size: 11px;
+}
+
+.btn-create:hover {
+    background-color: #white;
+    border: none;
+    color: gray;
+    
+}
+.btn-cancel {
+	background-color: white;
+	border: none;
+	color: black;
+}
+.btn-cancel:hover {
+    background-color: white;
+    color: gray;
+}
 </style>
 <div id="app"> 
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -84,14 +148,16 @@
 		 			<c:otherwise><td>마감</td></c:otherwise>
 		 		</c:choose>
 		 		<td>
-		 		<span style="cursor: pointer;"><i class="fa-solid fa-pen-to-square"></i></span>
-		 		<span @click="joinDelete(${MyJoinListVO.joinListVO.joinNo})" style="cursor: pointer;">&nbsp;<i class="fa-solid fa-trash"></i></span>
+		 		<span style="cursor: pointer;">
+		 		<i @click="joinEdit(${MyJoinListVO.joinListVO.joinNo})" class="fa-solid fa-pen-to-square"></i></span>
+		 		<span style="cursor: pointer;">&nbsp;
+		 		<i @click="joinDelete(${MyJoinListVO.joinListVO.joinNo},${MyJoinListVO.joinListVO.joinStatus})" class="fa-solid fa-trash"></i></span>
 		 		</td>
 		 	</tr>
 			<c:forEach var="JoinApplyListVO" items="${MyJoinListVO.joinApplyList}">
 			<tr>
 				<td colspan="1"><i class="fa-solid fa-arrow-turn-up" style="transform: rotateZ(90deg);"></i></td>
-				<td colspan="1"><img src="/attachment/download?attachmentNo=${JoinApplyListVO.memberProfile}" style="width: 50px; height: 50px; border-radius: 100%;"></td>
+				<td colspan="1"><img src="${root}/attachment/download?attachmentNo=${JoinApplyListVO.memberProfile}" style="width: 50px; height: 50px; border-radius: 100%;"></td>
 				<td colspan="6" style="text-align: left;">
 					<ul style="margin-bottom: 0;">
 						<li>신청자 : ${JoinApplyListVO.memberNick}</li>
@@ -169,10 +235,11 @@
 		 		<td>
 		 		<c:choose>
 					<c:when test="${MyJoinApplyListVO.joinApplyStatus==0}">
-						<div class="tagcloud" style="color: black;">승인대기</div>
+						<div style="font-size: 12px;">승인대기중</div>
+						<div class="tagcloud mt-2" style="color: black; cursor: pointer;" @click="joinApplyCancel(${MyJoinApplyListVO.joinApplyNo})">신청취소</div>
 					</c:when>
-					<c:when test="${MyJoinApplyListVO.joinApplyStatus==1}"><div class="tagcloud" style="color: #686de0;">승인됨</div></c:when>
-					<c:otherwise><div class="tagcloud" style="color: #eb4d4b;">거절됨</div></c:otherwise>
+					<c:when test="${MyJoinApplyListVO.joinApplyStatus==1}"><div style="color: #686de0; font-size: 12px;">승인됨</div></c:when>
+					<c:otherwise><div style="color: #eb4d4b; font-size: 12px;">거절됨</div></c:otherwise>
 				</c:choose>
 				</td>
 		 	</tr>
@@ -182,6 +249,37 @@
 	</div>
 </div>
 
+<!-- 조인수정 창 -->
+<div class="modal" style="display: none;">
+	<div class="modal-content">
+	<div class="row">
+		<div class="col-8 text-left" style="padding-left: 0px;">
+			<span style="font-weight: bold; color: black;">조인 수정</span>			
+		</div>
+		<div class="col-4 text-right">
+			<button class="btn-cancel" @click="hiddenModal"><i class="fa-solid fa-xmark"></i></button>
+		</div>
+	</div>
+		<div class="row mt-2">
+			<span style="color: black; font-size: 11px; margin-right: 3px;">인원 수 : </span> 
+			<select v-model="joinApplyPeople">			
+				<option v-for="num in joinPeople">{{num}}</option>
+			</select>
+		</div>
+		<div class="row mt-2">
+			<textarea placeholder="나와 동반자를 표현하는 글을 작성해보세요" v-model="joinApplyInfo"></textarea>
+		</div>
+		<div class="row" style="font-size: 9px; text-align: left;">
+			<span><i class="fa-solid fa-circle-exclamation"></i> 신청 후 조인수락이되면, 방장님과 회원님간의 핸드폰번호가 서로 공개됩니다.</span>
+			<span><i class="fa-solid fa-circle-exclamation"></i> 조인서비스는 자유 공간입니다.이용 중 발생하는 사고에 대해 어떠한 법적 책임도 지지 않습니다.</span>
+		</div>
+		<div class="row mt-4">
+			<div class="col text-center">
+				<button class="btn" style="width: 50%" @click="joinApply">신청하기</button>
+			</div>
+		</div>
+</div>
+</div>
 </div>
 <!-- vue js -->
 <script src="http://unpkg.com/vue@next"></script>
@@ -206,6 +304,22 @@
         	clickApply(){
         		this.showRegist = false;
         		this.showApply = true;
+        	},
+          	joinDelete(joinNo,status){
+        		if(status==1){
+        			alert("마감된 등록 건은 삭제할 수 없습니다.")
+        		}
+        		else if(confirm("정말로 삭제 하시겠습니까?")){
+        			window.location.href="${root}/join/delete/"+joinNo;
+        		}
+        	}, 
+        	joinEdit(joinNo){
+        		
+        	},
+        	joinApplyCancel(joinApplyNo){
+        		if(confirm("신청 취소 하시겠습니까?")){
+        			window.location.href="${root}/join/applyCancel/"+joinApplyNo;
+        		}
         	},
         },
         watch:{

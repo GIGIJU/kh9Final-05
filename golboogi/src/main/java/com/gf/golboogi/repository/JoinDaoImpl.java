@@ -100,6 +100,7 @@ public class JoinDaoImpl implements JoinDao{
 		int joinPeople = sqlSession.selectOne("join.getJoinPeople",joinNo);
 		if(joinPeople==0) {
 			sqlSession.update("join.closeJoin",joinNo);
+			sqlSession.update("join.applyUpdate",joinNo);
 		}
 	}
 
@@ -113,6 +114,18 @@ public class JoinDaoImpl implements JoinDao{
 	@Override
 	public List<MyJoinApplyListVO> myJoinApplyList(String memberId) {
 		return sqlSession.selectList("join.myJoinApplyList",memberId);
+	}
+
+	//조인 등록 삭제
+	@Override
+	public void joinDelete(int joinNo) {
+		sqlSession.delete("join.joinDelete",joinNo);
+	}
+
+	//조인 신청 취소
+	@Override
+	public void joinApplyCancel(int joinApplyNo) {
+		sqlSession.delete("join.joinApplyCancel",joinApplyNo);
 	}
 
 	

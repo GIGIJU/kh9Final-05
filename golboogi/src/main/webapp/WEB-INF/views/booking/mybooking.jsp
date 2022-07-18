@@ -111,6 +111,13 @@ textarea {
 		<div class="row mt-5 mb-5">
 			<div class="col-md-6 offset-md-3">
 			<div class="text-center"><h2 class="mb-5" style="font-size: 25px; font-weight: bold;">나의 예약 내역</h2></div>		
+			<c:if test="${list.isEmpty()}">
+	 	 	<div class="col-md-6 offset-md-3 text-center">
+	 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
+	 	 	<br><span style="font-size: 17px;">예약 내역이 없습니다.</span>
+	 	 	</div>
+
+ 			</c:if>
 				<ul class="comment-list">
 					<c:forEach var="myBookingListVO" items="${list}">
 						<li class="comment mb-4">	

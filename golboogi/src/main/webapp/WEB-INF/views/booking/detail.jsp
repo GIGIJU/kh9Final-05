@@ -124,11 +124,13 @@ p {
 		<div class="row mt-5" v-if="!isNoTeeTime">
 			<div class="col-md-6 offset-md-3">
 				<div class="row">
-					<div class="col-4 text-left">
+					<div class="col-5 text-left">
 						<div v-show="showTeeTime"><i class="fa-solid fa-check"></i>&nbsp;
 						<input type="text" id="datepicker" :value="teeTimeD" v-model="teeTimeD" style="width: 110px;"></div>
+						<div v-show="showGolfInfo"><h4>골프장 정보</h4></div>
+						<div v-show="showReview"><h4>${golfFieldDto.fieldName} 라운드 후기</h4></div>	
 					</div>
-					<div class="col-8 text-right">
+					<div class="col-7 text-right">
  						<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>
 						<button class="btn ml-1" style="width: 100px;" @click="clickGolf">골프장정보</button>
 						<button class="btn ml-1" style="width: 100px;" @click="clickReview">라운드후기</button>
@@ -190,10 +192,18 @@ p {
 			<div class="row mt-4" v-show="showGolfInfo">
 				<h1>골프장 정보</h1>
 			</div>
-			<div class="row mt-4 mb-5" v-show="showReview">
-	<!-- 테이블 -->
+			
+	<!-- 라운드 후기 -->
+
+	<div class="row mt-4 mb-5" v-show="showReview">
+ 		<c:if test="${reviewList.isEmpty()}">
+	 	 	<div class="col-12 text-center">
+	 	 		<br><br>
+		 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
+		 	 	<br><span style="font-size: 15px;">라운드 후기가 없습니다.</span>
+	 	 	</div>
+		</c:if>
 	<div class="photo_review_container mt-3 " >
-	<h4>${golfFieldDto.fieldName} 라운드 후기</h4>
 		<c:forEach var="ReviewProfileVO" items="${reviewList}">
 				<ul>
 					<li>
@@ -203,7 +213,7 @@ p {
 									<div class="review_user_photo" align="center"><img src="${root}/images/user.png" style="width: 50px; height: 50px; border-radius: 50%;"></div>
 								</c:when>
 								<c:otherwise>
-									<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" style="width: 50px; height: 50px;"></div>
+									<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" style="width: 50px; height: 50px; border-radius: 50%;"></div>
 								</c:otherwise>
 							</c:choose>
 							<div class="review_user_comment">

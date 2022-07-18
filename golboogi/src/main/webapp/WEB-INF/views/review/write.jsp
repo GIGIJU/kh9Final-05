@@ -27,6 +27,7 @@
 				<input type="hidden" name="reviewWriter" value="${memberId}">
 			</div>
 				<div class="row mt-2">
+					<input type="hidden" name="fieldName" value="${fieldName}">
 					<h5>골프장 : ${fieldName}</h5>
 				</div>
 			<div class="row mt-3">
