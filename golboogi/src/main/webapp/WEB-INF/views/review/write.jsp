@@ -26,11 +26,28 @@
 			<div class="row mt-2">
 				<input type="hidden" name="reviewWriter" value="${memberId}">
 			</div>
-				<div class="row mt-2">
-					<input type="hidden" name="fieldName" value="${fieldName}">
-					<h5>골프장 : ${fieldName}</h5>
-				</div>
-			<div class="row mt-3">
+			<br><br>
+			<c:choose>
+				<c:when test="${fieldName == null}">
+					<div class="mt-3">
+<!-- 						<input type="text" class="form-control" v-model="review.fieldName" name="fieldName" placeholder="골프장명" required> -->
+						<select name="fieldName" v-model="review.fieldName" class="form-control">
+							<option value="">골프장을 선택하세요</option>
+							<c:forEach var="golfFieldDto" items="${list}">
+								<option>${golfFieldDto.fieldName}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<br><br>
+				</c:when>
+				<c:otherwise>
+					<div class="mt-3">
+						<input type="text" class="form-control" v-model="review.fieldName" name="fieldName" value="${fieldName}" placeholder="골프장명">
+					</div>
+					<br><br>
+				</c:otherwise>
+			</c:choose>
+			<div class="mt-3">
 				<input type="text" class="form-control" v-model="review.reviewTitle" name="reviewTitle" placeholder="글제목">
 			</div>
 			<div class="row mt-3">

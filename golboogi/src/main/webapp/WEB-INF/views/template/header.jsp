@@ -101,7 +101,7 @@
 					         	 <li><a class="dropdown-item" href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
 				         	</c:when>
 				         	<c:when test="${isAdmin && auth == 1}">
-					         	 <li><a class="dropdown-item" href="${root}/manager/stat/${adminId}" class="nav-link">관리자 페이지</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/manager/stat" class="nav-link">관리자 페이지</a></li>
 	                       			<li><hr class="dropdown-divider" /></li>
 					         	 <li><a class="dropdown-item" href="${root}/admin/logout" class="nav-link">로그아웃</a></li>
 				         	</c:when>
