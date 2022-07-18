@@ -38,10 +38,9 @@
 				) A on F.field_no = A.field_no
           <if test ="type != null and keyword !=null">
           <![CDATA[where instr(${type}, #{keyword}) > 0]]>
-            select * from golf_field 
-	          <if test ="type != null and area !=null">
-	          <![CDATA[where instr(${type}, #{area}) > 0]]>
-	          </if>
+          </if>
+          <if test ="type != null and area !=null">
+          <![CDATA[where instr(${type}, #{area}) > 0]]>
           </if>
 			) TMP
 		)where rn between #{begin} and #{end}	
