@@ -228,4 +228,5 @@ public class BookingController {
 		}
 		return "booking/mybooking_detail";
 	}
+	
 }

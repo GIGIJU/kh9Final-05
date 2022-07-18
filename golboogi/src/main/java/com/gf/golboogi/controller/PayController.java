@@ -27,11 +27,13 @@ import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.entity.PaymentDto;
 import com.gf.golboogi.entity.StayDto;
+import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.entity.PackageReserveDto;
 import com.gf.golboogi.entity.PaymentDetailDto;
 import com.gf.golboogi.service.KakaoPayService;
 import com.gf.golboogi.service.PaymentService;
+import com.gf.golboogi.vo.BookingPurchaseVO;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
 import com.gf.golboogi.vo.KakaoPayApproveResponseVO;
 import com.gf.golboogi.vo.KakaoPayCancelRequestVO;
@@ -138,6 +140,47 @@ public class PayController {
 		return "redirect:"+responseVO.getNext_redirect_pc_url();
 	}
 	
+	//골프장 결제
+	@PostMapping("booking/payment")
+	public String golfBookingPayment(
+				@ModelAttribute BookingPurchaseVO bookingPurchaseVO,
+				Model model, HttpSession session
+			) throws URISyntaxException {
+		
+		BookingDto bookingDto = bookingDao.checkBooking(bookingPurchaseVO.getTeeTimeNo(), bookingPurchaseVO.getTeeTimeD());
+		//이미 예약된 상품이라면
+				if(bookingDto != null) {
+					return "redirect:/booking/paymentinfo";
+				}
+				
+		//결제 준비(ready) 요청을 진행
+		int paymentNo = paymentDao.sequence();
+		KakaoPayReadyRequestVO requestVO = 
+									KakaoPayReadyRequestVO.builder()
+												.partner_order_id(String.valueOf(paymentNo))
+												.partner_user_id(session.getId())
+												.item_name("골북이("+bookingPurchaseVO.getFieldName()+") 예약")
+												.quantity(bookingPurchaseVO.getQuantity())
+												.total_amount(bookingPurchaseVO.getBookingPrice())
+											.build();
+		KakaoPayReadyResponseVO responseVO = kakaoPayService.ready(requestVO);
+		
+		//결제성공 페이지에서 승인요청을 보내기 위해 알아야할 데이터 3개를 세션에 임시로 추가한다
+		//-> 결제가 성공할지 실패할지 취소될지 모르기 때문에 모든 경우에 추가한 데이터를 지워야 한다
+		session.setAttribute("pay", KakaoPayApproveRequestVO.builder()
+																.tid(responseVO.getTid())
+																.partner_order_id(requestVO.getPartner_order_id())
+																.partner_user_id(requestVO.getPartner_user_id())
+															.build());
+		//추가적으로 결제성공 페이지에서 완료정보를 등록하기 위해 알아야 할 상품구매개수 정보를 같이 전달
+		session.setAttribute("purchase", bookingPurchaseVO);//상품이 1개라면
+		//session.setAttribute("purchase", Arrays.asList(purchaseVO));//1.8부터
+		//session.setAttribute("purchase", List.of(purchaseVO));//상품이 여러개라면(9부터)
+		//결제 번호도 세션으로 전달
+		session.setAttribute("paymentNo", paymentNo);
+		
+		return "redirect:"+responseVO.getNext_redirect_pc_url();
+	}
 	
 	
 	//승인/취소/실패 : 카카오 API에 신청한 URL로 처리
