@@ -114,12 +114,12 @@ public class MemberController {
 			HttpSession session) {
 		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
-		
-		
 		if(memberDto == null) {
 			return "redirect:login?error";
-		} else if(memberDto.getMemberGrade()==1) {
-			return "redirect:blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
+		}
+		
+		if(memberDto != null && memberDto.getMemberGrade()==1) {
+			return "member/blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
 			session.setAttribute("auth", memberDto.getMemberGrade());
@@ -130,15 +130,7 @@ public class MemberController {
 
 	@GetMapping("blacklist")
 	public String blacklist(HttpSession session) {
-		String memberId = (String)session.getAttribute("login");
-		MemberDto findDto = memberDao.info(memberId);
-		boolean MyCheck = findDto.getMemberId() == memberId;
-		boolean blackCheck = findDto.getMemberGrade() == 1;
-		if(MyCheck && blackCheck) {
 			return "member/blacklist";
-		}else {
-			throw new CannotFindException();
-		}
 	}
 
 	@RequestMapping("/logout")
@@ -172,15 +164,9 @@ public class MemberController {
 	@GetMapping("/edit")
 	public String edit(HttpSession session, Model model) {
 		String memberId = (String) session.getAttribute("login");
-		MemberDto findDto = memberDao.info(memberId);
-		boolean MyCheck = findDto.getMemberId() == memberId;
-		if(MyCheck) {
-			MemberDto memberDto = memberDao.info(memberId);
-			model.addAttribute("memberDto", memberDto);
-			return "member/edit";
-		}else {
-			throw new CannotFindException();
-		}
+		MemberDto memberDto = memberDao.info(memberId);
+		model.addAttribute("memberDto", memberDto);
+		return "member/edit";
 	}
 	
 	@PostMapping("/edit")

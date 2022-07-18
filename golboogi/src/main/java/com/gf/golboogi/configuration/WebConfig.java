@@ -28,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/member/reset")
 		.excludePathPatterns("/memberr/reset_success")
 		.excludePathPatterns("/review/list")
+		.excludePathPatterns("/review/delete/**") //관리자가 삭제하기 위해서
 		.excludePathPatterns("/review/detail/**");
 		
 		
