@@ -16,14 +16,8 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new MemberLoginInterceptor())
 		// 회원 로그인이 필요한 부분
 		.addPathPatterns("/member/**")
-		.addPathPatterns("/admin/**")
 		.addPathPatterns("/review/**")
 		// 회원 로그인이 필요하지 않음 부분
-		.excludePathPatterns("/admin/member_list")
-		.excludePathPatterns("/admin/list")
-		.excludePathPatterns("/admin/login")
-		.excludePathPatterns("/admin/logout")
-		.excludePathPatterns("/admin/field_insert")
 		.excludePathPatterns("/member/login")
 		.excludePathPatterns("/member/join")
 		.excludePathPatterns("/member/join_success")
@@ -33,7 +27,6 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/member/find_pw_send_mail")
 		.excludePathPatterns("/member/reset")
 		.excludePathPatterns("/memberr/reset_success")
-		.excludePathPatterns("/notice/edit/**")
 		.excludePathPatterns("/review/list")
 		.excludePathPatterns("/review/detail/**");
 		
@@ -42,17 +35,14 @@ public class WebConfig implements WebMvcConfigurer{
 		registry.addInterceptor(new AdminLoginInterceptor())
 		// 관리자 로그인 필요한 부분
 		.addPathPatterns("/admin/**")
-		.addPathPatterns("/notice/delete/{noticeNo}")
-		.addPathPatterns("/manager/stat/**")
-		.addPathPatterns("/manager/charts/**")
-		.addPathPatterns("/manager/tables/**")
-		.addPathPatterns("/manager/payment/**")
-		.addPathPatterns("/notice/write")
+		.addPathPatterns("/manager/**")
+		.addPathPatterns("/notice/**")
 		
 		// 관리자 로그인 필요하지 않은 부분
 		.excludePathPatterns("/admin/login")
 		.excludePathPatterns("/admin/join")
-		.excludePathPatterns("/review/delete/**");
+		.excludePathPatterns("/notice/list")
+		.excludePathPatterns("/notice/detail/**");
 		
 	}
 	
