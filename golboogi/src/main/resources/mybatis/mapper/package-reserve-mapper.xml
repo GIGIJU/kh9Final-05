@@ -67,6 +67,10 @@
 		update package_reserve set  package_status='결제취소' where package_booking_no= #{packageBookingNo}
 	</update>
 	
+
+	
+			<!-- 투어 예약현황 -->
+	
 </mapper> 
 
 

@@ -467,7 +467,46 @@ px
 	</div>
   </div>
   </div>
+  </div>
   
+     <!--선결제 페이지2 -->
+   <div id= "divToggle2" style="display: none ; ">
+   <div class="row justify-content-center tour-product-info">
+	<div  class="booking-detail-list">
+	<div class="container" style="padding:40px; color:#999999">
+			<h6>예약상태</h6>
+			<h5>예약날짜</h5>
+			<h5>예약날짜</h5>
+			<hr>
+								<div class="container flex-grow ml-100"  >
+								<ul class="detail-club-info">
+									<li class="list-item">	
+									<p class="title">지역</p>
+									<div class="cont-box"><p class="text">${packageVo.fieldDto.fieldArea}</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title">상세주소</p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldBasicAddress}</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title">출발일</p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldPhone}</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title"></p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldCartfee}원/ ${packageVo.fieldDto.fieldCaddiefee}원</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title">그린피</p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldGreenfee}원</p></div>
+									</li>
+								</ul>
+							</div>
+	<hr>
+		
+	</div>
+  </div>
+  </div>
   </div>
   </section>
   

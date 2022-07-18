@@ -79,7 +79,6 @@
 		update payment set payment_status = '취소' where payment_no = #{paymentNo}
 	</update>
 	
-		<!-- 골프예약번호가 null 일때 패키지상품이고, 패키지예약번호가 null 일때 골프예약이다. -->
 
 	
 </mapper> 

@@ -202,7 +202,7 @@ public class PayController {
 		return "pay/fail";
 	}
 	
-	@GetMapping("/history")
+	@GetMapping("/pay/list")
 	public String history(Model model) {
 		model.addAttribute("list", paymentDao.list());
 		return "pay/list";

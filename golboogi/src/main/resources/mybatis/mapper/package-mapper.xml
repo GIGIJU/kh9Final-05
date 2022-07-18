@@ -156,13 +156,14 @@
 			on F.field_no = P.field_no
           <where>
           and P.package_no is not null 
+<!--           and minus P.package_status='예약완료' -->
           <if test="stayLocal !='' and stayLocal!=null">
           	AND S.stay_local = #{stayLocal}
           </if>
           <if test="packageDepart !='' and stayLocal!=null">
           AND P.package_depart = #{packageDepart}
           </if>
-          <if test="stayPrice> 0">
+          <if test="stayPrice> 0 and stayPrice!=''">
           	<![CDATA[
           AND S.stay_price <= #{stayPrice}
            	]]> 
@@ -176,6 +177,9 @@
 <!--         </where> -->
 	</select>
 
+		<update id="dateUpdate" parameterType="int">
+		update package_booking set  package_depart=#{packageDepart} 
+		</update>
 
 </mapper> 
 

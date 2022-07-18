@@ -167,7 +167,7 @@
 <c:forEach var="paymentDto" items="${list}">
 	<li>
 		${paymentDto}
-		<a href="more?paymentNo=${paymentDto.paymentNo}">더보기</a>
+<%-- 		<a href="more?paymentNo=${paymentDto.paymentNo}">더보기</a> --%>
 	</li>
 </c:forEach>  
 </ul>

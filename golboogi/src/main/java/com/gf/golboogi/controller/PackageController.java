@@ -18,6 +18,7 @@ import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.PackageDao;
 import com.gf.golboogi.repository.PackageReserveDao;
+import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.vo.PackageVO;
 
@@ -39,6 +40,9 @@ public class PackageController {
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private PaymentDao paymentDao;
 	
 	@Autowired
 	private PackageReserveDao packageReserveDao;
@@ -114,7 +118,8 @@ public class PackageController {
 	
 	//예약 목록 보기
 	@GetMapping("/reserve_list")
-	public String reserveList() {
+	public String reserveList(Model model) {
+		model.addAttribute("list", paymentDao.list());
 		return "package/reserve_list";
 	}
 }

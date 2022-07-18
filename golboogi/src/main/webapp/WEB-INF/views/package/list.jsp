@@ -119,16 +119,16 @@
        <label for="#">체크인</label>
        <div class="form-field">
          <div class="icon"><span class="fa fa-calendar"></span></div>
-         <input type="text" name="packageDepart"  class="form-control checkin_date" placeholder="Check In">
+         <input type="text"  autocomplete="off" name="packageDepart" id="packageDepart" class="form-control checkin_date" placeholder="Check In">
        </div>
      </div>
    </div>
    <div class="col-lg d-flex">
     <div class="form-group p-4">
-     <label for="#">체크아웃</label>
+     <label for="#">일정</label>
      <div class="form-field">
        <div class="icon"><span class="fa fa-calendar"></span></div>
-       <input type="text" class="form-control checkout_date" placeholder="Check Out">
+       <input type="text" class="form-control checkout_date" placeholder="Check Out" disabled value="1박2일">
      </div>
    </div>
  </div>
@@ -142,7 +142,7 @@
         <option value="">전체</option>
         <option value="100000" id="알뜰">알뜰</option>
         <option value="300000" id="일반">일반</option>
-        <option value="600000" id="프리미엄">프리미엄</option>
+        <option value="500000" id="프리미엄">프리미엄</option>
       </select>
     </div>
   </div>
@@ -189,24 +189,24 @@
 
 
 
-<!-- 페이지네이션 -->
-<div class="row mt-5">
-  <div class="col text-center">
-    <div class="block-27">
-      <ul>
-        <li><a href="#">&lt;</a></li>
-        <li class="active"><span>1</span></li>
-        <li><a href="#">2</a></li>
-        <li><a href="#">3</a></li>
-        <li><a href="#">4</a></li>
-        <li><a href="#">5</a></li>
-        <li><a href="#">&gt;</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
-</div>
-</div>
+<!-- <!-- 페이지네이션 --> 
+<!-- <div class="row mt-5"> -->
+<!--   <div class="col text-center"> -->
+<!--     <div class="block-27"> -->
+<!--       <ul> -->
+<!--         <li><a href="#">&lt;</a></li> -->
+<!--         <li class="active"><span>1</span></li> -->
+<!--         <li><a href="#">2</a></li> -->
+<!--         <li><a href="#">3</a></li> -->
+<!--         <li><a href="#">4</a></li> -->
+<!--         <li><a href="#">5</a></li> -->
+<!--         <li><a href="#">&gt;</a></li> -->
+<!--       </ul> -->
+<!--     </div> -->
+<!--   </div> -->
+<!-- </div> -->
+<!-- </div> -->
+<!-- </div> -->
 </section>
 
 <!-- vue js도 lazy loading을 사용한다 -->
