@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gf.golboogi.repository.BookingDao;
+import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.PackageDao;
 import com.gf.golboogi.repository.PackageReserveDao;
@@ -74,6 +75,9 @@ public class PayController {
 	
 	@Autowired
 	private PaymentService paymentService;
+	
+	@Autowired
+	private GolfFieldDao golfFieldDao;
 	
 
 	
@@ -291,13 +295,37 @@ public class PayController {
 		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
 
 		//DB 처리
-		paymentDao.cancelAll(paymentDetailNo);
+		paymentDao.cancel(paymentDetailNo);
 
 		return "redirect:more?paymentNo="+paymentDetailDto.getPaymentNo();
 	}
 
 
-	
+	@GetMapping("/booking/cancelPayment")
+	public String cancelBooking(@RequestParam int bookingNo, @RequestParam String fieldName) throws URISyntaxException {
+		
+		int paymentNo = paymentDao.getBookingPaymentNo(bookingNo);
+		PaymentDto paymentDto = paymentDao.find(paymentNo);
+		
+		//실제 취소
+		KakaoPayCancelRequestVO requestVO = 
+									KakaoPayCancelRequestVO.builder()
+										.tid(paymentDto.getPaymentTid())
+										.cancel_amount(paymentDto.getPaymentTotal())
+									.build();
+		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
+		
+		//DB 처리
+		paymentDao.cancel(paymentNo);
+		//예약 취소 처리
+		bookingDao.cancel(bookingNo);
+		//수수료 처리
+		BookingDto bookingDto = bookingDao.info(bookingNo);
+		int commission = bookingDto.getBookingPrice()/10;
+		golfFieldDao.minusCommission(fieldName,commission);
+		
+		return "redirect:/booking/mybooking";
+		}
 	
 	
 

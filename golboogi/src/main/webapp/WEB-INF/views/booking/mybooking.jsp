@@ -159,7 +159,14 @@ textarea {
 										<button class="btn mb-2" :class="{'showbtn':!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')}" style="display: none;" @click="locationReview('${myBookingListVO.fieldName}')" v-if="!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')">리뷰작성</button>
 										<button class="btn mb-2" v-else @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
 										
-										<button class="btn" style="display: none;" :class="{'showbtn':bookingDrop('${myBookingListVO.bookingDropAble}')}" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo},'${myBookingListVO.fieldName}')">예약취소</button>
+										<c:choose>
+											<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
+												<button class="btn" style="display: none;" :class="{'showbtn':bookingDrop('${myBookingListVO.bookingDropAble}')}" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelBooking(${myBookingListVO.bookingNo},'${myBookingListVO.fieldName}')">예약취소</button>
+											</c:when>
+											<c:otherwise>
+												<button class="btn" style="display: none;" :class="{'showbtn':bookingDrop('${myBookingListVO.bookingDropAble}')}" v-if="bookingDrop('${myBookingListVO.bookingDropAble}')" @click="cancelPayment(${myBookingListVO.bookingNo},'${myBookingListVO.fieldName}')">결제취소</button>
+											</c:otherwise>
+										</c:choose>
 										<button class="btn" v-else style="background-color: gray; cursor: default;" disabled>취소불가</button><br><br> 
 										<c:if test="${myBookingListVO.fieldPrepay==0}"><span class="prepay mr-2">현장결제</span></c:if>
 										<span class="b12" style="font-size: 14px;"><fmt:formatNumber value="${myBookingListVO.bookingPrice}" />원</span>
@@ -259,7 +266,12 @@ textarea {
         	},
         	locationReview(fieldName){
         		window.location.href="${root}/review/write/"+fieldName;
-        	}
+        	},
+        	cancelPayment(bookingNo,fieldName){
+        		if(confirm("정말로 결제 취소 하시겠습니까?")){
+	        		window.location.href="${root}/booking/cancelPayment?bookingNo="+bookingNo+"&fieldName="+fieldName;
+        		}
+        	},
         },
         //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
         watch:{
