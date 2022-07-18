@@ -248,8 +248,160 @@
 .align-items-end {
     align-items: flex-end!important;
 }
+
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	/* Center slide text vertically */
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.swiper-slide img {
+	display: inline-block;
+	width: 100%;  
+ 	height: 100%; 
+ 	max-height: 873px; 
+	max-width: 700px;
+	object-fit: cover;
+}
+
+.place_swiper_container {
+    position: relative;
+    height: 500px;
+}
+
+.place_swiper_container .swiper-button-next {
+    position: absolute;
+    top: 50%;
+    right: -40px;
+}
+
+.place_swiper_container .swiper-button-prev {
+    position: absolute;
+    top: 50%;
+    left: -40px;
+}
+
+.swiper-button-lock {
+    display: none;
+}
+
+.swiper-button-next, .swiper-rtl .swiper-button-prev {
+    right: 10px;
+    left: auto;
+}
+
+.club-detail {
+    display: flex;
+}
+
+.club-detail .detail-score-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 300px;
+    height: 300px;
+    background-color: #999999;
+    border-radius: 50%;
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 5%);
+    text-align: center;
+    word-break: break-all;
+    position: relative;
+}
+
+.club-detail .detail-score-info h1 {
+    font-size: 1.3em;
+}
+
+.club-detail .detail-score-info span {
+    color: #7f7f7f;
+}
+
+.club-detail .detail-score-info p {
+    font-size: 2.3em;
+    color: #23aed2;
+    font-weight: bold;
+    letter-spacing: 3.6px;
+    line-height: 0;
+}
+
+.club-detail .detail-club-info .list-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.club-detail .detail-club-info .list-item .title {
+    width: 120px;
+    font-size: 15px;
+        color: #6c757d;
+        font-weight: bold;
+}
+
+.flex-grow {
+    flex: 1;
+}
+
+.club-detail .detail-club-info .list-item .cont-box {
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    flex: 1;
+}
+
+.club-detail .detail-club-info .list-item .cont-box .text {
+    font-size: 18px;
+    text-align: right;
+        color: #6c757d;
+}
+
+
+.booking-detail-list {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-top: 20px
+px
+;
+    background-color: #fff;
+}
+
+
+
+
 </style>
 
+<script>
+	//토글버튼 함수
+	$(function() {
+		$("#button-toggle1").click(function() {
+			$("#divToggle1").toggle();
+		});
+		$("#button-toggle2").click(function() {
+			$("#divToggle2").toggle();
+		});
+	});
+	</script>
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
@@ -269,43 +421,53 @@
   <h3 style="font-weight: bold;">나의 투어 예약현황</h3>
   <hr>
   </div>
-  <div class="tour-consult">
-  <div style="margin:18px">
-<ul id="rsvList" class="consult-list v-custom-scrollbar-y mCustomScrollbar " style="width: 430p; padding-right:32px; overflow: visible; height: 1285px;">
-  <div id="mCSB_1" class="mCustomScrollBox" style="max-height: none;" tabindex="0">
-  <div id="mCSB_1_container" class="mCSB_container" style="position: relative; top: 0px; left: 0px;" dir="ltr">
-    <li id="reserve" class="list-item active">
-  	<div class="item-cont">
-  	 	<div class="flex-center">
-  	 	  	 	<div class="label-box flex-grow">
-  	 	  	 	<div>
-  	 	  	 	<span class="tag-label">예약취소</span>
-  	 	  	 	</div>
-  	 	  	 	</div>
-  	 	  	 	<p style="font-size: 15px; color: #ababab">2022-07-14</p>
-  	 	 </div>
-  	<p style="font-size: 24px; font-weight: 500; margin-top: 20px; width: 300px; color:black" class="ellipsis">파인밸리</p>
-  	<div class="dp-f ">
-  	<div class="cont-box">
-  		<p class="mt-20" style="font-size: 18px; color:#black;">36홀그린피+골프텔+조식+로고상품</p>
-  		<p class="mt-10 " style="font-size: 15px; color:#7f7f7f;">강원 • 삼척시</p>
-  		</div>
-  		<div class=img-box>
-  		<img src="${root}/images/img_home_title_booking.jpg" class="img-thumb">
-  		</div>
-  	  	</div>
-  	  	<div class="item-cont">
-  	  	<div class="dp-f align-items-end">
-  	  	<p>출발일 :</p>
-  	  	<p>4명</p>  
-  	  	</div>
-  	</div>
-  	
-  </li>
+  </div>
+  
+  <!-- 토글버튼 -->
+      <div class="row justify-content-center mt-5 mb-5" >
+      <button class="button-toggle "  id="button-toggle1"  style="width: 200px;"  >예약(현장결제)</button>
+      <button class="button-toggle "  id="button-toggle2"  style="width: 200px;"  >선결제</button>
+      </div>
+      
+   <!--현장결제 페이지1 -->
+   <div id= "divToggle1" style="display: none ; ">
+   <div class="row justify-content-center tour-product-info">
+	<div  class="booking-detail-list">
+	<div class="container" style="padding:40px; color:#999999">
+			<h6>예약상태</h6>
+			<h5>예약날짜</h5>
+			<h5>예약날짜</h5>
+			<hr>
+								<div class="container flex-grow ml-100"  >
+								<ul class="detail-club-info">
+									<li class="list-item">	
+									<p class="title">지역</p>
+									<div class="cont-box"><p class="text">${packageVo.fieldDto.fieldArea}</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title">상세주소</p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldBasicAddress}</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title">출발일</p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldPhone}</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title"></p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldCartfee}원/ ${packageVo.fieldDto.fieldCaddiefee}원</p></div>
+									</li>
+									<li class="list-item">
+									<p class="title">그린피</p>
+									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldGreenfee}원</p></div>
+									</li>
+								</ul>
+							</div>
+	<hr>
+		
+	</div>
   </div>
   </div>
-  </ul>
-  </div>
+  
   </div>
   </section>
   

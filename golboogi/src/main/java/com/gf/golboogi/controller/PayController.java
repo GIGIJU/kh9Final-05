@@ -97,7 +97,9 @@ public class PayController {
 	@PostMapping("package/package_purchase")
 	public String pay1Purchase(
 			@RequestParam int packageNo, //@RequestParam int quantity
-				@ModelAttribute PurchaseVO purchaseVO, HttpSession session
+				@ModelAttribute PurchaseVO purchaseVO, 
+				Model model, PackageReserveDto packageReserveDto,
+				HttpSession session
 			) throws URISyntaxException {
 		
 		PackageVO packageVo = packageDao.one(packageNo);
@@ -113,7 +115,7 @@ public class PayController {
 									KakaoPayReadyRequestVO.builder()
 												.partner_order_id(String.valueOf(paymentNo))
 												.partner_user_id(session.getId())
-												.item_name("골부기예약결제")
+												.item_name("골부기투어결제")
 												.quantity(purchaseVO.getQuantity())
 												.total_amount(totalAmount)
 											.build();
@@ -157,7 +159,6 @@ public class PayController {
 			System.out.println("paymentNo >>>" + paymentNo);
 			session.removeAttribute("paymentNo");
 			
-			
 
 			//주어진 정보를 토대로 승인(approve) 요청을 보낸다
 			requestVO.setPg_token(pg_token);
@@ -167,7 +168,7 @@ public class PayController {
 			
 			System.out.println("responseVO >>>" + responseVO);
 		
-			paymentService.insert(paymentNo, responseVO, purchaseVO);
+			paymentService.insert(paymentNo,  responseVO, purchaseVO);
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
 		
 

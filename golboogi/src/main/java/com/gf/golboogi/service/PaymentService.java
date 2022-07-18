@@ -6,7 +6,7 @@ import com.gf.golboogi.vo.PurchaseVO;
 public interface PaymentService {
 
 	
-	void insert(int paymentNo, KakaoPayApproveResponseVO responseVO, PurchaseVO purchaseVO);
+	void insert(int paymentNo,KakaoPayApproveResponseVO responseVO, PurchaseVO purchaseVO);
 	
 	
 	

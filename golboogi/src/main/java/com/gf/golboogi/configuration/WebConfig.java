@@ -56,7 +56,7 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/admin/join")
 		.excludePathPatterns("/review/delete/**");
 		
-	}
 	
 	
+}
 }

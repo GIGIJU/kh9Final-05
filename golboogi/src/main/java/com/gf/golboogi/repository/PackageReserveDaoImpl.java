@@ -22,4 +22,12 @@ public class PackageReserveDaoImpl implements PackageReserveDao{
 		return sqlSession.selectOne("packageReserve.one", packageBookingNo);
 	}
 
+	@Override
+	public void reserve2(PackageReserveDto packageReserveDto) {
+		int packageBookingNo = sqlSession.selectOne("packageReserve.sequence");
+		packageReserveDto.setPackageBookingNo(packageBookingNo);
+		sqlSession.insert("packageReserve.reservePay", packageReserveDto);
+		
+	}
+
 }
