@@ -32,18 +32,41 @@
 	
 		<insert id="reserve" parameterType="PackageReserveDto">
 		insert into package_reserve(
-		package_booking_no,  package_no, member_id, package_total_price, package_status
+		package_booking_no,  package_no, member_id, package_total_price, package_status,
+		package_reserve_time
 		)
 		values(
-		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '예약완료'
+		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '예약완료', sysdate
 		)
-	</insert>										
+	</insert>						
+	
+		<!-- 선결제 -->
+		<insert id="reservePay" parameterType="PackageReserveDto">
+		insert into package_reserve(
+		package_booking_no,  package_no, member_id, package_total_price, package_status,
+		package_reserve_time
+		)
+		values(
+		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '결제완료', sysdate
+		)
+	</insert>					
 	
 		<!-- 패키지예약완료 번호 검색 -->
 	<select id="one" resultType="PackageReserveDto" parameterType="int">
 		select *
 		from package_reserve where package_booking_no= #{packageBookingNo}
 	</select>		
+	
+	<!-- 취소 -->
+	<update id="cancel" parameterType="int">
+		update package_reserve set  package_status='예약취소' where package_booking_no= #{packageBookingNo}
+	</update>
+	
+		<!-- 선결제 취소 -->
+	<update id="cancelPay" parameterType="int">
+		update package_reserve set  package_status='결제취소' where package_booking_no= #{packageBookingNo}
+	</update>
+	
 </mapper> 
 
 
