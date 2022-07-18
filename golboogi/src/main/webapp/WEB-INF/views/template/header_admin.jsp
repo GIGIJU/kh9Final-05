@@ -54,6 +54,9 @@
                             <a class="nav-link" href="${root}/admin/stay_list">
                                 숙소 목록
                             </a>
+                            <a class="nav-link" href="${root}/admin/package_list">
+                                패키지 목록
+                            </a>
                             
                         </div>
                     </div>

@@ -41,6 +41,10 @@
 		)
 	</insert>
 	
+	<select id="courseLIst" resultType="GolfCourseDto">
+		select * from golf_course
+	</select>
+	
 </mapper> 
 
 

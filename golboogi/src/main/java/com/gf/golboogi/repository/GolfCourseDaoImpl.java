@@ -1,5 +1,7 @@
 package com.gf.golboogi.repository;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -20,5 +22,11 @@ public class GolfCourseDaoImpl implements GolfCourseDao{
 		sqlSession.insert("course.insert", golfCourseDto);
 		
 	}
+
+	@Override
+	public List<GolfCourseDto> courseList() {
+		return sqlSession.selectList("course.courseList");
+	}
+
 	
 }
