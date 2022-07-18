@@ -77,7 +77,7 @@ public class PackageController {
 	public String reserve(@RequestParam int packageNo, Model model, MemberDto memberDto, HttpSession session ) {
 		PackageVO packageVo = packageDao.one(packageNo);
 		
-		String memberId = (String) session.getAttribute("login");
+		String memberId = (String) session.getAttribute("login");  
 		memberDto = memberDao.info(memberId); 
 		
 		//예약자 이름. 이메일. 번호 가져오기 

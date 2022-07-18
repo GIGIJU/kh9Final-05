@@ -174,7 +174,7 @@
       </div>
       </div>
             <div class="row justify-content-center mt-3 mb-3">
-         <a href="${root}/booking/list" class="btn" style="width:50%;font-size: large ">다시 결제하러가기</a>
+         <a href="${root}/booking/list" class="btn" style="width:50%;font-size: large ">다시 예약하러가기</a>
          </div>
             <div class="row justify-content-center mt-2mb-3">
          <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>

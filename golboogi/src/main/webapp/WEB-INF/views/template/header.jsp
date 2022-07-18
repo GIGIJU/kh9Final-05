@@ -40,7 +40,7 @@
 		- 암호화 알고리즘은 상황에 맞게 선택
 		- input[type=password] 형태의 컬럼을 찾아서 전송 전에 암호화한 값으로 교체
 	*/
-	&(function(){
+	$(function(){
 		$("form").submit(function(){
 			//this == form
 			$(this).find("input[type=password]").each(function(){
@@ -65,7 +65,7 @@
 </df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
-     <a class="navbar-brand" href="/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>
+     <a class="navbar-brand" href="/golboogi"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
        <span class="oi oi-menu"></span> Menu
      </button>
@@ -87,7 +87,7 @@
 				         	<c:when test="${isLogin}">
 					         	 <li><a class="dropdown-item" href="${root}/member/mypage" class="nav-link">회원정보</a></li>
 					         	 <li><a class="dropdown-item" href="${root}/booking/mybooking" class="nav-link">나의예약내역</a></li>
-					         	 <li><a class="dropdown-item" href="${root}/join/myjoin" class="nav-link">조인등록내역</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/join/myjoin" class="nav-link">조인신청내역</a></li>
 	                       			<li><hr class="dropdown-divider" /></li>
 					         	 <li><a class="dropdown-item" href="${root}/member/logout" class="nav-link">로그아웃</a></li>
 				         	</c:when>

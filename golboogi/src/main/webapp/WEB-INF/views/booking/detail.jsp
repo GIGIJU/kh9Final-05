@@ -6,20 +6,38 @@
 <!-- Swiper JS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<link rel="stylesheet" href="${root}/css/mastar2.css">
 <!-- Initialize Swiper -->
 <script>
-    var swiper = new Swiper(".swiper", {
-    	loop: true,
-    	cssMode: true,
-        navigation: {
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-        },
-        pagination: {
-        el: ".swiper-pagination",
-        },
-        effect : 'slide',
+    $(function(){
+        //var swiper = new Swiper("선택자", {옵션});
+        var swiper = new Swiper('.swiper', {
+            loop: true,//순환 모드
+
+            //자동재생
+            //autoplay:true,
+            autoplay:{
+                delay : 5000,//슬라이드 자동재생 시 교체시간(ms)
+            },
+
+            //이펙트 효과 지정
+            effect : 'slide',
+
+            // Swiper에서 내부적으로 사용할 영역을 지정
+            pagination: {
+                el: '.swiper-pagination',
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        });
     });
 </script>
 <style>
@@ -49,11 +67,12 @@ p {
 	height: 30%;
 	vertical-align: middle;
 }
-
+#reviewList{
+	background-size: coverbackground:;
+	url('') no-repeat;"
+}
 </style>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+
 <div id="app">
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
@@ -89,29 +108,32 @@ p {
 								</div>
 							</c:when>
 							<c:otherwise>
-								<c:forEach var="list" items="${list}">
+								<c:forEach var="attach" items="${list}">
 									<div class="swiper-slide">
-										<img src="${root}${profileUrl}${list.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
+										<img src="${root}${profileUrl}${attach.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
 									</div>
 								</c:forEach>
-								<div class="swiper-button-next" style="color: #b8e994;"></div>
-								<div class="swiper-button-prev" style="color: #b8e994;"></div>
 							</c:otherwise>
 						</c:choose>
 					</div>
+				<div class="swiper-button-next" style="color: #b8e994;"></div>
+				<div class="swiper-button-prev" style="color: #b8e994;"></div>
 				</div>
 			</div>
 		</div>
 		<div class="row mt-5" v-if="!isNoTeeTime">
 			<div class="col-md-6 offset-md-3">
 				<div class="row">
-					<div class="col-4 text-left">
+					<div class="col-5 text-left">
 						<div v-show="showTeeTime"><i class="fa-solid fa-check"></i>&nbsp;
 						<input type="text" id="datepicker" :value="teeTimeD" v-model="teeTimeD" style="width: 110px;"></div>
+						<div v-show="showGolfInfo"><h4>골프장 정보</h4></div>
+						<div v-show="showReview"><h4>${golfFieldDto.fieldName} 라운드 후기</h4></div>	
 					</div>
-					<div class="col-8 text-right">
+					<div class="col-7 text-right">
  						<button class="btn" style="width: 100px;" @click="clickTime">타임정보</button>
 						<button class="btn ml-1" style="width: 100px;" @click="clickGolf">골프장정보</button>
+						<button class="btn ml-1" style="width: 100px;" @click="clickReview">라운드후기</button>
 					</div>
 				</div>
 			<div class="row mt-4 mb-5" v-show="showTeeTime">
@@ -170,14 +192,55 @@ p {
 			<div class="row mt-4" v-show="showGolfInfo">
 				<h1>골프장 정보</h1>
 			</div>
+			
+	<!-- 라운드 후기 -->
+
+	<div class="row mt-4 mb-5" v-show="showReview">
+ 		<c:if test="${reviewList.isEmpty()}">
+	 	 	<div class="col-12 text-center">
+	 	 		<br><br>
+		 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
+		 	 	<br><span style="font-size: 15px;">라운드 후기가 없습니다.</span>
+	 	 	</div>
+		</c:if>
+	<div class="photo_review_container mt-3 " >
+		<c:forEach var="ReviewProfileVO" items="${reviewList}">
+				<ul>
+					<li>
+						<div class="review_content">
+							<c:choose>
+								<c:when test="${ReviewProfileVO.attachmentNo == 0}">
+									<div class="review_user_photo" align="center"><img src="${root}/images/user.png" style="width: 50px; height: 50px; border-radius: 50%;"></div>
+								</c:when>
+								<c:otherwise>
+									<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" style="width: 50px; height: 50px; border-radius: 50%;"></div>
+								</c:otherwise>
+							</c:choose>
+							<div class="review_user_comment">
+								<div class="user_review_rating"><a href="#">${ReviewProfileVO.reviewRating}</a>&nbsp;&nbsp;<span><a href="${root}/review/detail/${ReviewProfileVO.reviewNo}">
+								<i class="fa-solid fa-magnifying-glass"></i></a></span></div>
+								<div class="review_user_comment_name_con">
+									<div class="user_review_name"><span>${ReviewProfileVO.memberNick}</span></div>
+									<div class="user_review_con" style="font-size: 14px; color: black;">${ReviewProfileVO.reviewContent}</div>
+								</div>
+								<div class="review_user_comment_time_read_count">
+									<div class="user_review_time" style="font-size: 12px;"><span>${ReviewProfileVO.reviewTime}</span></div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+			</c:forEach>
 		</div>
-	</div>
+		</div>
+			</div>
+		</div>
 		<div class="row mt-5 mb-5" v-else>
 			<div class="col-md-8 offset-md-2 text-center">
 				<h5 style="font-weight: bold;">해당 날짜에 대한 예약 정보가 없습니다</h5>	
 			</div>
 		</div>
-</div>
+	</div>
 </div>
 <!--vue js-->
 <script src="http://unpkg.com/vue@next"></script>
@@ -192,7 +255,8 @@ p {
                 	teeTimeD:"${param.teeTimeD}",
                 	maxDate:"",
                 	showTeeTime:true,
-                	showGolfInfo:false
+                	showGolfInfo:false,
+                	showReview:false,
                 };
             },
             //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
@@ -207,12 +271,19 @@ p {
             methods:{
             	clickTime(){
             		this.showTeeTime = true;
-            		this.showGolfInfo = false
+            		this.showGolfInfo = false;
+            		this.showReview = false;
             	},
             	clickGolf(){
             		this.showTeeTime = false;
             		this.showGolfInfo = true;
+            		this.showReview = false;
             	},
+            	clickReview(){
+            		this.showTeeTime = false;
+            		this.showGolfInfo = false;
+            		this.showReview = true;
+            	}
             },
             //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
             watch:{

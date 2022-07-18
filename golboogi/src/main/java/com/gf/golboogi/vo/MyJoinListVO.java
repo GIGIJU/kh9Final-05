@@ -12,5 +12,5 @@ import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class MyJoinListVO {
 	private JoinListVO joinListVO;
-	private List<JoinApplyDto> joinApplyList;
+	private List<JoinApplyListVO> joinApplyList;
 }

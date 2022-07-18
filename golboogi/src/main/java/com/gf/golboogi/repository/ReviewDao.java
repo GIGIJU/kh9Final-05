@@ -25,7 +25,10 @@ public interface ReviewDao {
 
 	Double ratingView(String fieldName);
 
+	List<ReviewProfileVO> selectOneFiled(String fieldName);
+
 	String writerCheck(String memberId);
+
 
 
 }

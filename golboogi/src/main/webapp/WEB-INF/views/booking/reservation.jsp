@@ -104,7 +104,14 @@ textarea {
 		<hr>
 		<div class="row mb-3">
 			<div class="col-md-4">
-				<img src="${root}/images/bg_1.jpg" width="200" height="190" style="border-radius: 100%;">
+			<c:choose>
+				<c:when test="${golfFieldDto.attachmentNo == 0}">
+					<img src="${root}/images/golf-dummy.jpg" width="200" height="190" style="border-radius: 100%;">
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/attachment/download?attachmentNo=${golfFieldDto.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
+				</c:otherwise>
+			</c:choose>
 			</div>
 			<div class="col-md-7 mt-4 ml-3">
 				<div>

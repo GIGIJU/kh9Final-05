@@ -137,9 +137,18 @@
 				<c:forEach var="golfFieldDto" items="${list}">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap hotel">
-							<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
-								style="background-image: url(${root}/images/golf-dummy.jpg);">
-							</a>
+						<c:choose>
+							<c:when test="${golfFieldDto.attachmentNo != 0}">
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/attachment/download?attachmentNo=${golfFieldDto.attachmentNo});">
+								</a>	
+							</c:when>
+							<c:otherwise>
+								<a :href="'detail?fieldNo=${golfFieldDto.fieldNo}&teeTimeD='+tomorrow" class="img"
+									style="background-image: url(${root}/images/golf-dummy.jpg);">
+								</a>							
+							</c:otherwise>
+						</c:choose>
 							<div class="text p-2">
 								<span class="days">
 								<div class="row">

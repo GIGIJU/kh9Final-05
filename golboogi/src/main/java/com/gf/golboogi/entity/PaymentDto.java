@@ -15,4 +15,6 @@ public class PaymentDto {
 	private Date paymentTime;
 	private String paymentStatus;
 	private String paymentName;
+	private int bookingNo;
+	private int packageNo;
 }

@@ -15,5 +15,6 @@ public class PackageDto {
 		private Date packageDepart;
 		private Date packageArrive;
 		private int packageBreakfast;
+		
 	}
 
