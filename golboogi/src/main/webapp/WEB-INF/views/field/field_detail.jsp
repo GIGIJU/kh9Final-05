@@ -88,10 +88,10 @@ body {
 		</div>
 	</section>
 
+<div class="col-md-8 offset-md-2">
 	<section class="place_container">
-		<h3 class="fieldName">${info.fieldName}</h3>
+		<h3 class="fieldName text-center" style="font-weight: bold;">${info.fieldName}</h3>
 		<div class="place_content">
-			<p class="place_photo_tit">사진</p>
 			<div class="place_swiper_container">
 				<div class="swiper-button-next"></div>
 				<div class="swiper-button-prev"></div>
@@ -136,9 +136,12 @@ body {
                 </script>
 			</div>
 			
-			<h1>
-				골프장 정보
-				<h1>
+			<div class="row mt-5 ml-4">
+			
+			<div class="col-md-6 text-left">
+			<h4>골프장 정보</h4>
+			</div>
+			</div>
 					<hr>
 					<h3></h3>
 					<div class="col-md-12 col-sm-12 col-xs-12">
@@ -167,24 +170,18 @@ body {
 							</div>
 						</div>
 						<div class="place_round_btn_container">
-
-					
-							<a href="${root}/review/write/${info.fieldName}" id="round_review_write_btn" onclick="">라운드 후기 작성</a>
-							<a href="${root}/review/list" id="round_review_show_btn" onclick="">라운드 후기 보기</a>
-							<button id="round_review_write_btn" onclick="">예약하러 가기</button>
-
+							<a href="${root}/review/write/${info.fieldName}" id="round_review_write_btn">라운드 후기 보기</a>
+							<a href="${root}/booking/detail?fieldNo=${info.fieldNo}&teeTimeD=2022-07-30" id="round_review_show_btn">예약하러 가기</a>
 						</div>
 
 					</div>
 		</div>
-		</div>
-		</script>
-		</div>
+	</section>
+</div>		
 		
-		<div class="col-md-12 col-sm-12 col-xs-12">
+		<div class="col-md-12 col-sm-12 col-xs-12 mt-3">
 			<div id="map" style="width:100%;height:350px;"></div>
 		</div>
-	</section>
 
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b03de227a4e196a92952ccb566363417&libraries=services"></script>

@@ -127,11 +127,11 @@ textarea {
 								</div>
 								<div class="col-md-6 ml-3 text-right">
 								<c:choose>
-									<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">
-										<span style="color: #27ae60; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+									<c:when test="${myBookingListVO.bookingStatus == '예약취소'}">
+										<span style="color: #e74c3c; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
 									</c:when>
 									<c:otherwise>
-										<span style="color: #e74c3c; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
+										<span style="color: #27ae60; font-size: 13px;">${myBookingListVO.bookingStatus}</span>
 									</c:otherwise>
 								</c:choose>
 								</div>

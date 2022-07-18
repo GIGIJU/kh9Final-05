@@ -159,7 +159,7 @@ public class PayController {
 									KakaoPayReadyRequestVO.builder()
 												.partner_order_id(String.valueOf(paymentNo))
 												.partner_user_id(session.getId())
-												.item_name("골북이("+bookingPurchaseVO.getFieldName()+") 예약")
+												.item_name("골북이("+bookingPurchaseVO.getFieldName()+")예약")
 												.quantity(bookingPurchaseVO.getQuantity())
 												.total_amount(bookingPurchaseVO.getBookingPrice())
 											.build();
@@ -173,12 +173,16 @@ public class PayController {
 																.partner_user_id(requestVO.getPartner_user_id())
 															.build());
 		//추가적으로 결제성공 페이지에서 완료정보를 등록하기 위해 알아야 할 상품구매개수 정보를 같이 전달
-		session.setAttribute("purchase", bookingPurchaseVO);//상품이 1개라면
+		PurchaseVO purchaseVO= PurchaseVO.builder().no(bookingPurchaseVO.getTeeTimeNo()).build();
+		session.setAttribute("purchase", purchaseVO);//상품이 1개라면
 		//session.setAttribute("purchase", Arrays.asList(purchaseVO));//1.8부터
 		//session.setAttribute("purchase", List.of(purchaseVO));//상품이 여러개라면(9부터)
 		//결제 번호도 세션으로 전달
 		session.setAttribute("paymentNo", paymentNo);
 		
+		//예약을 위한 정보 전달
+		session.setAttribute("bookingPurchaseVO", bookingPurchaseVO);
+					
 		return "redirect:"+responseVO.getNext_redirect_pc_url();
 	}
 	
@@ -202,7 +206,10 @@ public class PayController {
 			System.out.println("paymentNo >>>" + paymentNo);
 			session.removeAttribute("paymentNo");
 			
-
+			BookingPurchaseVO bookingPurchaseVO = (BookingPurchaseVO) session.getAttribute("bookingPurchaseVO");
+			System.out.println("bookingPurchaseVO >>>" + bookingPurchaseVO);
+			session.removeAttribute("bookingPurchaseVO");
+			
 			//주어진 정보를 토대로 승인(approve) 요청을 보낸다
 			requestVO.setPg_token(pg_token);
 			KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
@@ -211,7 +218,20 @@ public class PayController {
 			
 			System.out.println("responseVO >>>" + responseVO);
 		
+			
 			paymentService.insert(paymentNo,  responseVO, purchaseVO);
+			
+			if(bookingPurchaseVO != null) {
+				//예약처리
+				 String memberId = (String) session.getAttribute("login"); 
+				 MemberDto memberDto = memberDao.info(memberId); 
+				 bookingPurchaseVO.setMemberId(memberId);
+				 bookingPurchaseVO.setBookingName(memberDto.getMemberName());
+				 bookingDao.payReservation(bookingPurchaseVO);
+				 
+				 //골프장결제 DB저장
+				 bookingDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
+			}
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
 		
 

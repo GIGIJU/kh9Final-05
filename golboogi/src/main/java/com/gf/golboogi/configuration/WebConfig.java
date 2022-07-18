@@ -17,6 +17,11 @@ public class WebConfig implements WebMvcConfigurer{
 		// 회원 로그인이 필요한 부분
 		.addPathPatterns("/member/**")
 		.addPathPatterns("/review/**")
+		.addPathPatterns("/booking/reservation*/**")
+		.addPathPatterns("/booking/paymentInfo/**")
+		.addPathPatterns("/booking/mybooking*/**")		
+		.addPathPatterns("/join/myjoin/**")		
+		
 		// 회원 로그인이 필요하지 않음 부분
 		.excludePathPatterns("/member/login")
 		.excludePathPatterns("/member/join")

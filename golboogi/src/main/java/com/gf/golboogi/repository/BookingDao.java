@@ -3,6 +3,7 @@ package com.gf.golboogi.repository;
 import java.util.List;
 
 import com.gf.golboogi.entity.BookingDto;
+import com.gf.golboogi.vo.BookingPurchaseVO;
 import com.gf.golboogi.vo.MyBookingListVO;
 
 public interface BookingDao {
@@ -16,4 +17,7 @@ public interface BookingDao {
 	List<BookingDto> info(String memberId);
 	//예약 현황 상세 정보
 	MyBookingListVO myBookingInfo(int bookingNo);
+	
+	void payReservation(BookingPurchaseVO bookingPurchaseVO);
+	void paymentInsert(int bookingNo, int paymentNo);
 }

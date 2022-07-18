@@ -114,7 +114,7 @@ label{
 						<div class="col-md-8">
 							<c:choose>
 								<c:when test="${golfFieldDto.fieldPrepay==1}">
-									<label for="kakao">카카오페이</label><input type="radio" id="kakao" name="pay">&nbsp;
+									<label for="kakao">카카오페이</label><input type="radio" id="kakao" name="pay" checked>&nbsp;
      								<label for="card">신용/체크카드</label><input type="radio" id="card" name="pay">
 								</c:when>
 								<c:otherwise><span>현장 결제</span></c:otherwise>
