@@ -11,7 +11,7 @@
 					<span class="mr-2"><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span>
 					<span class="mr-2"><a href="${root}/review/edit/${reviewDto.reviewNo}">edit <i class="fa fa-chevron-right"></i></a></span>
 				</p>
-				<p class="mb-0" style="font-size: 17px">${reviewDto.reviewNo}번 후기 게시글(수정)</p>
+				<p class="mb-0" style="font-size: 17px">${reviewNo}번 후기 게시글 프로필(수정)</p>
 			</div>
 		</div>
 	</div>
@@ -36,6 +36,9 @@
 			<br><br>
 			<div class="mt-3">
 				<input type="submit" value="수정" class="btn btn-success btn-lg btn-block">
+			</div>
+			<div class="mt-3">
+				<a href="${root}/review/detail/${reviewNo}" class="btn btn-success btn-lg btn-block">취소</a>
 			</div>
 		</form>
 	</div>

@@ -32,6 +32,7 @@ public class PackageDaoImpl implements PackageDao {
 	@Override
 	public PackageDto insert(PackageDto packageDto) {
 		int sequence = sqlSession.selectOne("package.sequence");
+		packageDto.setPackageNo(sequence);
 		sqlSession.insert("package.insert", packageDto);
 		return packageDto;
 	}
