@@ -38,7 +38,7 @@ label{
 					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span>payment <i class="fa fa-chevron-right"></i></span>
 				</p>
-				<p class="mb-0" style="font-size: 17px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
+				<p class="mb-0" style="font-size: 15px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
 			</div>
 		</div>
 	</div>
@@ -114,7 +114,7 @@ label{
 						<div class="col-md-8">
 							<c:choose>
 								<c:when test="${golfFieldDto.fieldPrepay==1}">
-									<label for="kakao">카카오페이</label><input type="radio" id="kakao" name="pay">&nbsp;
+									<label for="kakao">카카오페이</label><input type="radio" id="kakao" name="pay" checked>&nbsp;
      								<label for="card">신용/체크카드</label><input type="radio" id="card" name="pay">
 								</c:when>
 								<c:otherwise><span>현장 결제</span></c:otherwise>
@@ -196,7 +196,34 @@ label{
 							</c:otherwise>
 						</c:choose>원</h6>
 						</div>
+		
+						
+						<c:choose>
+						<c:when test="${golfFieldDto.fieldPrepay==1}">
+							<form action="payment" method="post">
+							<div class="row mt-4 ml-1">
+								<input type="hidden" name="fieldName" value="${golfFieldDto.fieldName}">
+								<input type="hidden" name="teeTimeNo" value="${param.teeTimeNo}">
+								<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
+								<input type="hidden" name="bookingPrice"
+							<c:choose>
+							<c:when test="${teetimeVO.partTime == 1}">
+								value="${(golfFieldDto.fieldGreenfee-20000)*4}"
+							</c:when>
+							<c:when test="${teetimeVO.partTime == 2 || teetimeVO.partTime == 4}">
+								value="${(golfFieldDto.fieldGreenfee-10000)*4}"
+							</c:when>
+							<c:otherwise>
+								value="${golfFieldDto.fieldGreenfee*4}"
+							</c:otherwise>
+						</c:choose>>
+								<button class="btn" style="width: 90%">결제하기</button>
+							</form>
+							</div>
+						</c:when>
+						<c:otherwise>
 						<form action="reservation" method="post">
+							<div class="row mt-4 ml-1">
 							<input type="hidden" name="fieldNo" value="${golfFieldDto.fieldNo}">
 							<input type="hidden" name="teeTimeNo" value="${teetimeVO.teeTimeNo}">
 							<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">
@@ -210,16 +237,7 @@ label{
 							<c:otherwise>
 								<input type="hidden" name="bookingPrice" value="${(golfFieldDto.fieldGreenfee)*4}">
 							</c:otherwise>
-						</c:choose>				
-						
-						<c:choose>
-						<c:when test="${golfFieldDto.fieldPrepay==1}">
-							<div class="row mt-4 ml-1">
-								<button class="btn" style="width: 90%">결제하기</button>
-							</div>
-						</c:when>
-						<c:otherwise>
-							<div class="row mt-4 ml-1">
+						</c:choose>		
 								<button class="btn" style="width: 90%">예약하기</button>
 							</div>
 						</c:otherwise>

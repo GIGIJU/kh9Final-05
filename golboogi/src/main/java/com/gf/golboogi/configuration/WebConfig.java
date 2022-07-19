@@ -17,6 +17,13 @@ public class WebConfig implements WebMvcConfigurer{
 		// 회원 로그인이 필요한 부분
 		.addPathPatterns("/member/**")
 		.addPathPatterns("/review/**")
+		.addPathPatterns("/package/**")
+		.addPathPatterns("/pay/**")
+		.addPathPatterns("/booking/reservation*/**")
+		.addPathPatterns("/booking/paymentInfo/**")
+		.addPathPatterns("/booking/mybooking*/**")		
+		.addPathPatterns("/join/myjoin/**")		
+
 		// 회원 로그인이 필요하지 않음 부분
 		.excludePathPatterns("/member/login")
 		.excludePathPatterns("/member/join")
@@ -29,7 +36,10 @@ public class WebConfig implements WebMvcConfigurer{
 		.excludePathPatterns("/memberr/reset_success")
 		.excludePathPatterns("/review/list")
 		.excludePathPatterns("/review/delete/**") //관리자가 삭제하기 위해서
-		.excludePathPatterns("/review/detail/**");
+		.excludePathPatterns("/review/detail/**")
+		.excludePathPatterns("/package/list")
+		.excludePathPatterns("/package/detail")
+		;
 		
 		
 		//관리자 로그인 

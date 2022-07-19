@@ -36,9 +36,12 @@
 		        inner join tee_time T on B.tee_time_no = T.tee_time_no
 		        inner join golf_course C on T.course_no = C.course_no
 		        inner join golf_field G on G.field_no = C.field_no
-		       	<if test="type != null and keyword != null">
-					<![CDATA[ where instr(${type}, #{keyword}) > 0 	]]>
-				</if>
+		        <where>
+		       		 and tee_time_d > sysdate 
+			       	<if test="type != null and keyword != null">
+						<![CDATA[ and instr(${type}, #{keyword}) > 0 	]]>
+					</if>
+		        </where>
 				order by join_no desc
 				) TMP
 		)where rn between #{begin} and #{end}
@@ -54,9 +57,12 @@
 		        inner join tee_time T on B.tee_time_no = T.tee_time_no
 		        inner join golf_course C on T.course_no = C.course_no
 		        inner join golf_field G on G.field_no = C.field_no
-			<if test="type != null and keyword != null">
-				<![CDATA[where instr(${type},#{keyword}) > 0 ]]>		
-			</if>
+		        <where>
+		       		 and tee_time_d > sysdate 
+			       	<if test="type != null and keyword != null">
+						<![CDATA[ and instr(${type}, #{keyword}) > 0 	]]>
+					</if>
+		        </where>
 			)
 	</select>
 	
@@ -196,6 +202,14 @@
 	<delete id="joinApplyCancel" parameterType="int">
 		delete join_apply where join_apply_no = #{joinApplyNo}
 	</delete>
+	
+	<select id="selectOne" parameterType="int" resultType="joinDto">
+		select * from join where join_no=#{joinNo}
+	</select>
+	
+	<update id="joinEdit" parameterType="JoinDto">
+		update join set join_people=#{joinPeople}, join_info=#{joinInfo} where join_no=#{joinNo}
+	</update>
 </mapper> 
 
 

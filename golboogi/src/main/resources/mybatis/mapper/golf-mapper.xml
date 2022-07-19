@@ -46,13 +46,14 @@
 		)where rn between #{begin} and #{end}	
     </select>
           
-    <select id="count" parameterType="Map" resultType="int">
+    <select id="count" parameterType="String" resultType="int">
       select count(*) from golf_field
-      <if test="type != null and keyword != null">
+      <if test="fieldArea != null">
          <![CDATA[
-         where instr(${type}, #{keyword}) > 0
+         where field_area = #{fieldArea}
          ]]>
       </if>
+      
    </select>
 	
 	<!-- 상세 조회 -->
@@ -99,7 +100,7 @@
 				</if>
 	 			<if test="fieldGreenfee > 0">
 				<![CDATA[
-					and field_greenfee <= #{fieldGreenfee}
+					and field_greenfee <= #{fieldGreenfee} 
 				]]>
 				</if>
 			</where> 

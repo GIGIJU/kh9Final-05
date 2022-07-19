@@ -23,7 +23,8 @@ public interface PaymentDao {
 	int calculateCancelAmountByJava(int paymentNo);
 	int calculateCancelAmountByOracle(int paymentNo);
 	
-	void cancelAll(int paymentNo);
+	void cancel(int paymentNo);
+	int getBookingPaymentNo(int bookingNo);
 	
 
 	

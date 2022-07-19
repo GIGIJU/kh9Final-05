@@ -43,8 +43,16 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 		int fieldNo = sqlSession.selectOne("golfField.sequence");
 		golfFieldDto.setFieldNo(fieldNo);
 		
-		golfFieldDao.fieldInsert(golfFieldDto, fieldNo);
-		golfCourseDao.courseInsert(golfCourseDto, fieldNo);
+		int courseNo = sqlSession.selectOne("course.sequence");
+		golfCourseDto.setFieldNo(fieldNo);
+		golfCourseDto.setCourseNo(courseNo);
+		
+		//골프장추가
+		golfFieldDao.fieldInsert(golfFieldDto);
+		//코스추가
+		golfCourseDao.courseInsert(golfCourseDto);
+		//티타임 추가
+		golfFieldDao.teetimeInsert(courseNo);
 		
 		if(!fieldProfile.isEmpty()) {
 			

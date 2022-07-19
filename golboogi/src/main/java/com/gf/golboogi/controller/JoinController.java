@@ -118,4 +118,9 @@ public class JoinController {
 		return "redirect:/join/myjoin";
 	}
 	
+	@PostMapping("/joinEdit")
+	public String joinEdit(@ModelAttribute JoinDto joinDto) {
+		joinDao.joinEdit(joinDto);
+		return "redirect:/join/myjoin";
+	}
 }

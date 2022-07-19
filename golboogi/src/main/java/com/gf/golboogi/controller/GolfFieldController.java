@@ -46,7 +46,7 @@ public class GolfFieldController {
 			boolean search = type != null && keyword != null;
 			model.addAttribute("search", search);
 			 
-			int count = golfFieldDao.count(type, keyword);
+			int count = golfFieldDao.countAll();
 			int lastPage = (count + s - 1) / s;
 			
 			int blockSize = 10;//블록 크기

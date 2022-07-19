@@ -149,12 +149,8 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	}
 
 	@Override
-	public int count(String type, String keyword) {
-		Map<String, Object> param = new HashMap<>();
-		param.put("type", type);
-		param.put("keyword", keyword);
-		
-		return sqlSession.selectOne("golfField.count", param);
+	public int count(String fieldArea) {
+		return sqlSession.selectOne("golfField.count", fieldArea);
 	}
 	
 	//골프 부킹 전체 리스트
@@ -210,8 +206,7 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	}
 
 	@Override
-	public void fieldInsert(GolfFieldDto golfFieldDto, int fieldNo) {
-		golfFieldDto.setFieldNo(fieldNo);
+	public void fieldInsert(GolfFieldDto golfFieldDto) {
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 	

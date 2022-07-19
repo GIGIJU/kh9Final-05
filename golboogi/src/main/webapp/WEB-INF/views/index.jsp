@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<div class="hero-wrap js-fullheight" style="background-image: url('images/main4.jpeg');">
+	<div class="hero-wrap js-fullheight" style="background-image: url('images/main4.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
@@ -86,18 +87,18 @@
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
 						<span class="subheading">Tour Destination</span>
-						<h2 class="mb-4">골프 투어, 나만을 위한 1:1 맞춤 서비스</h2>
-					</div>
+						<h2 class="mb-4">골프 투어, 나만을 위한 럭셔리 맞춤 서비스</h2>
+					</div>  
 				</div>
 				<div class="row">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_jeju.avif);">
-								<span class="price">₩ 325,000won/person</span>
+							<a href="${root}/package/list?stayPrice=100000"class="img" style="background-image: url(images/main_jeju.avif);">
+								<span class="price">알뜰</span>
 							</a>
 							<div class="text p-4">
-								<h3><a href="#">Jeju</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Jeju, Korea</p>
+								<h3><a href="${root}/package/list?stayPrice=100000" style="font-weight:bold;">가볍고 똑똑한 골프🙌</a></h3>
+								<p class="location">💰 ~100,000원 </p>
 								<ul>
 								</ul>
 							</div>
@@ -105,12 +106,13 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
-								<span class="price">₩ 364,000/person</span>
+							<a href="${root}/package/list?stayPrice=300000" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
+								<span class="price">일반</span>
 							</a>
 							<div class="text p-4">
-								<h3><a href="#">Gyeongnam</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Gyeongnam, Korea</p>
+							
+								<h3><a href="${root}/package/list?stayPrice=300000" style="font-weight:bold;">남녀노소 모두의 골프🏌️‍♀️‍</a></h3>
+								<p class="location">💰 100,000~300,000원</p>
 								<ul>
 								</ul>
 							</div>
@@ -118,52 +120,12 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_gangwon.jpeg);">
-								<span class="price">₩ 335,000/person</span>
+							<a href="${root}/package/list?stayPrice=500000" class="img" style="background-image: url(images/main_Yongin.jpeg);">
+								<span class="price">프리미엄</span>
 							</a>
 							<div class="text p-4">
-								<h3><a href="#">Gangwon</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Gangwon, Korea</p>
-								<ul>
-								</ul>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-md-4 ftco-animate">
-						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_jeonnam.jpeg);">
-								<span class="price">₩ 325,000/person</span>
-							</a>
-							<div class="text p-4">
-								<h3><a href="#">Jeonnam</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Jeonnam, Korea</p>
-								<ul>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 ftco-animate">
-						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_chungnam.jpeg);">
-								<span class="price">₩ 330,000/person</span>
-							</a>
-							<div class="text p-4">
-								<h3><a href="#">Chungnam</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Chungnam, Korea</p>
-								<ul>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 ftco-animate">
-						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_Yongin.jpeg);">
-								<span class="price">₩ 425,000/person</span>
-							</a>
-							<div class="text p-4">
-								<h3><a href="#">Gyeonggi</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Gyeonggi, Korea</p>
+								<h3><a href="${root}/package/list?stayPrice=500000" style="font-weight:bold;">당신의 FLEX를 위해💸</a></h3>
+								<p class="location">💰 300,000원~</p>
 								<ul>
 								</ul>
 							</div>
@@ -196,7 +158,7 @@
 									<div class="col-md-12 heading-section ftco-animate">
 										<span class="subheading">Join</span>
 										<h2 class="mb-4">조인, 믿을 수 있는 동반자를 찾는 방법</h2>
-										<p><a href="${root}/join/list" class="btn btn-primary">Find Your Join-partner</a></p>
+										<p><a href="${root}/join/list" class="btn btn-primary" style="width:95%; font-size:20px;">Find Your Join-partner</a></p>
 									</div>
 								</div>
 							</div>
@@ -215,66 +177,24 @@
 					</div>
 				</div>
 				<div class="row d-flex">
+				<c:forEach var = "recentVO" items = "${recentList}">
 					<div class="col-md-4 d-flex ftco-animate">
 						<div class="blog-entry justify-content-end">
 							<a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
 							</a>
 							<div class="text">
 								<div class="d-flex align-items-center mb-4 topp">
-									<div class="one">
-										<span class="day">11</span>
-									</div>
 									<div class="two">
-										<span class="yr">2020</span>
-										<span class="mos">September</span>
+										<span class="yr"><fmt:formatDate value="${recentVO.reviewTime}" pattern="y.M.d"/></span>
 									</div>
 								</div>
-								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
+								<h3 class="heading"><a href="${root}/review/detail/${recentVO.reviewNo}">${recentVO.memberNick}님의 ${recentVO.fieldName} 라운딩 후기!</a></h3>
 								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
+								<p><a href="${root}/review/detail/${recentVO.reviewNo}" class="btn btn-primary">자세히 보기</a></p>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="blog-entry justify-content-end">
-							<a href="blog-single.html" class="block-20" style="background-image: url('images/image_2.jpg');">
-							</a>
-							<div class="text">
-								<div class="d-flex align-items-center mb-4 topp">
-									<div class="one">
-										<span class="day">11</span>
-									</div>
-									<div class="two">
-										<span class="yr">2020</span>
-										<span class="mos">September</span>
-									</div>
-								</div>
-								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 d-flex ftco-animate">
-						<div class="blog-entry">
-							<a href="blog-single.html" class="block-20" style="background-image: url('images/image_3.jpg');">
-							</a>
-							<div class="text">
-								<div class="d-flex align-items-center mb-4 topp">
-									<div class="one">
-										<span class="day">11</span>
-									</div>
-									<div class="two">
-										<span class="yr">2020</span>
-										<span class="mos">September</span>
-									</div>
-								</div>
-								<h3 class="heading"><a href="#">~~님의 ~~cc 라운딩 후기!</a></h3>
-								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="#" class="btn btn-primary">자세히 보기</a></p>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 				</div>
 			</div>
 		</section>

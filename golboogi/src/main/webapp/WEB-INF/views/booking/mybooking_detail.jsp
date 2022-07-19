@@ -109,7 +109,7 @@ textarea {
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
        <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>my booking <i class="fa fa-chevron-right"></i></span></p>
-       <p class="mb-0" style="font-size: 17px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
+       <p class="mb-0" style="font-size: 15px">부킹, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
  </div>
@@ -236,7 +236,13 @@ textarea {
 				</div>
 			</div>			
 		</div>		
-		<hr>	
+		<hr>
+		<c:if test="${paymentDto != null}">
+		<div class="row mt-4">
+		결제정보
+		</div>	
+		<hr>
+		</c:if>
 		<div class="row mt-4">
 			<div class="col-md-3 mt-2 text-center"> 
 				<h6>동의 내역</h6>

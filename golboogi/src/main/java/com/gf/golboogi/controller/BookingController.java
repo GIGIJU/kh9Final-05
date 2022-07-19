@@ -17,11 +17,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.MemberDto;
+import com.gf.golboogi.entity.PaymentDto;
 import com.gf.golboogi.entity.TeetimeDto;
+import com.gf.golboogi.entity.bookingPaymentDto;
 import com.gf.golboogi.repository.BookingDao;
 import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
+import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.vo.BookingComplexSearchVO;
 import com.gf.golboogi.vo.BookingSearchListVO;
@@ -46,6 +49,8 @@ public class BookingController {
 	private FieldProfileDao fieldProfileDao;
 	@Autowired
 	private ReviewDao reviewDao;
+	@Autowired
+	private PaymentDao paymentDao;
 	
 	
 	
@@ -74,10 +79,13 @@ public class BookingController {
 			
 			boolean range = type != null;
 			model.addAttribute("range", range);
-			 
-			int count = golfFieldDao.countAll();
-			int lastPage = (count + s - 1) / s;
 			
+			boolean area = fieldArea != null;
+			model.addAttribute("area", area);
+			 
+			int count = golfFieldDao.count(fieldArea);
+			int lastPage = (count + s - 1) / s;
+			System.out.println(count);
 			int blockSize = 10;//블록 크기
 			int endBlock = (p + blockSize - 1) / blockSize * blockSize;
 			int startBlock = endBlock - (blockSize - 1);
@@ -88,9 +96,12 @@ public class BookingController {
 			model.addAttribute("p", p);
 			model.addAttribute("s", s);
 			model.addAttribute("type", type);
+			model.addAttribute("fieldArea", fieldArea);
 			model.addAttribute("startBlock", startBlock);
 			model.addAttribute("endBlock", endBlock);
 			model.addAttribute("lastPage", lastPage);
+			
+			System.out.println(type+ fieldArea+ startBlock+ endBlock+ lastPage);
 			return "booking/list_all";
 	}
 	
@@ -98,7 +109,6 @@ public class BookingController {
 	public String detail(@RequestParam int fieldNo,@RequestParam String teeTimeD, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 		List<TeeTimeListVO> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
-		System.err.println(teetimeList);
 		List<ReviewProfileVO> reviewList = reviewDao.selectOneFiled(golfFieldDto.getFieldName());
 		model.addAttribute("golfFieldDto",golfFieldDto); //골프장 정보
 		model.addAttribute("teetimeList",teetimeList); //예약 정보
@@ -145,6 +155,7 @@ public class BookingController {
 	
 	@GetMapping("/search")
 	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
+		System.out.println(golfFieldDao.searchList(searchVO));
 		model.addAttribute("list",golfFieldDao.searchList(searchVO));
 		return "booking/search_list";
 	}
@@ -212,10 +223,13 @@ public class BookingController {
 		MyBookingListVO myBookingListVO = bookingDao.myBookingInfo(bookingNo);
 		MemberDto memberDto = memberDao.info(myBookingListVO.getMemberId());
 		BookingDto bookingDto = bookingDao.info(bookingNo);
+		//int paymentNo = paymentDao.getBookingPaymentNo(bookingNo);
+		//PaymentDto paymentDto = paymentDao.find(paymentNo);
 		
 		model.addAttribute("myBookingListVO", myBookingListVO);
 		model.addAttribute("memberDto", memberDto);
 		model.addAttribute("bookingDto", bookingDto);
+		//model.addAttribute("paymentDto", paymentDto);
 		
 		//골프장 이미지 다운로드 주소 추가 
 		List<FieldProfileVO> list = fieldProfileDao.multiInfo(myBookingListVO.getFieldNo());
@@ -228,4 +242,5 @@ public class BookingController {
 		}
 		return "booking/mybooking_detail";
 	}
+	
 }

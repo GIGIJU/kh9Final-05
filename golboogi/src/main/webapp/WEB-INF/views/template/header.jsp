@@ -65,7 +65,7 @@
 </df-messenger>
  <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
    <div class="container">
-     <a class="navbar-brand" href="/golboogi"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>
+     <a class="navbar-brand" href="${root}/"><img src="${root}/images/golboogi-logo.png" width="160" height="50"></a>
      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
        <span class="oi oi-menu"></span> Menu
      </button>
@@ -88,6 +88,7 @@
 					         	 <li><a class="dropdown-item" href="${root}/member/mypage" class="nav-link">회원정보</a></li>
 					         	 <li><a class="dropdown-item" href="${root}/booking/mybooking" class="nav-link">나의예약내역</a></li>
 					         	 <li><a class="dropdown-item" href="${root}/join/myjoin" class="nav-link">조인신청내역</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/package/reserve_list" class="nav-link">투어예약내역</a></li>
 	                       			<li><hr class="dropdown-divider" /></li>
 					         	 <li><a class="dropdown-item" href="${root}/member/logout" class="nav-link">로그아웃</a></li>
 				         	</c:when>
