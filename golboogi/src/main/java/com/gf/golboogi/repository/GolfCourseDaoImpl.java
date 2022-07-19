@@ -15,10 +15,8 @@ public class GolfCourseDaoImpl implements GolfCourseDao{
 	SqlSession sqlSession;
 	
 	@Override
-	public void courseInsert(GolfCourseDto golfCourseDto, int fieldNo) {
+	public void courseInsert(GolfCourseDto golfCourseDto) {
 		int sequence = sqlSession.selectOne("course.sequence");
-		golfCourseDto.setCourseNo(sequence);
-		golfCourseDto.setFieldNo(fieldNo);
 		sqlSession.insert("course.insert", golfCourseDto);
 		
 	}

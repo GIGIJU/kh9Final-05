@@ -174,7 +174,7 @@ public class AdminController {
 		
 		golfFieldService.insert(golfFieldDto, golfCourseDto, fieldProfile);
 		
-		return "redirect:/field_list";
+		return "redirect:/admin/field_list";
 	}
 	
 	@GetMapping("/field_list")

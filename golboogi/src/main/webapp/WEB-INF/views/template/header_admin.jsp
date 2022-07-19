@@ -27,7 +27,7 @@
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="${root}/">
-            		<img src="/images/golboogi-logo.png" width="160" height="50">
+            		<img src="${root}/images/golboogi-logo.png" width="160" height="50">
             </a>
             
             <!-- Sidebar Toggle / 햄버거 메뉴 -->
