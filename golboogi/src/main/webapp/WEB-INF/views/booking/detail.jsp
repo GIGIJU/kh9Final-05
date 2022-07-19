@@ -11,6 +11,7 @@
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <link rel="stylesheet" href="${root}/css/mastar2.css">
 <link rel="stylesheet" href="${root}/css/master.css">
+<script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b03de227a4e196a92952ccb566363417&libraries=services"></script>
 <!-- Initialize Swiper -->
 <script>
     $(function(){
@@ -38,8 +39,10 @@
             // scrollbar: {
             //     el: '.swiper-scrollbar',
             // },
-        });
+        });            
     });
+    
+   
 </script>
 <style>
 span {
@@ -95,7 +98,7 @@ p {
 	<div class="container-fluid">
 		<div class="row mt-5 mb-5">
 			<div class="col-md-6 offset-md-3 text-center">
-				<span style="font-weight: bold; font-size: 30px;">${golfFieldDto.fieldName}</span>&nbsp;
+				<span class="fieldName" style="font-weight: bold; font-size: 30px;">${golfFieldDto.fieldName}</span>&nbsp;
 				<c:if test="${golfFieldDto.fieldPrepay == 1}"><span class="prepay">선결제</span></c:if>
 			</div>
 			<!-- 골프장 이미지 -->
@@ -196,17 +199,13 @@ p {
 						<div class="golf_field_info_content">
 							<div class="golf_field_score" style="background-color: #ecf0f1;">
 								<div class="golf_field_score_content">
-									<h1>골프장 평점</h1>
-									<c:if test="${rating == null}">
-										<p>x</p>
-									</c:if>
-									
+									<h6>골프장 평점</h6><br>
 									<p><fmt:formatNumber value="${rating}" pattern="#.#"></fmt:formatNumber></p>
 								</div>
 							</div>
 							<div class="golf_field_info">
 								<ul>
-									<li><i class="bi bi-check"></i>개장일 : ${golfFieldDto.fieldOpenday}</li>
+									<li><i class="bi bi-check"></i>개장일 : ${golfFieldDto.fieldOpenday} </li>
 									<li><i class="bi bi-check"></i>주소   : ${golfFieldDto.fieldBasicAddress}${info.fieldDetailAddress}
 									</li>
 									<li><i class="bi bi-check"></i>대표전화 : ${golfFieldDto.fieldPhone}</li>
@@ -269,8 +268,7 @@ p {
 	</div>
 </div>
 
-	<script type="text/javascript"
-		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b03de227a4e196a92952ccb566363417&libraries=services"></script>
+
 <!--vue js-->
 <script src="http://unpkg.com/vue@next"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -341,50 +339,49 @@ p {
                 $("#datepicker").datepicker(); 
 				
                 var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-        		mapOption = {
-        			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        			level : 3
-        		// 지도의 확대 레벨
-        		};
+            	mapOption = {
+            		center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+            		level : 3
+            	// 지도의 확대 레벨
+            	};
 
-        		var fieldName = $(".fieldName").text();
+            	var fieldName = $(".fieldName").text();
 
-        		// 지도를 생성 
-        		var map = new kakao.maps.Map(mapContainer, mapOption);
+            	// 지도를 생성 
+            	var map = new kakao.maps.Map(mapContainer, mapOption);
 
-        		// 주소-좌표 변환 객체를 생성
-        		var geocoder = new kakao.maps.services.Geocoder();
+            	// 주소-좌표 변환 객체를 생성
+            	var geocoder = new kakao.maps.services.Geocoder();
 
-        		// 주소로 좌표를 검색합니다
-        		geocoder
-        				.addressSearch(
-        						'${info.fieldBasicAddress}',
-        						function(result, status) {
+            	// 주소로 좌표를 검색합니다
+            	geocoder.addressSearch(
+            		'${golfFieldDto.fieldBasicAddress}',
+            		function(result, status) {
 
-        							// 정상적으로 검색이 완료됐으면 
-        							if (status === kakao.maps.services.Status.OK) {
+            			// 정상적으로 검색이 완료됐으면 
+            			if (status === kakao.maps.services.Status.OK) {
 
-        								var coords = new kakao.maps.LatLng(result[0].y,
-        										result[0].x);
+            				var coords = new kakao.maps.LatLng(result[0].y,
+            						result[0].x);
 
-        								// 결과값으로 받은 위치를 마커로 표시
-        								var marker = new kakao.maps.Marker({
-        									map : map,
-        									position : coords
-        								});
+            				// 결과값으로 받은 위치를 마커로 표시
+            				var marker = new kakao.maps.Marker({
+            					map : map,
+            					position : coords
+            				});
 
-        								// 인포윈도우로 장소에 대한 설명을 표시
-        								var infowindow = new kakao.maps.InfoWindow(
-        										{
-        											content : '<div style="width:150px;text-align:center;padding:6px; border: 2px solid green; background-color: green; color:white;">'
-        													+ fieldName + '</div>'
-        										});
-        								infowindow.open(map, marker);
+            				// 인포윈도우로 장소에 대한 설명을 표시
+            				var infowindow = new kakao.maps.InfoWindow(
+            						{
+            							content : '<div style="width:150px;text-align:center;padding:6px; border: 2px solid green; background-color: green; color:white;">'
+            									+ fieldName + '</div>'
+            						});
+            				infowindow.open(map, marker);
 
-        								// 지도의 중심을 결과값으로 받은 위치로 이동
-        								map.setCenter(coords);
-        							}
-        						});
+            				// 지도의 중심을 결과값으로 받은 위치로 이동
+            				map.setCenter(coords);
+            			}
+            		});
             }, 
         });
         app.mount("#app");

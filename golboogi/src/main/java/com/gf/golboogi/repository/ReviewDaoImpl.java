@@ -1,6 +1,5 @@
 package com.gf.golboogi.repository;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,8 +71,15 @@ public class ReviewDaoImpl implements ReviewDao{
 	}
 
 	@Override
-	public Double ratingView(String fieldName) {
-		return sqlSession.selectOne("review.ratingView", fieldName);
+	public Float ratingView(String fieldName) {
+		Float rating = sqlSession.selectOne("review.ratingView", fieldName);
+		if(rating==null) {
+			return (float) 0;
+		}
+		else {
+			return rating;
+		}
+
 	}
 
 	@Override

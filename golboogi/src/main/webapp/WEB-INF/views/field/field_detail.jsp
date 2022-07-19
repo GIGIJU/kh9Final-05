@@ -149,14 +149,10 @@ body {
 					<div class="golf_field_info_content">
 						<div class="golf_field_score">
 							<div class="golf_field_score_content">
-								<h1>골프장 평점</h1>
-								<c:if test="${rating == null}">
-									<p>x</p>
-								</c:if>
-
+								<h1>골프장 평점</h1><br>
 								<p>
 									<fmt:formatNumber value="${rating}" pattern="#.#"></fmt:formatNumber>
-								</p>
+								</p><br>
 								<span>등록 라운드 330K</span>
 							</div>
 						</div>
@@ -180,7 +176,7 @@ body {
 		</section>
 	</div>
 
-	<div class="col-md-12 col-sm-12 col-xs-12 mt-3">
+	<div class="col-md-12 mt-3">
 		<div id="map" style="width: 100%; height: 350px;"></div>
 	</div>
 

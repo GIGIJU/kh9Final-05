@@ -123,7 +123,7 @@ public class ReviewController {
 			) {
 		String memberId = (String)session.getAttribute("login");
 		ReviewDto reviewDto = reviewDao.read(reviewNo);
-		Double rating = reviewDao.ratingView(reviewDto.getFieldName());
+		float rating = reviewDao.ratingView(reviewDto.getFieldName());
 		List<ReviewDto> list = reviewDao.otherview(reviewDto.getFieldName());
 		
 		model.addAttribute("rating",rating);
