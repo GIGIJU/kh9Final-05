@@ -399,7 +399,7 @@ px
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
        <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">package</h1>
+					<p class="mb-0" style="font-size: 17px">투어, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
  </div>
@@ -459,7 +459,7 @@ px
 				<td>	${packageReserveVO.packageDepart}</td>
 				<td>	${packageReserveVO.packageTotalPrice}</td>
 				<td>	${packageReserveVO.packageReserveTime}</td>
-				<td>	${packageReserveVO.packageStatus}</td>
+				<td style="color:#60a120">	${packageReserveVO.packageStatus}</td>
 			<td>	<a href="" class="btn btn-success">예약취소</a></td>
 				</tr>
 			</c:forEach>  

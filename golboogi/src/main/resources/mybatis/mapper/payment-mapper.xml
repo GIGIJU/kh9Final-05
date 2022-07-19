@@ -75,12 +75,11 @@
 		) where payment_no = #{paymentNo}
 	</update>
 	
-		<update id="cancelAll" parameterType="int">
-		update payment set payment_status = '취소' where payment_no = #{paymentNo}
-	</update>
 	
 
-	
+	<select id="getBookingPaymentNo" parameterType="int" resultType="int">
+		select payment_no from booking_payment where booking_no = #{bookingNo}
+	</select>
 </mapper> 
 
 

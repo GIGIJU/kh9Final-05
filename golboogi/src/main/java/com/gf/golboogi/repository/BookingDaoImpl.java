@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.BookingDto;
+import com.gf.golboogi.vo.BookingPurchaseVO;
 import com.gf.golboogi.vo.MyBookingListVO;
 
 @Repository
@@ -27,6 +28,20 @@ public class BookingDaoImpl implements BookingDao{
 		sqlSession.update("booking.updateBookingPeople",teeTimeNo);
 		//예약
 		sqlSession.insert("booking.insert",bookingDto);
+	}
+	
+	@Override
+	public void payReservation(BookingPurchaseVO bookingPurchaseVO) {
+		int bookingSequence = sqlSession.selectOne("booking.sequence");
+		bookingPurchaseVO.setBookingNo(bookingSequence);
+		
+		//예약 취소 변경
+		int teeTimeNo = bookingPurchaseVO.getTeeTimeNo();
+		sqlSession.update("booking.updateBookingPeople",teeTimeNo);
+		//예약
+		sqlSession.insert("booking.payInsert",bookingPurchaseVO);
+		
+		System.out.println("예약완룡");
 	}
 
 	@Override
@@ -68,6 +83,15 @@ public class BookingDaoImpl implements BookingDao{
 	@Override
 	public MyBookingListVO myBookingInfo(int bookingNo) {
 		return sqlSession.selectOne("booking.myBookingInfo",bookingNo);
+	}
+
+	@Override
+	public void paymentInsert(int bookingNo, int paymentNo) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("bookingNo", bookingNo);
+		param.put("paymentNo", paymentNo);
+		
+		sqlSession.insert("booking.paymentInsert",param);
 	}
 	
 }

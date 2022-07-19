@@ -128,6 +128,18 @@ public class JoinDaoImpl implements JoinDao{
 		sqlSession.delete("join.joinApplyCancel",joinApplyNo);
 	}
 
+	//조인 단일 조회
+	@Override
+	public JoinDto selectOne(int joinNo) {
+		return sqlSession.selectOne("join.selectOne",joinNo);
+	}
+
+	//조인 수정
+	@Override
+	public void joinEdit(JoinDto joinDto) {
+		sqlSession.update("join.joinEdit",joinDto);
+	}
+
 	
 	
 
