@@ -10,5 +10,8 @@ public interface GolfCourseDao {
 
 	List<GolfCourseDto> courseList();
 
+	//추가분
+	List<GolfCourseDto> searchCourseList(int fieldNo);
+
 	
 }

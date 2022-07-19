@@ -47,7 +47,7 @@
 	 		</div>
 		
 		    <div class="card-footer">
-				<a href="${root}/admin/member_list" class="btn btn-secondary">돌아가기</a>
+				<a href="member_list" class="btn btn-secondary">돌아가기</a>
 			</div>
     </div>
     

@@ -36,7 +36,7 @@
 						<td>${packageVO.stayDto.stayType}</td>
 						<td>${packageVO.stayDto.stayRoom}</td>
 						<td>
-							<a href="${root}/admin/package_detail?packageNo=${packageVO.packageNo}" class="btn btn-primary">이동</a>
+							<a href="package_detail?packageNo=${packageVO.packageNo}" class="btn btn-primary">이동</a>
 						</td>
                     </tr>
                     </c:forEach>
@@ -45,7 +45,7 @@
         </div>
         
         <div class="card-footer">
-            <a href="${root}/admin/package_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
+            <a href="package_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
         </div>
         
     </div>
