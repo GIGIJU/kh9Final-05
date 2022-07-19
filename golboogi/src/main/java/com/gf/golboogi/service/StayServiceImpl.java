@@ -47,5 +47,12 @@ public class StayServiceImpl implements StayService {
 		}
 	}
 	
+	// 추가분
+	@Override
+	public void update(StayDto stayDto, List<MultipartFile> stayProfile) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 
 }

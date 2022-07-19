@@ -25,6 +25,14 @@ public class GolfCourseDaoImpl implements GolfCourseDao{
 	public List<GolfCourseDto> courseList() {
 		return sqlSession.selectList("course.courseList");
 	}
+	
+	//추가분
+
+	@Override
+	public List<GolfCourseDto> searchCourseList(int fieldNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	
 }

@@ -115,5 +115,12 @@ public class AttachmentDaoImpl implements AttachmentDao {
 		//4
 		return reviewNo;
 	}
+	
+	//추가분
+	@Override
+	public boolean delete(int attachmentNo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 }

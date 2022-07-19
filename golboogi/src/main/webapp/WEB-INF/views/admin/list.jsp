@@ -32,7 +32,7 @@
 						<td>${adminVO.golfManagerId}</td>
 						<td>${adminVO.fieldName}</td>
 						<td>
-							<a href="${root}/admin/detail?golfManagerId=${adminVO.golfManagerId}" class="btn btn-primary">이동</a>
+							<a href="detail?golfManagerId=${adminVO.golfManagerId}" class="btn btn-primary">이동</a>
 						</td>
                     </tr>
                     </c:forEach>
@@ -41,7 +41,7 @@
         </div>
         
         <div class="card-footer">
-            <a href="${root}/admin/insert"><i class="fa-solid fa-circle-plus"></i>관리자 생성</a>
+            <a href="insert"><i class="fa-solid fa-circle-plus"></i>관리자 생성</a>
         </div>
         
     </div>

@@ -38,7 +38,7 @@
 						<td>${stayDto.stayPhone}</td>
 						<td>${stayDto.stayLocal}</td>
 						<td>
-							<a href="${root}/admin/stay_detail?stayNo=${stayDto.stayNo}" class="btn btn-primary">이동</a>
+							<a href="stay_detail?stayNo=${stayDto.stayNo}" class="btn btn-primary">이동</a>
 						</td>
                     </tr>
                     </c:forEach>
@@ -47,7 +47,7 @@
         </div>
         
         <div class="card-footer">
-            <a href="${root}/admin/stay_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
+            <a href="stay_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
         </div>
         
     </div>

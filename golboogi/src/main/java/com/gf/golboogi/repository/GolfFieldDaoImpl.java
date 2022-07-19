@@ -210,5 +210,13 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 	
+	
+	// 추가분
+	@Override
+	public GolfFieldDto one(int fieldNo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 }

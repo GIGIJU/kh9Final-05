@@ -8,7 +8,6 @@
     <h1 class="mt-4">${list.fieldName} 상세정보</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">회원관리메뉴</li>
-<%--         <li class="breadcrumb-item active"><a href="${root}/admin/member_list">일반회원목록</a></li> --%>
         <li class="breadcrumb-item active">${list.fieldName} 상세정보</li>
     </ol>
 

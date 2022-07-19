@@ -38,7 +38,7 @@
 						<td>${golfFieldVO.fieldPhone}</td>
 						<td>${golfFieldVO.fieldCommission}</td>
 						<td>
-							<a href="${root}/admin/field_detail?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-primary">이동</a>
+							<a href="field_detail?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-primary">이동</a>
 						</td>
                     </tr>
                     </c:forEach>
@@ -47,7 +47,7 @@
         </div>
         
         <div class="card-footer">
-            <a href="${root}/golboogi/admin/field_insert"><i class="fa-solid fa-circle-plus"></i>골프장 등록</a>
+            <a href="field_insert"><i class="fa-solid fa-circle-plus"></i>골프장 등록</a>
         </div>
         
     </div>
