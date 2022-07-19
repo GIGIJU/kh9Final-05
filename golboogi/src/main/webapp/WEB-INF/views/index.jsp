@@ -106,12 +106,12 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href=${root}/package/list?stayPrice=300000" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
+							<a href="${root}/package/list?stayPrice=300000" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
 								<span class="price">일반</span>
 							</a>
 							<div class="text p-4">
 							
-								<h3><a href=${root}/package/list?stayPrice=300000" style="font-weight:bold;">남녀노소 모두의 골프🏌️‍♀️‍</a></h3>
+								<h3><a href="${root}/package/list?stayPrice=300000" style="font-weight:bold;">남녀노소 모두의 골프🏌️‍♀️‍</a></h3>
 								<p class="location">💰 100,000~300,000원</p>
 								<ul>
 								</ul>

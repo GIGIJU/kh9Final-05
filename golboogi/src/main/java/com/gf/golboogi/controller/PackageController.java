@@ -122,7 +122,7 @@ public class PackageController {
 	//예약 목록 보기
 	@GetMapping("/reserve_list")
 	public String reserveList(Model model,HttpSession session) {
-		String memberId = (String) session.getAttribute("login");
+		String memberId = (String) session.getAttribute("login");  
 		List<PackageReserveVO> reserveList = packageReserveDao.reserveList(memberId);
 		
 		System.out.println("list = " + paymentDao.list());
