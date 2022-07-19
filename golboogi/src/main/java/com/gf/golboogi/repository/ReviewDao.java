@@ -3,7 +3,6 @@ package com.gf.golboogi.repository;
 import java.util.List;
 
 import com.gf.golboogi.entity.ReviewDto;
-import com.gf.golboogi.vo.RecentReviewVO;
 import com.gf.golboogi.vo.ReviewProfileVO;
 
 public interface ReviewDao {
@@ -26,5 +25,5 @@ public interface ReviewDao {
 
 	Double ratingView(String fieldName);
 
-	List<RecentReviewVO> recentReview(int count);
+
 }

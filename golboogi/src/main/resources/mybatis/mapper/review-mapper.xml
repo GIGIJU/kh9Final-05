@@ -99,18 +99,6 @@
 			field_name = #{fieldName}
 	</select>
 	
-	<select id="recentReview" parameterType="int" resultType="RecentReviewVO">
-	
-		select r.review_no, r.field_name, r.review_time, m.member_nick, gp.attachment_no
-		from review r, member m, golf_profile gp, golf_field gf
-		where r.review_writer=m.member_id
-		and r.field_name = gf.field_name
-		and rownum <![CDATA[<]]>#{count}+1
-		order by r.review_time desc
-	
-	</select>
-	
-	
 </mapper> 
 
 
