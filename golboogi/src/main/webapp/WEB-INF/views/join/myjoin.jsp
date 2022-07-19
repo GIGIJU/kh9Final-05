@@ -118,6 +118,7 @@ textarea {
 		 		<th>타임</th>
 		 		<th>지역</th>
 		 		<th>골프장</th>
+		 		<th>내용</th>
 		 		<th>필요인원</th>
 		 		<th>인당그린피</th>
 		 		<th>등록일</th>
@@ -139,6 +140,7 @@ textarea {
 		 		<td>${MyJoinListVO.joinListVO.teeTimeT}</td>
 		 		<td>${MyJoinListVO.joinListVO.fieldArea}</td>
 		 		<td>${MyJoinListVO.joinListVO.fieldName}</td>
+		 		<td>${MyJoinListVO.joinListVO.joinInfo}</td>
 		 		<td>${MyJoinListVO.joinListVO.joinPeople}명</td>
 		 		<td><fmt:formatNumber value="${MyJoinListVO.joinListVO.bookingPrice}" />원</td>
 		 		<fmt:parseDate var="joinDate"  value="${MyJoinListVO.joinListVO.joinTime}" pattern="yyyy-MM-dd"/>
@@ -149,7 +151,7 @@ textarea {
 		 		</c:choose>
 		 		<td>
 		 		<span style="cursor: pointer;">
-		 		<i @click="joinEdit(${MyJoinListVO.joinListVO.joinNo})" class="fa-solid fa-pen-to-square"></i></span>
+		 		<i @click="joinEdit(${MyJoinListVO.joinListVO.joinNo},${MyJoinListVO.joinListVO.joinStatus})" class="fa-solid fa-pen-to-square"></i></span>
 		 		<span style="cursor: pointer;">&nbsp;
 		 		<i @click="joinDelete(${MyJoinListVO.joinListVO.joinNo},${MyJoinListVO.joinListVO.joinStatus})" class="fa-solid fa-trash"></i></span>
 		 		</td>
@@ -260,14 +262,16 @@ textarea {
 			<button class="btn-cancel" @click="hiddenModal"><i class="fa-solid fa-xmark"></i></button>
 		</div>
 	</div>
+	<form action="joinEdit" method="post">
+		<input type="hidden" v-model="joinNo" name="joinNo">
 		<div class="row mt-2">
 			<span style="color: black; font-size: 11px; margin-right: 3px;">인원 수 : </span> 
-			<select v-model="joinApplyPeople">			
-				<option v-for="num in joinPeople">{{num}}</option>
+			<select v-model="joinList.joinPeople" name="joinPeople">			
+				<option v-for="num in joinList.joinPeople">{{num}}</option>
 			</select>
 		</div>
 		<div class="row mt-2">
-			<textarea placeholder="나와 동반자를 표현하는 글을 작성해보세요" v-model="joinApplyInfo"></textarea>
+			<textarea placeholder="나와 동반자를 표현하는 글을 작성해보세요" v-model="joinList.joinInfo" name="joinInfo"></textarea>
 		</div>
 		<div class="row" style="font-size: 9px; text-align: left;">
 			<span><i class="fa-solid fa-circle-exclamation"></i> 신청 후 조인수락이되면, 방장님과 회원님간의 핸드폰번호가 서로 공개됩니다.</span>
@@ -275,9 +279,10 @@ textarea {
 		</div>
 		<div class="row mt-4">
 			<div class="col text-center">
-				<button class="btn" style="width: 50%" @click="joinApply">신청하기</button>
+				<button class="btn" style="width: 50%">수정하기</button>
 			</div>
 		</div>
+	</form>
 </div>
 </div>
 </div>
@@ -291,6 +296,8 @@ textarea {
             return {
             	showRegist:true,
             	showApply:false,
+            	joinList:[],
+            	joinNo:"",
             };
         },
         computed:{
@@ -313,13 +320,29 @@ textarea {
         			window.location.href="${root}/join/delete/"+joinNo;
         		}
         	}, 
-        	joinEdit(joinNo){
-        		
+        	joinEdit(joinNo,status){
+        		if(status==1){
+        			alert("마감된 등록 건은 수정할 수 없습니다.")
+        			return;
+        		}
+        		axios({
+					url:"${root}/rest/apply/"+joinNo,
+					method:"get"
+				})
+				.then(resp=>{
+					console.log(resp.data);
+					this.joinList=resp.data;
+					this.joinNo = joinNo;
+					$(".modal").show();
+				});
         	},
         	joinApplyCancel(joinApplyNo){
         		if(confirm("신청 취소 하시겠습니까?")){
         			window.location.href="${root}/join/applyCancel/"+joinApplyNo;
         		}
+        	},
+        	hiddenModal(){
+        		$(".modal").hide();
         	},
         },
         watch:{

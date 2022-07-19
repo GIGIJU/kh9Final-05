@@ -200,8 +200,8 @@ label{
 						
 						<c:choose>
 						<c:when test="${golfFieldDto.fieldPrepay==1}">
-							<div class="row mt-4 ml-1">
 							<form action="payment" method="post">
+							<div class="row mt-4 ml-1">
 								<input type="hidden" name="fieldName" value="${golfFieldDto.fieldName}">
 								<input type="hidden" name="teeTimeNo" value="${param.teeTimeNo}">
 								<input type="hidden" name="teeTimeD" value="${param.teeTimeD}">

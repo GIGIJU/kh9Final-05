@@ -236,7 +236,13 @@ textarea {
 				</div>
 			</div>			
 		</div>		
-		<hr>	
+		<hr>
+		<c:if test="${paymentDto != null}">
+		<div class="row mt-4">
+		결제정보
+		</div>	
+		<hr>
+		</c:if>
 		<div class="row mt-4">
 			<div class="col-md-3 mt-2 text-center"> 
 				<h6>동의 내역</h6>

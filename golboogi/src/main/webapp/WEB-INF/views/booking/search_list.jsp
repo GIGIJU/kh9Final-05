@@ -122,6 +122,12 @@ p {
 				<div class="row">
 					<div class="col-md-10">
 					<div class="text-center"><h3 class="mb-5" style="font-size: 20px; font-weight: bold;">${param.teeTimeD}</h3></div>			
+					<c:if test="${list==null}">
+						<div class="col-lg-12 ftco-animate py-md-5 mt-5 text-center">	
+							<img src="https://image.smartscore.kr/pc4/img_illust_03.svg" style="white: 300px; height: 300px;">
+							<h5 style="font-weight: bold;">티타임 정보가 없습니다</h5>
+						</div>
+					</c:if>
 						<ul class="comment-list">
 							<c:forEach var="teetimeVO" items="${list}" varStatus="status">
 								<li class="comment mb-4">

@@ -182,6 +182,9 @@
 									<c:when test="${range}">
 										<li><a href="list_all?p=1&s=${s}&type=${type}" class="link">&laquo;</a></li>
 									</c:when>
+									<c:when test="${area}">
+										<li><a href="list_all?p=1&s=${s}&fieldArea=${fieldArea}" class="link">&laquo;</a></li>
+									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=1&s=${s}" class="link">&laquo;</a></li>
 									</c:otherwise>			
@@ -192,6 +195,9 @@
 									<c:when test="${range}">
 										<li><a href="list_all?p=${startBlock-1}&s=${s}&type=${type}" class="link">&lt;</a></li>
 									</c:when>
+									<c:when test="${area}">
+										<li><a href="list_all?p=${startBlock-1}&s=${s}&fieldArea=${fieldArea}" class="link">&lt;</a></li>
+									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${startBlock-1}&s=${s}" class="link">&lt;</a></li>
 									</c:otherwise>			
@@ -201,6 +207,9 @@
 								<c:choose>
 									<c:when test="${range}">
 										<li><a href="list_all?p=${i}&s=${s}&type=${type}" class="link">${i}</a></li>
+									</c:when>
+									<c:when test="${area}">
+										<li><a href="list_all?p=${i}&s=${s}fieldArea=${fieldArea}" class="link">${i}</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${i}&s=${s}" class="link">${i}</a></li>
@@ -213,6 +222,9 @@
 									<c:when test="${range}">
 										<li><a href="list_all?p=${endBlock+1}&s=${s}&type=${type}" class="link">&gt;</a></li>
 									</c:when>
+									<c:when test="${area}">
+										<li><a href="list_all?p=${endBlock+1}&s=${s}fieldArea=${fieldArea}" class="link">&gt;</a></li>
+									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${endBlock+1}&s=${s}" class="link">&gt;</a></li>
 									</c:otherwise>			
@@ -222,6 +234,9 @@
 								<c:choose>
 									<c:when test="${range}">
 										<li><a href="list_all?p=${lastPage}&s=${s}&type=${type}" class="link">&raquo;</a></li>
+									</c:when>
+									<c:when test="${area}">
+										<li><a href="list_all?p=${lastPage}&s=${s}&fieldArea=${fieldArea}" class="link">&raquo;</a></li>
 									</c:when>
 									<c:otherwise>
 										<li><a href="list_all?p=${lastPage}&s=${s}" class="link">&raquo;</a></li>

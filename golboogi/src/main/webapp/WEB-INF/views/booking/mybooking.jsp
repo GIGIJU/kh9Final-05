@@ -140,9 +140,17 @@ textarea {
 							<div class="row mt-3">
 								<div class="col-md-3 text-center">
 									<a href="mybooking_detail/${myBookingListVO.bookingNo}">
-									<img src="${root}/images/golf-dummy.jpg" style="height: 120px; width: 120px; 
-									<c:if test="${myBookingListVO.bookingStatus == '예약취소'}"> opacity: 0.4;
-									</c:if>	">
+						<!-- 이미지 -->			
+						<c:choose>
+							<c:when test="${myBookingListVO.attachmentNo != 0}">
+								<img src="${root}/attachment/download?attachmentNo=${myBookingListVO.attachmentNo}" 
+								style="height: 120px; width: 120px; <c:if test="${myBookingListVO.bookingStatus == '예약취소'}"> opacity: 0.4;</c:if>">
+							</c:when>
+							<c:otherwise>
+								<img src="${root}/images/golf-dummy.jpg" style="height: 120px; width: 120px;
+								<c:if test="${myBookingListVO.bookingStatus == '예약취소'}"> opacity: 0.4;</c:if>"> 							
+							</c:otherwise>
+						</c:choose>
 									</a>
 								</div>
 								<div class="col-md-4">
@@ -258,7 +266,7 @@ textarea {
         	},
         	showJoin(date,time){
         		teetime = moment(date).add(time,'hour').format('YYYY-MM-DD hh:mm');
-        		now = moment().format('YYYY-MM-DD hh:mm');
+        		now = moment().format('YYYY-MM-DD HH:mm');
         		console.log(teetime);
         		console.log(now);
         		console.log(moment(teetime) > moment(now));
