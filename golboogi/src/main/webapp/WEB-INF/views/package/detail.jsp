@@ -318,6 +318,7 @@
             </script>
 	
 <!-- 헤더 밑 이미지 타이틀 세션 -->
+<div id="app">
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
@@ -385,14 +386,14 @@
 
     <!--페이지네이션 버튼 -->
     <div class="row justify-content-center mt-5 mb-5" >
-      <button class="button-toggle "  id="button-toggle1"  style="width: 200px;"  >투어정보</button>
-      <button class="button-toggle "  id="button-toggle2"  style="width: 200px;"  >골프장</button>
-      <button class="button-toggle "  id="button-toggle3"  style="width: 200px;" >숙소</button>
-      <button class="button-toggle "  id="button-toggle4"  style="width: 200px;" >후기</button>
+      <button class="button-toggle "  @click="buttonToggle1"  style="width: 200px;"  >투어정보</button>
+      <button class="button-toggle "  @click="buttonToggle2"  style="width: 200px;"  >골프장</button>
+      <button class="button-toggle "  @click="buttonToggle3"  style="width: 200px;" >숙소</button>
+      <button class="button-toggle "  @click="buttonToggle4"  style="width: 200px;" >후기</button>
     </div>
 
    <!--투어정보 페이지1 -->
-   <div id= "divToggle1" style="display: none ;">
+   <div v-show= "divToggle1">
    <div class="row justify-content-center tour-product-info">
       <div class="product-info-item ">
         <div class="product-info-title"><h2>투어 정보</h2></div>
@@ -430,7 +431,7 @@
 </div>
  <!--골프장소개 페이지2 -->
  
-      <div id= "divToggle2" style="display: none; ">
+      <div v-show= "divToggle2">
       <div class="container">
 			
 			<h3 style="font-weight: bold;">골프장 정보 </h3>
@@ -506,7 +507,7 @@
       </div>
   <!--숙소소개 페이지3 -->
 
-      <div id= "divToggle3" style="display: none; ">
+      <div v-show= "divToggle3">
       <div class="container">
 			
 			<h3 style="font-weight: bold;">숙소 정보 </h3>
@@ -577,13 +578,13 @@
       
       
    <!--후기 페이지4 -->
-      <div id= "divToggle4" style="display: none;">
+      <div v-show= "divToggle4">
 			<div class="row justify-content-center" >
 				<div class="text-center mt-5 md-3">
 					<h2 style="font-size: large; color: #7f7f7f">모든 골프장 후기를 모아모아,</h2>
 					<h2 style="font-size: large; color: #7f7f7f">오직 골북이에서 골퍼들의 리뷰를 확인해보세요</h2>
 					<div class="item-cont">
-						<div class="img-box mt-5 mb-5"">
+						<div class="img-box mt-5 mb-5">
 							<h1 style="font-weight: bold; color: #afc666">⛳ . . . 🐢</h1>
 						</div>
 					</div>
@@ -593,9 +594,63 @@
 				</div>
 				</div>
 				</div>
-				</div>
+		</div>
 				
 				</section>
-    
+</div>
+
+<script src="http://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data(){
+            return {
+            	divToggle1:true,
+            	divToggle2:false,
+            	divToggle3:false,
+            	divToggle4:false,
+            };
+        },
+        computed:{
+
+        },
+        methods:{
+        	buttonToggle1(){
+        		this.divToggle1=true;
+        		this.divToggle2=false;
+        		this.divToggle3=false;
+        		this.divToggle4=false;
+        	},
+        	buttonToggle2(){
+        		this.divToggle1=false;
+        		this.divToggle2=true;
+        		this.divToggle3=false;
+        		this.divToggle4=false;
+        	},
+        	buttonToggle3(){
+        		this.divToggle1=false;
+        		this.divToggle2=false;
+        		this.divToggle3=true;
+        		this.divToggle4=false;
+        	},
+        	buttonToggle4(){
+        		this.divToggle1=false;
+        		this.divToggle2=false;
+        		this.divToggle3=false;
+        		this.divToggle4=true;
+        	},
+        },
+        watch:{
+
+        },
+        mounted(){
+
+        }
+    });
+    app.mount("#app");
+</script>
+
+   
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
 

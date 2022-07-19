@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gf.golboogi.repository.BookingDao;
+import com.gf.golboogi.repository.GolfFieldDao;
 import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.PackageDao;
 import com.gf.golboogi.repository.PackageReserveDao;
@@ -27,11 +28,13 @@ import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.entity.PaymentDto;
 import com.gf.golboogi.entity.StayDto;
+import com.gf.golboogi.entity.BookingDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.entity.PackageReserveDto;
 import com.gf.golboogi.entity.PaymentDetailDto;
 import com.gf.golboogi.service.KakaoPayService;
 import com.gf.golboogi.service.PaymentService;
+import com.gf.golboogi.vo.BookingPurchaseVO;
 import com.gf.golboogi.vo.KakaoPayApproveRequestVO;
 import com.gf.golboogi.vo.KakaoPayApproveResponseVO;
 import com.gf.golboogi.vo.KakaoPayCancelRequestVO;
@@ -72,6 +75,9 @@ public class PayController {
 	
 	@Autowired
 	private PaymentService paymentService;
+	
+	@Autowired
+	private GolfFieldDao golfFieldDao;
 	
 
 	
@@ -138,6 +144,51 @@ public class PayController {
 		return "redirect:"+responseVO.getNext_redirect_pc_url();
 	}
 	
+	//골프장 결제
+	@PostMapping("booking/payment")
+	public String golfBookingPayment(
+				@ModelAttribute BookingPurchaseVO bookingPurchaseVO,
+				Model model, HttpSession session
+			) throws URISyntaxException {
+		
+		BookingDto bookingDto = bookingDao.checkBooking(bookingPurchaseVO.getTeeTimeNo(), bookingPurchaseVO.getTeeTimeD());
+		//이미 예약된 상품이라면
+				if(bookingDto != null) {
+					return "redirect:/booking/paymentinfo";
+				}
+				
+		//결제 준비(ready) 요청을 진행
+		int paymentNo = paymentDao.sequence();
+		KakaoPayReadyRequestVO requestVO = 
+									KakaoPayReadyRequestVO.builder()
+												.partner_order_id(String.valueOf(paymentNo))
+												.partner_user_id(session.getId())
+												.item_name("골북이("+bookingPurchaseVO.getFieldName()+")예약")
+												.quantity(bookingPurchaseVO.getQuantity())
+												.total_amount(bookingPurchaseVO.getBookingPrice())
+											.build();
+		KakaoPayReadyResponseVO responseVO = kakaoPayService.ready(requestVO);
+		
+		//결제성공 페이지에서 승인요청을 보내기 위해 알아야할 데이터 3개를 세션에 임시로 추가한다
+		//-> 결제가 성공할지 실패할지 취소될지 모르기 때문에 모든 경우에 추가한 데이터를 지워야 한다
+		session.setAttribute("pay", KakaoPayApproveRequestVO.builder()
+																.tid(responseVO.getTid())
+																.partner_order_id(requestVO.getPartner_order_id())
+																.partner_user_id(requestVO.getPartner_user_id())
+															.build());
+		//추가적으로 결제성공 페이지에서 완료정보를 등록하기 위해 알아야 할 상품구매개수 정보를 같이 전달
+		PurchaseVO purchaseVO= PurchaseVO.builder().no(bookingPurchaseVO.getTeeTimeNo()).build();
+		session.setAttribute("purchase", purchaseVO);//상품이 1개라면
+		//session.setAttribute("purchase", Arrays.asList(purchaseVO));//1.8부터
+		//session.setAttribute("purchase", List.of(purchaseVO));//상품이 여러개라면(9부터)
+		//결제 번호도 세션으로 전달
+		session.setAttribute("paymentNo", paymentNo);
+		
+		//예약을 위한 정보 전달
+		session.setAttribute("bookingPurchaseVO", bookingPurchaseVO);
+					
+		return "redirect:"+responseVO.getNext_redirect_pc_url();
+	}
 	
 	
 	//승인/취소/실패 : 카카오 API에 신청한 URL로 처리
@@ -159,7 +210,10 @@ public class PayController {
 			System.out.println("paymentNo >>>" + paymentNo);
 			session.removeAttribute("paymentNo");
 			
-
+			BookingPurchaseVO bookingPurchaseVO = (BookingPurchaseVO) session.getAttribute("bookingPurchaseVO");
+			System.out.println("bookingPurchaseVO >>>" + bookingPurchaseVO);
+			session.removeAttribute("bookingPurchaseVO");
+			
 			//주어진 정보를 토대로 승인(approve) 요청을 보낸다
 			requestVO.setPg_token(pg_token);
 			KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
@@ -168,7 +222,20 @@ public class PayController {
 			
 			System.out.println("responseVO >>>" + responseVO);
 		
+			
 			paymentService.insert(paymentNo,  responseVO, purchaseVO);
+			
+			if(bookingPurchaseVO != null) {
+				//예약처리
+				 String memberId = (String) session.getAttribute("login"); 
+				 MemberDto memberDto = memberDao.info(memberId); 
+				 bookingPurchaseVO.setMemberId(memberId);
+				 bookingPurchaseVO.setBookingName(memberDto.getMemberName());
+				 bookingDao.payReservation(bookingPurchaseVO);
+				 
+				 //골프장결제 DB저장
+				 bookingDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
+			}
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
 		
 
@@ -228,13 +295,37 @@ public class PayController {
 		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
 
 		//DB 처리
-		paymentDao.cancelAll(paymentDetailNo);
+		paymentDao.cancel(paymentDetailNo);
 
 		return "redirect:more?paymentNo="+paymentDetailDto.getPaymentNo();
 	}
 
 
-	
+	@GetMapping("/booking/cancelPayment")
+	public String cancelBooking(@RequestParam int bookingNo, @RequestParam String fieldName) throws URISyntaxException {
+		
+		int paymentNo = paymentDao.getBookingPaymentNo(bookingNo);
+		PaymentDto paymentDto = paymentDao.find(paymentNo);
+		
+		//실제 취소
+		KakaoPayCancelRequestVO requestVO = 
+									KakaoPayCancelRequestVO.builder()
+										.tid(paymentDto.getPaymentTid())
+										.cancel_amount(paymentDto.getPaymentTotal())
+									.build();
+		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
+		
+		//DB 처리
+		paymentDao.cancel(paymentNo);
+		//예약 취소 처리
+		bookingDao.cancel(bookingNo);
+		//수수료 처리
+		BookingDto bookingDto = bookingDao.info(bookingNo);
+		int commission = bookingDto.getBookingPrice()/10;
+		golfFieldDao.minusCommission(fieldName,commission);
+		
+		return "redirect:/booking/mybooking";
+		}
 	
 	
 

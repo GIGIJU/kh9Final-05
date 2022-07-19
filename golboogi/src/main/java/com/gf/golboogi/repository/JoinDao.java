@@ -21,4 +21,6 @@ public interface JoinDao {
 	List<MyJoinApplyListVO> myJoinApplyList(String memberId);
 	void joinDelete(int joinNo);
 	void joinApplyCancel(int joinApplyNo);
+	JoinDto selectOne(int joinNo);
+	void joinEdit(JoinDto joinDto);
 }

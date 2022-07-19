@@ -35,28 +35,46 @@
 		values(#{bookingNo},#{memberId},#{teeTimeNo},to_date(#{teeTimeD},'YYYY-MM-DD'),#{bookingName},#{bookingPrice},'예약완료',to_date(#{teeTimeD},'YYYY-MM-DD')-7)
 	</insert>	
 	
+
+	<insert id="payInsert" parameterType="BookingDto">
+		insert into booking(booking_no,member_id,tee_time_no,tee_time_d,booking_name,booking_price,booking_status,booking_drop_able)
+		values(#{bookingNo},#{memberId},#{teeTimeNo},to_date(#{teeTimeD},'YYYY-MM-DD'),#{bookingName},#{bookingPrice},'결제완료',to_date(#{teeTimeD},'YYYY-MM-DD')-7)
+	</insert>	
+	
 	<select id="check" parameterType="Map" resultType="BookingDto">
 		select * from booking where tee_time_no=#{teeTimeNo} and tee_time_d=#{teeTimeD} and booking_status='예약완료'
 	</select>	
 
 	<select id="myBookingList" parameterType="String" resultType="MyBookingListVO">
 		select member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
-		booking_price,booking_status,booking_drop_able,booking_no,field_prepay,G.field_no from
+		booking_price,booking_status,booking_drop_able,booking_no,field_prepay,G.field_no, attachment_no from
     booking B 
         inner join tee_time T on B.tee_time_no = T.tee_time_no
         inner join golf_course C on T.course_no = C.course_no
-        inner join golf_field G on G.field_no = C.field_no where member_id= #{memberId}
+        inner join golf_field G on G.field_no = C.field_no  
+        left outer join
+		(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+		left outer join 
+		        golf_profile A on F.field_no = A.field_no
+		        group by f.field_no
+		) A on G.field_no = A.field_no  where member_id= #{memberId}      
         order by booking_no desc
 	</select>
 
 	<select id="myBookingInfo" parameterType="int" resultType="MyBookingListVO">
 		select member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
 		booking_price,booking_status,booking_drop_able,booking_no,field_prepay,
-		field_cartfee,field_caddiefee,booking_date,G.field_no from
+		field_cartfee,field_caddiefee,booking_date,G.field_no,attachment_no from
     booking B 
         inner join tee_time T on B.tee_time_no = T.tee_time_no
         inner join golf_course C on T.course_no = C.course_no
-        inner join golf_field G on G.field_no = C.field_no where booking_no=#{bookingNo}
+        inner join golf_field G on G.field_no = C.field_no 
+        left outer join
+		(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+		left outer join 
+		        golf_profile A on F.field_no = A.field_no
+		        group by f.field_no
+		) A on G.field_no = A.field_no where booking_no=#{bookingNo}
 	</select>
 	
 	<update id="cancel" parameterType="int">
@@ -75,7 +93,11 @@
 	
 	<update id="updateBookingPeople" parameterType="int">
 		update booking set booking_people=4 where tee_time_no =#{teeTimeNo}
-	</update>					
+	</update>	
+	
+	<insert id="paymentInsert" parameterType="Map">
+		insert into booking_payment values(#{bookingNo},#{paymentNo})
+	</insert>				
 </mapper> 
 
 

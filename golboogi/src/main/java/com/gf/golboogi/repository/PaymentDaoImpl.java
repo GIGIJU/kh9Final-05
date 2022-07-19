@@ -85,11 +85,15 @@ public class PaymentDaoImpl implements PaymentDao {
 		return sqlSession.selectOne("paymentDetail.calculateCancelAmount", paymentNo);
 	}
 	
+	//취소
 	@Override
-	@Transactional
-	public void cancelAll(int paymentNo) {
-		sqlSession.update("payment.cancelAll", paymentNo);
-		sqlSession.update("paymentDetail.cancelAll", paymentNo);
+	public void cancel(int paymentNo) {
+		sqlSession.update("payment.cancel", paymentNo);
+	}
+
+	@Override
+	public int getBookingPaymentNo(int bookingNo) {
+		return sqlSession.selectOne("payment.getBookingPaymentNo", bookingNo);
 	}
 
 }
