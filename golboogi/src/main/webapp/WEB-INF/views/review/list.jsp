@@ -78,7 +78,7 @@
 							<div class="review_user_photo" align="center"><img src="${root}/images/user.png" width="70px;" height="70px;" style="border-radius: 50%;"></div>
 						</c:when>
 						<c:otherwise>
-							<div class="review_user_photo" align="center"><img src="/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" width="50px;" height="50px;"></div>
+							<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" width="50px;" height="50px;"></div>
 						</c:otherwise>
 					</c:choose>
 					<div class="review_user_comment">

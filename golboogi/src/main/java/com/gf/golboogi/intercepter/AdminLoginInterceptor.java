@@ -22,7 +22,7 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 		String golfManagerId = (String)session.getAttribute("adminLogin");
 		//String golfManagerGrade = (String)session.getAttribute("auth");
 		if(golfManagerId == null) {
-			response.sendRedirect("/admin/login");
+			response.sendRedirect("/golboogi/admin/login");
 			return false;
 		}
 		return true;
