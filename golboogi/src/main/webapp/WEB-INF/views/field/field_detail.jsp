@@ -171,7 +171,7 @@ body {
 					
 							<a href="${root}/review/write/${info.fieldName}" id="round_review_write_btn" onclick="">라운드 후기 작성</a>
 							<a href="${root}/review/list" id="round_review_show_btn" onclick="">라운드 후기 보기</a>
-							<button id="round_review_write_btn" onclick="">예약하러 가기</button>
+							<a href="${root}/booking/list" id="round_review_show_btn" onclick="">예약하러 가기</a>
 
 						</div>
 
