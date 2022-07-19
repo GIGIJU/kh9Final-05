@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.configurationprocessor.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,8 @@ import com.gf.golboogi.repository.PackageDao;
 import com.gf.golboogi.repository.PackageReserveDao;
 import com.gf.golboogi.repository.PaymentDao;
 import com.gf.golboogi.repository.StayDao;
+import com.gf.golboogi.vo.MyBookingListVO;
+import com.gf.golboogi.vo.PackageReserveVO;
 import com.gf.golboogi.vo.PackageVO;
 
 
@@ -118,9 +121,19 @@ public class PackageController {
 	
 	//예약 목록 보기
 	@GetMapping("/reserve_list")
-	public String reserveList(Model model) {
+	public String reserveList(Model model,HttpSession session) {
+		String memberId = (String) session.getAttribute("login");
+		List<PackageReserveVO> reserveList = packageReserveDao.reserveList(memberId);
+		
+		System.out.println("list = " + paymentDao.list());
 		model.addAttribute("list", paymentDao.list());
+		
+		System.out.println("reserveList = " + reserveList);
+		System.out.println("reserveList >>> = " + JSONObject.wrap(reserveList)  );
+		//System.out.println("reserveList >>> = " + reserveList.get(0).getClass(). );  // GolfFieldDto
+		model.addAttribute("reserveList", reserveList);
 		return "package/reserve_list";
 	}
+	
 }
 	

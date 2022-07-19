@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Context>
+	<Resources cachingAllowed="true" cacheMaxSize="10000"></Resources>
+</Context>

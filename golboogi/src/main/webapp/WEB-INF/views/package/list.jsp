@@ -2,6 +2,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <style>
 	/*Yujin custom style*/
 	        .tour-product-info {
@@ -119,7 +120,7 @@
        <label for="#">체크인</label>
        <div class="form-field">
          <div class="icon"><span class="fa fa-calendar"></span></div>
-         <input type="text"  autocomplete="off" name="packageDepart" id="packageDepart" class="form-control checkin_date" placeholder="Check In">
+         <input type="text"  autocomplete="off" name="packageDepart"  id="datepicker"  class="form-control checkin_date" placeholder="Check In">
        </div>
      </div>
    </div>
@@ -140,9 +141,9 @@
       <div class="icon"><span class="fa fa-chevron-down"></span></div>
       <select name="stayPrice" id="" class="form-control">
         <option value="">전체</option>
-        <option value="100000" id="알뜰">알뜰</option>
-        <option value="300000" id="일반">일반</option>
-        <option value="500000" id="프리미엄">프리미엄</option>
+        <option value="100000" id="알뜰">알뜰 (~10만원)</option>
+        <option value="300000" id="일반">일반 (10~30만원)</option>
+        <option value="500000" id="프리미엄">프리미엄 (30만원~)</option>
       </select>
     </div>
   </div>
@@ -162,7 +163,20 @@
 </div>
 </div>
 </section>
-
+			
+			<!-- 일정없을때 500 -->
+			<c:if test="${list.isEmpty()}">
+			  <div class="container">
+		       <div class="row justify-content-center">
+       				 <div class="text-center mt-5 md-3">
+		        <img src="${root}/images/no-round.svg" >
+		      </br>
+	 	 	    <span   style="font-size: 18px; color:#999999">투어 정보가 없습니다.</span>
+	 	 	</div>
+	 	 	</div>
+	 	 	</div>
+ 			</c:if>
+ 			
 <!-- 패키지 리스트 -->
 <section class="ftco-section">
  <div class="container">
@@ -171,7 +185,18 @@
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
      <a href="detail?packageNo=${PackageVO.packageNo}" class="img" style="background-image: url(${root}/images/hotel-resto-1.jpg);">
-      <span class="price">알뜰</span>
+      <c:choose>
+		<c:when test="${PackageVO.stayDto.stayPrice <=100000}">
+			<span class="price">알뜰</span>
+		</c:when>
+		<c:when test="${PackageVO.stayDto.stayPrice<=300000}">
+			<span class="price" >일반</span>
+		</c:when>
+		<c:otherwise>
+		    <span class="price">프리미엄</span>
+		</c:otherwise>
+	</c:choose>
+							
     </a>
     <div class="text p-4">
 	<span class="days"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${PackageVO.stayDto.stayPrice}" />~</span>
