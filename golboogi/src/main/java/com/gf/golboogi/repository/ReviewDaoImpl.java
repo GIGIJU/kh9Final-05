@@ -1,5 +1,6 @@
 package com.gf.golboogi.repository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.gf.golboogi.entity.ReviewDto;
+import com.gf.golboogi.vo.RecentReviewVO;
 import com.gf.golboogi.vo.ReviewProfileVO;
 
 @Repository
@@ -72,6 +74,12 @@ public class ReviewDaoImpl implements ReviewDao{
 	@Override
 	public Double ratingView(String fieldName) {
 		return sqlSession.selectOne("review.ratingView", fieldName);
+	}
+
+	@Override
+	public List<RecentReviewVO> recentReview(int count) {
+		List<RecentReviewVO> list = sqlSession.selectList("review.recentReview", count); 
+		return list;
 	}
 	
 	
