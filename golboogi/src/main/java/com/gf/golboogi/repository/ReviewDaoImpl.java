@@ -81,6 +81,11 @@ public class ReviewDaoImpl implements ReviewDao{
 		List<RecentReviewVO> list = sqlSession.selectList("review.recentReview", count); 
 		return list;
 	}
+
+	@Override
+	public List<ReviewProfileVO> selectOneFiled(String fieldName) {
+		return sqlSession.selectList("review.oneFiledList", fieldName);
+	}
 	
 	
 }
