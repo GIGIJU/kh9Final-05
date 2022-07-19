@@ -455,7 +455,7 @@ px
 			<c:forEach var="packageReserveVO" items="${reserveList}">
 				<tr>
 				<td>	${packageReserveVO.stayName}</td>
- 				<td>	${packageReserveVO.fieldNo}</td> 
+ 				<td>	${packageReserveVO.fieldName}</td> 
 				<td>	${packageReserveVO.packageDepart}</td>
 				<td>	${packageReserveVO.packageTotalPrice}</td>
 				<td>	${packageReserveVO.packageReserveTime}</td>

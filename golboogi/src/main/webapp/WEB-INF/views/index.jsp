@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-	<div class="hero-wrap js-fullheight" style="background-image: url('images/main4.jpeg');">
+	<div class="hero-wrap js-fullheight" style="background-image: url('images/main4.jpg');">
 		<div class="overlay"></div>
 		<div class="container">
 			<div class="row no-gutters slider-text js-fullheight align-items-center" data-scrollax-parent="true">
@@ -93,12 +93,12 @@
 				<div class="row">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_jeju.avif);">
-								<span class="price">₩ 325,000won/person</span>
+							<a href="${root}/package/list?stayPrice=100000"class="img" style="background-image: url(images/main_jeju.avif);">
+								<span class="price">알뜰</span>
 							</a>
 							<div class="text p-4">
-								<h3><a href="#">Jeju</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Jeju, Korea</p>
+								<h3><a href="${root}/package/list?stayPrice=100000" style="font-weight:bold;">가볍고 똑똑한 골프🙌</a></h3>
+								<p class="location">💰 ~100,000원 </p>
 								<ul>
 								</ul>
 							</div>
@@ -106,12 +106,13 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
-								<span class="price">₩ 364,000/person</span>
+							<a href=${root}/package/list?stayPrice=300000" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
+								<span class="price">일반</span>
 							</a>
 							<div class="text p-4">
-								<h3><a href="#">Gyeongnam</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Gyeongnam, Korea</p>
+							
+								<h3><a href=${root}/package/list?stayPrice=300000" style="font-weight:bold;">남녀노소 모두의 골프🏌️‍♀️‍</a></h3>
+								<p class="location">💰 100,000~300,000원</p>
 								<ul>
 								</ul>
 							</div>
@@ -119,12 +120,12 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="#" class="img" style="background-image: url(images/main_Yongin.jpeg);">
-								<span class="price">₩ 425,000/person</span>
+							<a href="${root}/package/list?stayPrice=500000" class="img" style="background-image: url(images/main_Yongin.jpeg);">
+								<span class="price">프리미엄</span>
 							</a>
 							<div class="text p-4">
-								<h3><a href="#">Gyeonggi</a></h3>
-								<p class="location"><span class="fa fa-map-marker"></span> Gyeonggi, Korea</p>
+								<h3><a href="${root}/package/list?stayPrice=500000" style="font-weight:bold;">당신의 FLEX를 위해💸</a></h3>
+								<p class="location">💰 300,000원~</p>
 								<ul>
 								</ul>
 							</div>
@@ -157,7 +158,7 @@
 									<div class="col-md-12 heading-section ftco-animate">
 										<span class="subheading">Join</span>
 										<h2 class="mb-4">조인, 믿을 수 있는 동반자를 찾는 방법</h2>
-										<p><a href="${root}/join/list" class="btn btn-primary">Find Your Join-partner</a></p>
+										<p><a href="${root}/join/list" class="btn btn-primary" style="width:95%; font-size:20px;">Find Your Join-partner</a></p>
 									</div>
 								</div>
 							</div>
