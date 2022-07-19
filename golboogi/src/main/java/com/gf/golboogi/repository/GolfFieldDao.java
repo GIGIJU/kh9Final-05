@@ -36,7 +36,6 @@ public interface GolfFieldDao {
 	// 골프장 이름으로 검색 @이기주
 	List<GolfFieldDto> searchSimple(); // 리스트 형태로 전체 출력
 	int searchNoByName(String fieldName);
-	GolfFieldDto one(int fieldNo);
 	
 	// 골프장 이름으로 번호 검색 @이기주
 	

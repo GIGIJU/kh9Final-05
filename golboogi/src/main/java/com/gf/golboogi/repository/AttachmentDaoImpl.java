@@ -119,8 +119,7 @@ public class AttachmentDaoImpl implements AttachmentDao {
 	//추가분
 	@Override
 	public boolean delete(int attachmentNo) {
-		// TODO Auto-generated method stub
-		return false;
+		return sqlSession.delete("attachment.delete", attachmentNo) > 0;
 	}
 
 }

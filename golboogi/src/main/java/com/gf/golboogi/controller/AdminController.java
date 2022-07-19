@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,9 +90,9 @@ public class AdminController {
 	public String delete(@RequestParam String golfManagerId) {
 		boolean success = adminDao.delete(golfManagerId);
 		if(success) {
-			return "redirect:list";
+			return "redirect:/admin/list";
 		} else {
-			return "redirect:list?error";
+			return "redirect:/admin/list?error";
 		}
 	}
 	
@@ -110,7 +109,7 @@ public class AdminController {
 			@ModelAttribute AdminVO adminVO
 			) {
 		adminDao.insertManager(adminVO);
-		return "redirect:list";
+		return "redirect:/admin/list";
 	}
 	
 	/* ---------------- 일반회원 관련 ---------------- */
@@ -140,9 +139,9 @@ public class AdminController {
 		String memberId = memberDto.getMemberId();
 		boolean success = adminDao.blacklist(memberDto);
 		if(success) {
-			return "redirect:member_blacklist?memberId="+memberId;
+			return "redirect:/admin/member_blacklist?memberId="+memberId;
 		} else {
-			return "redirect:member_blacklist?error";
+			return "redirect:/admin/member_blacklist?error";
 		}
 	}
 	
@@ -160,7 +159,7 @@ public class AdminController {
 		
 		GolfManagerDto golfManagerDto = adminDao.login(golfManagerId, golfManagerPw);
 		if(golfManagerDto == null) {
-			return "redirect:login?error";
+			return "redirect:/admin/login?error";
 		} else {
 			session.setAttribute("adminLogin", golfManagerDto.getGolfManagerId());
 			session.setAttribute("auth", golfManagerDto.getGolfManagerGrade());
@@ -181,13 +180,23 @@ public class AdminController {
 		return "admin/field_insert";
 	}
 	
+//	@PostMapping("/field_insert")
+//	public String fieldInsert(
+//			@ModelAttribute FieldDetailVO fieldDetailVO,
+//			@RequestParam(required=false) List<MultipartFile> fieldProfile
+//			) throws IllegalStateException, IOException {
+//		golfFieldService.insertVO(fieldDetailVO, fieldProfile); 
+//		return "redirect:/field_list";
+//	}
+
 	@PostMapping("/field_insert")
 	public String fieldInsert(
-			@ModelAttribute FieldDetailVO fieldDetailVO,
-			@RequestParam List<MultipartFile> fieldProfile
+			@ModelAttribute GolfFieldDto golfFieldDto,
+			@ModelAttribute GolfCourseDto golfCourseDto,
+			@RequestParam(required=false) List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException {
-		golfFieldService.insertVO(fieldDetailVO, fieldProfile); 
-		return "redirect:/field_list";
+		golfFieldService.insert(golfFieldDto, golfCourseDto, fieldProfile); 
+		return "redirect:/admin/field_list";
 	}
 	
 	@GetMapping("/field_list")
@@ -203,11 +212,12 @@ public class AdminController {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 //		golfFieldDto.setFieldNo(fieldNo);
 		model.addAttribute("golfFieldDto", golfFieldDto);
+		System.err.println("golfFieldDto = " + golfFieldDto);
 		
-		List<GolfCourseDto> list = golfCourseDao.searchCourseList(fieldNo);
-		model.addAttribute("list", list);
-		
-		log.debug("list = {}", list);
+		List<GolfCourseDto> golfCourseDto = golfCourseDao.searchCourseList(fieldNo);
+		model.addAttribute("golfCourseDto", golfCourseDto);
+		System.err.println("golfCourseDto = " + golfCourseDto);
+//		log.debug("list = {}", list);
 		
 		return "admin/field_detail";
 	}
@@ -223,16 +233,17 @@ public class AdminController {
 //		adminDao.infoEdit(golfFieldDto, golfCourseDto);
 		adminDao.infoEditVO(fieldDetailVO);
 		
-		return "redirect:field_list";
+		return "redirect:/admin/field_list";
 	}
 	
 	
 	@GetMapping("/field_file")
 	public String fieldFile(@RequestParam int fieldNo, Model model) {
-		GolfFieldDto golfFieldDto = golfFieldDao.one(fieldNo);
-		log.debug("golfFieldDto = {}", golfFieldDto);
+		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
+//		System.err.println("1234 = " + golfFieldDto);
 		model.addAttribute(golfFieldDto);
 		List<FieldProfileVO> list = fieldProfileDao.multiInfo(fieldNo);
+//		System.err.println("4321 = " + list);
 		model.addAttribute("list", list);
 		if(list == null) {
 			model.addAttribute("profileUrl", "/images/golf-dummy.jpg");
@@ -248,27 +259,28 @@ public class AdminController {
 	public String fieldFileDelete(@RequestParam int attachmentNo) {
 		boolean success = attachmentDao.delete(attachmentNo);
 		if(success) {
-			return "redirect:field_list";
+			return "redirect:/admin/field_list";
 		} else {
-			return "redirect:list?error";
+			return "redirect:/admin/field_list?error";
 		}
 	}
 	
-	@GetMapping("/field_file_insert")
-	public String fieldFileInsert(@RequestParam int fieldNo, Model model) {
+	@GetMapping("/field_file_update")
+	public String fieldFileUpdate(@RequestParam int fieldNo, Model model) {
 		model.addAttribute("fieldNo", fieldNo);
-		return "admin/field_file_insert";
+		return "admin/field_file_update";
 	}
 	
-	@PostMapping("/field_file_insert")
-	public String fieldFileInsert(
+	@PostMapping("/field_file_update")
+	public String fieldFileUpdate(
 			@ModelAttribute GolfFieldDto golfFieldDto,
 			@RequestParam List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException{
+		int fieldNo = golfFieldDto.getFieldNo();
+		System.err.println("1234 = " + golfFieldDto.getFieldNo());
+		golfFieldService.update(fieldNo, fieldProfile);
 		
-		golfFieldService.update(golfFieldDto, fieldProfile);
-		
-		return "redirect:field_list";
+		return "redirect:/admin/field_list";
 	}
 	
 	/* ---------------- 숙소 관련 ---------------- */
@@ -287,7 +299,7 @@ public class AdminController {
 		
 		stayService.insert(stayDto, stayProfile);
 		
-		return "redirect:stay_list";
+		return "redirect:/admin/stay_list";
 		
 	}
 	
@@ -309,8 +321,9 @@ public class AdminController {
 	
 	@PostMapping("/stay_detail") 
 	public String stayDetail(@ModelAttribute StayDto stayDto) {
+		System.err.println("stayDto = " + stayDto);
 		stayDao.infoEdit(stayDto);
-		return "redirect:stay_list";
+		return "redirect:/admin/stay_list";
 	}
 	
 	@GetMapping("/stay_file")
@@ -334,27 +347,27 @@ public class AdminController {
 	public String stayFileDelete(@RequestParam int attachmentNo) {
 		boolean success = attachmentDao.delete(attachmentNo);
 		if(success) {
-			return "redirect:stay_list";
+			return "redirect:/admin/stay_list";
 		} else {
-			return "redirect:list?error";
+			return "redirect:/admin/list?error";
 		}
 	}
 	
-	@GetMapping("/stay_file_insert")
-	public String stayFileInsert(@RequestParam int stayNo, Model model) {
+	@GetMapping("/stay_file_update")
+	public String stayFileUpdate(@RequestParam int stayNo, Model model) {
 		model.addAttribute("stayNo", stayNo);
-		return "admin/stay_file_insert";
+		return "admin/stay_file_update";
 	}
 	
-	@PostMapping("/stay_file_insert")
-	public String stayFileInsert(
+	@PostMapping("/stay_file_update")
+	public String stayFileUpdate(
 			@ModelAttribute StayDto stayDto,
 			@RequestParam List<MultipartFile> stayProfile
 			) throws IllegalStateException, IOException{
 		
 		stayService.update(stayDto, stayProfile);
 		
-		return "redirect:stay_list";
+		return "redirect:/admin/stay_list";
 	}
 	
 	/* ---------------- 패키지 관련 ---------------- */
@@ -375,7 +388,7 @@ public class AdminController {
 			) {
 		packageDao.insert(packageDto);
 		
-		return "redirect:package_list";
+		return "redirect:/admin/package_list";
 	}
 	
 	// 패키지 상품 리스트

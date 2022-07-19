@@ -2,6 +2,8 @@ package com.gf.golboogi.entity;
 
 
 
+import java.sql.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +21,8 @@ public class GolfFieldDto {
 	private int fieldCaddiefee;
 	private int fieldCartfee;
 	private int fieldGreenfee;
-	private String fieldOpenday;
+//	private String fieldOpenday;
+	private Date fieldOpenday;
 	private int fieldPeople;
 	private int fieldPrepay;
 	private int fieldCommission;
