@@ -6,7 +6,7 @@ import com.gf.golboogi.entity.GolfCourseDto;
 
 public interface GolfCourseDao {
 
-	void courseInsert(GolfCourseDto golfCourseDto, int fieldNo);
+	void courseInsert(GolfCourseDto golfCourseDto);
 
 	List<GolfCourseDto> courseList();
 

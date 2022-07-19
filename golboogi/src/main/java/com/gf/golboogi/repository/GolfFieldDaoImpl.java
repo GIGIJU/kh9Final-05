@@ -206,8 +206,7 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	}
 
 	@Override
-	public void fieldInsert(GolfFieldDto golfFieldDto, int fieldNo) {
-		golfFieldDto.setFieldNo(fieldNo);
+	public void fieldInsert(GolfFieldDto golfFieldDto) {
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 	

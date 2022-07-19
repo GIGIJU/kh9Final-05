@@ -5,6 +5,45 @@ textarea{
 	resize: none;
 }
 </style>
+<script type="text/javascript">
+$(function(){
+	//코스 빼기 버튼 숨기기
+	$(".btn-delCourse").hide();
+	
+	//코스 함수
+	function addCourse(courseNum) {
+		var div = $("<div>").attr('class', 'course'+courseNum);
+		var h6 = $("<hr><br><h6>* 코스"+courseNum+"</h6>");
+			var content = $('<div class="form-floating mb-5">\
+					<input name="courseName" id="course-name" class="form-control" type="text"/>\
+					<label for="course-name">코스 이름</label></div>\
+					<div class="form-floating mb-5"><select name="courseHole" class="form-select" multiple style="height: 80px">\
+					<option value="9홀">9홀</option><option value="18홀">18홀</option></select>\
+					<label for="courseHole">골프장지역</label></div>');
+					
+		div.append(h6).append(content);
+		$("#add-course").append(div);
+		$(".btn-delCourse").show();
+	}
+
+	courseNum = 2;
+	//코스 추가버튼 클릭 시 내용 추가
+	$(".btn-addCourse").click(function() {
+		addCourse(courseNum);
+		courseNum++;
+	});
+
+	//추가한 코스 삭제
+	$(".btn-delCourse").click(function(){
+		courseNum--;
+		$("#add-course").children(".course"+courseNum).remove();
+		if(courseNum==2){
+			$(".btn-delCourse").hide();
+		}
+	});	
+	
+});
+</script>
 <body  class="bg-primary">
 	<div id="layoutAuthentication">
 		<div id="layoutAuthentication_content">
@@ -126,14 +165,16 @@ textarea{
 	                                            
                                             </div><!-- 페이지1 -->
                                             
-                                            <div class="page"><!-- 페이지2 -->
+                                            <!-- 페이지2 -->
+                                            <div class="page">
 	                                            <div class="form-floating mb-5 card-header bg-success">
 	                                            	<h3 class="text-center font-weight-light my-4" style=" color:white;"> 코스 정보 입력 (2/2)</h3>
 	                                            </div>
 	                                            
+	                                            <span>* 코스1</span>
 	                                            <div class="form-floating mb-5">
-	                                            	<input name="courseName" id="courseName" class="form-control" type="text"/>
-	                                                <label for="courseName">코스 이름</label>
+	                                            	<input name="courseName" id="course-name" class="form-control" type="text"/>
+	                                                <label for="course-name">코스 이름</label>
 	                                            </div>
 	                                            
 	                                            <div class="form-floating mb-5">
@@ -143,7 +184,13 @@ textarea{
 	                                            	</select>
 	                                                <label for="courseHole">골프장지역</label>
 	                                            </div>
-	                                            
+												<div id="add-course"></div>
+	                                            <div class="row">
+		                                            <div class="col-md-12" style="text-align: right;">
+														<a class="btn-delCourse"><i class="fa-solid fa-minus"></i></a>
+														<a class="btn-addCourse"><i class="fa-solid fa-plus"></i></a>
+		                                            </div>
+												</div>
 	                                            <div class="mt-4 mb-0">
 	                                                <div class="d-grid">
 	                                                	<input type="submit" class="btn btn-primary" value="골프장 정보 등록">
