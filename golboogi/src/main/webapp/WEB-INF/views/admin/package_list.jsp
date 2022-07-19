@@ -17,8 +17,7 @@
             <i class="fas fa-table me-1"></i>
         </div>
         
-        <div class="card-body">
-            <table id="datatablesSimple">
+        <table class="table text-center">
                 <thead>
                     <tr>
                         <th>숙소 이름</th>
@@ -42,13 +41,12 @@
                     </c:forEach>
                 </tbody>
             </table>
+        <div class="card-footer">
+            <a href="${root}/admin/package_insert"><i class="fa-solid fa-circle-plus"></i>패키지 등록</a>
+        </div>
         </div>
         
-        <div class="card-footer">
-            <a href="${root}/admin/package_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
-        </div>
         
     </div>
-</div>
 
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>    

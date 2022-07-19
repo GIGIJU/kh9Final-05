@@ -15,8 +15,7 @@
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
         </div>
-        <div class="card-body">
-            <table id="datatablesSimple">
+             <table class="table text-center">
                 <thead>
                     <tr>
                         <th>아이디</th>
@@ -50,6 +49,5 @@
             
         </div>
     </div>
-</div>
 
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>
