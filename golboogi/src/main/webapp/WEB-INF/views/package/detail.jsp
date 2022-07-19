@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
@@ -380,8 +381,8 @@
 
     <!--예약 버튼 -->
     <div class="row justify-content-center mt-5 mb-5">
-      <button class="btn btn-success p-2" style="margin-right: 5px; width:10%; font-size: 15px;">날짜변경</button>
-      <button class="btn btn-success" style="width:10%; font-size: 15px;"><a href="${root}/package/reserve?packageNo=${packageVo.packageDto.packageNo}" style="color:white" >예약신청</a></button>
+<!--       <button class="btn btn-success p-2" style="margin-right: 5px; width:10%; font-size: 15px;">날짜변경</button> -->
+      <button class="btn btn-success" style="width:10%; font-size: 17px;"><a href="${root}/package/reserve?packageNo=${packageVo.packageDto.packageNo}" style="color:white" >예약신청</a></button>
     </div>
 
     <!--페이지네이션 버튼 -->
@@ -446,8 +447,8 @@
 						<div class="place_container">
 							<div class="place_content">
 								<div class="place_swiper_container">
-									<div class="swiper-button-next"></div>
-									<div class="swiper-button-prev"></div>
+									<div class="swiper-button-next" style="color: #b8e994;"></div>
+									<div class="swiper-button-prev" style="color: #b8e994;"></div>
 									<div class="swiper mySwiper round_swiper">
 										<div class="swiper-wrapper">
 											<c:choose>
@@ -496,7 +497,6 @@
 								     <li class="list-item">
 									<p class="title">개장일</p>
 									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldOpenday}</p></div>
-<%-- 									 <p><fmt:formatNumber value="${rating}" pattern="#.#"></fmt:formatNumber></p> --%>
 									</li>
 								</ul>
 							</div>
@@ -520,8 +520,8 @@
 						<div class="place_container">
 							<div class="place_content">
 								<div class="place_swiper_container">
-									<div class="swiper-button-next"></div>
-									<div class="swiper-button-prev"></div>
+									<div class="swiper-button-next" style="color: #b8e994;"></div>
+									<div class="swiper-button-prev" style="color: #b8e994;"></div>
 									<div class="swiper mySwiper round_swiper">
 										<div class="swiper-wrapper">
 											<c:choose>

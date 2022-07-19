@@ -121,7 +121,7 @@ public class PayController {
 									KakaoPayReadyRequestVO.builder()
 												.partner_order_id(String.valueOf(paymentNo))
 												.partner_user_id(session.getId())
-												.item_name("골부기투어결제")
+												.item_name("골북이투어결제")
 												.quantity(purchaseVO.getQuantity())
 												.total_amount(totalAmount)
 											.build();
@@ -269,35 +269,32 @@ public class PayController {
 		return "pay/fail";
 	}
 	
-	@GetMapping("/history")
+	@GetMapping("/pay/list")
 	public String history(Model model) {
 		model.addAttribute("list", paymentDao.list());
 		return "pay/list";
 	}
 	
 	@GetMapping("/cancel")
-	public String cancelDetail(@RequestParam int paymentDetailNo) throws URISyntaxException {
+	public String cancelDetail(@RequestParam int paymentNo) throws URISyntaxException {
 		//정보 조회
-		PaymentDetailDto paymentDetailDto = paymentDao.findDetail(paymentDetailNo);
-		if(paymentDetailDto == null) {
+		PaymentDto paymentDto = paymentDao.find(paymentNo);
+		if(paymentDto == null) {
 			//404 처리
 			//throw new CannotFindException();
 		}
-
-		PaymentDto paymentDto = paymentDao.find(paymentDetailDto.getPaymentNo());
 
 		//실제 취소
 		KakaoPayCancelRequestVO requestVO = 
 									KakaoPayCancelRequestVO.builder()
 										.tid(paymentDto.getPaymentTid())
-										.cancel_amount(paymentDetailDto.getPaymentDetailPrice())
+										.cancel_amount(paymentDto.getPaymentTotal())
 									.build();
 		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
 
 		//DB 처리
-		paymentDao.cancel(paymentDetailNo);
 
-		return "redirect:more?paymentNo="+paymentDetailDto.getPaymentNo();
+		return "redirect:list?paymentNo="+paymentDto.getPaymentNo();
 	}
 
 

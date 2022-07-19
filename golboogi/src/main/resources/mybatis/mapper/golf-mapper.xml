@@ -100,7 +100,7 @@
 				</if>
 	 			<if test="fieldGreenfee > 0">
 				<![CDATA[
-					and field_greenfee <= #{fieldGreenfee}
+					and field_greenfee <= #{fieldGreenfee} 
 				]]>
 				</if>
 			</where> 

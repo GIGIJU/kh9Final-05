@@ -156,26 +156,26 @@
 			on F.field_no = P.field_no
           <where>
           and P.package_no is not null 
+<!--           and minus P.package_status='예약완료' -->
           <if test="stayLocal !='' and stayLocal!=null">
           	AND S.stay_local = #{stayLocal}
           </if>
           <if test="packageDepart !='' and stayLocal!=null">
           AND P.package_depart = #{packageDepart}
           </if>
-          <if test="stayPrice> 0">
-          	<![CDATA[
-          AND S.stay_price <= #{stayPrice}
-           	]]> 
+          <if test="stayPrice> 0 and stayPrice!=''">
+            <choose>
+        	<when test="stayPrice==100000">AND S.stay_price<![CDATA[<=]]> #{stayPrice} </when>
+        	<when test="stayPrice==300000">AND S.stay_price<![CDATA[>=]]>100000 and S.stay_price<![CDATA[<=]]>#{stayPrice} </when>
+        	<when test="stayPrice==500000">AND S.stay_price<![CDATA[>]]>300000 </when>
+        	</choose>
           </if>
           </where>
-<!--        		<choose> -->
-<!--         <when test="stayLocal !=null">AND stay_local like #{stayLocal}</when> -->
-<!--         <when test="packageDepart !=null">AND package_depart like #{packageDepart}</when> -->
-<!--         <when test="stayPrice !=null">AND stayPrice like #{stayPrice}</when> -->
-<!--         </choose> -->
-<!--         </where> -->
 	</select>
 
+		<update id="dateUpdate" parameterType="int">
+		update package_booking set  package_depart=#{packageDepart} 
+		</update>
 
 </mapper> 
 
