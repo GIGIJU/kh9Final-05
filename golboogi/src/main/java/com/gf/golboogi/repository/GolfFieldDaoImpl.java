@@ -210,6 +210,11 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
 
+	@Override
+	public boolean delete(int fieldNo) {
+		return sqlSession.delete("golfField.delete", fieldNo) > 0;
+	}
+
 	
 	
 

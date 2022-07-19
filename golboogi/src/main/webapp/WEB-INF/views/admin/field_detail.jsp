@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
 <style>
 textarea{
@@ -188,7 +189,17 @@ textarea{
 	                                            
 	                                            <div class="mt-4 mb-0">
 	                                                <div class="d-grid">
-	                                                	<input type="submit" class="btn btn-primary" value="골프장 정보 등록">
+	                                                	<input type="submit" class="btn btn-primary" value="골프장 정보 수정">
+	                                                </div>
+	                                            </div>
+	                                            <div class="mt-4 mb-0">
+	                                                <div class="d-grid">
+	                                                	<a href="${root}/admin/field_list" class="btn btn-secondary">돌아가기</a>
+	                                                </div>
+	                                            </div>
+	                                            <div class="mt-4 mb-0">
+	                                                <div class="d-grid">
+	                                                	<a href="${root}/admin/field_delete?fieldNo=${golfFieldDto.fieldNo}" class="btn btn-danger">삭제하기</a>
 	                                                </div>
 	                                            </div>
 	                                            

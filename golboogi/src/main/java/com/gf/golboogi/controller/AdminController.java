@@ -236,6 +236,16 @@ public class AdminController {
 		return "redirect:/admin/field_list";
 	}
 	
+	@GetMapping("/field_delete")
+	public String fieldDelete(@RequestParam int fieldNo) {
+		boolean success = golfFieldDao.delete(fieldNo);
+		if(success) {
+			return "redirect:/admin/field_list";
+		} else {
+			return "redirect:/admin/field_list?error";
+		}
+	}
+	
 	
 	@GetMapping("/field_file")
 	public String fieldFile(@RequestParam int fieldNo, Model model) {
@@ -325,6 +335,17 @@ public class AdminController {
 		stayDao.infoEdit(stayDto);
 		return "redirect:/admin/stay_list";
 	}
+	
+	@GetMapping("/stay_delete")
+	public String stayDelete(@RequestParam int stayNo) {
+		boolean success = stayDao.delete(stayNo);
+		if(success) {
+			return "redirect:/admin/stay_list";
+		} else {
+			return "redirect:/admin/stay_list?error";
+		}
+	}
+	
 	
 	@GetMapping("/stay_file")
 	public String stayFile(@RequestParam int stayNo, Model model) {
