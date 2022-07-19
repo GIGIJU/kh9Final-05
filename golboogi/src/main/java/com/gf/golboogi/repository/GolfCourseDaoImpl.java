@@ -16,7 +16,7 @@ public class GolfCourseDaoImpl implements GolfCourseDao{
 	
 	@Override
 	public void courseInsert(GolfCourseDto golfCourseDto) {
-		int sequence = sqlSession.selectOne("course.sequence");
+		int sequence = sqlSession.selectOne("course.sequence");//이거 이상하다 고쳐야할듯?
 		sqlSession.insert("course.insert", golfCourseDto);
 		
 	}
@@ -30,8 +30,7 @@ public class GolfCourseDaoImpl implements GolfCourseDao{
 
 	@Override
 	public List<GolfCourseDto> searchCourseList(int fieldNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("course.searchCourseList", fieldNo);
 	}
 
 	

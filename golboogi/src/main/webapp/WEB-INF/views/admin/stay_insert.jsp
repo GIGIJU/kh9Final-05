@@ -40,6 +40,11 @@ textarea{
 										       	</select>
 										       	 <label for="stayRoom">객실 타입</label>
 										    </div>
+										    
+                                            <div class="form-floating mb-5">
+                                                <input name="stayPrice"  class="form-control" id="stayPrice" type="number" placeholder="'-' 제외"  min="0" />
+                                                <label for="stayPrice">숙소 가격</label>
+                                            </div>
                                             
                                             <div class="form-floating mb-5">
                                                 <input name="stayPhone"  class="form-control" id="stayPhone" type="tel" placeholder="'-' 제외" />

@@ -17,7 +17,9 @@ public interface GolfFieldService {
 	List<GolfFieldVO> selectFieldList();
 	
 	//추가분
-	void update(GolfFieldDto golfFieldDto, List<MultipartFile> fieldProfile);
+//	void insert(GolfFieldDto golfFieldDto, GolfCourseDto golfCourseDto, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
+	
+	void update(int fieldNo, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
 
 	void insertVO(FieldDetailVO fieldDetailVO, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
 

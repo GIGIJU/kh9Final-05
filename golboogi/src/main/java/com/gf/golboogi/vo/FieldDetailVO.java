@@ -16,5 +16,6 @@ import lombok.Data;
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
 public class FieldDetailVO {
 	private GolfFieldDto golfFieldDto;
+//	private GolfCourseDto golfCourseDto;
 	private List<GolfCourseDto> golfCourseDto;
 }

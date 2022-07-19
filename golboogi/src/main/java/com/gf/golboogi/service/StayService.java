@@ -13,7 +13,7 @@ public interface StayService {
 	
 	
 	//추가분
-	void update(StayDto stayDto, List<MultipartFile> stayProfile);
+	void update(StayDto stayDto, List<MultipartFile> stayProfile) throws IllegalStateException, IOException;
 
 
 }

@@ -45,7 +45,7 @@
         </div>
         
         <div class="card-footer">
-            <a href="package_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
+            <a href="package_insert"><i class="fa-solid fa-circle-plus"></i>패키지 등록</a>
         </div>
         
     </div>

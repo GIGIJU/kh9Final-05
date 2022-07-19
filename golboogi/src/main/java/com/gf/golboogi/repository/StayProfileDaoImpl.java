@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gf.golboogi.vo.FieldProfileVO;
 import com.gf.golboogi.vo.StayProfileVO;
 
 @Repository
@@ -27,8 +28,12 @@ public class StayProfileDaoImpl implements StayProfileDao{
 
 	@Override
 	public List<StayProfileVO> multiInfo(int stayNo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<StayProfileVO> list = sqlSession.selectList("stayProfile.multiInfo", stayNo);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
 	}
 
 }

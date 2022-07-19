@@ -41,8 +41,12 @@
 		)
 	</insert>
 	
-	<select id="courseLIst" resultType="GolfCourseDto">
+	<select id="courseList" resultType="GolfCourseDto">
 		select * from golf_course
+	</select>
+	
+	<select id="searchCourseList" parameterType="int" resultType="GolfCourseDto">
+		select * from golf_course where field_no = #{fieldNo}
 	</select>
 	
 </mapper> 
