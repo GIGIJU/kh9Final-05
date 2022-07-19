@@ -1,6 +1,5 @@
 package com.gf.golboogi;
 
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -10,9 +9,7 @@ import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.repository.StayDao;
 import com.gf.golboogi.service.StayService;
 
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @SpringBootTest
 @ActiveProfiles("local")
 @TestPropertySource(locations = "classpath:./application-local.properties")
@@ -24,7 +21,7 @@ public class StayTest {
 	@Autowired
 	private StayDao stayDao;
 	
-	@Test
+//	@Test
 	public void test() {
 		StayDto stayDto  = StayDto.builder()
 								.stayName("테스트숙소")

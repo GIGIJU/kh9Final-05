@@ -22,7 +22,8 @@ public class ReviewProfileVO {
 	private double reviewCos;
 	private double reviewPrice;
 	private double reviewFacility;
-	private String review_content;
+	private String reviewContent;
 	private String memberName;
+	private String memberNick;
 	private int attachmentNo;
 }

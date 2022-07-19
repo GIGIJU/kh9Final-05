@@ -1,9 +1,6 @@
 package com.gf.golboogi;
 
-import java.util.List;
-
 import org.apache.ibatis.session.SqlSession;
-import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -12,9 +9,6 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @SpringBootTest
 @WebAppConfiguration
 public class FieldDetailTest {
@@ -23,7 +17,7 @@ public class FieldDetailTest {
 	@Autowired private GolfFieldDao golfFieldDao;
 	@Autowired private FieldProfileDao fieldProfileDao;
 	
-	@Test
+//	@Test
 	public void test() {
 		GolfFieldDto dto = GolfFieldDto.builder()
 								.fieldNo(999)

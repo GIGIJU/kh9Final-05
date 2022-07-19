@@ -89,7 +89,7 @@ body {
 	</section>
 
 	<section class="place_container">
-		<h3>${info.fieldName}</h3>
+		<h3 class="fieldName">${info.fieldName}</h3>
 		<div class="place_content">
 			<p class="place_photo_tit">사진</p>
 			<div class="place_swiper_container">
@@ -180,8 +180,12 @@ body {
 		</div>
 		</script>
 		</div>
+		
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div id="map" style="width:100%;height:350px;"></div>
+		</div>
 	</section>
-<div id="map" style="width:100%;height:350px;"></div>
+
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b03de227a4e196a92952ccb566363417&libraries=services"></script>
 <script>
@@ -190,6 +194,8 @@ var mapContainer = document.getElementById('map'), // 지도를 표시할 div
         center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
         level: 3 // 지도의 확대 레벨
     };  
+
+var fieldName = $(".fieldName").text();
 
 // 지도를 생성 
 var map = new kakao.maps.Map(mapContainer, mapOption); 
@@ -210,10 +216,10 @@ geocoder.addressSearch('${info.fieldBasicAddress}', function(result, status) {
             map: map,
             position: coords
         });
-
+		
         // 인포윈도우로 장소에 대한 설명을 표시
         var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">우리회사</div>'
+            content: '<div style="width:150px;text-align:center;padding:6px; border: 2px solid green; background-color: green; color:white;">'+fieldName+'</div>'
         });
         infowindow.open(map, marker);
 

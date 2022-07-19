@@ -31,7 +31,6 @@ import com.gf.golboogi.repository.MemberDao;
 import com.gf.golboogi.repository.MemberProfileDao;
 import com.gf.golboogi.service.MailService;
 import com.gf.golboogi.service.MemberService;
-import com.gf.golboogi.vo.MemberProfileVO;
 
 
 @Controller
@@ -115,12 +114,12 @@ public class MemberController {
 			HttpSession session) {
 		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
-		
-		
 		if(memberDto == null) {
 			return "redirect:login?error";
-		} else if(memberDto.getMemberGrade()==1) {
-			return "redirect:blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
+		}
+		
+		if(memberDto != null && memberDto.getMemberGrade()==1) {
+			return "member/blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
 		} else {
 			session.setAttribute("login", memberDto.getMemberId());
 			session.setAttribute("auth", memberDto.getMemberGrade());
@@ -130,16 +129,15 @@ public class MemberController {
 	}
 
 	@GetMapping("blacklist")
-	public String blacklist() {
-		return "member/blacklist";
-		// 블랙리스트임을 알려주는 페이지 구현중 / 이기주
+	public String blacklist(HttpSession session) {
+			return "member/blacklist";
 	}
 
 	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
-		session.removeAttribute("login");
-		session.removeAttribute("auth");
-		return "redirect:/";
+			session.removeAttribute("login");
+			session.removeAttribute("auth");
+			return "redirect:/";
 	}
 	
 	@GetMapping("/mypage")
@@ -174,13 +172,14 @@ public class MemberController {
 	@PostMapping("/edit")
 	public String edit(HttpSession session,@ModelAttribute MemberDto memberDto) {
 		String memberId = (String) session.getAttribute("login");
-		memberDto.setMemberId(memberId);
-		boolean success = memberDao.changeInformation(memberDto);
-		if(success) {
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
+			memberDto.setMemberId(memberId);
+			memberDao.changeInformation(memberDto);
 			return "redirect:mypage";
-		}
-		else {
-			return "redirect:edit?error";
+		}else {
+			throw new CannotFindException();
 		}
 	}
 	
@@ -195,11 +194,13 @@ public class MemberController {
 			@RequestParam String changePw,
 			HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
-		boolean isSuccess = memberDao.ChangePassword(memberId,memberPw,changePw);
-		if(isSuccess) {
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
+			memberDao.ChangePassword(memberId,memberPw,changePw);
 			return "redirect:mypage";
 		}else {
-			return "redirect:password?error";
+			throw new CannotFindException();
 		}
 	}
 	
@@ -218,12 +219,13 @@ public class MemberController {
 			@RequestParam String memberPw
 			) {
 		String memberId = (String) session.getAttribute("login");
-		boolean success = memberDao.exit(memberId,memberPw);
-		if(success) {
+		MemberDto findDto = memberDao.info(memberId);
+		boolean MyCheck = findDto.getMemberId() == memberId;
+		if(MyCheck) {
 			session.removeAttribute("login");
 			return "redirect:exit_success";
 		}else {
-			return "redirect:exit?error";
+			throw new CannotFindException();
 		}
 	}
 	
@@ -374,7 +376,13 @@ public class MemberController {
 	public String memberProfile(HttpSession session,
 			@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
 		String memberId = (String)session.getAttribute("login");
-		memberService.changeProfile(memberId, memberProfile);
-		return "redirect:mypage";
+		String checkId = memberProfileDao.MyCheck(memberId);
+		boolean MyCheck = memberId == checkId;
+		if(MyCheck) {
+			memberService.changeProfile(memberId, memberProfile);
+			return "redirect:mypage";
+		}else {
+			throw new CannotFindException();
+		}
 	}
 }

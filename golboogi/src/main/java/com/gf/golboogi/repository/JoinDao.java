@@ -5,6 +5,7 @@ import java.util.List;
 import com.gf.golboogi.entity.JoinApplyDto;
 import com.gf.golboogi.entity.JoinDto;
 import com.gf.golboogi.vo.JoinListVO;
+import com.gf.golboogi.vo.MyJoinApplyListVO;
 import com.gf.golboogi.vo.MyJoinListVO;
 
 public interface JoinDao {
@@ -17,4 +18,7 @@ public interface JoinDao {
 	int getjoinNo(int joinApplyNo);
 	void joinApplyApprove(int joinApplyNo);
 	void joinApplyRefuse(int joinApplyNo);
+	List<MyJoinApplyListVO> myJoinApplyList(String memberId);
+	void joinDelete(int joinNo);
+	void joinApplyCancel(int joinApplyNo);
 }

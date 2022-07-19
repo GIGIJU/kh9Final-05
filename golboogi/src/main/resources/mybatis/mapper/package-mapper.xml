@@ -155,7 +155,7 @@
 			left outer join  golf_field F
 			on F.field_no = P.field_no
           <where>
-          and P.package_no is not null
+          and P.package_no is not null 
           <if test="stayLocal !='' and stayLocal!=null">
           	AND S.stay_local = #{stayLocal}
           </if>

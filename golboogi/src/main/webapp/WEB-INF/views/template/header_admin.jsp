@@ -42,17 +42,20 @@
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">회원관리메뉴</div>
                             <a class="nav-link" href="${root}/admin/member_list">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 일반회원목록
                             </a>
                             <a class="nav-link" href="${root}/admin/list">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                                 골프장관리자목록
                             </a>
                             <div class="sb-sidenav-menu-heading">정보등록</div>
-                            <a class="nav-link" href="${root}/admin/field_insert">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-golf-ball-tee"></i></div>
-                                골프장 등록
+                            <a class="nav-link" href="${root}/admin/field_list">
+                                골프장 목록
+                            </a>
+                            <a class="nav-link" href="${root}/admin/stay_list">
+                                숙소 목록
+                            </a>
+                            <a class="nav-link" href="${root}/admin/package_list">
+                                패키지 목록
                             </a>
                             
                         </div>
