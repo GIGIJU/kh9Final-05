@@ -27,4 +27,6 @@ public interface ReviewDao {
 	Double ratingView(String fieldName);
 
 	List<RecentReviewVO> recentReview(int count);
+	
+	List<ReviewProfileVO> selectOneFiled(String fieldName);
 }
