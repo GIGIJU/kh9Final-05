@@ -7,7 +7,9 @@ import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Cookie;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -110,21 +112,38 @@ public class MemberController {
 	public String login(
 			@RequestParam String memberId,
 			@RequestParam String memberPw,
+			@RequestParam(required=false) String remember,
 			@RequestParam String referer,
-			HttpSession session) {
+			HttpSession session,
+			HttpServletResponse response) {
 		
 		MemberDto memberDto = memberDao.login(memberId,memberPw);
-		if(memberDto == null) {
+		if(memberDto != null && memberDto.getMemberGrade()==1) {
+			return "member/blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
+		} 
+		
+		if(memberDto != null) {//로그인 성공
+			//세션
+			session.setAttribute("login", memberDto.getMemberId());
+			session.setAttribute("auth", memberDto.getMemberGrade());
+			
+			//쿠키
+			if(remember != null) {//체크하고 로그인 했으면 -> 쿠키 발행
+				Cookie ck = new Cookie("saveId", memberDto.getMemberId());
+				ck.setMaxAge(4 * 7 * 24 * 60 * 60);//4주
+				response.addCookie(ck);
+			}
+			else {//체크안하고 로그인 했으면 -> 쿠키 삭제
+				Cookie ck = new Cookie("saveId", memberDto.getMemberId());
+				ck.setMaxAge(0);
+				response.addCookie(ck);
+			}
+			return "redirect:" + referer;
+		}
+		else {//로그인 실패
 			return "redirect:login?error";
 		}
 		
-		if(memberDto != null && memberDto.getMemberGrade()==1) {
-			return "member/blacklist"; // 로그인시 블랙리스트인지 판정 / 이기주
-		} else {
-			session.setAttribute("login", memberDto.getMemberId());
-			session.setAttribute("auth", memberDto.getMemberGrade());
-			return "redirect:" + referer;
-		}
 		
 	}
 

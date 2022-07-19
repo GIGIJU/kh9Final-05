@@ -52,8 +52,8 @@
 				$(this).val(encData);
 			});
 		});
-	}); 
-	</script>
+	});
+</script>
 	
 </head>
 <body>
