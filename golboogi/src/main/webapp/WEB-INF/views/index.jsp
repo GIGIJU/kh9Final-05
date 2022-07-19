@@ -88,7 +88,7 @@
 					<div class="col-md-12 heading-section text-center ftco-animate">
 						<span class="subheading">Tour Destination</span>
 						<h2 class="mb-4">골프 투어, 나만을 위한 럭셔리 맞춤 서비스</h2>
-					</div>
+					</div>  
 				</div>
 				<div class="row">
 					<div class="col-md-4 ftco-animate">
