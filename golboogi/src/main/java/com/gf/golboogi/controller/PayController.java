@@ -233,6 +233,10 @@ public class PayController {
 				 bookingPurchaseVO.setBookingName(memberDto.getMemberName());
 				 bookingDao.payReservation(bookingPurchaseVO);
 				 
+				//수수료 추가
+				int commission = bookingPurchaseVO.getBookingPrice()/10;
+				golfFieldDao.addCommission(bookingPurchaseVO.getFieldName(),commission);
+				 
 				 //골프장결제 DB저장
 				 bookingDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
 			}

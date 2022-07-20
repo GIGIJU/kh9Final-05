@@ -113,9 +113,8 @@ textarea {
 					<input type="hidden" name="p" value="1" class="form-input">
 					<input type="hidden" name="s" value="10" class="form-input">
 				<select name="type" style="height: 30px; margin-right: 3px; font-size: 12px;">
-					<option value="">선택</option>
- 					<option value="field_area" <c:if test="${type == 'field_area'}">selected</c:if>>지역</option>
 					<option value="field_name" <c:if test="${type == 'field_name'}">selected</c:if>>골프장</option>
+ 					<option value="field_area" <c:if test="${type == 'field_area'}">selected</c:if>>지역</option>
 					<option value="member_nick" <c:if test="${type == 'member_nick'}">selected</c:if>>등록자</option> 
 				</select>
 				<input type="text" name="keyword" placeholder="검색어입력" value="${param.keyword}" autocomplete="off"
@@ -140,6 +139,9 @@ textarea {
 				 	</tr>
 			 	</thead>
 			 	<tbody>
+			 	<c:if test="${list.isEmpty()}">
+			 		<tr><td colspan="9"><img src="https://image.smartscore.kr/pc4/no-round.svg"><br>검색 결과가 없습니다.</td></tr>
+			 	</c:if>
 			 	<c:forEach var="joinListVO" items="${list}">
 				 	<tr class="show-detail">
 				 		<fmt:parseDate var="teeTimeD"  value="${joinListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
@@ -163,7 +165,7 @@ textarea {
 			 		<tr style="display: none; text-align: left; background-color: #F2FFED;">
 			 			<td colspan="4">
 			 				 [ ${joinListVO.fieldName} : ${joinListVO.courseName} ]<br>
-							 * ${joinListVO.joinInfo}<br>
+							 <i class="fa-solid fa-comment" style="transform: scaleX(-1);"></i> ${joinListVO.joinInfo}<br>
 							 
 						</td>
 			 			<td colspan="4" style="text-align: right;">

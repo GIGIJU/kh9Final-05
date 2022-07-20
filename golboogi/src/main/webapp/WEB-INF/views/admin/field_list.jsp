@@ -4,7 +4,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
-    
+<style>
+.tagcloud {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 7px;
+    margin-right: 4px;
+    border-radius: 4px;
+    color: #000000;
+    border: 1px solid #ccc;
+    font-size: 11px;
+}
+</style>   
 <div class="container-fluid px-4">
     <h1 class="mt-4">골프장 목록</h1>
     <ol class="breadcrumb mb-4">
@@ -39,7 +51,11 @@
 						<td>${golfFieldVO.fieldArea}</td>
 						<td>${golfFieldVO.fieldPhone}</td>
 						<td>
-							<fmt:formatNumber value="${golfFieldVO.fieldCommission}" type="currency" currencySymbol="₩"/>
+						<div class="row">
+							<div class="col-6"><fmt:formatNumber value="${golfFieldVO.fieldCommission}" type="currency" currencySymbol="₩"/></div>
+							<div class="col-6" style="text-align: right;">
+							<a href="reset_commission/${golfFieldVO.fieldNo}" class="btn tagcloud">정산완료</a></div>
+						</div>
 						</td>
 						<td>
 							<a href="field_detail?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-primary">이동</a>

@@ -122,11 +122,11 @@ textarea {
 		<div class="row mb-3">
 			<div class="col-md-4">
 			<c:choose>
-				<c:when test="${myBookingListVO==null}">
+				<c:when test="${myBookingListVO.attachmentNo==null}">
 					<img src="${root}/images/golf-dummy.jpg" width="200" height="190" style="border-radius: 100%;">
 				</c:when>
 				<c:otherwise>
-					<img src="${root}$/attachment/download?attachmentNo=${myBookingListVO.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
+					<img src="${root}/attachment/download?attachmentNo=${myBookingListVO.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
 				</c:otherwise>
 			</c:choose>
 			</div>

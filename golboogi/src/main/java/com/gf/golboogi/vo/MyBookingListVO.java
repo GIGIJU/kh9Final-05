@@ -25,4 +25,5 @@ public class MyBookingListVO {
 	private int fieldCaddiefee;
 	private Date bookingDate;
 	private int attachmentNo;
+	private int joinNo;
 }

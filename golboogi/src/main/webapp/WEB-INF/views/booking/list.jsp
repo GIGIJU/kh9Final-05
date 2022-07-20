@@ -164,7 +164,7 @@
 				<div class="row mb-3">
 					<div class="col-md-6 text-left"><h4 style="font-weight: bold;">선결제 골프장</h4></div>
 					<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
-					<a href="list_all?type=feild_prepay" style="font-size: 12px; color: gray;">더보기 ></a>
+					<a href="list_all?type=field_prepay" style="font-size: 12px; color: gray;">더보기 ></a>
 					</div>
 				</div>
 					<div class="row">
@@ -205,7 +205,7 @@
 				<div class="row mb-3">
 					<div class="col-md-6 text-left"><h4 style="font-weight: bold;">비용 부담없이 가볍게</h4></div>
 					<div  class="col-md-6 text-right" style=" vertical-align: bottom;">
-					<a href="list_all?type=feild_greenfee" style="font-size: 12px; color: gray;">더보기 ></a>
+					<a href="list_all?type=field_greenfee" style="font-size: 12px; color: gray;">더보기 ></a>
 					</div>
 				</div>
 					<div class="row">

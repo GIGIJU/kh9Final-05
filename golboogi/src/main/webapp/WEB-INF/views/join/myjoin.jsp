@@ -128,7 +128,7 @@ textarea {
 	 	</thead>
 	 	<tbody>
 	 	 	<c:if test="${joinList.isEmpty()}">
-	 	 	<tr><td colspan="9">
+	 	 	<tr><td colspan="10">
 	 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
 	 	 	<br><span style="font-size: 15px;">조인 등록 내역이 없습니다.</span>
 	 	 	</td></tr>
@@ -174,7 +174,7 @@ textarea {
 				<td colspan="2" style="text-align: right;">
 				<c:choose>
 					<c:when test="${JoinApplyListVO.joinApplyStatus==0}">
-						<a href="apply_approve/joinApplyNo/${JoinApplyListVO.joinApplyNo}/joinApplyPeople/${JoinApplyListVO.joinApplyPeople}" class="tagcloud">승인</a>
+						<span style="cursor: pointer;" class="tagcloud" @click="approveJoin(${JoinApplyListVO.joinApplyNo},${JoinApplyListVO.joinApplyPeople},${MyJoinListVO.joinListVO.joinPeople})">승인</span>
 						<a href="apply_refuse/${JoinApplyListVO.joinApplyNo}" class="tagcloud">거절</a>
 					</c:when>
 					<c:when test="${JoinApplyListVO.joinApplyStatus==1}"><div class="tagcloud" style="color: #686de0;">승인완료</div></c:when>
@@ -209,7 +209,7 @@ textarea {
 	 	</thead>
 	 	<tbody>
 	 		<c:if test="${joinApplyList.isEmpty()}">
-		 	 	<tr><td colspan="9">
+		 	 	<tr><td colspan="7">
 		 	 	<img src="https://image.smartscore.kr/pc4/no-round.svg">
 		 	 	<br><span style="font-size: 15px;">조인 신청 내역이 없습니다.</span>
 		 	 	</td></tr>
@@ -223,7 +223,7 @@ textarea {
 		 		<td><fmt:formatNumber value="${MyJoinApplyListVO.bookingPrice}"/></td>
 		 		<td>${MyJoinApplyListVO.memberNick}</td>
  				<c:choose>
-		 			<c:when test="${joinListVO.joinStatus==0}"><td>모집중</td></c:when>
+		 			<c:when test="${MyJoinApplyListVO.joinStatus==0}"><td>모집중</td></c:when>
 		 			<c:otherwise><td>마감</td></c:otherwise>
 		 		</c:choose>
 		 	</tr>
@@ -344,6 +344,13 @@ textarea {
         	hiddenModal(){
         		$(".modal").hide();
         	},
+        	approveJoin(joinApplyNo,joinApplyPeople,joinPeople){
+        		if(joinPeople<joinApplyPeople){
+        			alert("신청 인원 수가 필요 인원 수 보다 많으면 승인이 불가합니다.");
+        			return;
+        		}
+        		window.location.href="apply_approve/joinApplyNo/"+joinApplyNo+"/joinApplyPeople/"+joinApplyPeople;
+        	}
         },
         watch:{
 
