@@ -46,7 +46,7 @@
             </table>
         </div>
         <div class="card-footer">
-            <a href="${root}/golboogi/admin/field_insert"><i class="fa-solid fa-circle-plus"></i>골프장 등록</a>
+            <a href="${root}/admin/field_insert"><i class="fa-solid fa-circle-plus"></i>골프장 등록</a>
         </div>
         
     </div>

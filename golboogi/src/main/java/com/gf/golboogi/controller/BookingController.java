@@ -227,21 +227,13 @@ public class BookingController {
 		BookingDto bookingDto = bookingDao.info(bookingNo);
 		//int paymentNo = paymentDao.getBookingPaymentNo(bookingNo);
 		//PaymentDto paymentDto = paymentDao.find(paymentNo);
-		
+		System.out.println(myBookingListVO);
+	
 		model.addAttribute("myBookingListVO", myBookingListVO);
 		model.addAttribute("memberDto", memberDto);
 		model.addAttribute("bookingDto", bookingDto);
 		//model.addAttribute("paymentDto", paymentDto);
-		
-		//골프장 이미지 다운로드 주소 추가 
-		List<FieldProfileVO> list = fieldProfileDao.multiInfo(myBookingListVO.getFieldNo());
-		model.addAttribute("list", list);
-		if(list == null) {
-			model.addAttribute("profileUrl", "/images/golf-dummy.jpg");
-		}
-		else {
-			model.addAttribute("profileUrl", "/attachment/download?attachmentNo=");
-		}
+
 		return "booking/mybooking_detail";
 	}
 	
