@@ -3,7 +3,6 @@
  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
   /* 유진 커스텀 style */
@@ -393,14 +392,17 @@ tr.td.cancleTd {
 </style>
 
 <script>
+function check(){
+	 if(confirm("정말 취소하시겠습니까 ?")){     
+		alert("예약이 취소되었습니다");  
+	 } else {
+		 return ;   
+	 }
+}
 
-function check(){   
- if(confirm("정말 취소하시겠습니까 ?") == true){     
-	   alert("예약이 취소되었습니다");    } 
-	   else{      
-		  return ;   
-		 }}); 
-
+<c:if test="${param.cancel eq 'fail'}">
+alert("취소에 실패했습니다.");
+</c:if>
 </script>
 
 
@@ -481,7 +483,7 @@ function check(){   
 				</c:choose>
 				<c:choose>
 					<c:when test="${packageReserveVO.packageStatus=='예약완료'}">
-						<td><a href="${root}/package/cancel/${packageReserveVO.packageBookingNo}" class="btn btn-secondary" onclick="check()">예약취소</a></td>
+						<td><a href="${root}/package/cancelPayment?packageBookingNo=${packageReserveVO.packageBookingNo}" class="btn btn-secondary" onclick="check()">예약취소</a></td>
 					</c:when>
 					<c:when test="${packageReserveVO.packageStatus=='예약취소'}">
 						<td><a class="btn " id="link" style="background-color:#999999" readonly>취소완료</a></td>

@@ -213,6 +213,7 @@ $(function () {
  <div class="container">
   <div class="row">
  <c:forEach var="PackageVO" items="${list}" varStatus="status">
+ <!-- ${list} -->
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
     <c:choose>
@@ -233,12 +234,11 @@ $(function () {
 		<c:otherwise>
 		    <span class="price">프리미엄</span>
 		</c:otherwise>
-	</c:choose>
-							
+	</c:choose>	
     </a>
     <div class="text p-4">
 	<span class="days"><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${PackageVO.stayDto.stayPrice}" />~</span>
-      <h3><a href="detail?stayNo=${PackageVO.packageNo}"><c:out value="${PackageVO.stayDto.stayName}" /></a></h3>
+      <h3><a href="detail?packageNo=${PackageVO.packageNo}&stayNo=${PackageVO.stayDto.stayNo}"><c:out value="${PackageVO.stayDto.stayName}" /></a></h3>
       <p class="location"><span class="fa fa-map-marker"></span><c:out value="${PackageVO.stayDto.stayLocal}" /></p>
       <ul>
        <li><span class="flaticon-mountains"></span><c:out value="${PackageVO.fieldDto.fieldName}"/></li>

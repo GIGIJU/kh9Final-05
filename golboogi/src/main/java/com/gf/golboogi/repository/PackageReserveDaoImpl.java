@@ -76,4 +76,19 @@ public class PackageReserveDaoImpl implements PackageReserveDao{
 		return sqlSession.selectOne("packageReserve.reserveConfirm", packageReserveDto);
 	}
 
+	@Override
+	public int possible(int packagebookingNo) {
+		return sqlSession.selectOne("packageReserve.possible", packagebookingNo);
+	}
+
+	@Override
+	public void paymentInsert(int packageBookingNo, int paymentNo) {
+		Map<String, Object> param = new HashMap<>();
+		param.put("packageBookingNo", packageBookingNo);
+		param.put("paymentNo", paymentNo);
+		
+		sqlSession.insert("packageReserve.paymentInsert",param);
+		
+	}
+
 }

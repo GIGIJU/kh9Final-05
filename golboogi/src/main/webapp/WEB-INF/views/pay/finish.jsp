@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 <!DOCTYPE html>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
 <style>
   /* 유진 커스텀 style */
     .tour-product-info {
@@ -180,7 +181,7 @@
          <a href="${root}/package/reserve_list" class="btn btn-success" style="width:30%;font-size: 15px">나의 투어 예약 확인하기</a>
          </div>
             <div class="row justify-content-center mt-2mb-3">
-         <a href="/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
+         <a href="${root}/" style="width:30%; text-decoration: underline; text-underline-position:under; color:#7f7f7f" >메인으로</a>
       </div>
 
 </div>

@@ -270,6 +270,7 @@
 }
 </style>
 
+
 <script>
 	//토글버튼 함수
 	$(function() {
@@ -311,18 +312,30 @@
 <!-- Initialize Swiper -->
 <script>
 $(function(){
-            var swiper = new Swiper(".mySwiper", {
-                cssMode: true,
-                navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-                },
-                pagination: {
-                el: ".swiper-pagination",
-                },
-                mousewheel: true,
-                keyboard: true,
-            });
+	  var swiper = new Swiper('.swiper', {
+          loop: true,//순환 모드
+
+          //자동재생
+          //autoplay:true,
+          autoplay:{
+              delay : 5000,//슬라이드 자동재생 시 교체시간(ms)
+          },
+
+          //이펙트 효과 지정
+          effect : 'slide',
+
+          // Swiper에서 내부적으로 사용할 영역을 지정
+          pagination: {
+              el: '.swiper-pagination',
+          },
+          navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+          },
+          // scrollbar: {
+          //     el: '.swiper-scrollbar',
+          // },
+      });            
 });
             </script>
             
@@ -333,7 +346,7 @@ $(function(){
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
-       <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
+       <p class="breadcrumbs"><span class="mr-2"><a href=" ${root}/" >Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
 					<p class="mb-0" style="font-size: 17px">투어, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
@@ -352,20 +365,30 @@ $(function(){
     <div class="col-md-8 ftco-animate">
     <div class="row justify-content-center">
       <div class="img-box">
-<c:choose>
-					<c:when test="${empty list}">
-						<div class="swiper-slide">
-							<img src="${root}${profileUrl}" style="width: 300px; height: 300px; border-radius: 70%;">
-						</div>
-					</c:when>
-					<c:otherwise>
-						<c:forEach var="attach" items="${list}">
-							<div class="swiper-slide">
-								<img src="${root}${profileUrl}${attach.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
-							</div>
-						</c:forEach>
-					</c:otherwise>
-				</c:choose>
+      
+      
+      <div class="swiper">
+					<div class="swiper-wrapper">
+						<c:choose>
+							<c:when test="${empty list}">
+								<div class="swiper-slide">
+									<img src="${root}${profileUrl}" style="width: 300px; height: 300px; border-radius: 70%;">
+								</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="attach" items="${list}">
+									<div class="swiper-slide">
+										<img src="${root}${profileUrl}${attach.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
+									</div>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				<div class="swiper-button-next" style="color: #b8e994;"></div>
+				<div class="swiper-button-prev" style="color: #b8e994;"></div>
+				</div>
+      
+
       </div>
       </div>
      <div class="text-center p-1 mt-2 md-2">

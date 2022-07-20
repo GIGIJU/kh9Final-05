@@ -51,8 +51,8 @@
 		text-align:center;
 	}
 	#reviewImage{
-		width:80%;
-		height:300px;
+		width:70%;
+		height:500px;
 	}
 	
 </style>
@@ -328,6 +328,7 @@ const app = Vue.createApp({
         	//확인창 출력
          	const choice = window.confirm("정말 삭제하시겠습니까?\n삭제한 데이터는 복구되지 않습니다");
          	if(!choice) return;
+
         	
         	const reply = this.replyList[index];
         	axios({

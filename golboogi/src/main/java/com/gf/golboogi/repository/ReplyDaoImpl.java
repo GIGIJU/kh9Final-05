@@ -21,6 +21,7 @@ public class ReplyDaoImpl implements ReplyDao{
 		int replyNo = sqlSession.selectOne("reply.sequence");
 		replyDto.setReplyNo(replyNo);
 		sqlSession.insert("reply.insert", replyDto);
+    
 		return sqlSession.selectOne("reply.one", replyNo);
 	}
 	

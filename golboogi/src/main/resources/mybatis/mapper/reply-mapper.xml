@@ -50,7 +50,6 @@
 		update reply set 
 		reply_content = #{replyContent} 
 		where reply_no = #{replyNo}
-	</update>
-	
+	</update>	
 	
 </mapper> 

@@ -51,13 +51,13 @@ $(function(){
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-lg-7">
-							<div class="card shadow-lg border-0 rounded-lg mt-5">
+							<div class="card shadow-lg border-0 rounded-lg mt-5" id="app">
                                     
 <!-- 								<div class="card-header bg-success" style=" color:white;"><h3 class="text-center font-weight-light my-4">골프장 정보 입력</h3></div> -->
                                     
                                     <div class="card-body">
                                         
-                                        <form action="field_insert" method="post" enctype="multipart/form-data" class="form-check">
+                                        <form v-on:submit="sendForm($event)" action="field_insert" method="post" enctype="multipart/form-data" class="form-check">
                                             
                                             <div class="page"><!-- 페이지1 -->
                                             <div class="form-floating mb-5 card-header bg-success">
@@ -66,18 +66,18 @@ $(function(){
                                          
                                             
                                             <div class="form-floating mb-5">
-                                                <input name="fieldName"  class="form-control" id="fieldName" type="text" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
+                                                <input name="fieldName"  class="form-control" v-model="fieldName" id="fieldName" type="text" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
                                                 <label for="fieldName">골프장 이름</label>
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                            	<textarea class="form-control" rows=5 style="height: 100%" name="fieldInfo" id="fieldInfo" placeholder="골프장 정보 소개글을 입력해주세요 (1000자 이내)" oninput="lengthCount();"></textarea>
+                                            	<textarea class="form-control" rows=5 style="height: 100%" v-model="fieldInfo" name="fieldInfo" id="fieldInfo" placeholder="골프장 정보 소개글을 입력해주세요 (1000자 이내)" oninput="lengthCount();"></textarea>
  												<div><span class="len">0</span> / 1000</div>				                                          
                                             	<label for="fieldInfo">소개글</label>
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                                <input name="fieldPhone"  class="form-control" id="fieldPhone" type="tel" placeholder="'-' 제외" />
+                                                <input name="fieldPhone"  class="form-control" v-model="fieldPhone" id="fieldPhone" type="tel" placeholder="'-' 제외" />
                                                 <label for="fieldPhone">골프장 대표전화( - 제외 )</label>
                                             </div>
                                             
@@ -105,27 +105,27 @@ $(function(){
                                                 	<label for="fieldBasicAddress">기본 주소</label>
                                             	</div>
                                             	<div class="form-floating mb-2">
-	                                            	<input name="fieldDetailAddress"  class="form-control" id="fieldDetailAddress" type="tel" />
+	                                            	<input name="fieldDetailAddress" class="form-control" id="fieldDetailAddress" type="tel" />
 	                                                <label for="fieldDetailAddress">상세 주소</label>
                                             	</div>
                                             </div>
                                             
                                             
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldCaddiefee" id="fieldCaddiefee" class="form-control" type="number" min="0"/>
+                                            	<input name="fieldCaddiefee" v-model="fieldCaddiefee" id="fieldCaddiefee" class="form-control" type="number" min="0"/>
                                                 <label for="fieldCaddiefee">캐디피</label>
                                             </div>
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldCartfee" id="fieldCartfee" class="form-control" type="number" min="0"/>
+                                            	<input name="fieldCartfee" v-model="fieldCartfee" id="fieldCartfee" class="form-control" type="number" min="0"/>
                                                 <label for="fieldCartfee">카트피</label>
                                             </div>
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldGreenfee" id="fieldGreenfee" class="form-control" type="number" min="0"/>
+                                            	<input name="fieldGreenfee" v-model="fieldGreenfee" id="fieldGreenfee" class="form-control" type="number" min="0"/>
                                                 <label for="fieldGreenfee">그린피</label>
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldOpenday" id="fieldOpenday" class="form-control" type="date" value="today"/>
+                                            	<input name="fieldOpenday" v-model="fieldOpenday" id="fieldOpenday" class="form-control" type="date" value="today"/>
                                                 <label for="fieldOpenday">개장일</label>
                                             </div>
                                             
@@ -138,7 +138,7 @@ $(function(){
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                            	<select name="fieldArea" class="form-select" multiple style="height: 170px">
+                                            	<select name="fieldArea" class="form-select" v-model="fieldArea" multiple style="height: 170px">
                                             		<option value="경기도">경기도</option>
                                             		<option value="강원도">강원도</option>
                                             		<option value="전라도">전라도</option>
@@ -173,12 +173,12 @@ $(function(){
 	                                            
 	                                            <span>* 코스1</span>
 	                                            <div class="form-floating mb-5">
-	                                            	<input name="courseName" id="course-name" class="form-control" type="text"/>
+	                                            	<input name="courseName" id="course-name" v-model="courseName" class="form-control" type="text"/>
 	                                                <label for="course-name">코스 이름</label>
 	                                            </div>
 	                                            
 	                                            <div class="form-floating mb-5">
-	                                            	<select name="courseHole" class="form-select" multiple style="height: 80px">
+	                                            	<select name="courseHole" class="form-select" v-model="courseHole" multiple style="height: 80px">
 	                                            		<option value="9홀">9홀</option>
 	                                            		<option value="18홀">18홀</option>
 	                                            	</select>
@@ -351,5 +351,88 @@ $(function(){
 		}
 	});
 </script>
+<script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //div[id=app]을 제어할 수 있는 Vue instance를 생성
+        const app = Vue.createApp({
+            //data : 화면을 구현하는데 필요한 데이터를 작성한다.
+            data(){
+                return {
+                   fieldName:"",
+                   fieldInfo:"",
+                   fieldPhone:"",
+                   fieldCaddiefee:"",
+                   fieldCartfee:"",
+                   fieldGreenfee:"",
+                   fieldOpenday:"",
+                   fieldArea:"",
+
+                   courseName:"",
+                   courseHole:"",
+
+                };
+            },
+            //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
+            // - 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
+            computed:{
+                fieldNameNull(){
+                    return this.fieldName.length > 0;
+                },
+                fieldInfoNull(){
+                    return this.fieldInfo.length > 0;
+                },
+                fieldPhoneCheck(){
+                    const regex = /^[0][0-9]{8,12}$/;
+                    return this.fieldPhone.length > 0 && regex.test(this.fieldPhone);
+                },
+                fieldCaddiefeeNull(){
+                    return this.fieldCaddiefee.length != 0;
+                },
+                fieldCartfeeNull(){
+                    return this.fieldCartfee.length != 0;
+                },
+                fieldGreenfeeNull(){
+                    return this.fieldGreenfee.length != 0;
+                },
+                fieldOpendayNull(){
+                    return this.fieldOpenday.length > 0;
+                },
+                fieldAreaNull(){
+                    return this.fieldArea.length > 0;
+                },
+
+                courseNameNull(){
+                    return this.courseName.length > 0;
+                },
+                courseHoleNull(){
+                    return this.courseHole.length > 0;
+                },
+
+                clear1(){
+                    return this.fieldNameNull && this.fieldInfoNull && this.fieldPhoneCheck &&
+                        this.fieldCaddiefeeNull && this.fieldCartfeeNull && this.fieldGreenfeeNull &&
+                        this.fieldOpendayNull && this.fieldAreaNull;
+                },
+
+                clear2(){
+                    return this.clear1 && this.courseNameNull && this.courseHoleNull;
+                }
+            },
+            //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
+            methods:{
+                sendForm(e){
+                    if(this.clear2 == false){
+                        e.preventDefault();
+                    }
+                },
+            },
+            //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
+            watch:{
+                
+            },
+        });
+        app.mount("#app");
+    </script>     
+
 
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>

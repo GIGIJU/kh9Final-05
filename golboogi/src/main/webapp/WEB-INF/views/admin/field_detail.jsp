@@ -75,15 +75,15 @@ textarea{
                                             
                                             
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldCaddiefee" id="fieldCaddiefee" class="form-control" type="number" min="0" value="${golfFieldDto.fieldCaddiefee}" />
+                                            	<input name="fieldCaddiefee" id="fieldCaddiefee" class="form-control" type="number" value="${golfFieldDto.fieldCaddiefee}" />
                                                 <label for="fieldCaddiefee">캐디피</label>
                                             </div>
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldCartfee" id="fieldCartfee" class="form-control" type="number" min="0" value="${golfFieldDto.fieldCartfee}" />
+                                            	<input name="fieldCartfee" id="fieldCartfee" class="form-control" type="number"  value="${golfFieldDto.fieldCartfee}" />
                                                 <label for="fieldCartfee">카트피</label>
                                             </div>
                                             <div class="form-floating mb-5">
-                                            	<input name="fieldGreenfee" id="fieldGreenfee" class="form-control" type="number" min="0" value="${golfFieldDto.fieldGreenfee}" />
+                                            	<input name="fieldGreenfee" id="fieldGreenfee" class="form-control" type="number"  value="${golfFieldDto.fieldGreenfee}" />
                                                 <label for="fieldGreenfee">그린피</label>
                                             </div>
                                             
