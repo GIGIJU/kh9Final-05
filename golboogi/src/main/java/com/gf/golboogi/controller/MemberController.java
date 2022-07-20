@@ -393,15 +393,9 @@ public class MemberController {
 	
 	@PostMapping("/memberProfile")
 	public String memberProfile(HttpSession session,
-			@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
+		@RequestParam MultipartFile memberProfile) throws IllegalStateException, IOException {
 		String memberId = (String)session.getAttribute("login");
-		String checkId = memberProfileDao.MyCheck(memberId);
-		boolean MyCheck = memberId == checkId;
-		if(MyCheck) {
-			memberService.changeProfile(memberId, memberProfile);
-			return "redirect:mypage";
-		}else {
-			throw new CannotFindException();
-		}
+		memberService.changeProfile(memberId, memberProfile);
+		return "redirect:mypage";
 	}
 }
