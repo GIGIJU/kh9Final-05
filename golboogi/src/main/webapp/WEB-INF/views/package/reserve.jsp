@@ -417,7 +417,7 @@ function chk() {
                 <h5 style="color:#fff; text-align: center; text-style:bold;">신청 인원 : 4인 1팀 </h5> 
                 <hr style="background-color :#fff">
                 <div >
-                <h3 style="color:#ffc107; font-weight: bold; text-decoration: underline; text-align: center;"> 총  <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}" /></h3>
+                <h3 style="color:#ffc107; font-weight: bold; text-decoration: underline; text-align: center;"> 총  <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${(packageVo.stayDto.stayPrice) + (packageVo.fieldDto.fieldGreenfee)*4}" /></h3>
                 </div>  		
                 <br>
 				</div>
