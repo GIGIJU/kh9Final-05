@@ -48,14 +48,16 @@ public class PackageDaoImpl implements PackageDao {
 	public PackageVO one(int packageNo) {
 		return sqlSession.selectOne("package.one",packageNo);
 	}
+	
+	
 
 	@Override
-	public List<PackageVO> list(String stayPrice, String stayLocal, String packageDepart) {
+	public List<PackageVO> list(String stayPrice, String stayLocal) {
 		Map<String, Object> param = new HashMap<>();
 		
 		param.put("stayPrice",stayPrice);
 		param.put("stayLocal",stayLocal);
-		param.put("packageDepart",packageDepart);
+	//	param.put("packageDepart",packageDepart);
 		
 		return sqlSession.selectList("package.list", param);
 	}
@@ -64,6 +66,7 @@ public class PackageDaoImpl implements PackageDao {
 	public boolean delete(int packageNo) {
 		return sqlSession.delete("package.delete", packageNo) > 0;
 	}
+
 
 
 

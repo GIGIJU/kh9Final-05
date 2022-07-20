@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.StayDto;
 import com.gf.golboogi.error.CannotFindException;
 
@@ -58,7 +59,11 @@ public class StayDaoImpl implements StayDao{
 		return sqlSession.selectOne("stay.one",stayNo);
 	}
 
-
+	//상세보기 + 이미지
+	@Override
+	public StayDto oneProfile(int stayNo) {
+		return sqlSession.selectOne("stay.oneProfile",stayNo);
+	}
 
 
 

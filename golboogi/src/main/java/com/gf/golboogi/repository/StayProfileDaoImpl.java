@@ -25,6 +25,28 @@ public class StayProfileDaoImpl implements StayProfileDao{
 		sqlSession.insert("stayProfile.insert", param);
 		
 	}
+	
+	@Override
+	public int oneP(int stayNo) {
+		Integer attachmentNo = sqlSession.selectOne("stayProfile.one", stayNo);
+		if(attachmentNo == null) {
+			return 0;
+		}else {
+			return attachmentNo;
+		}
+	}
+
+
+	@Override
+	public List<StayProfileVO> profileOne(int stayNo) {
+		System.out.println("stayNo >>>" + stayNo);
+		List<StayProfileVO> list = sqlSession.selectList("stayProfile.profileOne", stayNo);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
 
 	@Override
 	public List<StayProfileVO> multiInfo(int stayNo) {

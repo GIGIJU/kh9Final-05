@@ -9,6 +9,7 @@
 <!-- Link Swiper's CSS -->
 <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 
+
 <style>
 .container{
 	position: relative;
@@ -296,14 +297,20 @@
 		   breakfast.value("불포함");   
 	   }
 	   }
+	
+	$(function(){    
+		$("#date").datepicker({      
+			  onSelect:function(dateText, inst) {        
+				    console.log(dateText);    
+				    }  
+				  });
+	});
 	  
 </script>
 
-<!-- Swiper JS -->
-<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
 <!-- Initialize Swiper -->
 <script>
+$(function(){
             var swiper = new Swiper(".mySwiper", {
                 cssMode: true,
                 navigation: {
@@ -316,7 +323,9 @@
                 mousewheel: true,
                 keyboard: true,
             });
+});
             </script>
+            
 	
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <div id="app">
@@ -343,7 +352,20 @@
     <div class="col-md-8 ftco-animate">
     <div class="row justify-content-center">
       <div class="img-box">
-        <img src="${root}/images/hotel-resto-1.jpg" style="height: 300px; width: 300px; border-radius: 70%;">
+<c:choose>
+					<c:when test="${empty list}">
+						<div class="swiper-slide">
+							<img src="${root}${profileUrl}" style="width: 300px; height: 300px; border-radius: 70%;">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="attach" items="${list}">
+							<div class="swiper-slide">
+								<img src="${root}${profileUrl}${attach.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
       </div>
       </div>
      <div class="text-center p-1 mt-2 md-2">
@@ -365,8 +387,15 @@
     <div class="row justify-content-center">
       <div class="tour-detail-info">
         <div class="info-item">
-          <p>출발일</p>
-			<p>${packageVo.packageDto.packageDepart}</p>
+          <p>조식</p>
+             <c:choose>
+					<c:when test="${packageVo.packageDto.packageBreakfast==1}">
+				<p>포함</p>
+					</c:when>
+				  <c:when test="${packageVo.packageDto.packageBreakfast==0}">
+			     <p>불포함</p>
+					</c:when>
+				</c:choose>
         </div>
         <div class="info-item">
           <p>지역</p>
@@ -381,8 +410,13 @@
 
     <!--예약 버튼 -->
     <div class="row justify-content-center mt-5 mb-5">
-<!--       <button class="btn btn-success p-2" style="margin-right: 5px; width:10%; font-size: 15px;">날짜변경</button> -->
-      <button class="btn btn-success" style="width:10%; font-size: 17px;"><a href="${root}/package/reserve?packageNo=${packageVo.packageDto.packageNo}" style="color:white" >예약신청</a></button>
+<!-- 		<input type="text" name="date" id="date3" size="12" /> -->
+<!-- 		<input type="button" value="날짜선택" onclick="$('#date').datepicker('show');"  class="btn btn-success p-2"  style="margin-right: 5px; width:10%; font-size: 15px;" /> -->
+<!--     <label for="start">날짜선택 :</label> -->
+ 
+<!-- 	<input type="date" id="start" name="trip-start" style="width:15%;" value="" id="currentDate" min="" max=""> -->
+     <button class="btn btn-success" style="width:20%; font-size: 17px;"><a href="${root}/package/reserve?packageNo=${packageVo.packageDto.packageNo}" style="color:white; " >예약신청 하러가기</a></button>
+
     </div>
 
     <!--페이지네이션 버튼 -->
@@ -436,38 +470,17 @@
       <div class="container">
 			
 			<h3 style="font-weight: bold;">골프장 정보 </h3>
-			<h5>${packageVo.fieldDto.fieldName}</h5>
+			<h5 class="fieldName">${packageVo.fieldDto.fieldName}</h5>
 					<hr>
 					<div class="club-detail" >
 					<div class="col-md-12 col-sm-12 col-xs-12 ">
 						<!-- 골프장 안내문구 -->
-						<p style="font-size: 13px;">${packageVo.fieldDto.fieldInfo}</p>
+						<p style="font-size: 13px; color:black;">${packageVo.fieldDto.fieldInfo}</p>
 						
 <!-- 						사진 영역 -->
 						<div class="place_container">
-							<div class="place_content">
-								<div class="place_swiper_container">
-									<div class="swiper-button-next" style="color: #b8e994;"></div>
-									<div class="swiper-button-prev" style="color: #b8e994;"></div>
-									<div class="swiper mySwiper round_swiper">
-										<div class="swiper-wrapper">
-											<c:choose>
-												<c:when test="${empty list}">
-													<div class="swiper-slide">
-														<img src="${root}${profileUrl}">
-													</div>
-												</c:when>
-												<c:otherwise>
-													<c:forEach var="list" items="${list}">
-														<div class="swiper-slide">
-															<img src="${root}${profileUrl}${list.attachmentNo}">
-														</div>
-													</c:forEach>
-												</c:otherwise>
-											</c:choose>
-										</div>
-									</div>
-								</div>
+							<div class="place_content md-5">
+							<div id="map" style="width: 100%; height: 350px;"></div>
 						</div>
 				</div>
 
@@ -650,6 +663,56 @@
     });
     app.mount("#app");
 </script>
+
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b03de227a4e196a92952ccb566363417&libraries=services"></script>
+	<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		mapOption = {
+			center : new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+			level : 4
+		// 지도의 확대 레벨
+		};
+
+		var fieldName = $(".fieldName").text();
+
+		// 지도를 생성 
+		var map = new kakao.maps.Map(mapContainer, mapOption);
+
+		// 주소-좌표 변환 객체를 생성
+		var geocoder = new kakao.maps.services.Geocoder();
+
+		// 주소로 좌표를 검색합니다
+		geocoder
+				.addressSearch(
+						'${packageVo.fieldDto.fieldBasicAddress}',
+						function(result, status) {
+
+							// 정상적으로 검색이 완료됐으면 
+							if (status === kakao.maps.services.Status.OK) {
+
+								var coords = new kakao.maps.LatLng(result[0].y,
+										result[0].x);
+
+								// 결과값으로 받은 위치를 마커로 표시
+								var marker = new kakao.maps.Marker({
+									map : map,
+									position : coords
+								});
+
+								// 인포윈도우로 장소에 대한 설명을 표시
+								var infowindow = new kakao.maps.InfoWindow(
+										{
+											content : '<div style="width:150px;text-align:center;padding:6px; border: 2px solid green; background-color: green; color:white;">'
+													+ fieldName + '</div>'
+										});
+								infowindow.open(map, marker);
+
+								// 지도의 중심을 결과값으로 받은 위치로 이동
+								map.setCenter(coords);
+							}
+						});
+	</script>
 
    
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

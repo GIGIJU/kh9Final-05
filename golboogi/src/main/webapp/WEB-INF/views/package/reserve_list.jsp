@@ -387,10 +387,21 @@ px
     background-color: #fff;
 }
 
-
-
-
+tr.td.cancleTd {
+  background-color: #F5F5F5;
+}
 </style>
+
+<script>
+
+function check(){   
+ if(confirm("정말 취소하시겠습니까 ?") == true){     
+	   alert("예약이 취소되었습니다");    } 
+	   else{      
+		  return ;   
+		 }}); 
+
+</script>
 
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
@@ -414,28 +425,17 @@ px
   </div>
   </div>
   
+  
   <!-- 토글버튼 -->
       <div class="row justify-content-center mt-5 mb-5" >
       <button class="button-toggle"  @click="buttonToggle1" style="width: 200px;"  >예약(현장결제)</button>
       <button class="button-toggle"  @click="buttonToggle2" style="width: 200px;"  >선결제</button>
       </div>
       
-      
+
+ 	
    <!--현장결제 페이지1 -->
     <div v-show= "divToggle1">
-    
-          <!-- 일정없을때 500 -->
-			<c:if test="${reserveList.isEmpty()}">
-			  <div class="container">
-		       <div class="row justify-content-center">
-       				 <div class="text-center mt-5 md-3">
-		        <img src="${root}/images/no-round.svg" >
-		      </br>
-	 	 	    <span   style="font-size: 18px; color:#999999">예약 정보가 없습니다.</span>
-	 	 	</div>
-	 	 	</div>
-	 	 	</div>
- 			</c:if>
  			
    <div class="row justify-content-center tour-product-info">
 	<div class="container" style="padding:40px; color:#999999">
@@ -451,7 +451,19 @@ px
 					 		<th></th>
 					 	</tr>
 				 	</thead>
+				 	  <!-- 일정없을때 500 -->
 				 		<tbody>
+				<c:if test="${reserveList.isEmpty()}">
+			  <div class="container">
+		       <div class="row justify-content-center">
+       				 <div class="text-center mt-5 md-3">
+		        <img src="${root}/images/no-round.svg" >
+		      </br>
+	 	 	    <span   style="font-size: 18px; color:#999999">예약 정보가 없습니다.</span>
+	 	 	</div>
+	 	 	</div>
+	 	 	</div>
+ 			</c:if>
 			<c:forEach var="packageReserveVO" items="${reserveList}">
 				<tr>
 				<td>	${packageReserveVO.stayName}</td>
@@ -459,8 +471,22 @@ px
 				<td>	${packageReserveVO.packageDepart}</td>
 				<td>	${packageReserveVO.packageTotalPrice}</td>
 				<td>	${packageReserveVO.packageReserveTime}</td>
+				<c:choose>
+					<c:when test="${packageReserveVO.packageStatus=='예약완료'}">
 				<td style="color:#60a120">	${packageReserveVO.packageStatus}</td>
-			<td>	<a href="" class="btn btn-success">예약취소</a></td>
+					</c:when>
+				  <c:when test="${packageReserveVO.packageStatus=='예약취소'}">
+				<td class="red">${packageReserveVO.packageStatus}</td>
+					</c:when>
+				</c:choose>
+				<c:choose>
+					<c:when test="${packageReserveVO.packageStatus=='예약완료'}">
+						<td><a href="${root}/package/cancel/${packageReserveVO.packageBookingNo}" class="btn btn-secondary" onclick="check()">예약취소</a></td>
+					</c:when>
+					<c:when test="${packageReserveVO.packageStatus=='예약취소'}">
+						<td><a class="btn " id="link" style="background-color:#999999" readonly>취소완료</a></td>
+					</c:when>
+				</c:choose>
 				</tr>
 			</c:forEach>  
 				</tbody>
@@ -471,18 +497,6 @@ px
   
      <!--선결제 페이지2 -->
   <div v-show= "divToggle2">
-            <!-- 일정없을때 500 -->
-			<c:if test="${list.isEmpty()}">
-			  <div class="container">
-		       <div class="row justify-content-center">
-       				 <div class="text-center mt-5 md-3">
-		        <img src="${root}/images/no-round.svg" >
-		      </br>
-	 	 	    <span   style="font-size: 18px; color:#999999">투어 정보가 없습니다.</span>
-	 	 	</div>
-	 	 	</div>
-	 	 	</div>
- 			</c:if>
  			
    <div class="row justify-content-center tour-product-info">
 	<div class="container" style="padding:40px; color:#999999">
@@ -503,7 +517,7 @@ px
 				<td>	${paymentDto.paymentTotal}</td>
 				<td>	${paymentDto.paymentTime}</td>
 				<td>	${paymentDto.paymentStatus}</td>
-				<td>	<a href="" class="btn btn-success">결제취소</a></td>
+				<td>	<a href="" class="btn btn-secondary">결제취소</a></td>
 				</tr>
 			</c:forEach>  
 				</tbody>
@@ -511,7 +525,7 @@ px
 	</div>
   </div>
   </div>
-  
+
   </section>
   </div>
   

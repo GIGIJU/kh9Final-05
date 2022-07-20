@@ -42,8 +42,7 @@
 		package_no, stay_no, field_no, package_breakfast
 		)
 		values(
-		#{packageNo}, #{stayNo},#{fieldNo}, #{packageBreakfast}
-		)
+		#{packageNo}, #{stayNo},#{fieldNo},#{packageBreakfast}
 	</insert>
 	
 		<!-- 시퀀스 번호 확인 -->
@@ -91,13 +90,17 @@
 		<result column="package_no" property="packageNo"/>
 		<result column="stay_no" property="stayNo"/>
 		<result column="field_no" property="fieldNo"/>
-		<result column="package_depart" property="packageDepart"/>
-		<result column="package_arrive" property="packageArrive"/>
 		<result column="package_breakfast" property="packageBreakfast"/>
 		</association>
 		<association property="packageNo" javaType="int">
 		<result column="package_no" property="packageNo"/>
 		</association>
+<!-- 		<association property="packageDepart" javaType="date"> -->
+<!-- 		<result column="package_depart" property="packageDepart"/> -->
+<!-- 		</association> -->
+<!-- 		<association property="attachmentNo" javaType="int"> -->
+<!-- 		<result column="attachment_no" property="attachmentNo"/> -->
+<!-- 		</association> -->
 	</resultMap>
 	
 	
@@ -145,7 +148,7 @@
 <!--        	 where P.package_no is not null -->
 <!-- 	</select> -->
 	
-		<!--패키지 상세 -->
+	<!--패키지 상세 -->
 		<select id="one" resultMap="packageMap" parameterType="int">
 		select 
 		*
@@ -155,24 +158,45 @@
        	on F.field_no = P.field_no
        	 where P.package_no = #{packageNo}
 	</select>
-
+	
+			<!--패키지 상세 attach -->
+<!-- 			<select id="one" resultMap="packageMap" parameterType="int"> -->
+<!-- 			select  -->
+<!-- 		* -->
+<!-- 		from stay S  -->
+<!-- 			left outer join package_booking P  on S.stay_no = P.stay_no -->
+<!-- 			left outer join  golf_field F on F.field_no = P.field_no -->
+<!-- 			left outer join -->
+<!-- 		(select S.stay_no, min(A.attachment_no) as attachment_no from stay S -->
+<!-- 		left outer join  -->
+<!-- 		 	stay_profile A on S.stay_no = A.stay_no -->
+<!-- 		    group by S.stay_no -->
+<!-- 		) A on S.stay_no = A.stay_no -->
+<!--        	 where S.stay_no =  #{stayNo} and P.package_no = #{packageNo}; -->
+<!--        	 	</select> -->
+       	 
 		<!--패키지 서치 -->
 		<select id="list" resultMap="packageMap" parameterType="Map">
 		select 
 		*
 		from stay S 
-			left outer join package_booking P  on S.stay_no = P.stay_no
-			left outer join  golf_field F
-			on F.field_no = P.field_no
+		left outer join
+				(select S.stay_no, min(A.attachment_no) as attachment_no from stay S
+			left outer join 
+				 stay_profile A on S.stay_no = A.stay_no
+				 group by S.stay_no ) A on S.stay_no = A.stay_no
+				 			left outer join 
+			package_booking P  on S.stay_no = P.stay_no
+			left outer join  golf_field F  on F.field_no = P.field_no
           <where>
           and P.package_no is not null 
 <!--           and minus P.package_status='예약완료' -->
           <if test="stayLocal !='' and stayLocal!=null">
           	AND S.stay_local = #{stayLocal}
           </if>
-          <if test="packageDepart !='' and stayLocal!=null">
-          AND P.package_depart = #{packageDepart}
-          </if>
+<!--           <if test="packageDepart !='' and packageDepart!=null"> -->
+<!--           AND P.package_depart = #{packageDepart} -->
+<!--           </if> -->
           <if test="stayPrice> 0 and stayPrice!=''">
             <choose>
         	<when test="stayPrice==100000">AND S.stay_price<![CDATA[<=]]> #{stayPrice} </when>
@@ -183,6 +207,7 @@
           </where>
 	</select>
 
+
 		<update id="dateUpdate" parameterType="int">
 		update package_booking set  package_depart=#{packageDepart} 
 		</update>
@@ -191,6 +216,8 @@
 			delete package_booking where package_no = ${packageNo}
 		</delete>
 
+		
+		
 </mapper> 
 
 

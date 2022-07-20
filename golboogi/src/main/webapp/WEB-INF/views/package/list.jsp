@@ -3,6 +3,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<fmt:parseDate value = "2009-03-01 13:00:59" pattern = "yyyy-MM-dd" var = "date"/>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="./jquery-ui-1.12.1/datepicker-ko.js"></script>
+
 <style>
 	/*Yujin custom style*/
 	        .tour-product-info {
@@ -75,6 +82,28 @@
 </style>
 
 <script>
+	
+
+$.datepicker.setDefaults({
+	  dateFormat: 'yy-mm-dd',
+	  prevText: '이전 달',
+	  nextText: '다음 달',
+	  minDate: 0,
+	  monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	  monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	  dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	  dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	  showMonthAfterYear: true,
+	  yearSuffix: '년'
+	});
+	
+$(function () {
+	  $('#datepicker').datepicker({
+	  });
+	});
+	
+	
 
 </script>
 
@@ -115,15 +144,17 @@
          </div>
        </div>
      </div>  
-     <div class="col-lg d-flex">
-      <div class="form-group p-4">
-       <label for="#">체크인</label>
-       <div class="form-field">
-         <div class="icon"><span class="fa fa-calendar"></span></div>
-         <input type="text"  autocomplete="off" name="packageDepart"  id="datepicker"  class="form-control checkin_date" placeholder="Check In">
-       </div>
-     </div>
-   </div>
+<!--      <div class="col-lg d-flex"> -->
+<!--       <div class="form-group p-4"> -->
+<!--        <label for="#">체크인</label> -->
+<!--        <div class="form-field"> -->
+<!--          <div class="icon"><span class="fa fa-calendar"></span></div> -->
+<!--          <input type="text"  autocomplete="off" name="packageDepart"  id="datepicker"  class="form-control " placeholder="Check In" > -->
+
+
+<!--        </div> -->
+<!--      </div> -->
+<!--    </div> -->
    <div class="col-lg d-flex">
     <div class="form-group p-4">
      <label for="#">일정</label>
@@ -184,7 +215,14 @@
  <c:forEach var="PackageVO" items="${list}" varStatus="status">
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
-     <a href="detail?packageNo=${PackageVO.packageNo}" class="img" style="background-image: url(${root}/images/hotel-resto-1.jpg);">
+    <c:choose>
+	<c:when test="${PackageVO.stayDto.attachmentNo != 0}">
+		<a href="detail?packageNo=${PackageVO.packageNo}&stayNo=${PackageVO.stayDto.stayNo}" class="img" style="background-image: url(${root}/attachment/download?attachmentNo=${PackageVO.stayDto.attachmentNo});">	</c:when>
+	<c:otherwise>		
+		<a href="detail?packageNo=${PackageVO.packageNo}&stayNo=${PackageVO.stayDto.stayNo}" class="img" style="background-image: url(${root}/images/no-round.svg);">				
+	</c:otherwise>
+</c:choose>
+<%-- 					<h1>${PackageVO.stayDto.attachmentNo}</h1> --%>
       <c:choose>
 		<c:when test="${PackageVO.stayDto.stayPrice <=100000}">
 			<span class="price">알뜰</span>

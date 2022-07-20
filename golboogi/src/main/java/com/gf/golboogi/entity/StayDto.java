@@ -20,5 +20,6 @@ public class StayDto {
 		private String stayDetailAddress;
 		private String stayStatus;
 		private String stayLocal;
+		private int attachmentNo;
 	}
 
