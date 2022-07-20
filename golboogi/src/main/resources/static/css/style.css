@@ -3568,8 +3568,9 @@ input[type="button"].btn-block {
       background-color: transparent;
       border-color: transparent; }
   .nav-tabs .nav-link.active,
+  /* 헤더색상맨 */
   .nav-tabs .nav-item.show .nav-link {
-    color: #495057;
+    color: #4E710A;
     background-color: #fff;
     border-color: #dee2e6 #dee2e6 #fff; }
   .nav-tabs .dropdown-menu {
@@ -8471,8 +8472,17 @@ h1, h2, h3, h4, h5,
     .ftco-navbar-light .navbar-nav > .nav-item.cta.cta-colored a {
       border: 1px solid #040e26;
       background: #040e26 !important; }
+      
+      
+      
+      /* 이거이거  */
     .ftco-navbar-light .navbar-nav > .nav-item.active > a {
-      color: #f15d30; }
+      color: ; }
+      
+      
+      
+      
+      
     @media (max-width: 991.98px) {
       .ftco-navbar-light .navbar-nav > .nav-item.active > a {
         color: #f15d30; } }
