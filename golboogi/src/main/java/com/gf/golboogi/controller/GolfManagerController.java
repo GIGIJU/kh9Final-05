@@ -28,21 +28,17 @@ public class GolfManagerController {
 	
 	@GetMapping("/stat")
 	public String stat(
-			//@PathVariable String adminId,
 			HttpSession session,
 			Model model
 			) {
-		//String golfManagerId = adminId;
 		String loginId = (String)session.getAttribute("adminLogin");
 		String checkId = adminDao.golfManagerCheck(loginId);
 		
 		boolean idCheck = loginId != checkId;
 		if(idCheck) {
-//		System.out.println("id = " + golfManagerId);
 			List<GolfManagerVO> vo = golfManagerDao.list(loginId);
 			model.addAttribute("golfManagerVO", vo);
-//		System.out.println("model = " + model);
-			return "/manager/stat";
+			return "manager/stat";
 		}else {
 			throw new CannotFindException();
 		}
@@ -63,7 +59,7 @@ public class GolfManagerController {
 			//List<GolfManagerVO> vo = golfManagerDao.list(golfManagerId);
 			List<GolfManagerVO> vo = golfManagerDao.list(loginId);
 			model.addAttribute("golfManagerVO", vo);
-			return "/manager/tables";
+			return "manager/tables";
 		}else {
 			throw new CannotFindException();
 		}
@@ -75,7 +71,7 @@ public class GolfManagerController {
 		String checkId = adminDao.golfManagerCheck(loginId);
 		boolean idCheck = loginId != checkId;
 		if(idCheck) {
-			return "/manager/charts";
+			return "manager/charts";
 		}else {
 			throw new CannotFindException();
 		}
@@ -87,7 +83,7 @@ public class GolfManagerController {
 		String checkId = adminDao.golfManagerCheck(loginId);
 		boolean idCheck = loginId != checkId;
 		if(idCheck) {
-			return "/manager/payment";
+			return "manager/payment";
 		}else {
 			throw new CannotFindException();
 		}

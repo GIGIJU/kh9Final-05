@@ -67,7 +67,7 @@
                                         
                                     </div>
                                     <div class="card-footer text-center py-3">
-                                        <div class="small"><a href="${root}/field/insert">골프장 생성하기</a></div>
+                                        <div class="small"><a href="field/insert">골프장 생성하기</a></div>
                                         <div class="small">※골프장을 먼저 생성해야 계정을 등록할 수 있습니다.</div>
                                     </div>
                                 </div>

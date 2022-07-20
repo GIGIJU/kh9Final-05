@@ -10,7 +10,7 @@
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
-					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span><a href="${root}/notice/list">notice <i class="fa fa-chevron-right"></i></a></span>
 				</p>
 				<p class="mb-0" style="font-size: 17px">공지사항</p>
@@ -23,6 +23,7 @@
 
 
 <div class="container">
+
 	<div class="mt-3">
 		<h1>News & Notice</h1>
 	</div>
@@ -35,11 +36,8 @@
 			<input type="submit" class="btn btn-success btn-lg" value="검색">
 		</form>
 	</div>
-	<br><br>
 	
 	<!-- 광고?,사진? -->
-	
-	<br><br>
 	<c:if test="${isAdmin && auth == 0}">
 		<div class="offset-10" align="right">
 			<a href="write" class="btn btn-success btn-lg btn-block">글쓰기</a>
@@ -66,7 +64,7 @@
 				<c:forEach var="noticeProfileListVO" items="${list}">
 					<tr align="center">
 						<td>${noticeProfileListVO.noticeNo}</td>
-						<td><img src="/attachment/download?attachmentNo=${noticeProfileListVO.attachmentNo}" width="50px;" height="50px;"></td>
+						<td><img src="${root}/attachment/download?attachmentNo=${noticeProfileListVO.attachmentNo}" width="50px;" height="50px;"></td>
 						<td align="left"><a href="${root}/notice/detail/${noticeProfileListVO.noticeNo}">
 							<c:if test="${noticeProfileListVO.noticeHead != null}">
 								[${noticeProfileListVO.noticeHead}] 

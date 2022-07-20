@@ -5,6 +5,7 @@ import java.util.List;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.vo.AdminVO;
+import com.gf.golboogi.vo.FieldDetailVO;
 
 public interface AdminDao {
 
@@ -30,6 +31,10 @@ public interface AdminDao {
 	boolean MyCheck(String golfManagerId);
 
 	String golfManagerCheck(String adminId);
+
+	
+//	추가분 
+	void infoEditVO(FieldDetailVO fieldDetailVO);
 
  
 

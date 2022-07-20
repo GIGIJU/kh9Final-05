@@ -93,8 +93,8 @@
 		order by review_no desc
 	</select>
 	
-	<select id="ratingView" resultType="double" parameterType="String">
-		select avg(review_rating) from review
+	<select id="ratingView" resultType="float" parameterType="String">
+		select avg(review_rating) as rating from review
 		where 
 			field_name = #{fieldName}
 	</select>

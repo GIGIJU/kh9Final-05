@@ -27,8 +27,7 @@ public class StayDaoImpl implements StayDao{
 	//숙소 삭제
 	@Override
 	public boolean delete(int stayNo) {
-		sqlSession.delete("stay.delete", stayNo);
-		return false;
+		return sqlSession.delete("stay.delete", stayNo) > 0;
 	}
 	
 	//숙소명 검색 

@@ -9,7 +9,7 @@
     <h1 class="mt-4">${adminVO.golfManagerId}님 상세페이지</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">골프장관리자목록</li>
-        <li class="breadcrumb-item"><a href="${root}/admin/list">골프장관리자목록</a></li>
+        <li class="breadcrumb-item"><a href="admin/list">골프장관리자목록</a></li>
         <li class="breadcrumb-item">${adminVO.golfManagerId}님 상세페이지</li>
     </ol>
 
@@ -34,10 +34,10 @@
                         <td>${adminVO.fieldNo}</td>
                         <td>${adminVO.fieldName}</td>
                         <td>
-                        		<a href="${root}/admin/delete?golfManagerId=${adminVO.golfManagerId}" class="btn btn-danger">삭제</a>
+                        		<a href="delete?golfManagerId=${adminVO.golfManagerId}" class="btn btn-danger">삭제</a>
                         </td>
                         <td>
-                        		<a href="${root}/admin/list" class="btn btn-primary">돌아가기</a>
+                        		<a href="list" class="btn btn-primary">돌아가기</a>
                         </td>
 					</tr>
                 </tbody>

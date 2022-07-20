@@ -48,4 +48,14 @@ public class StayProfileDaoImpl implements StayProfileDao{
 		}
 	}
 
+	@Override
+	public List<StayProfileVO> multiInfo(int stayNo) {
+		List<StayProfileVO> list = sqlSession.selectList("stayProfile.multiInfo", stayNo);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
+	}
+
 }

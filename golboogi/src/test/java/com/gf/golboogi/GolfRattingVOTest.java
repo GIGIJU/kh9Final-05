@@ -17,7 +17,7 @@ public class GolfRattingVOTest {
 	@Test
 	public void test() {
 		String fieldName = "보성cc";
-		Double rating = reviewDao.ratingView(fieldName);
+		float rating = reviewDao.ratingView(fieldName);
 		System.out.println(rating);
 		//log.debug("rating = {}", rating);
 	}

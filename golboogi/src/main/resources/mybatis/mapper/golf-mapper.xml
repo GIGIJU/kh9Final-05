@@ -237,7 +237,11 @@
 		on F.field_no = C.field_no
 		where F.field_no = #{fieldNo}
 	</select>
-		
+	
+	<!-- 골프장 삭제 기능 -->
+	<delete id="delete" parameterType="int">
+		delete golf_field where field_no = #{fieldNo}
+	</delete>
 
 </mapper> 
 

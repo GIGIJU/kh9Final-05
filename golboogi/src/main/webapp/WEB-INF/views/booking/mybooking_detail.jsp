@@ -122,19 +122,11 @@ textarea {
 		<div class="row mb-3">
 			<div class="col-md-4">
 			<c:choose>
-				<c:when test="${empty list}">
-					<div class="swiper-slide">
-						<img src="${root}${profileUrl}" width="200" height="190" style="border-radius: 100%;">
-					</div>
+				<c:when test="${myBookingListVO==null}">
+					<img src="${root}/images/golf-dummy.jpg" width="200" height="190" style="border-radius: 100%;">
 				</c:when>
 				<c:otherwise>
-					<c:forEach var="list" items="${list}">
-						<div class="swiper-slide">
-							<img src="${root}${profileUrl}${list.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
-						</div>
-					</c:forEach>
-					<div class="swiper-button-next" style="color: #b8e994;"></div>
-					<div class="swiper-button-prev" style="color: #b8e994;"></div>
+					<img src="${root}$/attachment/download?attachmentNo=${myBookingListVO.attachmentNo}" width="200" height="190" style="border-radius: 100%;">
 				</c:otherwise>
 			</c:choose>
 			</div>

@@ -62,6 +62,11 @@ public class PackageDaoImpl implements PackageDao {
 		return sqlSession.selectList("package.list", param);
 	}
 
+	@Override
+	public boolean delete(int packageNo) {
+		return sqlSession.delete("package.delete", packageNo) > 0;
+	}
+
 
 
 

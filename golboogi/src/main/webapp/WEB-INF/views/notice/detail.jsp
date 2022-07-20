@@ -10,7 +10,7 @@
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
-					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span class="mr-2"><a href="${root}/notice/list">notice <i class="fa fa-chevron-right"></i></a></span>
 					<span class="mr-2"><a href="${root}/notice/detail/${noticeDto.noticeNo}">detail <i class="fa fa-chevron-right"></i></a></span>
 				</p>
@@ -31,7 +31,7 @@
 	</div>
 	<c:if test="${isAdmin && auth == 0}">
 		<div align="right" class="mt-3">
-			<a href="${root}/notice/edit/${noticeDto.noticeNo}" class="btn btn-success btn-lg">수정</a>
+			<a href="${root}/notice/delete/${noticeDto.noticeNo}" class="btn btn-danger btn-lg">삭제</a>
 		</div>
 	</c:if>
 	<br><br>
@@ -58,7 +58,7 @@
 	<br>
 		<!-- 프로필 이미지 -->
 		<div class="mt-3" align="center">
-			<img src="${pageContext.request.contextPath}${profileUrl}" width="80%" height="100%" class="img img-circle img-shadow">
+			<img src="${root}${profileUrl}" width="80%" height="100%" class="img img-circle img-shadow">
 		</div>
 	
 	<br>

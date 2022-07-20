@@ -24,30 +24,8 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="course">
-	
-	<!-- 골프장 정보 입력을 위한 시퀀스 조회 @이기주 -->
-	<select id="sequence" resultType="int">
-		select golf_course_seq.nextval from dual
-	</select>
-	
-	<!-- 골프장 정보 등록 @이기주 -->
-	<insert id="insert" parameterType="GolfCourseDto">
-		insert into golf_course(
-			course_no, field_no, course_name, course_hole
-		)
-		values(
-			#{courseNo}, #{fieldNo}, #{courseName}, '18홀'
-		)
-	</insert>
-	
-	<select id="courseList" resultType="GolfCourseDto">
-		select * from golf_course
-	</select>
-	
-	<select id="searchCourseList" parameterType="int" resultType="GolfCourseDto">
-		select * from golf_course where field_no = #{fieldNo}
-	</select>
+<mapper namespace="chart">
+
 	
 </mapper> 
 

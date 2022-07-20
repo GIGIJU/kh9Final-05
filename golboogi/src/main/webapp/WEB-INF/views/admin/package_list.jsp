@@ -17,7 +17,7 @@
             <i class="fas fa-table me-1"></i>
         </div>
         
-        <div class="card-body">
+          <div class="card-body">
             <table id="datatablesSimple">
                 <thead>
                     <tr>
@@ -36,19 +36,16 @@
 						<td>${packageVO.stayDto.stayType}</td>
 						<td>${packageVO.stayDto.stayRoom}</td>
 						<td>
-							<a href="${root}/admin/package_detail?packageNo=${packageVO.packageNo}" class="btn btn-primary">이동</a>
+							<a href="package_delete?packageNo=${packageVO.packageNo}" class="btn btn-danger">삭제</a>
 						</td>
                     </tr>
                     </c:forEach>
                 </tbody>
             </table>
         </div>
-        
         <div class="card-footer">
-            <a href="${root}/admin/package_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
+            <a href="package_insert"><i class="fa-solid fa-circle-plus"></i>패키지 등록</a>
         </div>
-        
     </div>
 </div>
-
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>    

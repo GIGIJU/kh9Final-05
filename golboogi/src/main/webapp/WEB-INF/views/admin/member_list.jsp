@@ -15,7 +15,7 @@
         <div class="card-header">
             <i class="fas fa-table me-1"></i>
         </div>
-        <div class="card-body">
+          <div class="card-body">
             <table id="datatablesSimple">
                 <thead>
                     <tr>
@@ -34,14 +34,14 @@
                         <td>${memberList.memberPhone}</td>
                         <td>
                         		<c:if test="${memberList.memberGrade == 0}">
-                        			<a href="${root}/admin/member_blacklist?memberId=${memberList.memberId}" class="btn btn-secondary">N</a>
+                        			<a href="member_blacklist?memberId=${memberList.memberId}" class="btn btn-secondary">N</a>
                         		</c:if>
                         		<c:if test="${memberList.memberGrade == 1}">
-                        			<a href="${root}/admin/member_blacklist?memberId=${memberList.memberId}" class="btn btn-danger">Y</a>
+                        			<a href="member_blacklist?memberId=${memberList.memberId}" class="btn btn-danger">Y</a>
                         		</c:if>
                         </td>
                         <td>
-							<a href="${root}/admin/member_detail?memberId=${memberList.memberId}" class="btn btn-primary">이동</a>
+							<a href="member_detail?memberId=${memberList.memberId}" class="btn btn-primary">이동</a>
 						</td>
                     </tr>
                 </c:forEach>
@@ -51,5 +51,4 @@
         </div>
     </div>
 </div>
-
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>
