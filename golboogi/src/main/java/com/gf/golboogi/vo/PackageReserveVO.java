@@ -26,6 +26,6 @@ public class PackageReserveVO {
 	private int packageNo;
 	private String stayName;
 	private String fieldName;
-	
+	private int attachmentNo;
 	
 }

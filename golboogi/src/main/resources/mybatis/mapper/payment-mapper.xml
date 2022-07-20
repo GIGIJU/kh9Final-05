@@ -82,8 +82,8 @@
 		select payment_no from booking_payment where booking_no = #{bookingNo}
 	</select>
 	
-		<select id="getPackageBookingNo" parameterType="int" resultType="int">
-		select payment_no from package_payment where package_no = #{packageNo}
+	<select id="getPackagePaymentNo" parameterType="int" resultType="int">
+		select payment_no from package_payment where package_booking_no = #{packageBookingNo}
 	</select>
 </mapper> 
 

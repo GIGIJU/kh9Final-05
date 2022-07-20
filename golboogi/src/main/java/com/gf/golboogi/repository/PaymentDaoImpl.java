@@ -95,5 +95,10 @@ public class PaymentDaoImpl implements PaymentDao {
 	public int getBookingPaymentNo(int bookingNo) {
 		return sqlSession.selectOne("payment.getBookingPaymentNo", bookingNo);
 	}
+	
+	@Override
+	public int getPackagePaymentNo(int packageBookingNo) {
+		return sqlSession.selectOne("payment.getPackagePaymentNo", packageBookingNo);
+	}
 
 }

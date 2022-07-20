@@ -41,6 +41,8 @@ public class StayProfileDaoImpl implements StayProfileDao{
 	public List<StayProfileVO> profileOne(int stayNo) {
 		System.out.println("stayNo >>>" + stayNo);
 		List<StayProfileVO> list = sqlSession.selectList("stayProfile.profileOne", stayNo);
+		System.out.printf("list : ");
+		System.out.println(list);
 		if(list.isEmpty()) {
 			return null;
 		}else {

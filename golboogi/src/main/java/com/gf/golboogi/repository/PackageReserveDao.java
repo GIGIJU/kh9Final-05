@@ -27,4 +27,8 @@ public interface PackageReserveDao {
 	void payInsert(int packagebookingNo, int paymentNo);
 
 	int reserveConfirm(PackageReserveDto packageReserveDto);
+	
+	int possible(int packagebookingNo);
+
+	void paymentInsert(int packageBookingNo, int paymentNo);
 }

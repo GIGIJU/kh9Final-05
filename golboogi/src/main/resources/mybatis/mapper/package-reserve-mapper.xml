@@ -91,6 +91,16 @@
        	  R.member_id= #{memberId} order by R.package_booking_no desc
 	</select>
 	
+	<!-- 취소 전 확인 -->
+	<select id="possible" parameterType="int" resultType="int">
+	SELECT CASE WHEN PACKAGE_DEPART > SYSDATE
+	            THEN 1
+	            ELSE 0
+	       END
+	  FROM PACKAGE_RESERVE
+	 WHERE PACKAGE_BOOKING_NO = #{packageBookingNo}
+	</select>
+
 	<!-- 취소 -->
 	<update id="cancel" parameterType="int">
 		update package_reserve set  package_status='예약취소' where package_booking_no= #{packageBookingNo}
@@ -114,5 +124,9 @@
 	<select id="reserveConfirm" parameterType="PackageReserveDto" resultType="int">
 	SELECT COUNT(*) FROM PACKAGE_RESERVE WHERE TO_CHAR(PACKAGE_DEPART, 'YYYY-MM-DD') = #{packageDepart}
 	</select>
+	
+	<insert id="paymentInsert" parameterType="Map">
+		insert into package_payment values(#{packageBookingNo},#{paymentNo})
+	</insert>
 	
 </mapper>
