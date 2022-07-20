@@ -51,8 +51,8 @@
 		text-align:center;
 	}
 	#reviewImage{
-		width:80%;
-		height:300px;
+		width:70%;
+		height:500px;
 	}
 	
 </style>

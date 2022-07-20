@@ -31,7 +31,7 @@
 		select rownum rn, TMP.* from (
             select * from golf_field F
             left outer join
-				(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				(select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
 				left outer join 
 				        golf_profile A on F.field_no = A.field_no
 				        group by f.field_no
@@ -64,7 +64,7 @@
 	<!-- 상세+이미지 조회 -->	
 	<select id="oneProfile" resultType="GolfFieldDto" parameterType="int">
 		select * from golf_field F inner join(         
-                select F.field_no,min(A.attachment_no) as attachment_no from golf_field F
+                select F.field_no,max(A.attachment_no) as attachment_no from golf_field F
 		left outer join 
 		        golf_profile A on F.field_no = A.field_no
 		        group by f.field_no) A on  F.field_no = A.field_no where F.field_no= #{fieldNo}
@@ -104,7 +104,7 @@
 				]]>
 				</if>
 			</where> 
-	 		) group by field_no having count(*) > 0) F left outer join(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+	 		) group by field_no having count(*) > 0) F left outer join(select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
 					left outer join 
 	        golf_profile A on F.field_no = A.field_no
 	        group by f.field_no) A  on F.field_no = A.field_no) A on F.field_no = A.field_no
@@ -114,7 +114,7 @@
 		update golf_field set field_commission = (field_commission + #{commission}) where field_name = #{fieldName}
 	</update>
 	
-	<update id="minusCommission" parameterType="Map">
+	<update id="maxusCommission" parameterType="Map">
 		update golf_field set field_commission = (field_commission - #{commission}) where field_name = #{fieldName}
 	</update>
 	
@@ -126,7 +126,7 @@
 	<select id="ranking" resultType="BookingSearchListVO">
 		<![CDATA[
 		select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,attachment_no,C.count from golf_field F 
-			left outer join (select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+			left outer join (select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
 				left outer join 
 				        golf_profile A on F.field_no = A.field_no
 				        group by f.field_no
@@ -144,7 +144,7 @@
 	
 	<select id="prepay" resultType="BookingSearchListVO">
 		<![CDATA[select * from golf_field F
-				left outer join (select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				left outer join (select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
 				left outer join 
 				        golf_profile A on F.field_no = A.field_no
 				        group by f.field_no
@@ -156,7 +156,7 @@
 		<![CDATA[select * from         
 				(
 				select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,attachment_no from golf_field F
-					left outer join (select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+					left outer join (select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
 					left outer join 
 				        golf_profile A on F.field_no = A.field_no
 				        group by f.field_no
@@ -170,7 +170,7 @@
 		select rownum rn, TMP.* from (
             select F.field_no, F.field_name, F.field_area, F.field_greenfee, F.field_prepay,A.attachment_no from golf_field F
 				left outer join
-				(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
+				(select f.field_no, max(A.attachment_no) as attachment_no from golf_field F
 				left outer join 
 				        golf_profile A on F.field_no = A.field_no
 				        group by f.field_no

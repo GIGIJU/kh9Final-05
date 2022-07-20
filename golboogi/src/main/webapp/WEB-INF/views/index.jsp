@@ -19,15 +19,13 @@
 		</div>
 	</div>
 		<section class="ftco-section img ftco-select-destination" style="background-image: url(images/);">
-			<div class="container">
+			<div class="container" style="max-width: 1315px;">
 				<div class="row justify-content-center pb-4">
 					<div class="col-md-12 heading-section text-center ftco-animate">
 						<span class="subheading">Provide Places</span>
 						<h2 class="mb-4">골프부킹, 국내 최대 부킹서비스</h2>
 					</div>
 				</div>
-			</div>
-			<div class="container container-2">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="carousel-destination owl-carousel ftco-animate">
@@ -180,7 +178,7 @@
 				<c:forEach var = "recentVO" items = "${recentList}">
 					<div class="col-md-4 d-flex ftco-animate">
 						<div class="blog-entry justify-content-end">
-							<a href="blog-single.html" class="block-20" style="background-image: url('images/image_1.jpg');">
+							<a href="${root}/review/detail/${recentVO.reviewNo}" class="block-20" style="background-image: url('${root}/attachment/download?attachmentNo=${recentVO.attachmentNo}')">
 							</a>
 							<div class="text">
 								<div class="d-flex align-items-center mb-4 topp">

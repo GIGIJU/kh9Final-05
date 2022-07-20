@@ -77,8 +77,9 @@ public class PackageController {
 		//model.addAttribute("no", no);
 		
 		//프로필 받아오는 부분 
-		List<StayProfileVO> list = stayProfileDao.profileOne(packageVo.getStayDto().getStayNo());
+		List<StayProfileVO> list = stayProfileDao.multiInfo(packageVo.getStayDto().getStayNo());
 		model.addAttribute("list", list);
+		
 		if(list == null) {
 			//System.out.println("111 >>>" + list);
 			model.addAttribute("profileUrl", "/images/no-round.svg");
