@@ -31,7 +31,7 @@
 	</div>
 	<c:if test="${isAdmin && auth == 0}">
 		<div align="right" class="mt-3">
-			<a href="${root}/notice/edit/${noticeDto.noticeNo}" class="btn btn-success btn-lg">수정</a>
+			<a href="${root}/notice/delete/${noticeDto.noticeNo}" class="btn btn-danger btn-lg">삭제</a>
 		</div>
 	</c:if>
 	<br><br>
