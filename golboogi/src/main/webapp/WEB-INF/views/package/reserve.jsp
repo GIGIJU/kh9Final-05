@@ -456,7 +456,7 @@ function chk() {
 	
     <!--예약 버튼 -->
       <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}">
-      <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
+      <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice) + (packageVo.fieldDto.fieldGreenfee)*4}">
       <input type="hidden" name="quantity" value="1" min="1" required>  
       		<div class="row justify-content-center mt-5 mb-1">
         <button  type="submit" form="reserveform" class="btn btn-success"  style="width:35%; font-size: 17px;">결제하기</button>
