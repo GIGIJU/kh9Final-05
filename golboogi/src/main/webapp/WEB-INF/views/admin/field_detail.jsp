@@ -20,7 +20,7 @@ textarea{
                                     
                                     <div class="card-body">
                                         
-                                        <form action="field_detail" method="post" enctype="multipart/form-data" class="form-check">
+                                        <form action="field_detail" method="post" class="form-check">
                                             
                                             <div class="page"><!-- 페이지1 -->
                                             <div class="form-floating mb-5 card-header bg-success">

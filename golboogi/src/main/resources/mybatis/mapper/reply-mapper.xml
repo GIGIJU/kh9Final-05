@@ -52,12 +52,5 @@
 		where reply_no = #{replyNo}
 	</update>
 	
-	<update id="calculateReplyCount" parameterType="int">
-		update board
-			set board_replycount = (
-				select count(*) from reply where reply_target = #{replyTarget}
-			)
-			where review_no = #{replyTarget}
-	</update>
 	
 </mapper> 

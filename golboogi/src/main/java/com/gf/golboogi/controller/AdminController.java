@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -222,14 +223,15 @@ public class AdminController {
 	
 	@PostMapping("/field_detail") 
 	public String fieldDetail(
-			@ModelAttribute FieldDetailVO fieldDetailVO
+			@ModelAttribute FieldDetailVO fieldDetailVO,
+			@RequestBody List<GolfCourseDto> golfCourseDto
 			) {
-		log.debug("golfCourseDto = {}", fieldDetailVO.getGolfFieldDto());
+		System.err.println("golfCourseDto ="+fieldDetailVO.getGolfFieldDto());
 		System.out.println("1"+fieldDetailVO);
 		System.out.println("2"+fieldDetailVO.getGolfFieldDto());
 		//golfFieldService.infoEdit(fieldDetailVO.golfFieldDto, golfCourseDto);
 //		adminDao.infoEdit(golfFieldDto, golfCourseDto);
-		adminDao.infoEditVO(fieldDetailVO);
+		//adminDao.infoEditVO(fieldDetailVO);
 		
 		return "redirect:/admin/field_list";
 	}
