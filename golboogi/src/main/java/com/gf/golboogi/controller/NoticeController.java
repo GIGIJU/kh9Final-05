@@ -118,35 +118,6 @@ public class NoticeController {
 	}
 	
 	
-	@GetMapping("/edit/{noticeNo}")
-	public String edit(@PathVariable int noticeNo, Model model,HttpSession session) {
-		String golfManagerId = (String)session.getAttribute("adminLogin");
-		boolean success = adminDao.MyCheck(golfManagerId);
-		if(success) {
-			NoticeDto noticeDto = noticeDao.info(noticeNo);
-			model.addAttribute("noticeDto", noticeDto);
-			return "notice/edit";
-		}else {
-			throw new CannotFindException();
-		}
-	}
-	
-	@PostMapping("/edit/{noticeNo}")
-	public String edit(
-			@ModelAttribute NoticeDto noticeDto,
-			@PathVariable int noticeNo
-			//RedirectAttributes attr
-			) {
-		boolean success = noticeDao.edit(noticeDto);
-		if(success) {
-//			attr.addAttribute("noticeNo", noticeDto.getNoticeNo());
-			return "redirect:/notice/list";
-		}
-		else {
-			throw new CannotFindException();
-		}
-	}
-	
 	@GetMapping("/delete/{noticeNo}")
 	public String delete(@PathVariable int noticeNo,HttpSession session) {
 		String golfManagerId = (String)session.getAttribute("adminLogin");

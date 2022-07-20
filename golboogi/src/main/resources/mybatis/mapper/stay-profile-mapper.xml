@@ -39,7 +39,9 @@
 		select attachment_no from stay_profile where stay_no = #{stayNo}
 	</select>
 	
-	
+	<select id="multiInfo" parameterType="int" resultType="StayProfileVO">
+		select attachment_no from stay_profile where stay_no = #{stayNo}
+	</select>
 	
 </mapper> 
 

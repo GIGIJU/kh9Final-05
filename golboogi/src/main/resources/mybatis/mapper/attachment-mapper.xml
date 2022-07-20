@@ -53,4 +53,8 @@
 		where attachment_no = #{attachmentNo}
 	</update>
 	
+	<delete id="delete" parameterType="int" >
+		delete attachment where attachment_no = #{attachmentNo}
+	</delete>
+	
 </mapper> 

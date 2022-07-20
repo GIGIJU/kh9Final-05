@@ -1,11 +1,15 @@
 package com.gf.golboogi.repository;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.gf.golboogi.vo.FieldProfileVO;
+import com.gf.golboogi.vo.StayProfileVO;
 
 @Repository
 public class StayProfileDaoImpl implements StayProfileDao{
@@ -20,6 +24,16 @@ public class StayProfileDaoImpl implements StayProfileDao{
 		param.put("attachmentNo", attachmentNo);
 		sqlSession.insert("stayProfile.insert", param);
 		
+	}
+
+	@Override
+	public List<StayProfileVO> multiInfo(int stayNo) {
+		List<StayProfileVO> list = sqlSession.selectList("stayProfile.multiInfo", stayNo);
+		if(list.isEmpty()) {
+			return null;
+		}else {
+			return list;
+		}
 	}
 
 }

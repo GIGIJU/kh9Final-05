@@ -57,6 +57,38 @@
 		from package_reserve where package_booking_no= #{packageBookingNo}
 	</select>		
 	
+		<!-- result map  생성 -->
+	 <resultMap type="PackageReserveVO"  id="packageReserveMap">
+	 	<result column="field_no" property="fieldNo"/>
+	 	<result column="package_total_price" property="packageTotalPrice"/>
+	 	<result column="member_id" property="memberId"/>
+	 	<result column="package_depart" property="packageDepart"/>
+	 	<result column="package_reserve_time" property="packageReserveTime"/>
+	 	<result column="package_status" property="packageStatus"/>
+	 	<result column="package_no" property="packageNo"/>
+	  <result column="stay_name" property="stayName"/>
+	 	<result column="field_name" property="fieldName"/>
+	</resultMap>
+	
+		<!--패키지 리스트 -->
+		<select id="reserveList" resultMap="packageReserveMap" parameterType="String" >
+		select P.field_no
+                 , R.package_total_price
+                 , R.member_id
+                 , R.package_reserve_time
+                 , R.package_status
+                 , R.package_no
+                 , S.stay_name
+                 , F.field_name
+                 , P.package_depart
+		from stay S
+			left outer join package_booking P on S.stay_no = P.stay_no
+			left outer join  golf_field F on F.field_no = P.field_no
+			left outer join  package_reserve R on R.package_no = P.package_no
+       	 where R.package_booking_no is not null and
+       	  R.member_id= #{memberId} order by R.package_booking_no desc
+	</select>
+	
 	<!-- 취소 -->
 	<update id="cancel" parameterType="int">
 		update package_reserve set  package_status='예약취소' where package_booking_no= #{packageBookingNo}
@@ -66,6 +98,10 @@
 	<update id="cancelPay" parameterType="int">
 		update package_reserve set  package_status='결제취소' where package_booking_no= #{packageBookingNo}
 	</update>
+	
+
+	
+	<!-- 투어 예약현황 -->
 	
 </mapper> 
 
