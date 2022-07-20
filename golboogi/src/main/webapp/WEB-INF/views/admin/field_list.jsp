@@ -26,7 +26,9 @@
                         <th>지역</th>
                         <th>전화번호</th>
                         <th>수수료</th>
-                        <th>상세보기</th>
+                        <th>정보변경</th>
+                        <th>사진추가</th>
+                        <th>사진삭제</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,9 +38,17 @@
 						<td>${golfFieldVO.golfManagerId}</td>
 						<td>${golfFieldVO.fieldArea}</td>
 						<td>${golfFieldVO.fieldPhone}</td>
-						<td>${golfFieldVO.fieldCommission}</td>
 						<td>
-							<a href="${root}/admin/field_detail?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-primary">이동</a>
+							<fmt:formatNumber value="${golfFieldVO.fieldCommission}" type="currency" currencySymbol="₩"/>
+						</td>
+						<td>
+							<a href="field_detail?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-primary">이동</a>
+						</td>
+						<td>
+							<a href="field_file_update?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-success">이동</a>
+						</td>
+						<td>
+							<a href="field_file?fieldNo=${golfFieldVO.fieldNo}" class="btn btn-danger">이동</a>
 						</td>
                     </tr>
                     </c:forEach>
@@ -46,7 +56,7 @@
             </table>
         </div>
         <div class="card-footer">
-            <a href="${root}/admin/field_insert"><i class="fa-solid fa-circle-plus"></i>골프장 등록</a>
+            <a href="field_insert"><i class="fa-solid fa-circle-plus"></i>&nbsp;골프장 등록</a>
         </div>
         
     </div>

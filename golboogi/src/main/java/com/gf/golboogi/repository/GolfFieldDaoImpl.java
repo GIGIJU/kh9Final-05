@@ -202,13 +202,20 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	// 골프장 이름으로 번호 검색
 	@Override
 	public int searchNoByName(String fieldName) {
-		return sqlSession.selectOne("searchNoByName",fieldName);
+		return sqlSession.selectOne("searchNoByName", fieldName);
 	}
 
 	@Override
 	public void fieldInsert(GolfFieldDto golfFieldDto) {
 		sqlSession.insert("golfField.insert", golfFieldDto);
 	}
+
+	@Override
+	public boolean delete(int fieldNo) {
+		return sqlSession.delete("golfField.delete", fieldNo) > 0;
+	}
+
+	
 	
 
 }

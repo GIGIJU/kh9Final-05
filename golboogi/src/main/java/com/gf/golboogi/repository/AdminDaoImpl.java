@@ -11,6 +11,7 @@ import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
 import com.gf.golboogi.vo.AdminVO;
+import com.gf.golboogi.vo.FieldDetailVO;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -96,6 +97,14 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public String golfManagerCheck(String adminId) {
 		return sqlSession.selectOne("admin.managerCheck",adminId);
+	}
+	
+	// 추가분
+
+	@Override
+	public void infoEditVO(FieldDetailVO fieldDetailVO) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

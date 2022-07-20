@@ -8,6 +8,7 @@
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
+					<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span class="mr-2"><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span> 
 					<span class="mr-2">write <i class="fa fa-chevron-right"></i></span>
 				</p>
@@ -19,18 +20,17 @@
 <br><br><br><br>
 <div class="container" id="app">
 <div class="col-md-6 offset-md-3">
-	<div class="row">
+	<div class="mt-3" align="center">
 		<h4>라운드 후기 작성</h4>
 	</div>
+	<div class="row mt-3">
 		<form v-on:submit="sendForm($event)" method="post" enctype="multipart/form-data">
-			<div class="row mt-2">
-				<input type="hidden" name="reviewWriter" value="${memberId}">
-			</div>
+			<input type="hidden" name="reviewWriter" value="${memberId}">
 			<br><br>
 			<c:choose>
 				<c:when test="${fieldName == null}">
-					<div class="mt-3">
-<!-- 						<input type="text" class="form-control" v-model="review.fieldName" name="fieldName" placeholder="골프장명" required> -->
+					<div class="row mt-3">
+						<span>골프장</span>
 						<select name="fieldName" v-model="review.fieldName" class="form-control">
 							<option value="">골프장을 선택하세요</option>
 							<c:forEach var="golfFieldDto" items="${list}">
@@ -38,16 +38,16 @@
 							</c:forEach>
 						</select>
 					</div>
-					<br><br>
 				</c:when>
 				<c:otherwise>
-					<div class="mt-3">
+					<div class="row mt-3">
 						<input type="text" class="form-control" v-model="review.fieldName" name="fieldName" value="${fieldName}" placeholder="골프장명">
 					</div>
 					<br><br>
 				</c:otherwise>
 			</c:choose>
-			<div class="mt-3">
+			<div class="row mt-3">
+				<span>제목</span>
 				<input type="text" class="form-control" v-model="review.reviewTitle" name="reviewTitle" placeholder="글제목">
 			</div>
 			<div class="row mt-3">
@@ -140,17 +140,20 @@
 				<span>글작성</span>
 				<textarea rows="5" class="form-control" cols="60" name="reviewContent" v-model="review.reviewContent"></textarea>
 			</div>
+			<br>
 			<div class="row mt-3">
 				<span>사진업로드</span>
 				<input type="file" name="reviewProfile" class="form-control">
 			</div>
+			<br>
 			<div class="row mt-3 mb-5">
 				<input type="submit" class="btn btn-success btn-lg btn-block" value="등록">
 			</div>
-			
 		</form>
 	</div>
+	</div>
 </div>
+<br><br>
 <script src="https://unpkg.com/vue@next"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script>
@@ -206,7 +209,7 @@ const app = Vue.createApp({
         };
     },
     computed:{
-       
+    	
     },
     methods:{
     	sendForm(e){

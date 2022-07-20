@@ -8,7 +8,7 @@
     <h1 class="mt-4">${memberDto.memberId}님 상세정보</h1>
     <ol class="breadcrumb mb-4">
         <li class="breadcrumb-item active">회원관리메뉴</li>
-        <li class="breadcrumb-item active"><a href="${root}/admin/member_list">일반회원목록</a></li>
+        <li class="breadcrumb-item active"><a href="admin/member_list">일반회원목록</a></li>
         <li class="breadcrumb-item active">${memberDto.memberId}님 상세정보</li>
     </ol>
 

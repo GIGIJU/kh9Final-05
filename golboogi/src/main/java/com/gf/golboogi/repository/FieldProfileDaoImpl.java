@@ -34,8 +34,8 @@ public class FieldProfileDaoImpl implements FieldProfileDao {
 			return attachmentNo;
 		}
 	}
-
 	
+	// 멀티 파일 다운로드
 	@Override
 	public List<FieldProfileVO> multiInfo(int fieldNo) {
 		List<FieldProfileVO> list = sqlSession.selectList("fieldProfile.multiInfo", fieldNo);

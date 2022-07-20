@@ -21,7 +21,7 @@ public class MemberLoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		String memberId = (String)session.getAttribute("login");
 		if(memberId == null) {
-			response.sendRedirect("/member/login");
+			response.sendRedirect("/golboogi/member/login");
 			return false;
 		}
 		return true;

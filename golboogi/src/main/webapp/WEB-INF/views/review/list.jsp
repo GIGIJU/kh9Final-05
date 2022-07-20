@@ -22,7 +22,7 @@
 			<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 				<div class="col-md-9 ftco-animate pb-5 text-center">
 					<p class="breadcrumbs">
-						<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+						<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 						<span>Review Board <i class="fa fa-chevron-right"></i></span>
 					</p>
 					<p class="mb-0" style="font-size: 17px">리뷰 게시판</p>
@@ -78,7 +78,7 @@
 							<div class="review_user_photo" align="center"><img src="${root}/images/user.png" width="70px;" height="70px;" style="border-radius: 50%;"></div>
 						</c:when>
 						<c:otherwise>
-							<div class="review_user_photo" align="center"><img src="/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" width="50px;" height="50px;"></div>
+							<div class="review_user_photo" align="center"><img src="${root}/attachment/download?attachmentNo=${ReviewProfileVO.attachmentNo}" width="50px;" height="50px;"></div>
 						</c:otherwise>
 					</c:choose>
 					<div class="review_user_comment">

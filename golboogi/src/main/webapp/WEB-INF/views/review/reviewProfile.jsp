@@ -7,7 +7,7 @@
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
-					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span class="mr-2"><a href="${root}/review/list">review <i class="fa fa-chevron-right"></i></a></span>
 					<span class="mr-2"><a href="${root}/review/edit/${reviewDto.reviewNo}">edit <i class="fa fa-chevron-right"></i></a></span>
 				</p>

@@ -8,7 +8,7 @@
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
-					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span class="mr-2"><a href="${root}/member/memberProfile">MemberProfile <i class="fa fa-chevron-right"></i></a></span>
 				</p>
 				<p class="mb-0" style="font-size: 17px">프로필 변경</p>
@@ -31,7 +31,8 @@
         <div class="mt-3" align="center">
         	<img src="${pageContext.request.contextPath}${profileUrl}" width="300px;" class="img img-circle img-shadow">
         </div>
-	    <br>    
+	    <br>
+      	<div class="mt-3" align="center">    
    		<form action="memberProfile" method="post" enctype="multipart/form-data">
 	       	<!-- 프로필 이미지 -->
 			<div class="mt-3" align="center">
@@ -41,6 +42,11 @@
 			<br><br><br>
 			<input type="submit" class="btn btn-success btn-lg btn-block" value="변경하기">
 		</form>
+		</div>
+		<br>
+		<div class="mt-3" align="center">
+			<a href="${root}/member/mypage" class="btn btn-success btn-lg btn-block">취소</a>
+		</div>
     </div>
     <br><br><br><br>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

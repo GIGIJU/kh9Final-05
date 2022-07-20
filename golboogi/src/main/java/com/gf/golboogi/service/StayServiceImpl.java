@@ -47,5 +47,16 @@ public class StayServiceImpl implements StayService {
 		}
 	}
 	
+	// 추가분
+	@Override
+	public void update(StayDto stayDto, List<MultipartFile> stayProfile) throws IllegalStateException, IOException {
+		if(!stayProfile.isEmpty()) {
+			for(MultipartFile list : stayProfile) {
+				int attachmentNo = attachmentDao.save(list);
+				stayProfileDao.insert(stayDto.getStayNo(), attachmentNo);
+			}
+		}
+	}
+	
 
 }

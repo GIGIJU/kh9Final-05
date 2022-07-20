@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
@@ -391,86 +392,158 @@ px
 
 </style>
 
-<script>
-	//토글버튼 함수
-	$(function() {
-		$("#button-toggle1").click(function() {
-			$("#divToggle1").toggle();
-		});
-		$("#button-toggle2").click(function() {
-			$("#divToggle2").toggle();
-		});
-	});
-	</script>
+
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
   <div class="container">
     <div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
       <div class="col-md-9 ftco-animate pb-5 text-center">
        <p class="breadcrumbs"><span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> <span>package <i class="fa fa-chevron-right"></i></span></p>
-       <h1 class="mb-0 bread">package</h1>
+					<p class="mb-0" style="font-size: 17px">투어, 모든 골프장 예약은 골북이로 통합니다.</p>
      </div>
    </div>
  </div>
 </section>
 
+  <div id="app">
 <!-- 예약목록 -->
 <section class="ftco-intro ftco-section ftco-no-pt">
   <div class="container">
   <div class="text-center mt-5 mb-5">
   <h3 style="font-weight: bold;">나의 투어 예약현황</h3>
-  <hr>
   </div>
   </div>
   
   <!-- 토글버튼 -->
       <div class="row justify-content-center mt-5 mb-5" >
-      <button class="button-toggle "  id="button-toggle1"  style="width: 200px;"  >예약(현장결제)</button>
-      <button class="button-toggle "  id="button-toggle2"  style="width: 200px;"  >선결제</button>
+      <button class="button-toggle"  @click="buttonToggle1" style="width: 200px;"  >예약(현장결제)</button>
+      <button class="button-toggle"  @click="buttonToggle2" style="width: 200px;"  >선결제</button>
       </div>
       
+      
    <!--현장결제 페이지1 -->
-   <div id= "divToggle1" style="display: none ; ">
+    <div v-show= "divToggle1">
+    
+          <!-- 일정없을때 500 -->
+			<c:if test="${reserveList.isEmpty()}">
+			  <div class="container">
+		       <div class="row justify-content-center">
+       				 <div class="text-center mt-5 md-3">
+		        <img src="${root}/images/no-round.svg" >
+		      </br>
+	 	 	    <span   style="font-size: 18px; color:#999999">예약 정보가 없습니다.</span>
+	 	 	</div>
+	 	 	</div>
+	 	 	</div>
+ 			</c:if>
+ 			
    <div class="row justify-content-center tour-product-info">
-	<div  class="booking-detail-list">
 	<div class="container" style="padding:40px; color:#999999">
-			<h6>예약상태</h6>
-			<h5>예약날짜</h5>
-			<h5>예약날짜</h5>
-			<hr>
-								<div class="container flex-grow ml-100"  >
-								<ul class="detail-club-info">
-									<li class="list-item">	
-									<p class="title">지역</p>
-									<div class="cont-box"><p class="text">${packageVo.fieldDto.fieldArea}</p></div>
-									</li>
-									<li class="list-item">
-									<p class="title">상세주소</p>
-									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldBasicAddress}</p></div>
-									</li>
-									<li class="list-item">
-									<p class="title">출발일</p>
-									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldPhone}</p></div>
-									</li>
-									<li class="list-item">
-									<p class="title"></p>
-									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldCartfee}원/ ${packageVo.fieldDto.fieldCaddiefee}원</p></div>
-									</li>
-									<li class="list-item">
-									<p class="title">그린피</p>
-									 <div class="cont-box"><p class="text">${packageVo.fieldDto.fieldGreenfee}원</p></div>
-									</li>
-								</ul>
-							</div>
-	<hr>
-		
+			<table class="table text-center">
+			 		<thead>
+				 		<tr>
+					 		<th>숙소명</th>
+					 		<th>필드명</th>
+					 		<th>출발일</th>
+					 		<th>예약금액</th>
+					 		<th>예약일자</th>
+					 		<th>예약상태</th>
+					 		<th></th>
+					 	</tr>
+				 	</thead>
+				 		<tbody>
+			<c:forEach var="packageReserveVO" items="${reserveList}">
+				<tr>
+				<td>	${packageReserveVO.stayName}</td>
+ 				<td>	${packageReserveVO.fieldName}</td> 
+				<td>	${packageReserveVO.packageDepart}</td>
+				<td>	${packageReserveVO.packageTotalPrice}</td>
+				<td>	${packageReserveVO.packageReserveTime}</td>
+				<td style="color:#60a120">	${packageReserveVO.packageStatus}</td>
+			<td>	<a href="" class="btn btn-success">예약취소</a></td>
+				</tr>
+			</c:forEach>  
+				</tbody>
+					</table>	
 	</div>
   </div>
   </div>
   
+     <!--선결제 페이지2 -->
+  <div v-show= "divToggle2">
+            <!-- 일정없을때 500 -->
+			<c:if test="${list.isEmpty()}">
+			  <div class="container">
+		       <div class="row justify-content-center">
+       				 <div class="text-center mt-5 md-3">
+		        <img src="${root}/images/no-round.svg" >
+		      </br>
+	 	 	    <span   style="font-size: 18px; color:#999999">투어 정보가 없습니다.</span>
+	 	 	</div>
+	 	 	</div>
+	 	 	</div>
+ 			</c:if>
+ 			
+   <div class="row justify-content-center tour-product-info">
+	<div class="container" style="padding:40px; color:#999999">
+			<table class="table text-center">
+			 		<thead>
+				 		<tr>
+					 		<th>결제명</th>
+					 		<th>결제금액</th>
+					 		<th>결제일자</th>
+					 		<th>결제상태</th>
+					 		<th></th>
+					 	</tr>
+				 	</thead>
+				 		<tbody>
+			<c:forEach var="paymentDto" items="${list}">
+				<tr>
+				<td>	${paymentDto.paymentName}</td>
+				<td>	${paymentDto.paymentTotal}</td>
+				<td>	${paymentDto.paymentTime}</td>
+				<td>	${paymentDto.paymentStatus}</td>
+				<td>	<a href="" class="btn btn-success">결제취소</a></td>
+				</tr>
+			</c:forEach>  
+				</tbody>
+					</table>	
+	</div>
   </div>
-  </section>
+  </div>
   
-
+  </section>
+  </div>
+  
+<script src="http://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const app = Vue.createApp({
+        data(){
+            return {
+            	divToggle1:true,
+            	divToggle2:false,
+            };
+        },
+        computed:{
+        },
+        methods:{
+        	buttonToggle1(){
+        		this.divToggle1=true;
+        		this.divToggle2=false;
+        	},
+        	buttonToggle2(){
+        		this.divToggle1=false;
+        		this.divToggle2=true;
+        	},
+        },
+        watch:{
+        },
+        mounted(){
+        }
+    });
+    app.mount("#app");
+</script>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

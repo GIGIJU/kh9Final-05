@@ -46,14 +46,14 @@ textarea{
                                                 <label for="packageBreakfast">조식제공여부 선택</label>
                                             </div>
                                             
-                                            <div class="form-floating mb-5">
-                                                <input name="packageDepart"  class="form-control" id="packageName" type="date" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
-                                                <label for="packageDepart">체크인</label>
-                                            </div>
-                                            <div class="form-floating mb-5">
-                                                <input name="packageArrive"  class="form-control" id="packageName" type="date" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
-                                                <label for="packageArrive">체크아웃</label>
-                                            </div>
+<!--                                             <div class="form-floating mb-5"> -->
+<!--                                                 <input name="packageDepart"  class="form-control" id="packageName" type="date" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" /> -->
+<!--                                                 <label for="packageDepart">체크인</label> -->
+<!--                                             </div> -->
+<!--                                             <div class="form-floating mb-5"> -->
+<!--                                                 <input name="packageArrive"  class="form-control" id="packageName" type="date" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" /> -->
+<!--                                                 <label for="packageArrive">체크아웃</label> -->
+<!--                                             </div> -->
                                             
 	                                            
                                             <div class="mt-4 mb-0">

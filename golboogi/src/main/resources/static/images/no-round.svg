@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="prefix__img_illust_05" width="150" height="150" viewBox="0 0 150 150">
+    <path id="prefix__box" d="M0 0H150V150H0z" style="fill:none"/>
+    <g id="prefix__그룹_1765" data-name="그룹 1765" transform="translate(-95.533 -134.031)">
+        <g id="prefix__Ball" transform="translate(112.635 167.38)">
+            <path id="prefix__패스_1041" d="M175.658 208.119c.125 4.79-10.128 8.947-22.9 9.285s-23.235-3.271-23.363-8.06 10.128-8.947 22.9-9.286 23.235 3.272 23.363 8.061z" data-name="패스 1041" transform="translate(-124.069 -182.196)" style="fill:#333;opacity:.3;mix-blend-mode:multiply;isolation:isolate"/>
+            <g id="prefix__그룹_1763" data-name="그룹 1763">
+                <g id="prefix__그룹_1762" data-name="그룹 1762">
+                    <path id="prefix__패스_1042" d="M155.217 196.661a16.7 16.7 0 1 1-9.536-4.474 16.7 16.7 0 0 1 9.536 4.474z" data-name="패스 1042" transform="translate(-127.016 -192.073)" style="fill:#fff"/>
+                </g>
+                <path id="prefix__패스_1043" d="M152.408 210.9a16.689 16.689 0 0 1-25.11-1.008 16.7 16.7 0 1 0 29.066-15.04 16.693 16.693 0 0 1-3.956 16.048z" data-name="패스 1043" transform="translate(-126.667 -188.632)" style="fill:#ddf1f2"/>
+            </g>
+        </g>
+        <g id="prefix__Flag" transform="translate(158.677 211.488)">
+            <path id="prefix__패스_1044" d="M209.958 244.768c-11 6.349-27.617 7.475-40.614 3.376a40.791 40.791 0 0 1-6-2.4c-.621-.311-1.225-.634-1.812-.972-13.369-7.722-13.369-19.622 0-27.341q1.055-.615 2.182-1.156a40.963 40.963 0 0 1 5.195-2.086c13.06-4.258 29.927-3.179 41.047 3.242 13.379 7.716 13.379 19.615.002 27.337z" data-name="패스 1044" transform="translate(-151.355 -210.956)" style="fill:#cecece"/>
+            <path id="prefix__패스_1045" d="M161.512 231.973c13.432-7.755 35.211-7.755 48.643 0a23.233 23.233 0 0 1 7.6 6.631c4.98-7.16 2.449-15.654-7.6-21.454-13.432-7.755-35.211-7.755-48.643 0-10.045 5.8-12.576 14.294-7.6 21.454a23.234 23.234 0 0 1 7.6-6.631z" data-name="패스 1045" transform="translate(-151.44 -211.333)" style="fill:#b1b1b1"/>
+        </g>
+    </g>
+</svg>

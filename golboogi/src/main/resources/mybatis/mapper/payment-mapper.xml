@@ -76,7 +76,6 @@
 	</update>
 	
 	
-		<!-- 골프예약번호가 null 일때 패키지상품이고, 패키지예약번호가 null 일때 골프예약이다. -->
 
 	<select id="getBookingPaymentNo" parameterType="int" resultType="int">
 		select payment_no from booking_payment where booking_no = #{bookingNo}

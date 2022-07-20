@@ -20,6 +20,9 @@ public interface AttachmentDao {
 
 	//reviewProfile update
 	int update(int reviewNo, MultipartFile reviewProfile) throws IllegalStateException, IOException;
+	
+	//추가분
+	boolean delete(int attachmentNo);
 
 	
 }

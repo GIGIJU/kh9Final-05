@@ -115,5 +115,11 @@ public class AttachmentDaoImpl implements AttachmentDao {
 		//4
 		return reviewNo;
 	}
+	
+	//추가분
+	@Override
+	public boolean delete(int attachmentNo) {
+		return sqlSession.delete("attachment.delete", attachmentNo) > 0;
+	}
 
 }

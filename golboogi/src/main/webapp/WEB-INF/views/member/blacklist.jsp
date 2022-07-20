@@ -11,7 +11,7 @@
 		<div class="row no-gutters slider-text align-items-end justify-content-center" style="height: 300px;">
 			<div class="col-md-9 ftco-animate pb-5 text-center">
 				<p class="breadcrumbs">
-					<span class="mr-2"><a href="/">Home <i class="fa fa-chevron-right"></i></a></span> 
+					<span class="mr-2"><a href="/golboogi">Home <i class="fa fa-chevron-right"></i></a></span> 
 					<span>Blacklist<i class="fa fa-chevron-right"></i></span>
 				</p>
 				<p class="mb-0" style="font-size: 17px">블랙리스트</p>
@@ -22,7 +22,7 @@
 <br><br>
 <div class="container">
 	<div class="mt-3 col-12" align="center">
-		<img src="#" width="500px;" height="500px;" alt="사진">
+		<img src="${root}/images/blackList.jpg" width="500px;" height="500px;" alt="사진">
 	</div>
 	<br>
 	<div class="mt-3 col-12" align="center">

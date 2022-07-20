@@ -52,8 +52,8 @@
 				$(this).val(encData);
 			});
 		});
-	}); 
-	</script>
+	});
+</script>
 	
 </head>
 <body>
@@ -88,6 +88,7 @@
 					         	 <li><a class="dropdown-item" href="${root}/member/mypage" class="nav-link">회원정보</a></li>
 					         	 <li><a class="dropdown-item" href="${root}/booking/mybooking" class="nav-link">나의예약내역</a></li>
 					         	 <li><a class="dropdown-item" href="${root}/join/myjoin" class="nav-link">조인신청내역</a></li>
+					         	 <li><a class="dropdown-item" href="${root}/package/reserve_list" class="nav-link">투어예약내역</a></li>
 	                       			<li><hr class="dropdown-divider" /></li>
 					         	 <li><a class="dropdown-item" href="${root}/member/logout" class="nav-link">로그아웃</a></li>
 				         	</c:when>
