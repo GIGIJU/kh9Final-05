@@ -37,25 +37,27 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 	
 	@Transactional
 	@Override
-	public void insert(GolfFieldDto golfFieldDto, GolfCourseDto golfCourseDto, List<MultipartFile> fieldProfile)
+	public void insert(GolfFieldDto golfFieldDto, List<String> courseName, List<MultipartFile> fieldProfile)
 			throws IllegalStateException, IOException {
 		
 		int fieldNo = sqlSession.selectOne("golfField.sequence");
 		golfFieldDto.setFieldNo(fieldNo);
 		
-		int courseNo = sqlSession.selectOne("course.sequence");
-		golfCourseDto.setFieldNo(fieldNo);
-		golfCourseDto.setCourseNo(courseNo);
-		
 		//골프장추가
 		golfFieldDao.fieldInsert(golfFieldDto);
 		//코스추가
-		golfCourseDao.courseInsert(golfCourseDto);
-		//티타임 추가
-		golfFieldDao.teetimeInsert(courseNo);
+		for(String name : courseName) {
+			int courseNo = sqlSession.selectOne("course.sequence");
+			GolfCourseDto courseDto = new GolfCourseDto();
+			courseDto.setCourseName(name);
+			courseDto.setFieldNo(fieldNo);
+			courseDto.setCourseNo(courseNo);
+			golfCourseDao.courseInsert(courseDto);
+			//티타임 추가
+			golfFieldDao.teetimeInsert(courseNo);
+		}
 		
 		if(!fieldProfile.isEmpty()) {
-			
 			for(MultipartFile list : fieldProfile) {
 				int attachmentNo = attachmentDao.save(list);
 				fieldProfileDao.insert(fieldNo, attachmentNo);

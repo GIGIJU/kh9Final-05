@@ -11,7 +11,7 @@ import com.gf.golboogi.vo.GolfFieldVO;
 
 public interface GolfFieldService {
 
-	void insert(GolfFieldDto golfFieldDto, GolfCourseDto golfCourseDto, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
+	void insert(GolfFieldDto golfFieldDto, List<String> courseName, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
 
 	List<GolfFieldVO> selectFieldList();
 
