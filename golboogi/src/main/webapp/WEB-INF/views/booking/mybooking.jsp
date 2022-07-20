@@ -153,6 +153,7 @@ textarea {
 						</c:choose>
 									</a>
 								</div>
+								<!-- 정보 -->
 								<div class="col-md-4">
 									<fmt:parseDate var="teeDate"  value="${myBookingListVO.teeTimeD}" pattern="yyyy-MM-dd"/>
 									<fmt:formatDate value="${teeDate}" var="teeTimeD" pattern="yyyy-MM-dd"/>
@@ -162,10 +163,20 @@ textarea {
 									<span class="b12">홀정보 : ${myBookingListVO.courseHole}</span>
 								</div>
 
+							<!-- 버튼 -->
 							<c:if test="${myBookingListVO.bookingStatus != '예약취소'}"> 
 								<div class="col-md-4 ml-5 text-right">
 										<button class="btn mb-2" :class="{'showbtn':!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')}" style="display: none;" @click="locationReview('${myBookingListVO.fieldName}')" v-if="!showJoin('${myBookingListVO.teeTimeD}','${myBookingListVO.teeTimeT}')">리뷰작성</button>
-										<button class="btn mb-2" v-else @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
+										
+										<c:choose>	
+											<c:when test="${myBookingListVO.joinNo == 0}">
+												<button class="btn mb-2" v-else @click="showModal(${myBookingListVO.bookingNo})">조인등록</button><br>
+											</c:when>
+											<c:otherwise>
+												<button class="btn mb-2" v-else style="background-color: gray; cursor: default;" disabled>조인등록완료</button><br>
+											</c:otherwise>
+										</c:choose>
+										
 										
 										<c:choose>
 											<c:when test="${myBookingListVO.bookingStatus == '예약완료'}">

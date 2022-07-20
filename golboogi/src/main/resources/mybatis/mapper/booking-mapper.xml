@@ -46,18 +46,20 @@
 	</select>	
 
 	<select id="myBookingList" parameterType="String" resultType="MyBookingListVO">
-		select member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
-		booking_price,booking_status,booking_drop_able,booking_no,field_prepay,G.field_no, attachment_no from
+		select B.member_id,field_name,tee_time_d,tee_time_t,course_name,course_hole,
+		booking_price,booking_status,booking_drop_able,B.booking_no,field_prepay,G.field_no, attachment_no,join_no from
     booking B 
         inner join tee_time T on B.tee_time_no = T.tee_time_no
         inner join golf_course C on T.course_no = C.course_no
-        inner join golf_field G on G.field_no = C.field_no  
+        inner join golf_field G on G.field_no = C.field_no       
         left outer join
 		(select f.field_no, min(A.attachment_no) as attachment_no from golf_field F
 		left outer join 
 		        golf_profile A on F.field_no = A.field_no
 		        group by f.field_no
-		) A on G.field_no = A.field_no  where member_id= #{memberId}      
+		) A on G.field_no = A.field_no 
+        left outer join join J on b.booking_no = j.booking_no
+        where B.member_id= #{memberId} 
         order by booking_no desc
 	</select>
 

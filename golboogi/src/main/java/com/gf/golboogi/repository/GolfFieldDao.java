@@ -19,7 +19,7 @@ public interface GolfFieldDao {
 	List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO);
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
-	void addCommission(int fieldNo, int commission);
+	void addCommission(String fieldName, int commission);
 	List<BookingSearchListVO> selectRank();
 	List<GolfFieldDto> selectPrepay();
 	List<GolfFieldDto> selectCheap();

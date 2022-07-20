@@ -157,7 +157,6 @@ public class BookingController {
 	
 	@GetMapping("/search")
 	public String search(@ModelAttribute BookingComplexSearchVO searchVO,Model model) {
-		System.out.println(golfFieldDao.searchList(searchVO));
 		model.addAttribute("list",golfFieldDao.searchList(searchVO));
 		return "booking/search_list";
 	}
@@ -190,7 +189,8 @@ public class BookingController {
 		
 		//수수료 추가
 		int commission = bookingDto.getBookingPrice()/10;
-		golfFieldDao.addCommission(fieldNo,commission);
+		GolfFieldDto fieldDto = golfFieldDao.selectOne(fieldNo);
+		golfFieldDao.addCommission(fieldDto.getFieldName(),commission);
 		
 		return "redirect:reservation_success";
 	}
@@ -215,6 +215,7 @@ public class BookingController {
 	public String myBooking(Model model,HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
 		List<MyBookingListVO> list = bookingDao.myBookingList(memberId);
+		System.out.println(list);
 		model.addAttribute("list",list);
 		
 		return "booking/mybooking";

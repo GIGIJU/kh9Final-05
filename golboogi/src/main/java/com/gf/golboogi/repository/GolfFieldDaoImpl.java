@@ -48,7 +48,6 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 	//한 골프장의 티타임 리스트 출력
 	@Override
 	public List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO) {
-		System.out.println("searchVO"+searchVO);
 		return sqlSession.selectList("teetime.list",searchVO);
 	}
 
@@ -110,10 +109,10 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 
 	//예약 시 수수료 추가
 	@Override
-	public void addCommission(int fieldNo, int commission) {
+	public void addCommission(String fieldName, int commission) {
 		Map<String, Object> param = new HashMap<>();
 		param.put("commission", commission);
-		param.put("fieldNo", fieldNo);
+		param.put("fieldName", fieldName);
 		
 		sqlSession.update("golfField.commissionUpdate",param);	
 	}

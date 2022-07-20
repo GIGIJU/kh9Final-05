@@ -88,6 +88,16 @@ p {
     background-color: #f1f2f6;
     border: #dfe4ea solid 1px;
 }
+.prepay{
+	background-color: #ff7675;
+	color: white;
+	border-radius: 2px;
+	margin-top:3px;
+	padding-left: 3px;
+	padding-right: 3px;
+	height: 30%;
+	font-size: 8px;
+}
 </style>
 
 <div id="app">
@@ -144,7 +154,12 @@ p {
 									</a>
 									</div>
 									<div class="comment-body">
-										<h3>${teetimeVO.fieldName}</h3>
+									<div class="ml-1 row"> 
+										<c:if test="${teetimeVO.fieldPrepay == 1}">
+											<span class="prepay">선결제</span>
+										</c:if>
+										<span class="ml-2" style="font-size: 16px; font-weight: bold;">${teetimeVO.fieldName}</span> 
+									</div>
 										<div class="meta" style="font-size: 9px">
 											<span><i class="fa-solid fa-location-dot"></i> ${teetimeVO.fieldArea}</span>
 											<span> [~<fmt:formatNumber value="${teetimeVO.fieldGreenfee-20000}" />]</span>

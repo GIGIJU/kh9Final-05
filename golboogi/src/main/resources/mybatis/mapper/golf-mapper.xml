@@ -111,7 +111,7 @@
 	</select>
 	
 	<update id="commissionUpdate" parameterType="Map">
-		update golf_field set field_commission = (field_commission + #{commission}) where field_no = #{fieldNo}
+		update golf_field set field_commission = (field_commission + #{commission}) where field_name = #{fieldName}
 	</update>
 	
 	<update id="minusCommission" parameterType="Map">
