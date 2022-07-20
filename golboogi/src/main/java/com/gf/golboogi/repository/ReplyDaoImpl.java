@@ -21,7 +21,7 @@ public class ReplyDaoImpl implements ReplyDao{
 		int replyNo = sqlSession.selectOne("reply.sequence");
 		replyDto.setReplyNo(replyNo);
 		sqlSession.insert("reply.insert", replyDto);
-		this.calculateReplyCount(replyDto.getReplyTarget());
+//		this.calculateReplyCount(replyDto.getReplyTarget());
 		return sqlSession.selectOne("reply.one", replyNo);
 	}
 	
@@ -36,7 +36,7 @@ public class ReplyDaoImpl implements ReplyDao{
 		ReplyDto replyDto = sqlSession.selectOne("reply.one", replyNo);
 		int count = sqlSession.delete("reply.delete", replyNo);
 		if(count == 0) throw new CannotFindException();
-		this.calculateReplyCount(replyDto.getReplyTarget());
+//		this.calculateReplyCount(replyDto.getReplyTarget());
 	}
 	
 	@Override
@@ -46,9 +46,9 @@ public class ReplyDaoImpl implements ReplyDao{
 		return sqlSession.selectOne("reply.one", replyDto.getReplyNo());
 	}
 	
-	@Override
-	public void calculateReplyCount(int replyTarget) {
-		sqlSession.update("reply.calculateReplyCount", replyTarget);
-	}
+//	@Override
+//	public void calculateReplyCount(int replyTarget) {
+//		sqlSession.update("reply.calculateReplyCount", replyTarget);
+//	}
 
 }
