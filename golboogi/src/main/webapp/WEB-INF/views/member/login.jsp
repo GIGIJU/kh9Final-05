@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<c:set var="saveIdExist" value="${cookie.saveId != null}"></c:set>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+<c:set var="saveIdExist" value="${cookie.saveId != null}"></c:set>
 
  <!-- END nav -->
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -32,7 +32,7 @@
 		<input type="hidden" name="referer" value="${referer}">
 			<div class="mt-3">
 				<label>아이디</label>
-				<input type="text" name="memberId" required class="form-control" autocomplete="off" value="${cookie.saveId.value}">
+				<input type="text" name="memberId" required class="form-control" autocomplete="off" value="${cookie.saveId.value}" placeholder="영문,숫자 8자 이상">
 			</div>
 			<div class="mt-3">
 				<label>비밀번호</label> 

@@ -1,10 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<body>
 
+<style>
+      #exit{
+         text-align: center;
+         font-size: 2em;
+     }
+</style>
+<body>
  <!-- END nav -->
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
@@ -19,12 +25,7 @@
 			</div>
 		</div>
 	</section>	
-<style>
-      #exit{
-         text-align: center;
-         font-size: 2em;
-     }
-</style>
+
 <body>
     <div class="container col-12" id="app">
     <br><br>

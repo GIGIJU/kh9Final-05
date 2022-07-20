@@ -46,9 +46,9 @@
 				<button class="btn btn-success btn-lg" type="submit">{{buttonPlaceholder}}</button>
 			</form>
 		</div>
-		<div class="mt-3" align="right">
-			<a href="${root}/review/write" class="btn btn-success btn-lg">글쓰기</a>
-		</div>
+<!-- 		<div class="mt-3" align="right"> -->
+<%-- 			<a href="${root}/review/write" class="btn btn-success btn-lg">글쓰기</a> --%>
+<!-- 		</div> -->
 	</div>
 	<br><br>
 	

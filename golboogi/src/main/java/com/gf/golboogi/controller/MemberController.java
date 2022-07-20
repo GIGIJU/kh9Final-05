@@ -68,8 +68,8 @@ public class MemberController {
 	@PostMapping("/join")
 	public String join(
 			@ModelAttribute MemberDto memberDto,
-			@RequestParam MultipartFile memberProfile,
-			Model model)throws IllegalStateException, IOException {
+			@RequestParam MultipartFile memberProfile
+				)throws IllegalStateException, IOException {
 		MemberDto idfindDto = memberDao.info(memberDto.getMemberId());
 		MemberDto nickfindDto = memberDao.selectNick(memberDto.getMemberNick());
 		MemberDto phonefindDto = memberDao.selectPhone(memberDto.getMemberPhone());
@@ -88,7 +88,6 @@ public class MemberController {
 		
 		if(!check1 && !check2 && !check3) {
 			memberService.join(memberDto, memberProfile);
-			model.addAttribute("memberDto",memberDto);
 			return "redirect:join_success";
 		}
 		throw new CannotFindException();
@@ -147,7 +146,7 @@ public class MemberController {
 		
 	}
 
-	@GetMapping("blacklist")
+	@GetMapping("/blacklist")
 	public String blacklist(HttpSession session) {
 			return "member/blacklist";
 	}
@@ -191,15 +190,9 @@ public class MemberController {
 	@PostMapping("/edit")
 	public String edit(HttpSession session,@ModelAttribute MemberDto memberDto) {
 		String memberId = (String) session.getAttribute("login");
-		MemberDto findDto = memberDao.info(memberId);
-		boolean MyCheck = findDto.getMemberId() == memberId;
-		if(MyCheck) {
-			memberDto.setMemberId(memberId);
-			memberDao.changeInformation(memberDto);
-			return "redirect:mypage";
-		}else {
-			throw new CannotFindException();
-		}
+		memberDto.setMemberId(memberId);
+		memberDao.changeInformation(memberDto);
+		return "redirect:mypage";
 	}
 	
 	@GetMapping("/password")
@@ -213,14 +206,8 @@ public class MemberController {
 			@RequestParam String changePw,
 			HttpSession session) {
 		String memberId = (String) session.getAttribute("login");
-		MemberDto findDto = memberDao.info(memberId);
-		boolean MyCheck = findDto.getMemberId() == memberId;
-		if(MyCheck) {
-			memberDao.ChangePassword(memberId,memberPw,changePw);
-			return "redirect:mypage";
-		}else {
-			throw new CannotFindException();
-		}
+		memberDao.ChangePassword(memberId,memberPw,changePw);
+		return "redirect:mypage";
 	}
 	
 	@GetMapping("/exit")
@@ -235,17 +222,12 @@ public class MemberController {
 	
 	@PostMapping("/exit")
 	public String exit(HttpSession session,
-			@RequestParam String memberPw
+		@RequestParam String memberPw
 			) {
-		String memberId = (String) session.getAttribute("login");
-		MemberDto findDto = memberDao.info(memberId);
-		boolean MyCheck = findDto.getMemberId() == memberId;
-		if(MyCheck) {
-			session.removeAttribute("login");
-			return "redirect:exit_success";
-		}else {
-			throw new CannotFindException();
-		}
+		String memberId = (String)session.getAttribute("login");
+		memberDao.exit(memberId, memberPw);
+		session.removeAttribute("login");
+		return "redirect:exit_success";
 	}
 	
 	@GetMapping("/exit_success")

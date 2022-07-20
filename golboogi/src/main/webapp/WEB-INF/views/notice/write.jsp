@@ -30,7 +30,7 @@
 				<option value="">선택하세요</option>
 				<option>이벤트</option>
 				<option>공지사항</option>
-				<option>정검</option>
+				<option>점검</option>
 			</select>	    
 	    </div>
 	    <br><br>
