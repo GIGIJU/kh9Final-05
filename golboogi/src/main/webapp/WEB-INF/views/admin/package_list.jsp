@@ -36,7 +36,7 @@
 						<td>${packageVO.stayDto.stayType}</td>
 						<td>${packageVO.stayDto.stayRoom}</td>
 						<td>
-							<a href="package_detail?packageNo=${packageVO.packageNo}" class="btn btn-primary">이동</a>
+							<a href="package_delete?packageNo=${packageVO.packageNo}" class="btn btn-danger">삭제</a>
 						</td>
                     </tr>
                     </c:forEach>

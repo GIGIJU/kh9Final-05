@@ -93,32 +93,33 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 	// 코스 여러개 입력하려던 흔적
 	
 	public void insertVO(FieldDetailVO fieldDetailVO, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException {
-//		
-//		//골프장추가
-//		int fieldNo = sqlSession.selectOne("golfField.sequence");
-//		GolfFieldDto golfFieldDto = fieldDetailVO.getGolfFieldDto();
-//		golfFieldDto.setFieldNo(fieldNo);
-//		golfFieldDao.fieldInsert(golfFieldDto);
-//		
-//		//코스추가
-//		for(GolfCourseDto golfCourseDto : fieldDetailVO.getGolfCourseDto()) {
-//			int courseNo = sqlSession.selectOne("course.sequence");
-//			golfCourseDto.setFieldNo(fieldNo);
-//			golfCourseDto.setCourseNo(courseNo);
-//			golfCourseDao.courseInsert(golfCourseDto);
-//			//티타임 추가
-//			golfFieldDao.teetimeInsert(courseNo);
-//		}
-//		
-//		// 멀티 파일 업로드
-//		if(!fieldProfile.isEmpty()) {
-//			
-//			for(MultipartFile list : fieldProfile) {
-//				int attachmentNo = attachmentDao.save(list);
-//				fieldProfileDao.insert(fieldNo, attachmentNo);
-//			}
-//			
-//		}
+		
+		//골프장추가
+		int fieldNo = sqlSession.selectOne("golfField.sequence");
+		GolfFieldDto golfFieldDto = fieldDetailVO.getGolfFieldDto();
+		golfFieldDto.setFieldNo(fieldNo);
+		golfFieldDao.fieldInsert(golfFieldDto);
+		
+		//코스추가
+		for(GolfCourseDto golfCourseDto : fieldDetailVO.getGolfCourseDto()) {
+			int courseNo = sqlSession.selectOne("course.sequence");
+			System.err.println("4312"+courseNo);
+			golfCourseDto.setFieldNo(fieldNo);
+			golfCourseDto.setCourseNo(courseNo);
+			golfCourseDao.courseInsert(golfCourseDto);
+			//티타임 추가
+			golfFieldDao.teetimeInsert(courseNo);
+		}
+		
+		// 멀티 파일 업로드
+		if(!fieldProfile.isEmpty()) {
+			
+			for(MultipartFile list : fieldProfile) {
+				int attachmentNo = attachmentDao.save(list);
+				fieldProfileDao.insert(fieldNo, attachmentNo);
+			}
+			
+		}
 	}
 
 
