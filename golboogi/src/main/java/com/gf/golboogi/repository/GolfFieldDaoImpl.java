@@ -214,6 +214,11 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		return sqlSession.delete("golfField.delete", fieldNo) > 0;
 	}
 
+	@Override
+	public void resetCommission(int fieldNo) {
+		sqlSession.update("golfField.resetCommission",fieldNo);
+	}
+
 	
 	
 

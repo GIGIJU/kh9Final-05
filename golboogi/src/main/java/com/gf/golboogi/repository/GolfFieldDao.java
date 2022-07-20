@@ -19,7 +19,6 @@ public interface GolfFieldDao {
 	List<TeeTimeListVO> selectTeetimeList(BookingComplexSearchVO searchVO);
 	Teetime1VO selectCourse(int teeTimeNo);
 	List<BookingSearchListVO> searchList(BookingComplexSearchVO searchVO);
-	void addCommission(String fieldName, int commission);
 	List<BookingSearchListVO> selectRank();
 	List<GolfFieldDto> selectPrepay();
 	List<GolfFieldDto> selectCheap();
@@ -27,7 +26,9 @@ public interface GolfFieldDao {
 	int count(String fieldArea);
 	List<BookingSearchListVO> listAll(String fieldArea, String type, int page, int size);
 	int countAll();
+	void addCommission(String fieldName, int commission);
 	void minusCommission(String fieldName, int commission);
+	void resetCommission(int fieldNo);
 	
 	
 	// 골프장 정보 입력(=골프장 등록) @이기주 / 골프장 + 코스정보  >> 이게 최신입니다. 불필요한건 테스트 후에 지우겠습니다.
