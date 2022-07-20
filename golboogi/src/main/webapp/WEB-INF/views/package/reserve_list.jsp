@@ -425,28 +425,17 @@ function check(){   
   </div>
   </div>
   
+  
   <!-- 토글버튼 -->
       <div class="row justify-content-center mt-5 mb-5" >
       <button class="button-toggle"  @click="buttonToggle1" style="width: 200px;"  >예약(현장결제)</button>
       <button class="button-toggle"  @click="buttonToggle2" style="width: 200px;"  >선결제</button>
       </div>
       
-      
+
+ 	
    <!--현장결제 페이지1 -->
     <div v-show= "divToggle1">
-    
-          <!-- 일정없을때 500 -->
-			<c:if test="${reserveList.isEmpty()}">
-			  <div class="container">
-		       <div class="row justify-content-center">
-       				 <div class="text-center mt-5 md-3">
-		        <img src="${root}/images/no-round.svg" >
-		      </br>
-	 	 	    <span   style="font-size: 18px; color:#999999">예약 정보가 없습니다.</span>
-	 	 	</div>
-	 	 	</div>
-	 	 	</div>
- 			</c:if>
  			
    <div class="row justify-content-center tour-product-info">
 	<div class="container" style="padding:40px; color:#999999">
@@ -462,7 +451,19 @@ function check(){   
 					 		<th></th>
 					 	</tr>
 				 	</thead>
+				 	  <!-- 일정없을때 500 -->
 				 		<tbody>
+				<c:if test="${reserveList.isEmpty()}">
+			  <div class="container">
+		       <div class="row justify-content-center">
+       				 <div class="text-center mt-5 md-3">
+		        <img src="${root}/images/no-round.svg" >
+		      </br>
+	 	 	    <span   style="font-size: 18px; color:#999999">예약 정보가 없습니다.</span>
+	 	 	</div>
+	 	 	</div>
+	 	 	</div>
+ 			</c:if>
 			<c:forEach var="packageReserveVO" items="${reserveList}">
 				<tr>
 				<td>	${packageReserveVO.stayName}</td>
@@ -524,18 +525,7 @@ function check(){   
 	</div>
   </div>
   </div>
-              <!-- 일정없을때 500 -->
-			<c:if test="${list.isEmpty()}">
-			  <div class="container">
-		       <div class="row justify-content-center">
-       				 <div class="text-center mt-5 md-3">
-		        <img src="${root}/images/no-round.svg" >
-		      </br>
-	 	 	    <span   style="font-size: 18px; color:#999999">투어 정보가 없습니다.</span>
-	 	 	</div>
-	 	 	</div>
-	 	 	</div>
- 			</c:if>
+
   </section>
   </div>
   
