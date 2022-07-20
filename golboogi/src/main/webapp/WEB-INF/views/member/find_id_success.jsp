@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<body>
 
+<body>
  <!-- END nav -->
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
@@ -39,7 +39,7 @@
 	</div>
 	<br>
 	<div class="mt-3" align="center">
-		<a href="${roo}/member/find_pw" class="btn btn-success btn-lg btn-block">비밀번호 찾기</a>
+		<a href="${root}/member/find_pw" class="btn btn-success btn-lg btn-block">비밀번호 찾기</a>
 	</div>
 </div>
 <br><br><br><br>

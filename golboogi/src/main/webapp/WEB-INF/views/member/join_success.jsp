@@ -31,7 +31,7 @@
 	</div>
 	<br><br>
 	<div class="mt-3" align="center">
-		<h3>${memberDto.memberNick}님 Golboogi 방문을 환영합니다.</h3>
+		<h3>Golboogi 방문을 환영합니다.</h3>
 	</div>
 	<br><br>
 	<div class="mt-3" align="center">

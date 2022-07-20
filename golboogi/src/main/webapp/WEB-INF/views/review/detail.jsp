@@ -50,6 +50,10 @@
 	#move{
 		text-align:center;
 	}
+	#reviewImage{
+		width:80%;
+		height:300px;
+	}
 	
 </style>
 <div class="container" id="app">
@@ -99,7 +103,7 @@
 				</tr>
 				<tr>
 				<td class="right" colspan="5" align="right">
-					<a href="${root}/review/write" class="btn btn-success btn-sm">글쓰기</a>&nbsp;
+<%-- 					<a href="${root}/review/write" class="btn btn-success btn-sm">글쓰기</a>&nbsp; --%>
 					<a href="${root}/review/list" class="btn btn-success btn-sm">목록</a>&nbsp;
 					
 					<c:if test="${isAdmin && auth == 0}">
@@ -235,7 +239,6 @@ const app = Vue.createApp({
         return {
         	// 서버에서 전달된 정보
             memberId:"${login}",
-            memberGrade:"${auth}",
             reviewNo:${reviewDto.reviewNo},
             
             
@@ -250,10 +253,10 @@ const app = Vue.createApp({
     // - 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
     computed:{
         isAnonymous(){
-        	return this.memberId == "" || this.memberGrade == "";
+        	return this.memberId == "";
         },
         isMember(){
-        	return this.memberId != "" && this.memberGrade != "";
+        	return this.memberId != "";
         },
         
 //         isAdmin(){
@@ -286,7 +289,7 @@ const app = Vue.createApp({
         	if(this.reviewContentIsOver) return;
         	
         	axios({
-        		url:"${pageContext.request.contextPath}/rest/reply/",
+        		url:"${root}/rest/reply/",
         		method:"post",
         		data:{
         			replyTarget:this.reviewNo,
@@ -303,7 +306,7 @@ const app = Vue.createApp({
         
         loadReply(){
         	axios({
-        		url:"${pageContext.request.contextPath}/rest/reply/"+this.reviewNo,
+        		url:"${root}/rest/reply/"+this.reviewNo,
         		method:"get",
         	})
         	.then(resp=>{
@@ -323,15 +326,16 @@ const app = Vue.createApp({
         },
         deleteReply(index){
         	//확인창 출력
-        	const choice = window.confirm("정말 삭제하시겠습니까?\n삭제한 데이터는 복구되지 않습니다");
-        	if(!choice) return;
+//         	const choice = window.confirm("정말 삭제하시겠습니까?\n삭제한 데이터는 복구되지 않습니다");
+//         	if(!choice) return;
         	
         	const reply = this.replyList[index];
         	axios({
-        		url:"${pageContext.request.contextPath}/rest/reply/"+reply.replyNo,
+        		url:"${root}/rest/reply/"+reply.replyNo,
         		method:"delete"
         	})
         	.then(resp=>{
+        		//완성 시 코드
         		this.loadReply();
         	});
         },

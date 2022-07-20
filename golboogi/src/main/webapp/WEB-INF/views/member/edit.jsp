@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
-<body>
 
+<style>
+	#edit {
+		text-align: center;
+	}
+</style>
+<body>
  <!-- END nav -->
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
 		<div class="container">
@@ -19,11 +24,7 @@
 			</div>
 		</div>
 	</section>	
-<style>
-	#edit {
-		text-align: center;
-	}
-</style>
+
 <div class="container col-12" id="app">
 	<div class="mt-3" align="center">
 		<h1 id="edit">개인정보 변경</h1>

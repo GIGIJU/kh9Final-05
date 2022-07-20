@@ -6,9 +6,10 @@
 	boolean type2 = error != null && error.equals("2");
 	boolean type3 = error != null && error.equals("3");
 %>	
-<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
+
 
  <!-- END nav -->
 	<section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
