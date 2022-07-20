@@ -22,7 +22,7 @@
 <br><br>
 <div class="container">
 	<div class="mt-3 col-12" align="center">
-		<img src="#" width="500px;" height="500px;" alt="사진">
+		<img src="${root}/images/blackList.jpg" width="500px;" height="500px;" alt="사진">
 	</div>
 	<br>
 	<div class="mt-3 col-12" align="center">
