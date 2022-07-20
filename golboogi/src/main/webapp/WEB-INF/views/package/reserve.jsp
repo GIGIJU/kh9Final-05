@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
+
+<!-- Link Swiper's CSS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+
+
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
   /* 유진 커스텀 style */
@@ -251,6 +256,37 @@ function chk() {
 
 </script>
 
+<script>
+    $(function(){
+        //var swiper = new Swiper("선택자", {옵션});
+        var swiper = new Swiper('.swiper', {
+            loop: true,//순환 모드
+
+            //자동재생
+            //autoplay:true,
+            autoplay:{
+                delay : 5000,//슬라이드 자동재생 시 교체시간(ms)
+            },
+
+            //이펙트 효과 지정
+            effect : 'slide',
+
+            // Swiper에서 내부적으로 사용할 영역을 지정
+            pagination: {
+                el: false,
+            },
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            // scrollbar: {
+            //     el: '.swiper-scrollbar',
+            // },
+        });            
+    });
+    
+   
+</script>
 
 <!-- 헤더 밑 이미지 타이틀 세션 -->
 <section class="hero-wrap hero-wrap-2" style="background-image: url('${root}/images/img_home_title_booking.jpg');">
@@ -268,7 +304,7 @@ function chk() {
 
 <!--예약 정보 입력-->
 <section class="ftco-intro ftco-section ftco-no-pt">
-	<form id="reserveform" method="post" action="reserve" onsubmit="return chk();">
+	<form id="reserveform" method="post"  action="package_purchase"" onsubmit="return chk();">
 		<div class="container">
 			<div class="row justify-content-center">
 				<div class="text-center mt-5 mb-5">
@@ -290,7 +326,20 @@ function chk() {
 					</div>
 					<div class="item-cont">
 						<div class="img-box">
-							<img src="${root}/images/hotel-resto-1.jpg" style="height: 200px; width: 200px; border-radius: 70%;">
+							<c:choose>
+					<c:when test="${empty list}">
+						<div class="swiper-slide">
+							<img src="${root}${profileUrl}" style="width: 300px; height: 300px; border-radius: 70%;">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<c:forEach var="attach" items="${list}">
+							<div class="swiper-slide">
+								<img src="${root}${profileUrl}${attach.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
+							</div>
+						</c:forEach>
+					</c:otherwise>
+				</c:choose>
 						</div>
 					</div>
 				</div>
@@ -410,21 +459,9 @@ function chk() {
       <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
       <input type="hidden" name="quantity" value="1" min="1" required>  
       		<div class="row justify-content-center mt-5 mb-1">
-        <button  type="submit" form="reserveform" class="btn btn-success"  style="width:35%; font-size: 17px;">예약하기(현장결제)</button>
+        <button  type="submit" form="reserveform" class="btn btn-success"  style="width:35%; font-size: 17px;">결제하기</button>
         </div>
       </form>
-      
-          <!--선결제 페이지 이동 버튼 -->
-    <form method="post" action="package_purchase">
-      <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}">
-      <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
-      <input type="hidden" name="quantity" value="1" min="1" required>
-
-      	<div class="row justify-content-center mt-3 mb-5">
-        <a href="${root}/package/package_purchase?packageNo=${packageVo.packageDto.packageNo}" style="color:white; font-size: 17px; width:35%; " class="btn" >선결제하기</a>
-       </div>
-      </form>
-      </div>
       
     </div>
     </section>

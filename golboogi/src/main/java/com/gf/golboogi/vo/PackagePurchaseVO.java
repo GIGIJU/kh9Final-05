@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 @Data @NoArgsConstructor @AllArgsConstructor @Builder
 public class PackagePurchaseVO {
+	private int packageBookingNo;
 	private String memberId;
 	private String packageNo;
 	private int fieldNo;

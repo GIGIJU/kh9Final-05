@@ -70,6 +70,7 @@
 		<result column="field_prepay" property="fieldPrepay"/>
 		<result column="field_commission" property="fieldCommission"/>	
 		<result column="field_area" property="fieldArea"/>	
+		
 		</association>
 		<!-- stay -->
 		<association property="stayDto" javaType="StayDto">
@@ -84,6 +85,7 @@
 		<result column="stay_detail_address" property="stayDetailAddress"/>
 		<result column="stay_status" property="stayStatus"/>
 		<result column="stay_local" property="stayLocal"/>
+		<result column="attachment_no" property="attachmentNo"/>
 		</association>
 		<!-- package -->
 		<association property="packageDto" javaType="PackageDto">
@@ -178,7 +180,9 @@
 		<!--패키지 서치 -->
 		<select id="list" resultMap="packageMap" parameterType="Map">
 		select 
-		*
+		S.*
+		, P.package_no
+		, (select attachment_no from stay_profile where stay_no = S.stay_no and rownum = 1) attachment_no
 		from stay S 
 		left outer join
 				(select S.stay_no, min(A.attachment_no) as attachment_no from stay S

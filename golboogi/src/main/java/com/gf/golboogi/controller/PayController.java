@@ -41,6 +41,7 @@ import com.gf.golboogi.vo.KakaoPayCancelRequestVO;
 import com.gf.golboogi.vo.KakaoPayCancelResponseVO;
 import com.gf.golboogi.vo.KakaoPayReadyRequestVO;
 import com.gf.golboogi.vo.KakaoPayReadyResponseVO;
+import com.gf.golboogi.vo.PackagePurchaseVO;
 import com.gf.golboogi.vo.PackageVO;
 import com.gf.golboogi.vo.PurchaseVO;
 
@@ -102,27 +103,26 @@ public class PayController {
 	
 	@PostMapping("package/package_purchase")
 	public String pay1Purchase(
-			@RequestParam int packageNo, //@RequestParam int quantity
-				@ModelAttribute PurchaseVO purchaseVO, 
-				Model model, PackageReserveDto packageReserveDto,
+				Model model,@ModelAttribute PackageReserveDto packageReserveDto,
 				HttpSession session
 			) throws URISyntaxException {
+		System.out.println(packageReserveDto);
 		
-		PackageVO packageVo = packageDao.one(packageNo);
+		PackageVO packageVo = packageDao.one(packageReserveDto.getPackageNo());
 		//상품이 없다면 결제가 진행되지 않도록 처리
 				if(packageVo == null) {
 					return "redirect:package_purchase";
 				}
 				
 		//결제 준비(ready) 요청을 진행
-		int totalAmount= (packageVo.getStayDto().getStayPrice())*4 + (packageVo.getFieldDto().getFieldGreenfee())*4;
+		int totalAmount= (packageVo.getStayDto().getStayPrice()) + (packageVo.getFieldDto().getFieldGreenfee())*4;
 		int paymentNo = paymentDao.sequence();
 		KakaoPayReadyRequestVO requestVO = 
 									KakaoPayReadyRequestVO.builder()
 												.partner_order_id(String.valueOf(paymentNo))
 												.partner_user_id(session.getId())
 												.item_name("골북이투어결제")
-												.quantity(purchaseVO.getQuantity())
+												.quantity(1)
 												.total_amount(totalAmount)
 											.build();
 		KakaoPayReadyResponseVO responseVO = kakaoPayService.ready(requestVO);
@@ -135,11 +135,15 @@ public class PayController {
 																.partner_user_id(requestVO.getPartner_user_id())
 															.build());
 		//추가적으로 결제성공 페이지에서 완료정보를 등록하기 위해 알아야 할 상품구매개수 정보를 같이 전달
+		PurchaseVO purchaseVO= PurchaseVO.builder().no(packageReserveDto.getPackageBookingNo()).build();
 		session.setAttribute("purchase", purchaseVO);//상품이 1개라면
 		//session.setAttribute("purchase", Arrays.asList(purchaseVO));//1.8부터
 		//session.setAttribute("purchase", List.of(purchaseVO));//상품이 여러개라면(9부터)
 		//결제 번호도 세션으로 전달
 		session.setAttribute("paymentNo", paymentNo);
+		
+		//예약을 위한 정보 전달
+		session.setAttribute("packageReserveDto", packageReserveDto);
 		
 		return "redirect:"+responseVO.getNext_redirect_pc_url();
 	}
@@ -210,22 +214,17 @@ public class PayController {
 			System.out.println("paymentNo >>>" + paymentNo);
 			session.removeAttribute("paymentNo");
 			
-			BookingPurchaseVO bookingPurchaseVO = (BookingPurchaseVO) session.getAttribute("bookingPurchaseVO");
-			System.out.println("bookingPurchaseVO >>>" + bookingPurchaseVO);
-			session.removeAttribute("bookingPurchaseVO");
-			
-			
 			//주어진 정보를 토대로 승인(approve) 요청을 보낸다
 			requestVO.setPg_token(pg_token);
 			KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
 			
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 1111");
-			
-			System.out.println("responseVO >>>" + responseVO);
-		
 			
 			paymentService.insert(paymentNo,  responseVO, purchaseVO);
 			
+			if((BookingPurchaseVO) session.getAttribute("bookingPurchaseVO")!=null) {
+			//골프장 예약 처리
+			BookingPurchaseVO bookingPurchaseVO = (BookingPurchaseVO) session.getAttribute("bookingPurchaseVO");
+			session.removeAttribute("bookingPurchaseVO");
 			if(bookingPurchaseVO != null) {
 				//예약처리
 				 String memberId = (String) session.getAttribute("login"); 
@@ -241,24 +240,24 @@ public class PayController {
 				 //골프장결제 DB저장
 				 bookingDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
 			}
-			
-			
-			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
-		
-//			if(purchaseVO != null) {
-//				//예약처리
-//				String memberId = (String) session.getAttribute("login");
-//				MemberDto memberDto = memberDao.info(memberId);
-//				PacakgeReserveDto packageReserveDto = packageReserveDto.one(packageNo);
-//				packageReserveDto.setMemberId(memberId);
-//				packageReserveDto.setBookingName(memberDto.getMemberName());
-//				
-//				packageReserveDao.reserve(packageReserveDto);
-//				 
+			}
+			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>gg");
+			if((PackageReserveDto) session.getAttribute("packageReserveDto")!=null) {
+			//패키지 예약 처리
+			PackageReserveDto packageReserveDto = (PackageReserveDto) session.getAttribute("packageReserveDto");
+			session.removeAttribute("packageReserveDto");
+			if(packageReserveDto!=null) {
+				//예약처리
+				String memberId = (String) session.getAttribute("login");
+				MemberDto memberDto = memberDao.info(memberId);
+				packageReserveDto.setMemberId(memberId);
+				
+				packageReserveDao.reserve(packageReserveDto);
+				 
 //				 //골프장결제 DB저장
-//				packageReserveDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
-//			}
-
+				packageReserveDao.paymentInsert(packageReserveDto.getPackageBookingNo(),paymentNo);
+			}
+			}
 		//return "redirect:/pay/finish";
 		return "redirect:finish";
 	}
@@ -345,6 +344,28 @@ public class PayController {
 		}
 	
 	
+	@GetMapping("/package/cancelPayment")
+	public String cancelPackage(@RequestParam int packageBookingNo) throws URISyntaxException {
+		
+		int paymentNo = paymentDao.getPackagePaymentNo(packageBookingNo);
+		PaymentDto paymentDto = paymentDao.find(paymentNo);
+		
+		//실제 취소
+		KakaoPayCancelRequestVO requestVO = 
+									KakaoPayCancelRequestVO.builder()
+										.tid(paymentDto.getPaymentTid())
+										.cancel_amount(paymentDto.getPaymentTotal())
+									.build();
+		KakaoPayCancelResponseVO responseVO = kakaoPayService.cancel(requestVO);
+		
+		//DB 처리
+		paymentDao.cancel(paymentNo);
+		//예약 취소 처리
+		packageReserveDao.cancel(packageBookingNo);
+	
+		
+		return "redirect:/package/reserve_list";
+		}
 
 	
 }

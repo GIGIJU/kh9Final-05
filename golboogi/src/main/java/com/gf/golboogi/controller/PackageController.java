@@ -76,7 +76,7 @@ public class PackageController {
 		model.addAttribute("packageVo", packageVo);
 		//model.addAttribute("no", no);
 		
-		//프로필 받아오는 부분 
+		//프로필 받아오는 부분
 		List<StayProfileVO> list = stayProfileDao.profileOne(packageVo.getStayDto().getStayNo());
 		model.addAttribute("list", list);
 		if(list == null) {
@@ -101,6 +101,7 @@ public class PackageController {
 			Model model) {
 		List<PackageVO> list = packageDao.list(stayPrice,stayLocal);
 		model.addAttribute("list",list);
+
 		
 		return "package/list";
 	}
@@ -123,7 +124,21 @@ public class PackageController {
 		model.addAttribute("memberDto", memberDto );
 		model.addAttribute("packageVo", packageVo);
 		model.addAttribute("packageReserveDto",packageReserveDto);
-
+		
+		//프로필 받아오는 부분 
+				List<StayProfileVO> list = stayProfileDao.profileOne(packageVo.getStayDto().getStayNo());
+				model.addAttribute("list", list);
+				if(list == null) {
+					//System.out.println("111 >>>" + list);
+					model.addAttribute("profileUrl", "/images/no-round.svg");
+				}
+				else {
+					//System.out.println("222 >>>" + list);
+					model.addAttribute("profileUrl", "/attachment/download?attachmentNo=");
+				}
+				
+				System.out.println("list = " + list);
+			
 		return "package/reserve";
 	}
 	
@@ -168,9 +183,15 @@ public class PackageController {
 	@GetMapping("/cancel/{packageBookingNo}")
 	public String cancel(@PathVariable int packageBookingNo, HttpSession session){
 		System.out.println("packageBookingNo >>> " + packageBookingNo);
-		packageReserveDao.cancel(packageBookingNo);
+		int count = packageReserveDao.possible(packageBookingNo);
+		String returnUrl = "redirect:/package/reserve_list";
+		if (count > 0) {
+			packageReserveDao.cancel(packageBookingNo);
+		} else {
+			returnUrl = returnUrl + "?cancel=fail";
+		}
 	
-		return "redirect:/package/reserve_list";
+		return returnUrl;
 	}
 	
 	@PostMapping("/reserveConfirm")

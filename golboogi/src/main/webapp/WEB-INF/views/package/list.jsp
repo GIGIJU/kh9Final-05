@@ -213,6 +213,7 @@ $(function () {
  <div class="container">
   <div class="row">
  <c:forEach var="PackageVO" items="${list}" varStatus="status">
+ <!-- ${list} -->
    <div class="col-md-4 ftco-animate fadeInUp ftco-animated">
     <div class="project-wrap hotel">
     <c:choose>

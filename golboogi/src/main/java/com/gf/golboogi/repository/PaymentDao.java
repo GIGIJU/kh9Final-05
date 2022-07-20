@@ -25,6 +25,7 @@ public interface PaymentDao {
 	
 	void cancel(int paymentNo);
 	int getBookingPaymentNo(int bookingNo);
+	int getPackagePaymentNo(int bookingNo);
 	
 
 	
