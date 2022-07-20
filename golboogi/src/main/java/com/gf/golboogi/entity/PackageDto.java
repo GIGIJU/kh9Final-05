@@ -12,8 +12,6 @@ public class PackageDto {
 		private int packageNo;
 		private int stayNo;
 		private int fieldNo;
-		private Date packageDepart;
-		private Date packageArrive;
 		private int packageBreakfast;
 		
 	}

@@ -15,6 +15,7 @@ public class PackageReserveDto {
 	private String memberId;
 	private int packageTotalPrice;
 	private String packageStatus;
-	private Date packageReserveDate;
+	private Date packageReserveTime;
+	private Date packageDepart;
 
 }

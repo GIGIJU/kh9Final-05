@@ -13,6 +13,7 @@ public interface StayDao {
 	//StayDto priceEdit(StayDto stayDto); //숙소가격수정
 	StayDto find(String stayName); //숙소명 검색 
 	StayDto one(int stayNo); //숙소번호 검색
+	StayDto oneProfile(int stayNo);
 
 	
 	

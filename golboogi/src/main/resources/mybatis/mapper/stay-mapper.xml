@@ -79,8 +79,17 @@
 	<!-- set -->
 	<!-- stay_price = #{stayPrice}, -->
 	<!-- where -->
-	<!-- stay_no = #{stayNo} -->
+	<!-- stay_no = D-->
 	<!-- </update> -->
+	
+<!-- 숙소 상세 프로필 -->
+	<select id="oneProfile" resultType="StayDto" parameterType="int">
+	        select * from stay S inner join(         
+                select S.stay_no,min(A.attachment_no) as attachment_no from stay S
+		left outer join 
+		        stay_profile A on S.stay_no = A.stay_no
+		        group by S.stay_no) A on  S.stay_no = A.stay_no where S.stay_no= #{stayNo};
+		</select>
 
 </mapper> 
 

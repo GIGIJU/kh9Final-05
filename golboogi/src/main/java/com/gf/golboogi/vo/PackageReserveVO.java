@@ -18,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class PackageReserveVO {
 	private String fieldNo;
 	private int packageTotalPrice;
+	private int packageBookingNo;
 	private String memberId;
 	private Date packageDepart;
 	private Date packageReserveTime;

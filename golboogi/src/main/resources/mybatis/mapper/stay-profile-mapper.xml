@@ -35,7 +35,11 @@
 		)
 	</insert>
 	
-	<select id="one" resultType="Integer" parameterType="Integer">
+	<select id="oneP" resultType="Integer" parameterType="Integer">
+		select attachment_no from stay_profile where stay_no = #{stayNo}
+	</select>
+	
+		<select id="profileOne" resultType="StayProfileVO" parameterType="Integer">
 		select attachment_no from stay_profile where stay_no = #{stayNo}
 	</select>
 	

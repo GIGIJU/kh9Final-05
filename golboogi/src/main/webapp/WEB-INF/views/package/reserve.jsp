@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
@@ -199,14 +198,57 @@ function checkboxControl(target){//target==이벤트가 발생한 태그 객체
 
 <!-- 필수항목체크 함수 -->
 function chk() {
-    var f = document.thisForm;
-    if(f.subject_agree.checked!==true) {
-        alert('필수항목에 체크해 주세요.');
+	let result = false;
+	if (!$("#agree1").is(":checked")) {
+		alert("개인정보 수집 및 이용에 동의해주세요.");
+		return false;
+	} else if (!$("#agree2").is(":checked")) {
+		alert("개인정보 제3자 제공에 동의해주세요.");
+		return false;
+	} else if ($("#packageDepart").val() == "") {
+		alert("일정을 선택하세요");
+		$("#packageDepart").focus();
+		return false;
+	}
+    let reserveDate = Number($("#packageDepart").val().replace(/-/gi, ""));
+    let date = new Date();
+    let year = String(date.getFullYear());
+    let month = (date.getMonth() + 1);
+    month = month < 10 ? "0" + month : String(month);
+    let day = date.getDate();
+    day = day < 10 ? "0" + day : String(day);
+    let today = Number(year + month + day);
+    if (reserveDate > today) {
+    	$.ajax({
+    		async:false,
+    		url:"${root}/package/reserveConfirm",
+    		data:{"packageDepart":$("#packageDepart").val()},
+    		type:"post",
+    		dataType:"json",
+    		success:function(data) {
+    			console.log("success", data);
+    			if (data.count == 0) {
+    				alert("약관에 동의하셨습니다.");
+    		    	result = true;
+    			} else {
+    				alert("이미 예약된 날짜입니다.");
+    				result = false;
+    			}
+    		},
+    		error:function(xhr, status, res) {
+    			//console.log("error", xhr, status, res);
+    			result = false;
+    		}
+    	});
     } else {
-        alert('약관에 동의하셨습니다.');
-        f.submit();
+    	alert("오늘 이후 날짜만 예약이 가능합니다.");
+    	result = false;
     }
+    console.log("result", result);
+    return result;
 }
+
+
 </script>
 
 
@@ -225,76 +267,78 @@ function chk() {
 
 
 <!--예약 정보 입력-->
-    <form method="post" action="reserve" onsubmit="return  !!(formCheck() & chk());">
 <section class="ftco-intro ftco-section ftco-no-pt">
-  <div class="container">
-    
-    <div class="row justify-content-center">
-    <div class="text-center mt-5 mb-5">
-      <h3 style="font-weight: bold;">예약 신청</h3>
-    </div>
-    </div>
-    <div class="row justify-content-center tour-product-info">
-            <div class="product-info-item2" >
-        <div class="product-info-title" ><h5 style="color: #000; font-weight: bold;">상품 정보</h5></div>
-        <div class="item-cont">
-          <h2 style="color:#17a2b8">${packageVo.stayDto.stayName}</h2> 
-          <hr>
-          <p>• 출발일 : ${packageVo.packageDto.packageDepart} </p>
-          <p>• 기간 : 1박2일</p>
-          <p>• 지역 : ${packageVo.stayDto.stayLocal}</p>
-      </div>
-                <div class="item-cont">
-      <div class="img-box">
-        <img src="${root}/images/hotel-resto-1.jpg" style="height: 200px; width: 200px; border-radius: 70%;">
-      </div>
-      </div>
-    </div>
-    </div>
-      <div class="row justify-content-center tour-product-info">
-        <div class="product-info-item2 " >
-  <div class="product-info-title " ><h5 style="color: #000; font-weight: bold;">신청 정보</h5>
-          <h6 class="red">* 필수입력</h6>
-        </div>
-          <div class="item-cont">
-            <h6  >이름 * </h6>
-               <input type="text" value="${memberDto.memberName}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
-               <div class="field-button-box"></div>
-                                          <h6 >이메일 *</h6> 
-               <input type="text" value="${memberDto.memberEmail}"  readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
-               <div class="field-button-box" style="width:100%"></div>
-            </div>
-                      <div class="item-cont">
-            <h6  >휴대폰 * </h6>
-               <input type="text" value="${memberDto.memberPhone}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
-               <div class="field-button-box"></div>
-            </div>
-        </div>
-        </div>
-	
-        <div class="row justify-content-center tour-product-info">
-          <div class="product-info-item2 " >
-            <div class="product-info-title" ><h5 style="color: #000; font-weight: bold;">티업 정보</h5>
-            <h6 class="red">* 필수입력</h6>
-          </div>
-            <div class="item-cont">
-            <h6  > 1일차  </h6>
-            <div class="select-box" >
-						<select  style="width:100%" required  name="selectField"  >
-						    <option value="" disabled selected >골프장 선택 </option>
-      					<option value="${packageVo.fieldDto.fieldName}" >${packageVo.fieldDto.fieldName}</option>
-      					</select>
-      						<select  style="width:100%" required  name="selectTime" >
-						    <option value="" disabled selected >희망타임 선택 </option>
-      					<option value="1" >오전</option>
-      					<option value="2">오후</option>
-      					<option value="3">저녁</option>
-      					<option value="4">야간</option> 					
-      					</select>
-          </div>
-                 <br>
-            <h6 > 2일차  </h6>
-            <div class="select-box" >
+	<form id="reserveform" method="post" action="reserve" onsubmit="return chk();">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="text-center mt-5 mb-5">
+					<h3 style="font-weight: bold;">예약 신청</h3>
+				</div>
+			</div>
+			<div class="row justify-content-center tour-product-info">
+				<div class="product-info-item2" >
+					<div class="product-info-title" >
+						<h5 style="color: #000; font-weight: bold;">상품 정보</h5>
+					</div>
+					<div class="item-cont">
+						<h2 style="color:#17a2b8">${packageVo.stayDto.stayName}</h2>
+						<hr>
+						<p>• 일정을 선택하세요 </p>
+						<input type="date" id="packageDepart" name="packageDepart" style="width:60%;" min="" max="">
+						<p>• 기간 : 1박2일</p>
+						<p>• 지역 : ${packageVo.stayDto.stayLocal}</p>
+					</div>
+					<div class="item-cont">
+						<div class="img-box">
+							<img src="${root}/images/hotel-resto-1.jpg" style="height: 200px; width: 200px; border-radius: 70%;">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center tour-product-info">
+				<div class="product-info-item2 " >
+					<div class="product-info-title " >
+						<h5 style="color: #000; font-weight: bold;">신청 정보</h5>
+						<h6 class="red">* 필수입력</h6>
+					</div>
+					<div class="item-cont">
+						<h6  >이름 * </h6>
+						<input type="text" value="${memberDto.memberName}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
+						<div class="field-button-box"></div>
+						<h6 >이메일 *</h6>
+						<input type="text" value="${memberDto.memberEmail}"  readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
+						<div class="field-button-box" style="width:100%"></div>
+					</div>
+					<div class="item-cont">
+						<h6  >휴대폰 * </h6>
+						<input type="text" value="${memberDto.memberPhone}" readonly="readonly" style="pointer-events: none;  background-color: #e0e0e0;     border-radius: 4px; border-style : none;">
+						<div class="field-button-box"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row justify-content-center tour-product-info">
+				<div class="product-info-item2 " >
+					<div class="product-info-title" ><h5 style="color: #000; font-weight: bold;">티업 정보</h5>
+						<h6 class="red">* 필수입력</h6>
+					</div>
+					<div class="item-cont">
+						<h6  > 1일차  </h6>
+						<div class="select-box" >
+							<select  style="width:100%" required  name="selectField"  >
+								<option value="" disabled selected >골프장 선택 </option>
+								<option value="${packageVo.fieldDto.fieldName}" >${packageVo.fieldDto.fieldName}</option>
+							</select>
+							<select  style="width:100%" required  name="selectTime" >
+								<option value="" disabled selected >희망타임 선택 </option>
+								<option value="1" >오전</option>
+								<option value="2">오후</option>
+								<option value="3">저녁</option>
+								<option value="4">야간</option>
+							</select>
+						</div>
+						<br>
+						<h6 > 2일차  </h6>
+						<div class="select-box" >
 						<select  style="width:100%"  required name="selectField" >
 						    <option value=""  disabled selected  >골프장 선택 </option>
       					<option >${packageVo.fieldDto.fieldName}</option>
@@ -332,7 +376,6 @@ function chk() {
             </div>
             
           <!-- 약관동의 -->
-     <form name="thisForm">
     <div class="row justify-content-center">
               <div class="mt-5" style="width: 400px;">
               
@@ -348,19 +391,18 @@ function chk() {
 				<i class="fa fa-bars" aria-hidden="true" style="color:#999999"></i>
              <span style="color:#999999">개인정보 수집 및 이용동의<strong>(필수)</strong></span>
             &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
-			  <input type="checkbox" name="subject" value="1" required oninput="selectItem();" style="zoom: 1.5;">
+			  <input type="checkbox" id="agree1" name="subject" value="1" oninput="selectItem();" style="zoom: 1.5;">
 			</label>
 			<label for="subject">
 			<i class="fa fa-bars" aria-hidden="true" style="color:#999999"></i>
 		     <span style="color:#999999">개인정보 제3자 제공 동의<strong>(필수)</strong></span>
 		     &emsp;&emsp;&emsp;&emsp;&emsp;&emsp; &nbsp;&nbsp;  &nbsp;
-			  <input type="checkbox" name="subject" value="2" required oninput="selectItem();" style="zoom: 1.5;">
+			  <input type="checkbox" id="agree2" name="subject" value="2"oninput="selectItem();" style="zoom: 1.5;">
 			</label>
 			<hr>
 
               </div>
               </div>
-              </form>
 
 	
     <!--예약 버튼 -->
@@ -368,7 +410,7 @@ function chk() {
       <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
       <input type="hidden" name="quantity" value="1" min="1" required>  
       		<div class="row justify-content-center mt-5 mb-1">
-        <button  class="btn btn-success"  style="width:35%; font-size: 17px;">예약하기(현장결제)</button>
+        <button  type="submit" form="reserveform" class="btn btn-success"  style="width:35%; font-size: 17px;">예약하기(현장결제)</button>
         </div>
       </form>
       
@@ -377,13 +419,13 @@ function chk() {
       <input type="hidden" name="packageNo" value="${packageVo.packageDto.packageNo}">
       <input type="hidden" name="packageTotalPrice" value="${(packageVo.stayDto.stayPrice)*4 + (packageVo.fieldDto.fieldGreenfee)*4}">
       <input type="hidden" name="quantity" value="1" min="1" required>
+
       	<div class="row justify-content-center mt-3 mb-5">
         <a href="${root}/package/package_purchase?packageNo=${packageVo.packageDto.packageNo}" style="color:white; font-size: 17px; width:35%; " class="btn" >선결제하기</a>
        </div>
       </form>
       </div>
       
-</form>
     </div>
     </section>
     </div>

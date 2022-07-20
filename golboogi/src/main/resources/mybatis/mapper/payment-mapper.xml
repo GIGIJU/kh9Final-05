@@ -49,6 +49,7 @@
 		select * from payment order by payment_no desc
 	</select>
 	
+	
 		<select id="one" resultType="PaymentDto" parameterType="int">
 		select * from payment where payment_no = #{paymentNo}
 	</select>
@@ -79,6 +80,10 @@
 
 	<select id="getBookingPaymentNo" parameterType="int" resultType="int">
 		select payment_no from booking_payment where booking_no = #{bookingNo}
+	</select>
+	
+		<select id="getPackageBookingNo" parameterType="int" resultType="int">
+		select payment_no from package_payment where package_no = #{packageNo}
 	</select>
 </mapper> 
 

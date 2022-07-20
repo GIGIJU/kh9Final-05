@@ -214,6 +214,7 @@ public class PayController {
 			System.out.println("bookingPurchaseVO >>>" + bookingPurchaseVO);
 			session.removeAttribute("bookingPurchaseVO");
 			
+			
 			//주어진 정보를 토대로 승인(approve) 요청을 보낸다
 			requestVO.setPg_token(pg_token);
 			KakaoPayApproveResponseVO responseVO = kakaoPayService.approve(requestVO);
@@ -236,8 +237,23 @@ public class PayController {
 				 //골프장결제 DB저장
 				 bookingDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
 			}
+			
+			
 			System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> 2222");
 		
+//			if(purchaseVO != null) {
+//				//예약처리
+//				String memberId = (String) session.getAttribute("login");
+//				MemberDto memberDto = memberDao.info(memberId);
+//				PacakgeReserveDto packageReserveDto = packageReserveDto.one(packageNo);
+//				packageReserveDto.setMemberId(memberId);
+//				packageReserveDto.setBookingName(memberDto.getMemberName());
+//				
+//				packageReserveDao.reserve(packageReserveDto);
+//				 
+//				 //골프장결제 DB저장
+//				packageReserveDao.paymentInsert(bookingPurchaseVO.getBookingNo(),paymentNo);
+//			}
 
 		//return "redirect:/pay/finish";
 		return "redirect:finish";

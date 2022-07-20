@@ -11,6 +11,7 @@
 		<setting name="cacheEnabled" value="true"/>
 		<!-- 자동 매핑 시 언더스코어 형태의 데이터를 카멜케이스 변수로 복사해주는 설정 -->
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL" />
 	</settings>
 	
 	<!-- 

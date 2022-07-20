@@ -33,10 +33,10 @@
 		<insert id="reserve" parameterType="PackageReserveDto">
 		insert into package_reserve(
 		package_booking_no,  package_no, member_id, package_total_price, package_status,
-		package_reserve_time
+		package_reserve_time, package_depart
 		)
 		values(
-		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '예약완료', sysdate
+		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '예약완료', sysdate,#{packageDepart}
 		)
 	</insert>						
 	
@@ -44,10 +44,10 @@
 		<insert id="reservePay" parameterType="PackageReserveDto">
 		insert into package_reserve(
 		package_booking_no,  package_no, member_id, package_total_price, package_status,
-		package_reserve_time
+		package_reserve_time, package_depart
 		)
 		values(
-		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '결제완료', sysdate
+		#{packageBookingNo}, #{packageNo},#{memberId},#{packageTotalPrice}, '결제완료', sysdate,TO_DATE(#{packageDepart}, 'YYYY-MM-DD')
 		)
 	</insert>					
 	
@@ -68,6 +68,7 @@
 	 	<result column="package_no" property="packageNo"/>
 	  <result column="stay_name" property="stayName"/>
 	 	<result column="field_name" property="fieldName"/>
+	 <result column="package_booking_no" property="packageBookingNo"/>
 	</resultMap>
 	
 		<!--패키지 리스트 -->
@@ -80,7 +81,8 @@
                  , R.package_no
                  , S.stay_name
                  , F.field_name
-                 , P.package_depart
+                 , R.package_depart
+                 , R.package_booking_no
 		from stay S
 			left outer join package_booking P on S.stay_no = P.stay_no
 			left outer join  golf_field F on F.field_no = P.field_no
@@ -98,16 +100,19 @@
 	<update id="cancelPay" parameterType="int">
 		update package_reserve set  package_status='결제취소' where package_booking_no= #{packageBookingNo}
 	</update>
-	
 
+
+	<insert id="payInsert" parameterType="Map">
+		insert into package_payment values(#{pacakgeBookingNo},#{paymentNo})
+	</insert>				
+	
+	   <update id="dateUpdate" parameterType="int">
+		update package_reserve set  package_depart=#{packageDepart} 
+		</update>
 	
 	<!-- 투어 예약현황 -->
+	<select id="reserveConfirm" parameterType="PackageReserveDto" resultType="int">
+	SELECT COUNT(*) FROM PACKAGE_RESERVE WHERE TO_CHAR(PACKAGE_DEPART, 'YYYY-MM-DD') = #{packageDepart}
+	</select>
 	
-</mapper> 
-
-
-
-
-
-
-
+</mapper>
