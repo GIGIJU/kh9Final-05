@@ -23,6 +23,7 @@
 
 
 <div class="container">
+
 	<div class="mt-3">
 		<h1>News & Notice</h1>
 	</div>
@@ -35,11 +36,8 @@
 			<input type="submit" class="btn btn-success btn-lg" value="검색">
 		</form>
 	</div>
-	<br><br>
 	
 	<!-- 광고?,사진? -->
-	
-	<br><br>
 	<c:if test="${isAdmin && auth == 0}">
 		<div class="offset-10" align="right">
 			<a href="write" class="btn btn-success btn-lg btn-block">글쓰기</a>
