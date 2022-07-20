@@ -110,9 +110,11 @@ public class BookingController {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 		List<TeeTimeListVO> teetimeList = golfFieldDao.selectTeetimeList(fieldNo,teeTimeD);
 		List<ReviewProfileVO> reviewList = reviewDao.selectOneFiled(golfFieldDto.getFieldName());
+		float rating = reviewDao.ratingView(golfFieldDto.getFieldName());
 		model.addAttribute("golfFieldDto",golfFieldDto); //골프장 정보
 		model.addAttribute("teetimeList",teetimeList); //예약 정보
 		model.addAttribute("reviewList",reviewList); //예약 정보
+		model.addAttribute("rating",rating); //평점
 		
 
 		//골프장 이미지 다운로드 주소 추가 

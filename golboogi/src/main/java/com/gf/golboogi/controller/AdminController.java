@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -192,10 +193,14 @@ public class AdminController {
 	@PostMapping("/field_insert")
 	public String fieldInsert(
 			@ModelAttribute GolfFieldDto golfFieldDto,
-			@ModelAttribute GolfCourseDto golfCourseDto,
-			@RequestParam(required=false) List<MultipartFile> fieldProfile
+			@RequestParam(value="courseName", required=false) List<String> courseName,
+			@RequestParam List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException {
-		golfFieldService.insert(golfFieldDto, golfCourseDto, fieldProfile); 
+		
+		System.out.println(golfFieldDto);
+		System.out.println(courseName);
+		golfFieldService.insert(golfFieldDto, courseName, fieldProfile);
+		
 		return "redirect:/admin/field_list";
 	}
 	

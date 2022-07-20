@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.repository.FieldProfileDao;
 import com.gf.golboogi.repository.GolfFieldDao;
+import com.gf.golboogi.repository.ReviewDao;
 import com.gf.golboogi.service.GolfFieldService;
 import com.gf.golboogi.vo.FieldProfileVO;
 
@@ -29,6 +30,9 @@ public class GolfFieldController {
 	
 	@Autowired
 	private GolfFieldService golfFieldService;
+	
+	@Autowired
+	private ReviewDao reviewDao;
 	
 	@GetMapping("/golf_field")
 	public String golfField(
@@ -70,7 +74,9 @@ public class GolfFieldController {
 	@GetMapping("/detail/{fieldNo}")
 	public String detail(@PathVariable int fieldNo, Model model) {
 		GolfFieldDto info = golfFieldDao.selectOne(fieldNo);
+		float rating = reviewDao.ratingView(info.getFieldName());
 		model.addAttribute("info", info);
+		model.addAttribute("rating", rating);
 		
 //		//골프장 이미지의 다운로드 주소를 추가 @이기주
 		List<FieldProfileVO> list = fieldProfileDao.multiInfo(info.getFieldNo());

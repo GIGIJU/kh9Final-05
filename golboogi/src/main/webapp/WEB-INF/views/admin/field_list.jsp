@@ -17,7 +17,7 @@
             <i class="fas fa-table me-1"></i>
         </div>
         
-        <div class="card-body">
+          <div class="card-body">
             <table id="datatablesSimple">
                 <thead>
                     <tr>
@@ -55,7 +55,6 @@
                 </tbody>
             </table>
         </div>
-        
         <div class="card-footer">
             <a href="field_insert"><i class="fa-solid fa-circle-plus"></i>&nbsp;골프장 등록</a>
             &nbsp;&nbsp;&nbsp;<a href="field_insert_course"><i class="fa-solid fa-circle-plus"></i>&nbsp;코스 등록</a>
@@ -63,5 +62,4 @@
         
     </div>
 </div>
-
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>    

@@ -37,7 +37,7 @@
 			course_no, field_no, course_name, course_hole
 		)
 		values(
-			#{courseNo}, #{fieldNo}, #{courseName}, #{courseHole}
+			#{courseNo}, #{fieldNo}, #{courseName}, '18홀'
 		)
 	</insert>
 	
