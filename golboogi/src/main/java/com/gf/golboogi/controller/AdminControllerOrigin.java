@@ -1,3 +1,4 @@
+
 package com.gf.golboogi.controller;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,8 +44,8 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
+//@RequestMapping("/admin")
+public class AdminControllerOrigin {
 	@Autowired
 	private AdminDao adminDao;
 	@Autowired
@@ -179,22 +181,28 @@ public class AdminController {
 		return "admin/field_insert";
 	}
 	
+//	@PostMapping("/field_insert")
+//	public String fieldInsert(
+//			@ModelAttribute FieldDetailVO fieldDetailVO,
+//			@RequestParam(required=false) List<MultipartFile> fieldProfile
+//			) throws IllegalStateException, IOException {
+//		golfFieldService.insertVO(fieldDetailVO, fieldProfile); 
+//		return "redirect:/field_list";
+//	}
+
 	@PostMapping("/field_insert")
 	public String fieldInsert(
 			@ModelAttribute GolfFieldDto golfFieldDto,
 			@RequestParam(value="courseName", required=false) List<String> courseName,
-//			@RequestParam(value="courseHole", required=false) List<String> courseHole,
 			@RequestParam List<MultipartFile> fieldProfile
 			) throws IllegalStateException, IOException {
 		
-		System.err.println(golfFieldDto);
-		System.err.println(courseName);
-//		System.err.println(courseHole);
+		System.out.println(golfFieldDto);
+		System.out.println(courseName);
 		golfFieldService.insert(golfFieldDto, courseName, fieldProfile);
 		
 		return "redirect:/admin/field_list";
 	}
-	
 	
 	@GetMapping("/field_list")
 	public String fieldList(Model model) {
@@ -209,12 +217,12 @@ public class AdminController {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
 //		golfFieldDto.setFieldNo(fieldNo);
 		model.addAttribute("golfFieldDto", golfFieldDto);
-//		System.err.println("golfFieldDto = " + golfFieldDto);
+		System.err.println("golfFieldDto = " + golfFieldDto);
 		
 		List<GolfCourseDto> golfCourseDto = golfCourseDao.searchCourseList(fieldNo);
 		model.addAttribute("golfCourseDto", golfCourseDto);
 		System.err.println("golfCourseDto = " + golfCourseDto);
-//		log.info("list = {}", list);
+//		log.debug("list = {}", list);
 		
 		return "admin/field_detail";
 	}
@@ -417,15 +425,6 @@ public class AdminController {
 		return "/admin/package_list";
 	}
 	
-	@GetMapping("/package_delete")
-	public String packageDelete(@RequestParam int packageNo) {
-		boolean success = packageDao.delete(packageNo);
-		if(success) {
-			return "redirect:/admin/package_list";
-		} else {
-			return "redirect:/admin/package_list?error";
-		}
-	}
 
 	
 	

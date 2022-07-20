@@ -59,14 +59,12 @@ textarea{
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                            	
-                                                <input name="stayPrice"  class="form-control" id="stayPrice" type="tel" placeholder="'-' 제외"  value="<fmt:formatNumber value="${stayDto.stayPrice}" type="currency" currencySymbol="₩"/>" min="0" />
-                                              
+                                                <input name="stayPrice"  class="form-control" id="stayPrice" type="number" placeholder="" value="${stayDto.stayPrice}"  min="0" />
                                                 <label for="stayPrice">숙소 가격</label>
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                                <input name="stayPhone"  class="form-control" id="stayPhone" type="number" placeholder="'-' 제외"  value="${stayDto.stayPhone}"  />
+                                                <input name="stayPhone"  class="form-control" id="stayPhone" type="tel" placeholder="'-' 제외"  value="${stayDto.stayPhone}"  />
                                                 <label for="stayPhone">숙소 대표전화</label>
                                             </div>
                                             
@@ -101,7 +99,7 @@ textarea{
                                             	<select name="stayLocal" class="form-select" multiple style="height: 170px">
                                             		<c:choose>
                                             			<c:when test="${stayDto.stayLocal == '경기도' }">
-                                            				<option value="경기도">경기도</option>
+                                            				<option value="경기도" selected>경기도</option>
                                             				<option value="강원도">강원도</option>
                                             				<option value="경상도">경상도</option>
                                             				<option value="전라도">전라도</option>
