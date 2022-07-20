@@ -9,5 +9,5 @@ public interface ReplyDao {
 	List<ReplyDto> list(int replyTarget);
 	void delete(int replyNo);
 	ReplyDto edit(ReplyDto replyDto);
-	void calculateReplyCount(int replyTarget);
+//	void calculateReplyCount(int replyTarget);
 }
