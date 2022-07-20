@@ -17,7 +17,8 @@
             <i class="fas fa-table me-1"></i>
         </div>
         
-            <table class="table text-center">
+           <div class="card-body">
+            <table id="datatablesSimple">
                 <thead>
                     <tr>
                         <th width="20%">아이디</th>
@@ -37,11 +38,11 @@
                     </c:forEach>
                 </tbody>
             </table>
+        </div>
         <div class="card-footer">
             <a href="${root}/admin/insert"><i class="fa-solid fa-circle-plus"></i>관리자 생성</a>
         </div>
-        </div>
         
     </div>
-
+</div>
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>    

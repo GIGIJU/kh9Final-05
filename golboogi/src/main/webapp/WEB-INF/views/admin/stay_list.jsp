@@ -17,7 +17,8 @@
             <i class="fas fa-table me-1"></i>
         </div>
         
-        <table class="table text-center">
+           <div class="card-body">
+            <table id="datatablesSimple">
                 <thead>
                     <tr>
                         <th>숙소 이름</th>
@@ -43,12 +44,10 @@
                     </c:forEach>
                 </tbody>
             </table>
+        </div>
         <div class="card-footer">
             <a href="${root}/admin/stay_insert"><i class="fa-solid fa-circle-plus"></i>숙소 등록</a>
         </div>
-        </div>
-        
-        
     </div>
-
+</div>
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>    
