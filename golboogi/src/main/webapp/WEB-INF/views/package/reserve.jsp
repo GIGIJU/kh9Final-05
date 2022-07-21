@@ -4,9 +4,11 @@
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
 
-<!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
-
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<!-- Swiper JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 <style>
@@ -320,27 +322,24 @@ function chk() {
 						<h2 style="color:#17a2b8">${packageVo.stayDto.stayName}</h2>
 						<hr>
 						<p>• 일정을 선택하세요 </p>
-						<input type="date" id="packageDepart" name="packageDepart" style="width:60%;" min="" max="">
+						<input type="date" id="packageDepart" name="packageDepart" style="width:80%;" min="" max="">
+						<br><br>
 						<p>• 기간 : 1박2일</p>
+						<br>
 						<p>• 지역 : ${packageVo.stayDto.stayLocal}</p>
 					</div>
 					<div class="item-cont">
 						<div class="img-box">
-							<c:choose>
-					<c:when test="${empty list}">
-						<div class="swiper-slide">
-							<img src="${root}${profileUrl}" style="width: 300px; height: 300px; border-radius: 70%;">
-						</div>
+				<c:choose>
+				<c:when test="${PackageVO.stayDto.attachmentNo != 0}">
+							<img src="${root}/attachment/download?attachmentNo=${PackageVO.stayDto.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
 					</c:when>
 					<c:otherwise>
-						<c:forEach var="attach" items="${list}">
-							<div class="swiper-slide">
-								<img src="${root}${profileUrl}${attach.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
-							</div>
-						</c:forEach>
+								<img src="${root}/images/no-round.svg" style="width: 300px; height: 300px; border-radius: 70%;">
 					</c:otherwise>
 				</c:choose>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>
