@@ -430,14 +430,14 @@ alert("취소에 실패했습니다.");
   
   <!-- 토글버튼 -->
       <div class="row justify-content-center mt-5 mb-5" >
-      <button class="button-toggle"  @click="buttonToggle1" style="width: 200px;"  >예약(현장결제)</button>
-      <button class="button-toggle"  @click="buttonToggle2" style="width: 200px;"  >선결제</button>
+<!--       <button class="button-toggle"  @click="buttonToggle1" style="width: 200px;"  >예약 및 결제</button> -->
+<!--       <button class="button-toggle"  @click="buttonToggle2" style="width: 200px;"  >선결제</button> -->
       </div>
       
 
  	
    <!--현장결제 페이지1 -->
-    <div v-show= "divToggle1">
+<!--     <div v-show= "divToggle1"> -->
  			
    <div class="row justify-content-center tour-product-info">
 	<div class="container" style="padding:40px; color:#999999">
@@ -450,6 +450,7 @@ alert("취소에 실패했습니다.");
 					 		<th>예약금액</th>
 					 		<th>예약일자</th>
 					 		<th>예약상태</th>
+					 	    <th>결제상태</th>
 					 		<th></th>
 					 	</tr>
 				 	</thead>
@@ -471,19 +472,21 @@ alert("취소에 실패했습니다.");
 				<td>	${packageReserveVO.stayName}</td>
  				<td>	${packageReserveVO.fieldName}</td> 
 				<td>	${packageReserveVO.packageDepart}</td>
-				<td>	${packageReserveVO.packageTotalPrice}</td>
+				<td><fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageReserveVO.packageTotalPrice}" /></td>
 				<td>	${packageReserveVO.packageReserveTime}</td>
 				<c:choose>
 					<c:when test="${packageReserveVO.packageStatus=='예약완료'}">
-				<td style="color:#60a120">	${packageReserveVO.packageStatus}</td>
+				<td style="color:#60a120">${packageReserveVO.packageStatus}</td>
+				<td>완료</td>
 					</c:when>
 				  <c:when test="${packageReserveVO.packageStatus=='예약취소'}">
 				<td class="red">${packageReserveVO.packageStatus}</td>
+				<td >취소</td>
 					</c:when>
 				</c:choose>
 				<c:choose>
 					<c:when test="${packageReserveVO.packageStatus=='예약완료'}">
-						<td><a href="${root}/package/cancelPayment?packageBookingNo=${packageReserveVO.packageBookingNo}" class="btn btn-secondary" onclick="check()">예약취소</a></td>
+						<td><a href="${root}/package/cancelPayment?packageBookingNo=${packageReserveVO.packageBookingNo}" class="btn btn-secondary" onclick="check()">결제취소</a></td>
 					</c:when>
 					<c:when test="${packageReserveVO.packageStatus=='예약취소'}">
 						<td><a class="btn " id="link" style="background-color:#999999" readonly>취소완료</a></td>
@@ -498,38 +501,38 @@ alert("취소에 실패했습니다.");
   </div>
   
      <!--선결제 페이지2 -->
-  <div v-show= "divToggle2">
+<!--   <div v-show= "divToggle2"> -->
  			
-   <div class="row justify-content-center tour-product-info">
-	<div class="container" style="padding:40px; color:#999999">
-			<table class="table text-center">
-			 		<thead>
-				 		<tr>
-					 		<th>결제명</th>
-					 		<th>결제금액</th>
-					 		<th>결제일자</th>
-					 		<th>결제상태</th>
-					 		<th></th>
-					 	</tr>
-				 	</thead>
-				 		<tbody>
-			<c:forEach var="paymentDto" items="${list}">
-				<tr>
-				<td>	${paymentDto.paymentName}</td>
-				<td>	${paymentDto.paymentTotal}</td>
-				<td>	${paymentDto.paymentTime}</td>
-				<td>	${paymentDto.paymentStatus}</td>
-				<td>	<a href="" class="btn btn-secondary">결제취소</a></td>
-				</tr>
-			</c:forEach>  
-				</tbody>
-					</table>	
-	</div>
-  </div>
-  </div>
+<!--    <div class="row justify-content-center tour-product-info"> -->
+<!-- 	<div class="container" style="padding:40px; color:#999999"> -->
+<!-- 			<table class="table text-center"> -->
+<!-- 			 		<thead> -->
+<!-- 				 		<tr> -->
+<!-- 					 		<th>결제명</th> -->
+<!-- 					 		<th>결제금액</th> -->
+<!-- 					 		<th>결제일자</th> -->
+<!-- 					 		<th>결제상태</th> -->
+<!-- 					 		<th></th> -->
+<!-- 					 	</tr> -->
+<!-- 				 	</thead> -->
+<!-- 				 		<tbody> -->
+<%-- 			<c:forEach var="paymentDto" items="${list}"> --%>
+<!-- 				<tr> -->
+<%-- 				<td>	${paymentDto.paymentName}</td> --%>
+<%-- 				<td>	${paymentDto.paymentTotal}</td> --%>
+<%-- 				<td>	${paymentDto.paymentTime}</td> --%>
+<%-- 				<td>	${paymentDto.paymentStatus}</td> --%>
+<!-- 				<td>	<a href="" class="btn btn-secondary">결제취소</a></td> -->
+<!-- 				</tr> -->
+<%-- 			</c:forEach>   --%>
+<!-- 				</tbody> -->
+<!-- 					</table>	 -->
+<!-- 	</div> -->
+<!--   </div> -->
+<!--   </div> -->
 
-  </section>
-  </div>
+<!--   </section> -->
+<!--   </div> -->
   
 <script src="http://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

@@ -5,9 +5,11 @@
 <c:set var="root" value="${pageContext.request.contextPath}"></c:set>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
-
-<!-- Link Swiper's CSS -->
-<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+<!-- Swiper JS -->
+<link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css"/>
+<script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
 
 
 <style>
@@ -143,10 +145,6 @@
   color:#dc3545 ;
 }
 
-.swiper {
-	width: 100%;
-	height: 100%;
-}
 
 .swiper-slide {
 	text-align: center;
@@ -273,20 +271,6 @@
 
 <script>
 	//토글버튼 함수
-	$(function() {
-		$("#button-toggle1").click(function() {
-			$("#divToggle1").toggle();
-		});
-		$("#button-toggle2").click(function() {
-			$("#divToggle2").toggle();
-		});
-		$("#button-toggle3").click(function() {
-			$("#divToggle3").toggle();
-		});
-		$("#button-toggle4").click(function() {
-			$("#divToggle4").toggle();
-		});
-	});
 	
 	function breakfastCheck(){//target==이벤트가 발생한 태그 객체
 	    //준비 : 전체선택, 항목 체크박스들
