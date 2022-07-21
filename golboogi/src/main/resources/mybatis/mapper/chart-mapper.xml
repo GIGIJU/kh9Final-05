@@ -42,6 +42,14 @@
 </select>
 
 <!-- 월별 매출 추이 -->
+<select id="salesOne" resultType="ChartSalesVO">
+	select month, SUM(b.booking_price)"sum" from temp_month T
+	left outer join booking b on T.month = extract(month from b.booking_date)
+	where t.month = #{month}
+	group by month order by month
+</select>
+
+<!-- 월별 매출 추이 -->
 <select id="salesList" resultType="ChartSalesVO">
 	select month, SUM(b.booking_price)"sum" from temp_month T
 	left outer join booking b on T.month = extract(month from b.booking_date)

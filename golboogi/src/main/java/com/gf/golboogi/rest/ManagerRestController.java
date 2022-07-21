@@ -17,6 +17,7 @@ import com.gf.golboogi.error.CannotFindException;
 import com.gf.golboogi.repository.AdminDao;
 import com.gf.golboogi.service.ChartService;
 import com.gf.golboogi.vo.ChartMemberVO;
+import com.gf.golboogi.vo.ChartSalesVO;
 import com.gf.golboogi.vo.ChartVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -38,15 +39,9 @@ public class ManagerRestController {
 		return chartService.getMemberJoinList();
 	}
 	
-//	@GetMapping("/charts")
-//	public ChartVO chartVO() {
-//		return chartService.chartVO();
-//	}
-//	
-	
-	
 	@GetMapping("/stat")
-	public List<ChartMemberVO> chartss() {
-		return chartService.getMemberJoinList();
+	public List<ChartSalesVO> charts2() {
+		return chartService.getSalesList();
 	}
+
 }

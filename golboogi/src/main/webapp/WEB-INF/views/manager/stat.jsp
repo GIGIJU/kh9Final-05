@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
         $(function () {
@@ -11,7 +11,7 @@
             // -> 가져온 데이터에서 제목과 내용을 분리해서 설정한다.
             // -> (중요) 통신이 끝나야 차트가 나올 수 있다
             $.ajax({
-                url : "http://localhost:8080/golboogi/rest/manager/stat",
+                url : "http://localhost:8080/golboogi/rest/manager/charts",
                 type : "get" ,
                 //data : {},
                 success:function(resp){
@@ -55,6 +55,51 @@
                 }
             });
             
+            $.ajax({
+                url : "http://localhost:8080/golboogi/rest/manager/stat",
+                type : "get" ,
+                //data : {},
+                success:function(resp){
+                    //차트 생성
+                    //console.log(resp);
+                    		console.log(resp);
+
+                    //label : X축에 표시될 항목들
+                    var labels = [];
+                    for(var i=0; i < resp.length; i++) {
+                        labels.push(resp[i].month);//연도를 라벨에 추가
+                    }
+
+                    var sum = [];
+                    for(var i=0; i < resp.length; i++) {
+                    		sum.push(resp[i].sum);//카운트를 데이터에 추가
+                    }
+
+                    //data : 차트에 표시될 데이터
+                    var data = {
+                        labels: labels,
+                        datasets: [{
+                            label: '월 매출액',//범례
+                            backgroundColor: '#00a8ff',//배경색
+                            data: sum,//데이터
+                        }]
+                    };
+
+                    //차트의 형태 등을 설정(옵션, 환경설정)
+                    var config = {
+                        type: 'bar',//차트의 모양
+                        data: data,//차트 데이터
+                        options: {}
+                    };
+
+                    //차트 생성 구문
+                    var myChart = new Chart(
+                        document.querySelector('#myChart2'),//차트 적용 대상
+                        config//차트 옵션
+                    );
+                }
+            });
+            
         });
     </script>
 <jsp:include page="/WEB-INF/views/template/header_manager.jsp"></jsp:include>
@@ -69,18 +114,18 @@
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-chart-area me-1"></i>
-                    Area Chart Example
+                    월별 가입 회원 통계
                 </div>
-                <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                <div class="card-body"><canvas id="myChart" width="100%" height="40"></canvas></div>
             </div>
         </div>
         <div class="col-xl-6">
             <div class="card mb-4">
                 <div class="card-header">
                     <i class="fas fa-chart-bar me-1"></i>
-                    월별 가입 회원 통계
+                    월별 총 매출 통계
                 </div>
-                <div class="card-body"><canvas id="myChart" width="100%" height="40"></canvas></div>
+                <div class="card-body"><canvas id="myChart2" width="100%" height="40"></canvas></div>
             </div>
         </div>
     </div>

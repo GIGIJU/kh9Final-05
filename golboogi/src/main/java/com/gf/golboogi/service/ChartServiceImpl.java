@@ -29,17 +29,13 @@ public class ChartServiceImpl implements ChartService {
 		return inventory;
 	}
 
-
 	@Override
-	public ChartVO chartVO() {
-//		List<ChartMemberVO> memberVO = sqlSession.selectList("chart.memberList");
-//		List<ChartSalesVO> salesVO = sqlSession.selectList("chart.salesList");
-//		ChartVO chartVO = new ChartVO();
-//		chartVO.setChartMemberVO(memberVO);
-//		chartVO.setChartSalesVO(salesVO);
-//		
-		return null;//null아님 수정해야함
+	public List<ChartSalesVO> getSalesList() {
+		return sqlSession.selectList("chart.salesList");
 	}
+	
+
+
 
 
 }
