@@ -3,7 +3,26 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/template/header_admin.jsp"></jsp:include>
-
+<script>
+	/*
+		프론트엔드 암호화에 대한 계획
+		- 암호화 알고리즘은 상황에 맞게 선택
+		- input[type=password] 형태의 컬럼을 찾아서 전송 전에 암호화한 값으로 교체
+	*/
+	$(function(){
+		$("form").submit(function(){
+			//this == form
+			$(this).find("input[type=password]").each(function(){
+				//this == 입력창
+				var rawData = $(this).val();
+				//var encData = 암호화(rawData);
+				var hash = CryptoJS.SHA1(rawData);//암호화
+				var encData = CryptoJS.enc.Hex.stringify(hash);//문자열화
+				$(this).val(encData);
+			});
+		});
+	});
+</script>
 <body id="app" class="bg-primary">
         <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">

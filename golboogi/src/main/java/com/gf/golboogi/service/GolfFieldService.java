@@ -22,6 +22,14 @@ public interface GolfFieldService {
 	void update(int fieldNo, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
 
 	void insertVO(FieldDetailVO fieldDetailVO, List<MultipartFile> fieldProfile) throws IllegalStateException, IOException;
+	
+	
+	// 골프장 + 코스 정보 수정 (골프장 DTO / 코스VO)
+	void infoEdit(GolfFieldDto golfFieldDto, GolfCourseDto golfCourseDto);
+
+
+
+
 
 
 

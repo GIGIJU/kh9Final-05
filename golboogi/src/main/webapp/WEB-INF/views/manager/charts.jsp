@@ -1,115 +1,90 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
+<!-- jquery cdn -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+        $(function () {
+            //차트는 시작하자마자 화면에 표시되어야 한다.
+            // -> 시작하자마자 서버에 비동기통신 요청을 보내서 데이터를 가져와야 한다.
+            // -> 가져온 데이터에서 제목과 내용을 분리해서 설정한다.
+            // -> (중요) 통신이 끝나야 차트가 나올 수 있다
+            $.ajax({
+                url : "http://localhost:8080/golboogi/rest/manager/charts",
+                type : "get" ,
+                //data : {},
+                success:function(resp){
+                    //차트 생성
+                    //console.log(resp);
+
+                    //label : X축에 표시될 항목들
+                    var labels = [];
+                    for(var i=0; i < resp.length; i++) {
+                        labels.push(resp[i].month);//연도를 라벨에 추가
+                    }
+
+                    var cnt = [];
+                    for(var i=0; i < resp.length; i++) {
+                        cnt.push(resp[i].cnt);//카운트를 데이터에 추가
+                    }
+
+                    //data : 차트에 표시될 데이터
+                    var data = {
+                        labels: labels,
+                        datasets: [{
+                            label: '가입인원수',//범례
+                            backgroundColor: 'rgb(255, 99, 132)',//배경색
+                            borderColor: 'rgb(255, 99, 132)',//테두리색
+                            data: cnt,//데이터
+                        }]
+                    };
+
+                    //차트의 형태 등을 설정(옵션, 환경설정)
+                    var config = {
+                        type: 'bar',//차트의 모양
+                        data: data,//차트 데이터
+                        options: {}
+                    };
+
+                    //차트 생성 구문
+                    var myChart = new Chart(
+                        document.querySelector('#myChart'),//차트 적용 대상
+                        config//차트 옵션
+                    );
+                }
+            });
+            
+        });
+    </script>
+    
 <jsp:include page="/WEB-INF/views/template/header_manager.jsp"></jsp:include>
+
 
 <div class="container-fluid px-4">
 	<h1 class="mt-4">매출통계</h1>
 	<ol class="breadcrumb mb-4">
-		<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+		<li class="breadcrumb-item"><a href="#"></a></li>
 		<li class="breadcrumb-item active">Charts</li>
 	</ol>
-<!-- 	<div class="card mb-4"> -->
-<!-- 		<div class="card-body"> -->
-<!-- 			Chart.js is a third party plugin that is used to generate the charts in this template. The charts below have -->
-<!-- 			been customized - for further customization options, please visit the official -->
-<!-- 			<a target="_blank" href="https://www.chartjs.org/docs/latest/">Chart.js documentation</a> -->
-<!-- 			. -->
-<!-- 		</div> -->
-<!-- 	</div> -->
-<!-- 	<div class="card mb-4"> -->
-<!-- 		<div class="card-header"> -->
-<!-- 			<i class="fas fa-chart-area me-1"></i> -->
-<!-- 			Area Chart Example -->
-<!-- 		</div> -->
-<!-- 		<div class="card-body"><canvas id="myAreaChart" width="100%" height="30"></canvas></div> -->
-<!-- 		<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div> -->
-<!-- 	</div> -->
+
 
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="card mb-4">
 				<div class="card-header">
 					<i class="fas fa-chart-bar me-1"></i>
-					월별 매출 추이
+					월별 가입 회원 통계
 				</div>
-				<div class="card-body"><canvas id="myBarChart" width="100%" height="50"></canvas></div>
+				<div class="card-body"><canvas id=myChart width="100%" height="50"></canvas></div>
 				<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
-			<div class="card mb-4">
-				<div class="card-header">
-					<i class="fas fa-chart-pie me-1"></i>
-					파이 차트 예쁘당
-				</div>
-				<div class="card-body"><canvas id="myPieChart" width="100%" height="50"></canvas></div>
-				<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-			</div>
-		</div>
+		
 	</div>
 </div>
 
-<script type="text/javascript">
-	var context = document
-		.getElementById('myChart')
-		.getContext('2d');
-	var myChart = new Chart(context, {
-		type: 'bar', // 차트의 형태
-		data: { // 차트에 들어갈 데이터
-			labels: [
-				//x 축
-				'1', '2', '3', '4', '5', '6', '7'
-			],
-			datasets: [{ //데이터
-					label: 'test1', //차트 제목
-					fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-					data: [
-						21, 19, 25, 20, 23, 26, 25 //x축 label에 대응되는 데이터 값
-					],
-					backgroundColor: [
-						//색상
-						'rgba(255, 99, 132, 0.2)',
-						'rgba(54, 162, 235, 0.2)',
-						'rgba(255, 206, 86, 0.2)',
-						'rgba(75, 192, 192, 0.2)',
-						'rgba(153, 102, 255, 0.2)',
-						'rgba(255, 159, 64, 0.2)'
-					],
-					borderColor: [
-						//경계선 색상
-						'rgba(255, 99, 132, 1)',
-						'rgba(54, 162, 235, 1)',
-						'rgba(255, 206, 86, 1)',
-						'rgba(75, 192, 192, 1)',
-						'rgba(153, 102, 255, 1)',
-						'rgba(255, 159, 64, 1)'
-					],
-					borderWidth: 1 //경계선 굵기
-				}
-				/* ,
-				                        {
-				                            label: 'test2',
-				                            fill: false,
-				                            data: [
-				                                8, 34, 12, 24
-				                            ],
-				                            backgroundColor: 'rgb(157, 109, 12)',
-				                            borderColor: 'rgb(157, 109, 12)'
-				                        } */
-			]
-		},
-		options: {
-			scales: {
-				yAxes: [{
-					ticks: {
-						beginAtZero: true
-					}
-				}]
-			}
-		}
-	});
-</script>
 
 
 <jsp:include page="/WEB-INF/views/template/footer_manager.jsp"></jsp:include>

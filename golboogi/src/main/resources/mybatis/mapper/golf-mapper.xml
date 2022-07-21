@@ -246,6 +246,25 @@
 	<delete id="delete" parameterType="int">
 		delete golf_field where field_no = #{fieldNo}
 	</delete>
+	
+	<!-- 골프장 수정 -->
+	<update id="fieldUpdate" parameterType="GolfFieldDto">
+	update golf_field
+	set	
+		field_name = #{fieldName}, 
+		field_info = #{fieldInfo},
+		field_post = #{fieldPost},
+		field_basic_address = #{fieldBasicAddress},
+		field_detail_address = #{fieldDetailAddress}, 
+		field_phone = #{fieldPhone}, 
+		field_caddiefee = #{fieldCaddiefee},
+		field_cartfee = #{fieldCartfee}, 
+		field_greenfee = #{fieldGreenfee},
+		field_openday = to_date(#{fieldOpenday},'YYYY-MM-DD'),
+		field_prepay = #{fieldPrepay},
+		field_area = #{fieldArea}
+	where field_no = #{fieldNo}
+	</update>
 
 </mapper> 
 

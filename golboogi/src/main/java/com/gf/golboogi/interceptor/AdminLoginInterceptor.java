@@ -1,4 +1,4 @@
-package com.gf.golboogi.intercepter;
+package com.gf.golboogi.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,9 +20,10 @@ public class AdminLoginInterceptor implements HandlerInterceptor{
 
 		HttpSession session = request.getSession();
 		String golfManagerId = (String)session.getAttribute("adminLogin");
+		String context = request.getContextPath();
 		//String golfManagerGrade = (String)session.getAttribute("auth");
 		if(golfManagerId == null) {
-			response.sendRedirect("/golboogi/admin/login");
+			response.sendRedirect(context + "/admin/login");
 			return false;
 		}
 		return true;

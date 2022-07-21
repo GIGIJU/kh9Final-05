@@ -96,9 +96,9 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 		
 		//골프장추가
 		int fieldNo = sqlSession.selectOne("golfField.sequence");
-		GolfFieldDto golfFieldDto = fieldDetailVO.getGolfFieldDto();
-		golfFieldDto.setFieldNo(fieldNo);
-		golfFieldDao.fieldInsert(golfFieldDto);
+//		GolfFieldDto golfFieldDto = fieldDetailVO.getGolfFieldDto();
+////		golfFieldDto.setFieldNo(fieldNo);
+//		golfFieldDao.fieldInsert(golfFieldDto);
 		
 		//코스추가
 		for(GolfCourseDto golfCourseDto : fieldDetailVO.getGolfCourseDto()) {
@@ -121,6 +121,56 @@ public class GolfFieldServiceImpl implements GolfFieldService {
 			
 		}
 	}
+
+
+
+//	@Override
+//	public void infoEdit(GolfFieldDto golfFieldDto, FieldDetailVO detailVO) {
+//		for(GolfCourseDto list : detailVO.getGolfCourseDto()) {
+//			sqlSession.update("course.courseUpdate", list);
+//			System.err.println("golfCourseDto = " + list);
+//		}
+//		sqlSession.update("golfField.fieldUpdate", golfFieldDto);
+//	}
+
+
+
+	@Override
+	public void infoEdit(GolfFieldDto golfFieldDto, GolfCourseDto golfCourseDto) {
+		sqlSession.update("golfField.fieldUpdate", golfFieldDto);
+		sqlSession.update("course.courseUpdate", golfCourseDto);
+	}
+
+
+
+//	@Override
+//	public void infoEdit(FieldDetailVO fieldDetailVO, GolfFieldDto golfFieldDto) {
+////		List<GolfCourseDto> golfCourseDto = sqlSession.selectList("course.courseList", fieldDetailVO);
+////		for(GolfCourseDto list : golfCourseDto) {
+////			sqlSession.update("course.courseUpdate", list);
+////			System.err.println("golfCourseDto = " + list);
+////		}
+//		for(GolfCourseDto list : fieldDetailVO.getGolfCourseDto()) {
+//			sqlSession.update("course.courseUpdate", list);
+//			System.err.println("golfCourseDto = " + list);
+//		}
+//		sqlSession.update("golfField.fieldUpdate", golfFieldDto);
+//		
+//	}
+//
+//
+//
+//	@Override
+//	public void infoEdit2(List<GolfCourseDto> golfCourseDto, GolfFieldDto golfFieldDto) {
+//		sqlSession.update("golfField.fieldUpdate", golfFieldDto);
+//		for(GolfCourseDto list : golfCourseDto) {
+//			sqlSession.update("course.courseUpdate", list);
+//			System.err.println("golfCourseDto = " + list);
+//		}
+//	}
+
+
+
 
 
 }

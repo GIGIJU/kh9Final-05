@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 
+import com.gf.golboogi.entity.GolfCourseDto;
 import com.gf.golboogi.entity.GolfFieldDto;
 import com.gf.golboogi.entity.GolfManagerDto;
 import com.gf.golboogi.entity.MemberDto;
@@ -79,6 +80,9 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public void insertManager(AdminVO adminVO) {
+		String rawPassword = adminVO.getGolfManagerPw();
+		String encryptPassword = passwordEncoder.encode(rawPassword);
+		adminVO.setGolfManagerPw(encryptPassword);
 		sqlSession.insert("admin.insertManager", adminVO);
 	}
 
@@ -103,8 +107,10 @@ public class AdminDaoImpl implements AdminDao{
 
 	@Override
 	public void infoEditVO(FieldDetailVO fieldDetailVO) {
-		// TODO Auto-generated method stub
-		
+//		GolfFieldDto golfFieldDto = fieldDetailVO.getGolfFieldDto();
+//		for(GolfCourseDto golfCourseDto : fieldDetailVO.getGolfCourseDto()) {
+//			sqlSession.update("")
+//		}
 	}
 
 }

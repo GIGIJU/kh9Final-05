@@ -26,6 +26,27 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="chart">
 
+<!-- 월별 회원 가입 수 추이 / 특정월 검색-->
+<select id="memberOne"  parameterType="int" resultType="ChartMemberVO">
+	select month, count(m.member_id)"CNT" from temp_month "T"
+	left outer join member"M" on T.month = extract(month from M.member_joindate)
+	where t.month = #{month}
+	group by month order by month
+</select>
+
+<!-- 월별 회원 가입 수 추이 -->
+<select id="memberList" resultType="ChartMemberVO">
+	select month, count(m.member_id)"CNT" from temp_month "T"
+	left outer join member"M" on T.month = extract(month from M.member_joindate)
+	group by month order by month
+</select>
+
+<!-- 월별 매출 추이 -->
+<select id="salesList" resultType="ChartSalesVO">
+	select month, SUM(b.booking_price)"sum" from temp_month T
+	left outer join booking b on T.month = extract(month from b.booking_date)
+	group by month order by month
+</select>
 	
 </mapper> 
 
