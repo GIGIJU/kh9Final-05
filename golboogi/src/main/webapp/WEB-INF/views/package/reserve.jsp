@@ -321,24 +321,16 @@ function chk() {
 					<div class="item-cont">
 						<h2 style="color:#17a2b8">${packageVo.stayDto.stayName}</h2>
 						<hr>
-						<p>• 일정을 선택하세요 </p>
+						<p> <i class="fa fa-calendar-check-o" aria-hidden="true"  style="color:#999999">  &nbsp; </i> 일정을 선택하세요 </p>
 						<input type="date" id="packageDepart" name="packageDepart" style="width:80%;" min="" max="">
 						<br><br>
-						<p>• 기간 : 1박2일</p>
-						<br>
-						<p>• 지역 : ${packageVo.stayDto.stayLocal}</p>
+						<p><i class="fa fa-suitcase" aria-hidden="true"  style="color:#999999"> &nbsp; </i> 기간 : 1박2일</p>
+						
+						<p><i class="fa fa-map-marker" aria-hidden="true"  style="color:#999999">&nbsp; </i> 지역 : ${packageVo.stayDto.stayLocal}</p>
 					</div>
 					<div class="item-cont">
 						<div class="img-box">
-				<c:choose>
-				<c:when test="${PackageVO.stayDto.attachmentNo != 0}">
-							<img src="${root}/attachment/download?attachmentNo=${PackageVO.stayDto.attachmentNo}" style="width: 300px; height: 300px; border-radius: 70%;">
-					</c:when>
-					<c:otherwise>
-								<img src="${root}/images/no-round.svg" style="width: 300px; height: 300px; border-radius: 70%;">
-					</c:otherwise>
-				</c:choose>
-						</div>
+					  &emsp;&emsp; &emsp;&emsp; &emsp;&emsp; &emsp;&emsp;&emsp;<img src="${root}/images/golf.png" style="width: 100px; height: 100px; border-radius: 70%;">
 					</div>
 					</div>
 				</div>
@@ -411,8 +403,8 @@ function chk() {
               <div class="product-info-title" ><h2 >결제 정보</h2>
             </div>
               <div class="item-cont">
-                <h5 style="color:#fff; text-align: center; text-style:bold;">[숙박]    1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" />  </h5> 
-                <h5 style="color:#fff; text-align: center; text-style:bold;">[티업]    1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.fieldDto.fieldGreenfee}" />  </h5> 
+                <h5 style="color:#fff; text-align: center; text-style:bold;">[숙박]  1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.stayDto.stayPrice}" />  </h5> 
+                <h5 style="color:#fff; text-align: center; text-style:bold;"> [티업]  1인 기준 : <fmt:setLocale value="ko_KR"/><fmt:formatNumber type="currency" value="${packageVo.fieldDto.fieldGreenfee}" />  </h5> 
                 <h5 style="color:#fff; text-align: center; text-style:bold;">신청 인원 : 4인 1팀 </h5> 
                 <hr style="background-color :#fff">
                 <div >
