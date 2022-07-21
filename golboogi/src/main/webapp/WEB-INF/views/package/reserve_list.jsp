@@ -400,7 +400,7 @@ function check(){
 	 }
 }
 
-<c:if test="${param.cancel eq 'fail'}">
+<c:if test="${param.cancel eq 'fail'}">  
 alert("취소에 실패했습니다.");
 </c:if>
 </script>
