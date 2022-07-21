@@ -56,6 +56,51 @@
                 }
             });
             
+            $.ajax({
+                url : "http://localhost:8080/golboogi/rest/manager/stat",
+                type : "get" ,
+                //data : {},
+                success:function(resp){
+                    //차트 생성
+                    //console.log(resp);
+                    		console.log(resp);
+
+                    //label : X축에 표시될 항목들
+                    var labels = [];
+                    for(var i=0; i < resp.length; i++) {
+                        labels.push(resp[i].month);//연도를 라벨에 추가
+                    }
+
+                    var sum = [];
+                    for(var i=0; i < resp.length; i++) {
+                    		sum.push(resp[i].sum);//카운트를 데이터에 추가
+                    }
+
+                    //data : 차트에 표시될 데이터
+                    var data = {
+                        labels: labels,
+                        datasets: [{
+                            label: '월 매출 액',//범례
+                            backgroundColor: '#00a8ff',//배경색
+                            data: sum,//데이터
+                        }]
+                    };
+
+                    //차트의 형태 등을 설정(옵션, 환경설정)
+                    var config = {
+                        type: 'bar',//차트의 모양
+                        data: data,//차트 데이터
+                        options: {}
+                    };
+
+                    //차트 생성 구문
+                    var myChart = new Chart(
+                        document.querySelector('#myChart2'),//차트 적용 대상
+                        config//차트 옵션
+                    );
+                }
+            });
+            
         });
     </script>
     
@@ -63,7 +108,7 @@
 
 
 <div class="container-fluid px-4">
-	<h1 class="mt-4">매출통계</h1>
+	<h1 class="mt-4">골프장</h1>
 	<ol class="breadcrumb mb-4">
 		<li class="breadcrumb-item"><a href="#"></a></li>
 		<li class="breadcrumb-item active">Charts</li>
@@ -77,7 +122,15 @@
 					<i class="fas fa-chart-bar me-1"></i>
 					월별 가입 회원 통계
 				</div>
-				<div class="card-body"><canvas id=myChart width="100%" height="50"></canvas></div>
+				<div class="card-body"><canvas id="myChart" width="100%" height="50"></canvas></div>
+				<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+			</div>
+			<div class="card mb-4">
+				<div class="card-header">
+					<i class="fas fa-chart-bar me-1"></i>
+					월별 매출 통계
+				</div>
+				<div class="card-body"><canvas id="myChart2" width="100%" height="50"></canvas></div>
 				<div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
 			</div>
 		</div>
