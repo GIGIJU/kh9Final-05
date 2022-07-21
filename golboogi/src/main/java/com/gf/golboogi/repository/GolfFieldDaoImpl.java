@@ -219,6 +219,11 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		sqlSession.update("golfField.resetCommission",fieldNo);
 	}
 
+	@Override
+	public void fieldUpdate(GolfFieldDto golfFieldDto) {
+		sqlSession.update("golfField.fieldUpdate", golfFieldDto);
+	}
+
 	
 	
 

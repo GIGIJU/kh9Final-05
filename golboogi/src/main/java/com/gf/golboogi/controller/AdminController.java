@@ -206,6 +206,36 @@ public class AdminController {
 		return "admin/field_list";
 	}
 	
+//	@GetMapping("/field_detail")
+//	public String fieldDetail(@RequestParam int fieldNo, Model model) {
+//		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
+////		golfFieldDto.setFieldNo(fieldNo);
+//		model.addAttribute("golfFieldDto", golfFieldDto);
+////		System.err.println("golfFieldDto = " + golfFieldDto);
+//		
+//		List<GolfCourseDto> golfCourseDto = golfCourseDao.searchCourseList(fieldNo);
+//		model.addAttribute("golfCourseDto", golfCourseDto);
+//		System.err.println("golfCourseDto = " + golfCourseDto);
+////		log.info("list = {}", list);
+//		
+//		return "admin/field_detail";
+//	}
+//	
+//	@PostMapping("/field_detail") 
+//	public String fieldDetail(
+//			@ModelAttribute FieldDetailVO fieldDetailVO,
+//			@RequestBody List<GolfCourseDto> golfCourseDto
+//			) {
+//		System.err.println("golfCourseDto ="+fieldDetailVO.getGolfFieldDto());
+//		System.out.println("1"+fieldDetailVO);
+//		System.out.println("2"+fieldDetailVO.getGolfFieldDto());
+//		//golfFieldService.infoEdit(fieldDetailVO.golfFieldDto, golfCourseDto);
+////		adminDao.infoEdit(golfFieldDto, golfCourseDto);
+//		//adminDao.infoEditVO(fieldDetailVO);
+//		
+//		return "redirect:/admin/field_list";
+//	}
+	
 	@GetMapping("/field_detail")
 	public String fieldDetail(@RequestParam int fieldNo, Model model) {
 		GolfFieldDto golfFieldDto = golfFieldDao.selectOne(fieldNo);
@@ -215,23 +245,20 @@ public class AdminController {
 		
 		List<GolfCourseDto> golfCourseDto = golfCourseDao.searchCourseList(fieldNo);
 		model.addAttribute("golfCourseDto", golfCourseDto);
-		System.err.println("golfCourseDto = " + golfCourseDto);
+//		System.err.println("golfCourseDto = " + golfCourseDto);
 //		log.info("list = {}", list);
 		
 		return "admin/field_detail";
 	}
 	
-	@PostMapping("/field_detail") 
-	public String fieldDetail(
-			@ModelAttribute FieldDetailVO fieldDetailVO,
-			@RequestBody List<GolfCourseDto> golfCourseDto
+	@PostMapping("/field_detail")
+	public String fieldInsert(
+			@ModelAttribute GolfFieldDto golfFieldDto,
+			@ModelAttribute GolfCourseDto golfCourseDto
 			) {
-		System.err.println("golfCourseDto ="+fieldDetailVO.getGolfFieldDto());
-		System.out.println("1"+fieldDetailVO);
-		System.out.println("2"+fieldDetailVO.getGolfFieldDto());
-		//golfFieldService.infoEdit(fieldDetailVO.golfFieldDto, golfCourseDto);
-//		adminDao.infoEdit(golfFieldDto, golfCourseDto);
-		//adminDao.infoEditVO(fieldDetailVO);
+		System.err.println(golfFieldDto);
+		System.err.println(golfCourseDto);
+		golfFieldService.infoEdit(golfFieldDto, golfCourseDto);
 		
 		return "redirect:/admin/field_list";
 	}

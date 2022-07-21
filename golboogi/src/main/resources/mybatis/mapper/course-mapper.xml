@@ -49,6 +49,14 @@
 		select * from golf_course where field_no = #{fieldNo}
 	</select>
 	
+	<update id="courseUpdate" parameterType="GolfCourseDto">
+		update golf_course
+		set 
+			course_name = #{courseName},
+			course_hole = #{courseHole}
+		where course_no = #{courseNo}
+	</update>
+	
 </mapper> 
 
 

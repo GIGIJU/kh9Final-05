@@ -60,21 +60,21 @@
                             <div class="sb-sidenav-menu-heading">dashboard</div>
                             <a class="nav-link" href="${root}/manager/stat">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Overall stat.
+                                전체통계
                             </a>
                             <div class="sb-sidenav-menu-heading">statistics</div>
                             <a class="nav-link" href="${root}/manager/charts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+                                통계
                             </a>
                             <a class="nav-link" href="${root}/manager/tables">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                                예약목록
                             </a>
-                            <a class="nav-link" href="${root}/manager/payment">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div>
-                                Payment
-                            </a>
+<%--                             <a class="nav-link" href="${root}/manager/payment"> --%>
+<!--                                 <div class="sb-nav-link-icon"><i class="fa-solid fa-money-check-dollar"></i></div> -->
+<!--                                 결제대금 -->
+<!--                             </a> -->
                             
                         </div>
                     </div>

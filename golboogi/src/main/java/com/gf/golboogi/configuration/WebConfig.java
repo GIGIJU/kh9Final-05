@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.gf.golboogi.intercepter.AdminLoginInterceptor;
-import com.gf.golboogi.intercepter.MemberLoginInterceptor;
+import com.gf.golboogi.interceptor.AdminLoginInterceptor;
+import com.gf.golboogi.interceptor.MemberLoginInterceptor;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{

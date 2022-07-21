@@ -1,4 +1,4 @@
-package com.gf.golboogi.intercepter;
+package com.gf.golboogi.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,9 +19,10 @@ public class MemberLoginInterceptor implements HandlerInterceptor {
 //		log.info("Request URL : {}", request.getRequestURI());
 
 		HttpSession session = request.getSession();
+		String context = request.getContextPath();
 		String memberId = (String)session.getAttribute("login");
 		if(memberId == null) {
-			response.sendRedirect("/golboogi/member/login");
+			response.sendRedirect(context + "/member/login");
 			return false;
 		}
 		return true;
