@@ -31,7 +31,7 @@
 						<div class="carousel-destination owl-carousel ftco-animate">
 							<div class="item">
 								<div class="project-destination">
-									<a href="${root}/booking/list_all?fieldArea=경기" class="img" style="background-image: url(images/main_Yongin.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=경기" class="img" style="background-image: url(images/경기도.jpg);">
 										<div class="text">
 											<h3>경기</h3>
 										</div>
@@ -40,7 +40,7 @@
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="${root}/booking/list_all?fieldArea=강원" class="img" style="background-image: url(images/main_Ansung.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=강원" class="img" style="background-image: url(images/강원도.jpg);">
 										<div class="text">
 											<h3>강원</h3>
 										</div>
@@ -49,7 +49,7 @@
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="${root}/booking/list_all?fieldArea=경상도" class="img" style="background-image: url(images/main_Icheon.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=경상도" class="img" style="background-image: url(images/busan.jpg);">
 										<div class="text">
 											<h3>경상도</h3>
 										</div>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="${root}/booking/list_all?fieldArea=전라도" class="img" style="background-image: url(images/main_Incheon.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=전라도" class="img" style="background-image: url(images/전라도.jpg);">
 										<div class="text">
 											<h3>전라도</h3>
 										</div>
@@ -67,7 +67,7 @@
 							</div>
 							<div class="item">
 								<div class="project-destination">
-									<a href="${root}/booking/list_all?fieldArea=제주도" class="img" style="background-image: url(images/main_pocheon.jpeg);">
+									<a href="${root}/booking/list_all?fieldArea=제주도" class="img" style="background-image: url(images/jeju.jpg);">
 										<div class="text">
 											<h3>제주도</h3>
 										</div>
@@ -91,7 +91,7 @@
 				<div class="row">
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="${root}/package/list?stayPrice=100000"class="img" style="background-image: url(images/main_jeju.avif);">
+							<a href="${root}/package/list?stayPrice=100000"class="img" style="background-image: url(images/cheap.jpg);">
 								<span class="price">알뜰</span>
 							</a>
 							<div class="text p-4">
@@ -104,7 +104,7 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="${root}/package/list?stayPrice=300000" class="img" style="background-image: url(images/main_gyeonnam.jpeg);">
+							<a href="${root}/package/list?stayPrice=300000" class="img" style="background-image: url(images/middle2.jpg);">
 								<span class="price">일반</span>
 							</a>
 							<div class="text p-4">
@@ -118,7 +118,7 @@
 					</div>
 					<div class="col-md-4 ftco-animate">
 						<div class="project-wrap">
-							<a href="${root}/package/list?stayPrice=500000" class="img" style="background-image: url(images/main_Yongin.jpeg);">
+							<a href="${root}/package/list?stayPrice=500000" class="img" style="background-image: url(images/flex.jpg);">
 								<span class="price">프리미엄</span>
 							</a>
 							<div class="text p-4">
@@ -188,7 +188,7 @@
 								</div>
 								<h3 class="heading"><a href="${root}/review/detail/${recentVO.reviewNo}">${recentVO.memberNick}님의 ${recentVO.fieldName} 라운딩 후기!</a></h3>
 								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
-								<p><a href="${root}/review/detail/${recentVO.reviewNo}" class="btn btn-primary">자세히 보기</a></p>
+								<p><a href="${root}/review/detail/${recentVO.reviewNo}" class="btn btn-primary" style="width:95%; font-size:10px;">자세히 보기</a></p>
 							</div>
 						</div>
 					</div>
