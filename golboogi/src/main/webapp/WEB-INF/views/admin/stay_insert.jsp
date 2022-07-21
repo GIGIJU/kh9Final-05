@@ -12,21 +12,21 @@ textarea{
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-lg-7">
-							<div class="card shadow-lg border-0 rounded-lg mt-5">
+							<div class="card shadow-lg border-0 rounded-lg mt-5" id="app">
                                     
 								<div class="card-header bg-success" style=" color:white;"><h3 class="text-center font-weight-light my-4">숙소 정보 입력</h3></div>
                                     
                                     <div class="card-body">
                                         
-                                        <form action="stay_insert" method="post" enctype="multipart/form-data" class="form-check">
+                                        <form v-on:submit="sendForm($event)" action="stay_insert" method="post" enctype="multipart/form-data" class="form-check">
                                             
                                             <div class="form-floating mb-5">
-                                                <input name="stayName"  class="form-control" id="stayName" type="text" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
+                                                <input name="stayName" v-model="stayName" class="form-control" id="stayName" type="text" placeholder="영문 소문자로 시작하여 숫자를 조합한 6~20자리" />
                                                 <label for="stayName">숙소 이름</label>
                                             </div>
                                             
                                              <div class="form-floating mb-5">
-                                            	<select name="stayType" class="form-select" multiple style="height: 100px">
+                                            	<select name="stayType" v-model="stayType" class="form-select" multiple style="height: 100px">
                                             		<option value="리조트">리조트</option>
 										       		<option value="호텔">호텔</option>
 										       		<option value="펜션">펜션</option>
@@ -42,18 +42,13 @@ textarea{
 										    </div>
 										    
                                             <div class="form-floating mb-5">
-                                                <input name="stayPrice"  class="form-control" id="stayPrice" type="number" placeholder="'-' 제외"  min="0" />
+                                                <input name="stayPrice" v-model="stayPrice"  class="form-control" id="stayPrice" type="number" placeholder="'-' 제외"  min="0" />
                                                 <label for="stayPrice">숙소 가격</label>
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                                <input name="stayPhone"  class="form-control" id="stayPhone" type="tel" placeholder="'-' 제외" />
+                                                <input name="stayPhone" v-model="stayPhone" class="form-control" id="stayPhone" type="tel" placeholder="'-' 제외" />
                                                 <label for="stayPhone">숙소 대표전화( - 제외 )</label>
-                                            </div>
-                                            
-                                             <div class="form-floating mb-5">
-                                            	<input name="stayPrice" id="stayPrice" class="form-control" type="number" min="0" placeholder="'-' 제외" />
-                                                <label for="stayPrice">가격</label>
                                             </div>
                                             
                                             <div class="row mb-5" id="address">
@@ -63,7 +58,7 @@ textarea{
                                             		<div class="row">
 	                                            		<div class="col-md-4">
 		                                                    <div class="form-floating mb-3 mb-md-0">
-		                                                        <input class="form-control" id="stayPostAddress" type="text" name="stayPostAddress" maxlength="6" placeholder="d"/>
+		                                                        <input class="form-control" v-model="stayPostAddress" id="stayPostAddress" type="text" name="stayPostAddress" maxlength="6" placeholder="d"/>
 		                                                        <label for="stayPostAddress">우편번호</label>
 		                                                    </div>
 		                                                </div>
@@ -76,17 +71,17 @@ textarea{
                                             		
                                             	</div>
                                             	<div class="form-floating mb-2">
-                                            		<input name="stayBasicAddress"  class="form-control" id="stayBasicAddress" type="text" placeholder="d" />
+                                            		<input name="stayBasicAddress" v-model="stayBasicAddress" class="form-control" id="stayBasicAddress" type="text" placeholder="d" />
                                                 	<label for="stayBasicAddress">　기본 주소</label>
                                             	</div>
                                             	<div class="form-floating mb-2">
-	                                            	<input name="stayDetailAddress"  class="form-control" id="stayDetailAddress" type="text" placeholder="d" />
+	                                            	<input name="stayDetailAddress" v-model="stayDetailAddress" class="form-control" id="stayDetailAddress" type="text" placeholder="d" />
 	                                                <label for="stayDetailAddress">　상세 주소</label>
                                             	</div>
                                             </div>
                                             
                                             <div class="form-floating mb-5">
-                                            	<select name="stayLocal" class="form-select" multiple style="height: 160px">
+                                            	<select name="stayLocal" v-model="stayLocal" class="form-select" multiple style="height: 160px">
                                             		<option value="경기도">경기도</option>
 										       		<option value="강원도">강원도</option>
 										       		<option value="전라도">전라도</option>
@@ -188,5 +183,70 @@ textarea{
             $("#address-find-btn").click(findAddress);
         });
 </script>
+ <script src="https://unpkg.com/vue@next"></script>
+    <script>
+        //div[id=app]을 제어할 수 있는 Vue instance를 생성
+        const app = Vue.createApp({
+            //data : 화면을 구현하는데 필요한 데이터를 작성한다.
+            data(){
+                return {
+                   stayName:"",
+                   stayType:"",
+                   stayPrice:"",
+                   stayPhone:"",
+                   stayPostAddress:"",
+                   stayBasicAddress:"",
+                   stayDetailAddress:"",
+                   stayLocal:"",
+
+                };
+            },
+            //computed : data를 기반으로 하여 실시간 계산이 필요한 경우 작성한다.
+            // - 3줄보다 많다면 사용하지 않는 것을 권장한다(복잡한 계산 시 성능 저하가 발생)
+            computed:{
+                stayNameNull(){
+                    return this.stayName.length > 0;
+                },
+                stayTypeNull(){
+                    return this.stayType.length > 0;
+                },
+                stayPriceNull(){
+                    return this.stayPrice != 0;
+                },
+                stayPhoneCheck(){
+                    const regex =  /^\d{2,3}-\d{3,4}-\d{4}$/;
+                    return this.stayPhone.length > 0 && regex.test(this.stayPhone);
+                },
+                stayBasicAddressNull(){
+                    return this.stayBasicAddress.length > 0;
+                },
+                stayDetailAddressNull(){
+                    return this.stayDetailAddress.length > 0;
+                },
+                stayLocalNull(){
+                    return this.stayLocal.length > 0;
+                },
+
+                clear(){
+                    return this.stayNameNull && this.stayTypeNull &&
+                        this.stayPriceNull && this.stayPhoneCheck && this.stayBasicAddressNull &&
+                        this.stayDetailAddressNull && this.stayLocalNull;
+                },
+            },
+            //methods : 애플리케이션 내에서 언제든 호출 가능한 코드 집합이 필요한 경우 작성한다.
+            methods:{
+                sendForm(e){
+                    if(this.clear == false){
+                        e.preventDefault();
+                    }
+                },
+            },
+            //watch : 특정 data를 감시하여 연계 코드를 실행하기 위해 작성한다
+            watch:{
+                
+            },
+        });
+        app.mount("#app");
+    </script>
 
 <jsp:include page="/WEB-INF/views/template/footer_admin.jsp"></jsp:include>
