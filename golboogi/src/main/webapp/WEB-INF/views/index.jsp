@@ -190,7 +190,7 @@
 								<!-- <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p> -->
 								<p><a href="${root}/review/detail/${recentVO.reviewNo}" class="btn btn-primary" style="width:95%; font-size:10px;">자세히 보기</a></p>
 							</div>
-						</div>
+						</div>  
 					</div>
 					</c:forEach>
 				</div>
