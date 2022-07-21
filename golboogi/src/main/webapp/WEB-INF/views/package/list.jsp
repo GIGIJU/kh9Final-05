@@ -210,7 +210,7 @@ $(function () {
  			
 <!-- 패키지 리스트 -->
 <section class="ftco-section">
- <div class="container">
+ <div class="container">  
   <div class="row">
  <c:forEach var="PackageVO" items="${list}" varStatus="status">
  <!-- ${list} -->
