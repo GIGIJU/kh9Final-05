@@ -186,10 +186,8 @@ public class GolfFieldDaoImpl implements GolfFieldDao{
 		param.put("fieldName", fieldName);
 		param.put("commission", commission);
 		
-		int count = sqlSession.update("golfField.minusCommission",param);
-		if(count<0) {
-			System.err.println("에러페이지");
-		}
+		sqlSession.update("golfField.minusCommission",param);
+
 	}
 
 	//상세보기 + 이미지

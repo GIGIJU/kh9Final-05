@@ -99,11 +99,7 @@ public class MemberController {
 	}
 	
 	@GetMapping("/login")
-	public String login(
-			@RequestHeader(value="Referer", defaultValue = "/") String referer,
-			Model model
-			) {
-		model.addAttribute("referer", referer);
+	public String login() {
 		return "member/login";
 	}
 	
@@ -112,7 +108,6 @@ public class MemberController {
 			@RequestParam String memberId,
 			@RequestParam String memberPw,
 			@RequestParam(required=false) String remember,
-			@RequestParam String referer,
 			HttpSession session,
 			HttpServletResponse response) {
 		
@@ -137,7 +132,7 @@ public class MemberController {
 				ck.setMaxAge(0);
 				response.addCookie(ck);
 			}
-			return "redirect:" + referer;
+			return "redirect:/";
 		}
 		else {//로그인 실패
 			return "redirect:login?error";

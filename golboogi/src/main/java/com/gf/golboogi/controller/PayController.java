@@ -336,10 +336,10 @@ public class PayController {
 		//예약 취소 처리
 		bookingDao.cancel(bookingNo);
 		//수수료 처리
-		BookingDto bookingDto = bookingDao.info(bookingNo);
-		int commission = bookingDto.getBookingPrice()/10;
-		golfFieldDao.minusCommission(fieldName,commission);
-		
+//		BookingDto bookingDto = bookingDao.info(bookingNo);
+//		int commission = bookingDto.getBookingPrice()/10;
+//		golfFieldDao.minusCommission(fieldName,commission);
+//		
 		return "redirect:/booking/mybooking";
 		}
 	

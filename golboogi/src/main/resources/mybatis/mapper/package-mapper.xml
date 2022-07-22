@@ -42,7 +42,8 @@
 		package_no, stay_no, field_no, package_breakfast
 		)
 		values(
-		#{packageNo}, #{stayNo},#{fieldNo},#{packageBreakfast}
+		#{packageNo}, #{stayNo}, #{fieldNo}, #{packageBreakfast}
+		)
 	</insert>
 	
 		<!-- 시퀀스 번호 확인 -->
