@@ -10,8 +10,10 @@
             // -> 시작하자마자 서버에 비동기통신 요청을 보내서 데이터를 가져와야 한다.
             // -> 가져온 데이터에서 제목과 내용을 분리해서 설정한다.
             // -> (중요) 통신이 끝나야 차트가 나올 수 있다
+//             var absoluteUrl = location.protocol + "/golboogi/rest/manager/stat";
+//             var absoluteUrl2 = location.protocol + "/golboogi/rest/manager/charts";
             $.ajax({
-                url : "http://localhost:8080/golboogi/rest/manager/charts",
+                url : "${root}/golboogi/rest/manager/charts",
                 type : "get" ,
                 //data : {},
                 success:function(resp){
@@ -56,8 +58,8 @@
             });
             
             $.ajax({
-                url : "http://localhost:8080/golboogi/rest/manager/stat",
-                type : "get" ,
+                url : "${root}/golboogi/rest/manager/stat",
+                type : "get",
                 //data : {},
                 success:function(resp){
                     //차트 생성

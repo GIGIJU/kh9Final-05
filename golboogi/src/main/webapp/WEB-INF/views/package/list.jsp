@@ -273,8 +273,7 @@ $(function () {
 </section>
 
 <!-- vue js도 lazy loading을 사용한다 -->
-<!--     <script src="https://unpkg.com/vue@next"></script> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.cjs.min.js" integrity="sha512-4ztiRs4Iu216VkGake07ojPy+Jp5LpaRV8WgGblQIZj/6O3st4NYucCsWKZ/RWyoBgJu941+PXBFnqgVAaDPgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://unpkg.com/vue@next"></script>
     <script>
         //div[id=app]을 제어할 수 있는 Vue instance를 생성
         const app = Vue.createApp({

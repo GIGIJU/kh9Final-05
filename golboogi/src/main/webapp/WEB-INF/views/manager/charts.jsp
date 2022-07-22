@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- jquery cdn -->
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
         $(function () {
@@ -11,8 +10,9 @@
             // -> 시작하자마자 서버에 비동기통신 요청을 보내서 데이터를 가져와야 한다.
             // -> 가져온 데이터에서 제목과 내용을 분리해서 설정한다.
             // -> (중요) 통신이 끝나야 차트가 나올 수 있다
+
             $.ajax({
-                url : "http://localhost:8080/golboogi/rest/manager/charts",
+             	url : "${root}/golboogi/rest/manager/charts",
                 type : "get" ,
                 //data : {},
                 success:function(resp){
@@ -57,7 +57,7 @@
             });
             
             $.ajax({
-                url : "http://localhost:8080/golboogi/rest/manager/stat",
+                url : "${root}/golboogi/rest/manager/stat",
                 type : "get" ,
                 //data : {},
                 success:function(resp){

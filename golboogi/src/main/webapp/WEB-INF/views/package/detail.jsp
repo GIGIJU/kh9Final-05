@@ -619,7 +619,7 @@ $(function(){
 				</section>
 </div>
 
-<script src="http://unpkg.com/vue@next"></script>
+<script src="https://unpkg.com/vue@next"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
