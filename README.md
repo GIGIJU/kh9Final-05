@@ -30,5 +30,5 @@
 ### ERD
 [5조 ERD 바로가기](https://www.erdcloud.com/d/mCpGvDQKbQMatiYB7)
 
-###
-[5조 Web Site 바로가기](https://www.sysout.co.kr/golboogi)
+### 골부기 보러가기
+[5조 Golboogi 바로가기](https://www.sysout.co.kr/golboogi)
